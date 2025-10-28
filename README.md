@@ -21,5 +21,5 @@ The project is developed within the context of the **Analysis & Modeling of Soft
 ## University Context
   - Faculty of Mathematics and Computer Science, University of Bucharest
   - Team Project
-  - <mark>🚩 Checkpoint 2 (ongoing):</mark> Implementation of at least **1/3** of the **backlog**
+  - <mark>🚩 **Checkpoint 2 (ongoing):**</mark> Implementation of at least **1/3** of the **backlog**
 
