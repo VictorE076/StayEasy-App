@@ -1,0 +1,20 @@
+# Node / Angular
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.env
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Java / Spring Boot
+backend/target/
+backend/*.class
+backend/*.jar
+backend/*.war
+backend/*.log
+
+# Common
+.idea/
+.vscode/
+.DS_Store
