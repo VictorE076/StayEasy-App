@@ -21,7 +21,7 @@ The project is developed within the context of the **Analysis & Modeling of Soft
 ## Technological Versions (to be finalized)
   - **Java:** OpenJDK 21.0.2  
   - **Maven:** 3.9.6  
-  - **Spring Boot:** 3.3.4  
+  - **Spring Boot:** 3.3.5  
   - **Node.js:** 20.19.5  
   - **npm:** 10.8.2  
   - **Angular:** 20.3.9 (CLI 20.3.8)  
