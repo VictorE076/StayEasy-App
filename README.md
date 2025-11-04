@@ -15,7 +15,7 @@ The project is developed within the context of the **Analysis & Modeling of Soft
 ## Technologies & Tools (to be finalized)
   - Frontend: **Angular**
   - Backend: **Spring Boot**
-  - Database: **MySQL**
+  - Database: **MySQL** (Railway Service)
   - Other tools: **Jira / Trello / ClickUp, JUnit, Postman**
 
 ## Technological Versions (to be finalized)
@@ -28,6 +28,7 @@ The project is developed within the context of the **Analysis & Modeling of Soft
   - **TypeScript:** 5.9.3  
   - **RxJS:** 7.8.2  
   - **Zone.js:** 0.15.1
+  - **MySQL:** 9.5.0
 
 ## University Context
   - Faculty of Mathematics and Computer Science, University of Bucharest
