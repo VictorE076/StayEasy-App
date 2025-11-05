@@ -15,8 +15,8 @@ The project is developed within the context of the **Analysis & Modeling of Soft
 ## Technologies & Tools (to be finalized)
   - Frontend: **Angular**
   - Backend: **Spring Boot**
-  - Database: **MySQL** (Railway Service)
-  - Other tools: **Jira / Trello / ClickUp, JUnit, Postman**
+  - Database: **MySQL** (Railway Cloud Service)
+  - Other tools: **Jira / Trello / ClickUp, JUnit, Postman, Spring DevTools**
 
 ## Technological Versions (to be finalized)
   - **Java:** OpenJDK 21.0.2  
@@ -33,5 +33,12 @@ The project is developed within the context of the **Analysis & Modeling of Soft
 ## University Context
   - Faculty of Mathematics and Computer Science, University of Bucharest
   - Team Project
-  - <mark>🚩 **Checkpoint 2 (ongoing):**</mark> Implementation of at least **1/3** of the **backlog**
+  - <mark>🚩 **Checkpoint 2 (ongoing):**</mark> Implementation of at least **1/3** of the backlog **(Authentication module)**
+
+## Development Modes
+  - **Dev Mode**
+      - **npm start** (Angular, port 4200) + **mvn spring-boot:run** (Spring, port 8080)
+  - **Demo Mode** (checkpoint presentations)
+      - **npm run build** + **mvn spring-boot:run**
+      - Single server on [8080 Port](http://localhost:8080/browser/)
 
