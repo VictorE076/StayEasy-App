@@ -1,2 +1,14 @@
-package com.stayeasy.stayeasyspringangular.controller;public class RootRedirectController {
+package com.stayeasy.stayeasyspringangular.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class RootRedirectController {
+
+  @GetMapping("/")
+  public String root() {
+    return "redirect:/browser/";
+  }
 }
+

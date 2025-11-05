@@ -3,9 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.conf.json",
+    "start:hmr": "ng serve --hmr --proxy-config proxy.conf.json",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "build:watch": "ng build --watch --configuration development",
+    "build:prod": "ng build --configuration production",
+    "dev:full": "concurrently \"npm run build:watch\" \"mvn spring-boot:run\"",
+    "prod:full": "concurrently \"npm run build:prod\" \"mvn spring-boot:run\"",
     "test": "ng test"
   },
   "prettier": {
@@ -37,12 +41,14 @@
     "@angular/cli": "^20.3.7",
     "@angular/compiler-cli": "^20.3.0",
     "@types/jasmine": "~5.1.0",
+    "concurrently": "^9.2.1",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "livereload": "^0.9.3",
     "typescript": "~5.9.2"
   }
 }
