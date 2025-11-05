@@ -30,15 +30,15 @@ The project is developed within the context of the **Analysis & Modeling of Soft
   - **Zone.js:** 0.15.1
   - **MySQL:** 9.5.0
 
+## Development Modes
+  - **Dev Mode**
+      - **npm start** (Angular, port **4200**) + **mvn spring-boot:run** (Spring, port **8080**)
+  - **Demo Mode** (checkpoint presentations)
+      - **npm run build** + **mvn spring-boot:run**
+      - Single server on port **8080**
+
 ## University Context
   - Faculty of Mathematics and Computer Science, University of Bucharest
   - Team Project
   - <mark>🚩 **Checkpoint 2 (ongoing):**</mark> Implementation of at least **1/3** of the backlog **(Authentication module)**
-
-## Development Modes
-  - **Dev Mode**
-      - **npm start** (Angular, port 4200) + **mvn spring-boot:run** (Spring, port 8080)
-  - **Demo Mode** (checkpoint presentations)
-      - **npm run build** + **mvn spring-boot:run**
-      - Single server on [8080 Port](http://localhost:8080/browser/)
 
