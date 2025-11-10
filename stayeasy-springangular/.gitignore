@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Custom: Sensitive Config Files ###
+src/main/resources/application.properties
+src/main/resources/*.env
