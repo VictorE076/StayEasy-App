@@ -37,6 +37,25 @@ The project is developed within the context of the **Analysis & Modeling of Soft
       - **npm run build** + **mvn spring-boot:run**
       - Single server on port **8080**
 
+## Local Configuration Setup
+
+This project uses an `application.properties` file for sensitive configuration (DB credentials, JWT secret, etc.), which is **not included in the repo** for security reasons.
+
+After cloning the project, follow these steps:
+
+1. Navigate to: **src/main/resources/**
+2. Copy the example file: **application-example.properties** and rename the copy to **application.properties**
+3. Open the new `application.properties` file and fill in your local credentials:
+- `spring.datasource.url` → MySQL/Railway connection URL  
+- `spring.datasource.username` → DB username  
+- `spring.datasource.password` → DB password  
+- `application.security.jwt.secret` → Any long random string (used as JWT signing key)  
+- `application.security.jwt.expiration` → Token expiration time in ms (default: 3600000ms = 1h)
+
+⚠️ **IMPORTANT:**  
+Do **NOT** commit or push your local `application.properties` file.  
+It is listed in `.gitignore` and should remain local only.
+
 ## University Context
   - Faculty of Mathematics and Computer Science, University of Bucharest
   - Team Project
