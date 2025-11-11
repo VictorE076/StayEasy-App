@@ -1,5 +1,6 @@
 package com.stayeasy.stayeasyspringangular.config;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.lang.NonNull;
@@ -14,13 +15,14 @@ import java.io.IOException;
 public class SpaWebConfig implements WebMvcConfigurer {
 
   @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/**")                           // serve all non-API paths as static
-      .addResourceLocations("classpath:/static/")             // where Angular build is (has /browser/)
+  public void addResourceHandlers(@NotNull ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/**")  // serve all non-API paths as static
+      .addResourceLocations("classpath:/static/")    // where Angular build is (has /browser/)
       .resourceChain(true)
       .addResolver(new PathResourceResolver() {
         @Override
-        protected @Nullable Resource getResource(@NonNull String resourcePath, @NonNull Resource location) throws IOException {
+        protected @Nullable Resource getResource(@NonNull String resourcePath, @NonNull Resource location)
+          throws IOException {
           // let /api/** be handled by controllers
           if (resourcePath.startsWith("api/")) return null;
 

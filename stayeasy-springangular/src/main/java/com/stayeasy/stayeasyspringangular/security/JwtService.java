@@ -6,6 +6,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -36,18 +37,18 @@ public class JwtService {
   }
 
   // Extracting any type of claim from token using a "resolver".
-  public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+  public <T> T extractClaim(String token, @NotNull Function<Claims, T> claimsResolver) {
     final Claims claims = extractAllClaims(token);
     return claimsResolver.apply(claims);
   }
 
-  // Generating a simple token without extra claims (for some user).
+  // Generating a simple token without extra claims (for a certain user).
   public String generateToken(UserDetails userDetails) {
     return generateToken(new HashMap<>(), userDetails);
   }
 
   // Generating a JWT token with extra claims.
-  public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+  public String generateToken(Map<String, Object> extraClaims, @NotNull UserDetails userDetails) {
     long expirationMillis = jwtProperties.getExpiration();
 
     Date now = new Date(System.currentTimeMillis());
@@ -55,7 +56,7 @@ public class JwtService {
 
     return Jwts.builder()
       .setClaims(extraClaims)
-      .setSubject(userDetails.getUsername())              // subject = username (email)
+      .setSubject(userDetails.getUsername())              // subject = username
       .setIssuedAt(now)                                   // generating moment = now
       .setExpiration(expirationDate)                      // when token expires
       .signWith(getSignInKey(), SignatureAlgorithm.HS256) // digital signature HMAC-SHA256
@@ -63,7 +64,7 @@ public class JwtService {
   }
 
   // Checking if the given token is valid for the given user.
-  public boolean isTokenValid(String token, UserDetails userDetails) {
+  public boolean isTokenValid(String token, @NotNull UserDetails userDetails) {
     final String username = extractUsername(token);
     return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
   }
@@ -73,10 +74,9 @@ public class JwtService {
     return extractExpiration(token).before(new Date());
   }
 
-  // Parsing the token & obtaining all claims.
+  // Parsing the token & obtaining all claims (username, expiration, etc.).
   private Claims extractAllClaims(String token) {
-    return Jwts
-      .parserBuilder()
+    return Jwts.parserBuilder()
       .setSigningKey(getSignInKey())
       .build()
       .parseClaimsJws(token)
@@ -84,7 +84,7 @@ public class JwtService {
   }
 
   // Building the signing key starting from application.properties Secret.
-  private Key getSignInKey() {
+  private @NotNull Key getSignInKey() {
     String secret = jwtProperties.getSecret();
     byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
     return Keys.hmacShaKeyFor(keyBytes);
