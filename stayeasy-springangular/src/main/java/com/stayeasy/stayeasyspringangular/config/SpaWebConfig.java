@@ -1,5 +1,6 @@
 package com.stayeasy.stayeasyspringangular.config;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.lang.NonNull;
@@ -14,8 +15,8 @@ import java.io.IOException;
 public class SpaWebConfig implements WebMvcConfigurer {
 
   @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/**")                           // serve all non-API paths as static
+  public void addResourceHandlers(@NotNull ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/**")           // serve all non-API paths as static
       .addResourceLocations("classpath:/static/")             // where Angular build is (has /browser/)
       .resourceChain(true)
       .addResolver(new PathResourceResolver() {
