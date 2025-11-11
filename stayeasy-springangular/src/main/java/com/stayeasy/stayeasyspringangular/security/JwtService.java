@@ -1,5 +1,6 @@
 package com.stayeasy.stayeasyspringangular.security;
 
+import com.stayeasy.stayeasyspringangular.EntitatiJPA.User;
 import com.stayeasy.stayeasyspringangular.config.JwtProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -88,5 +89,19 @@ public class JwtService {
     byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
     return Keys.hmacShaKeyFor(keyBytes);
   }
+
+  public String generateToken(User user, String sessionId) {
+    Map<String, Object> claims = new HashMap<>();
+    claims.put("sid", sessionId);
+    claims.put("role", user.getRole().name());
+    return Jwts.builder()
+      .setClaims(claims)
+      .setSubject(user.getUsername())
+      .setIssuedAt(new Date(System.currentTimeMillis()))
+      .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1h default exp
+      .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+      .compact();
+  }
+
 }
 
