@@ -16,12 +16,13 @@ public class SpaWebConfig implements WebMvcConfigurer {
 
   @Override
   public void addResourceHandlers(@NotNull ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/**")           // serve all non-API paths as static
-      .addResourceLocations("classpath:/static/")             // where Angular build is (has /browser/)
+    registry.addResourceHandler("/**")  // serve all non-API paths as static
+      .addResourceLocations("classpath:/static/")    // where Angular build is (has /browser/)
       .resourceChain(true)
       .addResolver(new PathResourceResolver() {
         @Override
-        protected @Nullable Resource getResource(@NonNull String resourcePath, @NonNull Resource location) throws IOException {
+        protected @Nullable Resource getResource(@NonNull String resourcePath, @NonNull Resource location)
+          throws IOException {
           // let /api/** be handled by controllers
           if (resourcePath.startsWith("api/")) return null;
 

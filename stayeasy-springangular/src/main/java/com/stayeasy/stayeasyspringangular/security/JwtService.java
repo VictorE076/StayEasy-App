@@ -41,7 +41,7 @@ public class JwtService {
     return claimsResolver.apply(claims);
   }
 
-  // Generating a simple token without extra claims (for some user).
+  // Generating a simple token without extra claims (for a certain user).
   public String generateToken(UserDetails userDetails) {
     return generateToken(new HashMap<>(), userDetails);
   }
@@ -73,10 +73,9 @@ public class JwtService {
     return extractExpiration(token).before(new Date());
   }
 
-  // Parsing the token & obtaining all claims.
+  // Parsing the token & obtaining all claims (username, expiration, etc.).
   private Claims extractAllClaims(String token) {
-    return Jwts
-      .parserBuilder()
+    return Jwts.parserBuilder()
       .setSigningKey(getSignInKey())
       .build()
       .parseClaimsJws(token)
