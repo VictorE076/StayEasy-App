@@ -23,16 +23,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
   /// !!! TEMP User in-memory (until Radu's work done with "User" entity from DB)
-  @Bean
-  public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-    UserDetails user = User.builder()
-      .username("user")                                           /// username (TEST)
-      .password(passwordEncoder.encode("password"))   /// password (TEST)
-      .roles("USER")
-      .build();
-
-    return new InMemoryUserDetailsManager(user);
-  }
+//  @Bean
+//  public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+//    UserDetails user = User.builder()
+//      .username("user")                                           /// username (TEST)
+//      .password(passwordEncoder.encode("password"))   /// password (TEST)
+//      .roles("USER")
+//      .build();
+//
+//    return new InMemoryUserDetailsManager(user);
+//  }
 
   // "Password Encoder" used for Authentication (BCrypt hashing algorithm)
   @Bean

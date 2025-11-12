@@ -1,5 +1,7 @@
 package com.stayeasy.stayeasyspringangular.security;
 
+import com.stayeasy.stayeasyspringangular.EntitatiJPA.UserSession;
+import com.stayeasy.stayeasyspringangular.Service.UserSessionService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,16 +16,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   private final JwtService jwtService;
   private final UserDetailsService userDetailsService;
+  private final UserSessionService sessionService;
 
-  public JwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService) {
+  public JwtAuthenticationFilter(JwtService jwtService, UserDetailsService userDetailsService, UserSessionService sessionService) {
     this.jwtService = jwtService;
     this.userDetailsService = userDetailsService;
+    this.sessionService = sessionService;
   }
 
   @Override
@@ -51,6 +56,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
       // Checking if token is valid for the respecting user
       if (jwtService.isTokenValid(jwt, userDetails)) {
+
+        // 🔹 1. extrage sid
+        String sessionId = jwtService.extractClaim(jwt, claims -> claims.get("sid", String.class));
+
+        // 🔹 2. verifică dacă sesiunea e validă și activă
+        Optional<UserSession> validSession = sessionService.validateAndRefresh(sessionId);
+
+        if (validSession.isEmpty()) {
+          response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+          response.setContentType("application/json");
+          response.getWriter().write("{\"reason\":\"SESSION_EXPIRED\"}");
+          return;
+        }
+
+        // 🔹 3. dacă sesiunea e validă, autentifică userul
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
