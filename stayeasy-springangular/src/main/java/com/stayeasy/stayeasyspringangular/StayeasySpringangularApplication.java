@@ -8,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,9 +41,7 @@ public class StayeasySpringangularApplication {
       Optional<User> optionalUser = userRepository.findByUsername(username);
       if (optionalUser.isPresent()) {
         User user = optionalUser.get();
-//        String hashed = encoder.encode(rawPassword);
-        BCrypt bcrypt = new BCrypt();
-        String hashed =  bcrypt.hashpw(rawPassword, bcrypt.gensalt());
+        String hashed = encoder.encode(rawPassword);
 
         // adaptează dacă atributul din entitatea User are alt nume
         user.setPasswordHash(hashed);
