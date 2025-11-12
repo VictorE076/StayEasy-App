@@ -90,7 +90,7 @@ public class JwtService {
     return Keys.hmacShaKeyFor(keyBytes);
   }
 
-  public String generateToken(User user, String sessionId) {
+  public String generateToken(@NotNull User user, String sessionId) {
     Map<String, Object> claims = new HashMap<>();
     claims.put("sid", sessionId);
     claims.put("role", user.getRole().name());

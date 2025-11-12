@@ -11,7 +11,7 @@ public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id; // corespunde coloanei id INT AUTO_INCREMENT
+  private Integer id; // corespunde coloanei id INT AUTO_INCREMENT
 
   @Column(nullable = false, unique = true, length = 50)
   private String username;
@@ -49,7 +49,7 @@ public class User {
   }
 
   // === Getters & Setters ===
-  public Long getId() { return id; }
+  public Integer getId() { return id; }
 
   public String getUsername() { return username; }
   public void setUsername(String username) { this.username = username; }

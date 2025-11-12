@@ -57,10 +57,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       // Checking if token is valid for the respecting user
       if (jwtService.isTokenValid(jwt, userDetails)) {
 
-        // 🔹 1. extrage sid
+        // 1. extrage sid
         String sessionId = jwtService.extractClaim(jwt, claims -> claims.get("sid", String.class));
 
-        // 🔹 2. verifică dacă sesiunea e validă și activă
+        // 2. verifica daca sesiunea e valida si activa
         Optional<UserSession> validSession = sessionService.validateAndRefresh(sessionId);
 
         if (validSession.isEmpty()) {
@@ -70,7 +70,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           return;
         }
 
-        // 🔹 3. dacă sesiunea e validă, autentifică userul
+        // 3. daca sesiunea e valida, autentifica userul
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

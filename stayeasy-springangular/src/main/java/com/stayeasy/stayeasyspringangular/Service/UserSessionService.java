@@ -4,6 +4,7 @@ import com.stayeasy.stayeasyspringangular.EntitatiJPA.User;
 import com.stayeasy.stayeasyspringangular.EntitatiJPA.UserSession;
 import com.stayeasy.stayeasyspringangular.Repository.UserSessionRepository;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class UserSessionService {
 
   private final UserSessionRepository sessionRepository;
 
-  @Value("${app.session.timeout-minutes:15}")
+  @Value("${app.session.timeout-minutes:1}")
   private int timeoutMinutes;
 
   public UserSession createSession(User user) {
@@ -29,7 +30,7 @@ public class UserSessionService {
     return sessionRepository.save(session);
   }
 
-  public boolean isSessionExpired(UserSession session) {
+  public boolean isSessionExpired(@NotNull UserSession session) {
     LocalDateTime now = LocalDateTime.now();
     return Duration.between(session.getLastActivity(), now).toMinutes() > timeoutMinutes;
   }
