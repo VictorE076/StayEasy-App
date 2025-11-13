@@ -69,7 +69,7 @@ public class AuthController {
   }
 
   // Close the session when the User logs out successfully!
-  /// localhost:8080/api/auth/logout/sessionId?=<String value>
+  /// localhost:8080/api/auth/logout?sessionId=<SID>
   @PostMapping("/logout")
   public ResponseEntity<String> logout(@RequestParam String sessionId) {
     sessionService.logout(sessionId);
