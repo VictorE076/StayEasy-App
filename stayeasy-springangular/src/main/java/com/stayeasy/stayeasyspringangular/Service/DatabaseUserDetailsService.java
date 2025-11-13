@@ -1,6 +1,5 @@
 package com.stayeasy.stayeasyspringangular.Service;
 
-import com.stayeasy.stayeasyspringangular.EntitatiJPA.User;
 import com.stayeasy.stayeasyspringangular.Repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -38,7 +37,8 @@ public class DatabaseUserDetailsService implements UserDetailsService {
       userRepository.findByUsername(username)
         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-    System.out.println(">>> loadUserByUsername: " + user.getUsername() + " | pass=" + user.getPasswordHash());
+    /// PRINT TEST
+    System.out.println(">>> loadUserByUsername: " + user.getUsername() + " | HASHED password = " + user.getPasswordHash());
 
     return org.springframework.security.core.userdetails.User
       .withUsername(user.getUsername())

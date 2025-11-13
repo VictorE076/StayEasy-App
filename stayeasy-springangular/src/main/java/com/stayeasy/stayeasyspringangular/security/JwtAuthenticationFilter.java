@@ -57,8 +57,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       // Checking if token is valid for the respecting user
       if (jwtService.isTokenValid(jwt, userDetails)) {
 
-        // 1. extrage sid
+        // 1. extrage "sid"
         String sessionId = jwtService.extractClaim(jwt, claims -> claims.get("sid", String.class));
+
+        System.out.println("sessionId: " + sessionId);
 
         // 2. verifica daca sesiunea e valida si activa
         Optional<UserSession> validSession = sessionService.validateAndRefresh(sessionId);

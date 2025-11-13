@@ -1,6 +1,5 @@
 package com.stayeasy.stayeasyspringangular.auth;
 
-import com.stayeasy.stayeasyspringangular.EntitatiJPA.User;
 import com.stayeasy.stayeasyspringangular.EntitatiJPA.UserSession;
 import com.stayeasy.stayeasyspringangular.Repository.UserRepository;
 import com.stayeasy.stayeasyspringangular.Service.UserSessionService;
@@ -8,7 +7,6 @@ import com.stayeasy.stayeasyspringangular.security.JwtService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -36,15 +34,20 @@ public class AuthController {
   @PostMapping("/login")
   public ResponseEntity<?> login(@RequestBody AuthRequest request) {
 
-    System.out.println(">>> LOGIN CALLED for username=" + request.getUsername() + ", password=" + request.getPassword());
+    /// PRINT TEST
+    System.out.println(">>> LOGIN CALLED for username = " + request.getUsername() + ", PLAIN password = " + request.getPassword());
 
     var user = userRepository.findByUsername(request.getUsername())
       .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-    System.out.println(">>> DB hash = " + user.getPasswordHash());
+    /// PRINT TEST
+    System.out.println(">>> DB User HASHED password = " + user.getPasswordHash());
+
+    /// PRINT TEST
     System.out.println(">>> matches(request.password)? = " +
       passwordEncoder.matches(request.getPassword(), user.getPasswordHash()));
 
+    // TRY to authenticate the respecting User
     try {
       authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
@@ -52,8 +55,6 @@ public class AuthController {
           request.getPassword()
         )
       );
-
-      System.out.println(">>> LOGIN CALLED (after authentication) for username=" + request.getUsername());
 
       UserSession session = sessionService.createSession(user);
       String jwtToken = jwtService.generateToken(user, session.getId());
@@ -67,7 +68,8 @@ public class AuthController {
     }
   }
 
-
+  // Close the session when the User logs out successfully!
+  /// localhost:8080/api/auth/logout/sessionId?=<String value>
   @PostMapping("/logout")
   public ResponseEntity<String> logout(@RequestParam String sessionId) {
     sessionService.logout(sessionId);

@@ -10,7 +10,7 @@ public class UserSession {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
-  private String id; // va fi sid în JWT
+  private String id; // va fi "sid" in JWT
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)

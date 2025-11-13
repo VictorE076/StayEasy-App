@@ -43,10 +43,17 @@ public class SecurityConfig {
   }
 
   // "Password Encoder" used for Authentication (BCrypt hashing algorithm)
+  // Different (new) password hash for each login
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
+
+//  @Bean
+//  public PasswordEncoder passwordEncoder() {
+//    return new Sha256PasswordEncoder();
+//  }
+
 
   // "AuthenticationManager" based on the above config
   @Bean
@@ -74,18 +81,19 @@ public class SecurityConfig {
         // everything else requires authentication (a valid JWT token in the header)
         .anyRequest().authenticated())
       .userDetailsService(customUserDetailsService)
-      // adding the "jwtAuthenticationFilter" before UsernamePasswordAuthenticationFilter
+      // adding our "jwtAuthenticationFilter" before UsernamePasswordAuthenticationFilter
       .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }
 
+  /// PRINT TEST
   @Bean
-  public CommandLineRunner printPasswordHash(PasswordEncoder encoder) {
+  public CommandLineRunner printBCryptPasswordHash(PasswordEncoder encoder) {
     return args -> {
       String raw = "password123";
       String encoded = encoder.encode(raw);
-      System.out.println(">>> GENERATED HASH FOR '" + raw + "' = " + encoded);
+      System.out.println(">>> BCrypt HASH FOR '" + raw + "' = " + encoded);
     };
   }
 

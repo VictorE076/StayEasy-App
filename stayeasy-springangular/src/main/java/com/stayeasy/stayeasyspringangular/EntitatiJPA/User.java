@@ -32,7 +32,7 @@ public class User {
   @Column(nullable = false)
   private Role role = Role.GUEST; // default 'user'
 
-  // 🔹 Relație 1-to-many cu sesiunile (pe care tu o vei crea)
+  // Relație 1-to-many cu sesiunile (pe care tu o vei crea)
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<UserSession> sessions = new ArrayList<>();
 

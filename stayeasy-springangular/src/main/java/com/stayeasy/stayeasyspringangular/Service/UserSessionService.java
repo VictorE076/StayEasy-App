@@ -18,7 +18,7 @@ public class UserSessionService {
 
   private final UserSessionRepository sessionRepository;
 
-  @Value("${app.session.timeout-minutes:1}")
+  @Value("${app.session.timeout-minutes:2}") // Up to 15-20 minutes in production!
   private int timeoutMinutes;
 
   public UserSession createSession(User user) {
