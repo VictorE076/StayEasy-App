@@ -36,7 +36,7 @@ public class StayeasySpringangularApplication {
       String username_test = "testuser";       // <-- userul din DB
       String rawPassword_test = "password123"; // <-- parola pe care vreau s-o setez
 
-      System.out.println("🔐 Updating password for user: " + username_test);
+      System.out.println("Updating password for user: " + username_test);
 
       Optional<User> optionalUser = userRepository.findByUsername(username_test);
       if (optionalUser.isPresent()) {
