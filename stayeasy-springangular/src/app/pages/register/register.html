@@ -1,0 +1,115 @@
+<div class="register-container">
+  <div class="register-card">
+    <div class="app-branding">
+      <div class="app-icon">
+        <i class="bi bi-house-heart-fill"></i>
+      </div>
+      <h1 class="app-name">StayEasy</h1>
+    </div>
+
+    <div class="register-header">
+      <h2>Create Account</h2>
+      <p>Join us and start your journey</p>
+    </div>
+
+    <div *ngIf="successMessage" class="ui-message success">
+      {{ successMessage }}
+    </div>
+
+    <div *ngIf="errorMessage" class="ui-message error">
+      {{ errorMessage }}
+    </div>
+
+    <form #registerForm="ngForm" (ngSubmit)="register()" class="register-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          [(ngModel)]="userToRegister.username"
+          class="form-input"
+          placeholder="Choose a username"
+          required
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input
+          type="text"
+          name="fullName"
+          id="fullName"
+          [(ngModel)]="userToRegister.fullName"
+          class="form-input"
+          placeholder="Your full name"
+          required
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          [(ngModel)]="userToRegister.email"
+          class="form-input"
+          placeholder="your@email.com"
+          required
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          [(ngModel)]="userToRegister.password"
+          class="form-input"
+          placeholder="Choose a password"
+          required
+          minlength="6"
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          class="form-input"
+          placeholder="Re-enter your password"
+          required
+          [disabled]="isLoading"
+        />
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="submit"
+          class="btn-register"
+          [disabled]="!registerForm.valid || isLoading"
+        >
+          {{ isLoading ? 'Creating Account...' : 'Create Account' }}
+        </button>
+
+        <button
+          type="button"
+          class="btn-login"
+          (click)="navigateToLogin()"
+          [disabled]="isLoading"
+        >
+          Already have an account? Log In
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
