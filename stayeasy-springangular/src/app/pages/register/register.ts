@@ -10,6 +10,7 @@ import {FormsModule} from '@angular/forms';
   ],
   templateUrl: './register.html',
   styleUrl: './register.css',
+  standalone: true
 })
 export class Register {
   userToRegister: RegisterDTO = {

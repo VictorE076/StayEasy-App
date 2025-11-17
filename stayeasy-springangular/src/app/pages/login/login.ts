@@ -14,6 +14,7 @@ import {NgIf} from '@angular/common';
   ],
   templateUrl: './login.html',
   styleUrl: './login.css',
+  standalone: true
 })
 export class Login {
   credentials: LoginDTO = {

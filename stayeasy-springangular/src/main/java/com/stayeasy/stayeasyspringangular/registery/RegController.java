@@ -41,7 +41,7 @@ public class RegController {
     user.setUsername(request.getUsername());
     user.setEmail(request.getEmail());
     user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
-    user.setFullName(request.getfullName());
+    user.setFullName(request.getFullName());
     user.setRole(Role.GUEST);
     user.setCreatedAt(LocalDateTime.now());
 
