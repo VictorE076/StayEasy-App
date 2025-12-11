@@ -270,7 +270,7 @@ export class TestLogoutComponent {
         },
         error: (error) => {
           this.isLoading = false;
-          this.message = 'Logout failed: ' + (error.error || error.message);
+          this.message = 'Logout failed: ' + (error.error?.message || error.message || 'Unknown error');
           this.isError = true;
         },
         complete: () => {

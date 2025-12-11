@@ -17,7 +17,7 @@ export class LoginService {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials);
   }
 
-  logout(sessionId: string): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/logout?sessionId=${sessionId}`, {});
+  logout(sessionId: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/logout?sessionId=${sessionId}`, {});
   }
 }

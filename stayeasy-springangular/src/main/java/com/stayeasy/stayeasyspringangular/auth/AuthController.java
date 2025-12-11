@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -71,9 +73,11 @@ public class AuthController {
   // Close the session when the User logs out successfully!
   /// localhost:8080/api/auth/logout?sessionId=<SID>
   @PostMapping("/logout")
-  public ResponseEntity<String> logout(@RequestParam String sessionId) {
+  public ResponseEntity<Map<String, String>> logout(@RequestParam String sessionId) {
     sessionService.logout(sessionId);
-    return ResponseEntity.ok("Session closed");
+
+    // { "message" : "Session closed" } (JSON format) sent to frontend Angular
+    return ResponseEntity.ok(Map.of("message", "Session closed"));
   }
 
 }
