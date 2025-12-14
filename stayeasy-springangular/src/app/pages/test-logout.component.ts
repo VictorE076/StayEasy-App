@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {AuthService} from '../service/auth-service';
 import {LoginService} from '../service/login-service';
+import { finalize } from 'rxjs/operators';
 
 // This is just a placeholder page that tests logout.
 // It will be deleted and replaced with actual pages of the app.
@@ -258,7 +259,9 @@ export class TestLogoutComponent {
       }
 
       // Call backend logout
-      this.loginService.logout(sessionId).subscribe({
+      this.loginService.logout(sessionId)
+        .pipe(finalize(() => this.isLoading = false))
+        .subscribe({
         next: () => {
           this.message = 'Logged out successfully!';
           this.isError = false;

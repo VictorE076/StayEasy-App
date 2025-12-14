@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
-import {Router} from '@angular/router';
-import {RegisterDTO} from '../../models/registerDTO';
-import {FormsModule} from '@angular/forms';
+import { Router } from '@angular/router';
+import { RegisterDTO } from '../../models/registerDTO';
+import { LoginService } from '../../service/login-service';
+import { FormsModule } from '@angular/forms';
+import { finalize } from 'rxjs/operators';
+import {NgIf} from '@angular/common';
+// import { AuthService } from '../../service/auth-service';
+
 
 @Component({
   selector: 'app-register',
   imports: [
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './register.html',
   styleUrl: './register.css',
@@ -25,7 +31,7 @@ export class Register {
   successMessage: string = '';
   isLoading: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private loginService: LoginService) {}
 
   register(): void {
     if (!this.userToRegister.username || !this.userToRegister.email ||
@@ -51,15 +57,37 @@ export class Register {
     this.errorMessage = '';
     this.successMessage = '';
 
-    // TODO: Implement actual registration when backend is ready
-    // this.registerService.register(this.userToRegister).subscribe({...});
+    /// TEST Register (See browser's console)
+    console.log('Register clicked', this.userToRegister);
+    ///
+
+    this.loginService.register(this.userToRegister)
+      .pipe(finalize(() => this.isLoading = false))
+      .subscribe({
+      next: (msg) => {
+        this.successMessage = msg || 'Account created successfully';
+
+        // Redirect to "login" page
+        this.router.navigate(['/login']);
+      },
+      error: (error) => {
+        this.errorMessage =
+          (typeof error.error === 'string' && error.error) ||
+          error.error?.message ||
+          error.message ||
+          'Register failed';
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
 
     // Simulate registration for now
-    setTimeout(() => {
-      this.isLoading = false;
-      this.successMessage = 'Registration functionality will be available soon!';
-      console.log('Registration data prepared:', this.userToRegister);
-    }, 1000);
+    // setTimeout(() => {
+    //   this.isLoading = false;
+    //   this.successMessage = 'Registration functionality will be available soon!';
+    //   console.log('Registration data prepared:', this.userToRegister);
+    // }, 1000);
   }
 
   navigateToLogin(): void {

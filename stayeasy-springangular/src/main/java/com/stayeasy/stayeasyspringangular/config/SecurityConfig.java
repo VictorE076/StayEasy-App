@@ -14,7 +14,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.boot.CommandLineRunner;
+
+//import org.springframework.boot.CommandLineRunner;
 
 
 @Configuration
@@ -88,14 +89,14 @@ public class SecurityConfig {
   }
 
   /// PRINT TEST
-  @Bean
-  public CommandLineRunner printBCryptPasswordHash(PasswordEncoder encoder) {
-    return args -> {
-      String raw = "password123";
-      String encoded = encoder.encode(raw);
-      System.out.println(">>> BCrypt HASH FOR '" + raw + "' = " + encoded);
-    };
-  }
+//  @Bean
+//  public CommandLineRunner printBCryptPasswordHash(PasswordEncoder encoder) {
+//    return args -> {
+//      String raw = "password123";
+//      String encoded = encoder.encode(raw);
+//      System.out.println(">>> BCrypt HASH FOR '" + raw + "' = " + encoded);
+//    };
+//  }
 
 }
 
