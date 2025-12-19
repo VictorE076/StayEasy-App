@@ -43,6 +43,8 @@ public class PropertyService {
         .findByCityAndPricePerNightLessThanEqual(city, maxPrice);
     } else if (city != null) {
       properties = propertyRepository.findByCity(city);
+    } else if (maxPrice != null) {
+      properties = propertyRepository.findByPricePerNightLessThanEqual(maxPrice);
     } else {
       properties = propertyRepository.findAll();
     }
@@ -68,7 +70,9 @@ public class PropertyService {
       .owner(owner)
       .build();
 
-    List<PropertyImage> images = dto.getImagePaths()
+
+    var imagePaths = dto.getImagePaths() == null ? List.<String>of() : dto.getImagePaths();
+    List<PropertyImage> images = imagePaths
       .stream()
       .map(path -> PropertyImage.builder()
         .imagePath(path)
@@ -89,6 +93,15 @@ public class PropertyService {
   }
 
   private PropertyResponseDTO mapToResponse(Property property) {
+
+    var images = property.getImages() == null ? List.<String>of()
+      : property.getImages().stream()
+      .map(PropertyImage::getImagePath)
+      .toList();
+
+    String propertyType = property.getPropertyType() == null ? null : property.getPropertyType().name();
+    String ownerUsername = property.getOwner() == null ? null : property.getOwner().getUsername();
+
     return PropertyResponseDTO.builder()
       .id(property.getId())
       .title(property.getTitle())
@@ -97,12 +110,9 @@ public class PropertyService {
       .address(property.getAddress())
       .pricePerNight(property.getPricePerNight())
       .maxGuests(property.getMaxGuests())
-      .propertyType(property.getPropertyType().name())
-      .ownerUsername(property.getOwner().getUsername())
-      .images(property.getImages()
-        .stream()
-        .map(PropertyImage::getImagePath)
-        .collect(Collectors.toList()))
+      .propertyType(propertyType)
+      .ownerUsername(ownerUsername)
+      .images(images)
       .build();
   }
 

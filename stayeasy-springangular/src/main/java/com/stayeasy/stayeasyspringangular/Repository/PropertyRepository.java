@@ -16,4 +16,6 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
     String city, BigDecimal pricePerNight
   );
 
+  List<Property> findByPricePerNightLessThanEqual(BigDecimal maxPrice);
+
 }
