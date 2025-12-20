@@ -43,7 +43,7 @@ export class Login {
     this.loginService.login(this.credentials).subscribe({
       next: (response) => {
         this.authService.saveToken(response.token);
-        this.router.navigate(['/test-logout']);
+        this.router.navigate(['/homepage']);
       },
       error: (error) => {
         this.isLoading = false;
