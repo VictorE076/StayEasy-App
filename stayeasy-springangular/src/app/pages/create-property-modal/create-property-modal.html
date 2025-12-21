@@ -1,0 +1,162 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Create New Property</h2>
+      <button class="btn-close" (click)="onClose()" [disabled]="isSubmitting">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="modal-body">
+      <div class="form-group">
+        <label for="title">Title <span class="required">*</span></label>
+        <input
+          type="text"
+          id="title"
+          [(ngModel)]="property.title"
+          name="title"
+          maxlength="120"
+          placeholder="Enter property title"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="city">City <span class="required">*</span></label>
+        <input
+          type="text"
+          id="city"
+          [(ngModel)]="property.city"
+          name="city"
+          maxlength="80"
+          placeholder="Enter city"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address <span class="required">*</span></label>
+        <input
+          type="text"
+          id="address"
+          [(ngModel)]="property.address"
+          name="address"
+          maxlength="200"
+          placeholder="Enter address"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          [(ngModel)]="property.description"
+          name="description"
+          maxlength="2000"
+          rows="4"
+          placeholder="Describe your property..."
+        ></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="propertyType">Property Type <span class="required">*</span></label>
+          <select
+            id="propertyType"
+            [(ngModel)]="property.propertyType"
+            name="propertyType"
+            required
+          >
+            <option *ngFor="let type of propertyTypes" [value]="type">
+              {{ type.charAt(0) + type.slice(1).toLowerCase() }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="maxGuests">Max Guests <span class="required">*</span></label>
+          <input
+            type="number"
+            id="maxGuests"
+            [(ngModel)]="property.maxGuests"
+            name="maxGuests"
+            min="1"
+            max="50"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="pricePerNight">Price Per Night ($) <span class="required">*</span></label>
+          <input
+            type="number"
+            id="pricePerNight"
+            [(ngModel)]="property.pricePerNight"
+            name="pricePerNight"
+            min="0.01"
+            step="0.01"
+            placeholder="0.00"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Image URLs (Optional - Max 20)</label>
+        <div class="image-input-container">
+          <input
+            type="url"
+            [(ngModel)]="imagePathInput"
+            name="imagePathInput"
+            placeholder="Enter image URL"
+            maxlength="500"
+            (keyup.enter)="addImagePath()"
+          />
+          <button
+            type="button"
+            class="btn-add-image"
+            (click)="addImagePath()"
+            [disabled]="!imagePathInput.trim() || (property.imagePaths?.length || 0) >= 20"
+          >
+            <i class="bi bi-plus-circle"></i>
+            Add
+          </button>
+        </div>
+
+        <div class="image-list" *ngIf="property.imagePaths && property.imagePaths.length > 0">
+          <div class="image-item" *ngFor="let path of property.imagePaths; let i = index">
+            <span class="image-path">{{ path }}</span>
+            <button type="button" class="btn-remove" (click)="removeImagePath(i)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="error">
+        <i class="bi bi-exclamation-circle"></i>
+        {{ error }}
+      </div>
+
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn-cancel"
+          (click)="onClose()"
+          [disabled]="isSubmitting"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="isSubmitting"
+        >
+          <span *ngIf="!isSubmitting">Create Property</span>
+          <span *ngIf="isSubmitting">Creating...</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
