@@ -8,7 +8,9 @@ import com.stayeasy.stayeasyspringangular.EntitatiJPA.User;
 import com.stayeasy.stayeasyspringangular.Repository.PropertyRepository;
 import com.stayeasy.stayeasyspringangular.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -30,7 +32,7 @@ public class PropertyService {
 
   public PropertyResponseDTO getPropertyById(Long id) {
     Property property = propertyRepository.findById(id)
-      .orElseThrow(() -> new RuntimeException("Property not found"));
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
     return mapToResponse(property);
   }
 
@@ -57,7 +59,7 @@ public class PropertyService {
   public PropertyResponseDTO createProperty(PropertyRequestDTO dto) {
 
     User owner = userRepository.findById(dto.getOwnerId())
-      .orElseThrow(() -> new RuntimeException("Owner not found"));
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Owner not found"));
 
     Property property = Property.builder()
       .title(dto.getTitle())
@@ -87,7 +89,7 @@ public class PropertyService {
 
   public void deleteProperty(Long id) {
     if (!propertyRepository.existsById(id)) {
-      throw new RuntimeException("Property not found");
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found");
     }
     propertyRepository.deleteById(id);
   }
