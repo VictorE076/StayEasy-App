@@ -28,7 +28,6 @@ export interface PropertyRequestDTO {
   pricePerNight: number;
   maxGuests: number;
   propertyType: PropertyType;
-  ownerId: number;
   imagePaths?: string[];
 }
 

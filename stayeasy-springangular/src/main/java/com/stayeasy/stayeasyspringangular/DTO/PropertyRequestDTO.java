@@ -39,10 +39,6 @@ public class PropertyRequestDTO {
   @NotNull(message = "Property type is required")
   private PropertyType propertyType; // enum
 
-  @NotNull(message = "Owner id is required")
-  @Positive(message = "Owner id must be positive")
-  private Integer ownerId;
-
   @Size(max = 20, message = "At most 20 images")
   private List<
     @NotBlank(message = "Image path must not be blank")

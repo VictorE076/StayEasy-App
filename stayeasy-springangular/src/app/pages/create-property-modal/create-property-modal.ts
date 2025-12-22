@@ -10,6 +10,7 @@ import {finalize} from 'rxjs/operators';
   imports: [CommonModule, FormsModule],
   templateUrl: './create-property-modal.html',
   styleUrl: './create-property-modal.css',
+  standalone: true
 })
 export class CreatePropertyModal {
   @Input() currentUserId!: number;
@@ -28,7 +29,6 @@ export class CreatePropertyModal {
     pricePerNight: 0,
     maxGuests: 1,
     propertyType: PropertyType.APARTMENT,
-    ownerId: 0,
     imagePaths: []
   };
 
@@ -66,7 +66,7 @@ export class CreatePropertyModal {
       return;
     }
 
-    this.property.ownerId = this.currentUserId;
+    // this.property.ownerId = this.currentUserId;
     this.isSubmitting = true;
 
     this.propertyService.createProperty(this.property)

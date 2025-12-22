@@ -1,5 +1,11 @@
 package com.stayeasy.stayeasyspringangular.Service;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.stayeasy.stayeasyspringangular.DTO.PropertyRequestDTO;
 import com.stayeasy.stayeasyspringangular.DTO.PropertyResponseDTO;
 import com.stayeasy.stayeasyspringangular.EntitatiJPA.Property;
@@ -8,9 +14,7 @@ import com.stayeasy.stayeasyspringangular.EntitatiJPA.User;
 import com.stayeasy.stayeasyspringangular.Repository.PropertyRepository;
 import com.stayeasy.stayeasyspringangular.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -56,10 +60,16 @@ public class PropertyService {
       .collect(Collectors.toList());
   }
 
-  public PropertyResponseDTO createProperty(PropertyRequestDTO dto) {
+  public PropertyResponseDTO createProperty(PropertyRequestDTO dto) { // The created property always belongs to the logged-in account
 
-    User owner = userRepository.findById(dto.getOwnerId())
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Owner not found"));
+    Authentication auth = getAuthenticationContext();
+    if (auth == null || !auth.isAuthenticated()) {
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
+    }
+
+    String username = auth.getName();
+    User owner = userRepository.findByUsername(username)
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
 
     Property property = Property.builder()
       .title(dto.getTitle())
@@ -72,27 +82,43 @@ public class PropertyService {
       .owner(owner)
       .build();
 
-
     var imagePaths = dto.getImagePaths() == null ? List.<String>of() : dto.getImagePaths();
-    List<PropertyImage> images = imagePaths
-      .stream()
+    List<PropertyImage> images = imagePaths.stream()
       .map(path -> PropertyImage.builder()
         .imagePath(path)
         .property(property)
         .build())
-      .collect(Collectors.toList());
+      .toList();
 
     property.setImages(images);
 
     return mapToResponse(propertyRepository.save(property));
   }
 
-  public void deleteProperty(Long id) {
-    if (!propertyRepository.existsById(id)) {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found");
+
+  public void deleteProperty(Long id) { // Ownership checking
+    Property property = propertyRepository.findById(id)
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
+
+    Authentication auth = getAuthenticationContext();
+    if (auth == null || !auth.isAuthenticated()) {
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
     }
-    propertyRepository.deleteById(id);
+
+    String username = auth.getName();
+    User currentUser = userRepository.findByUsername(username)
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
+
+    Integer ownerId = (property.getOwner() == null) ? null : property.getOwner().getId();
+    Integer currentUserId = currentUser.getId();
+
+    if (ownerId == null || !ownerId.equals(currentUserId)) {
+      throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Deletion not allowed");
+    }
+
+    propertyRepository.delete(property);
   }
+
 
   private PropertyResponseDTO mapToResponse(Property property) {
 
@@ -116,6 +142,10 @@ public class PropertyService {
       .ownerUsername(ownerUsername)
       .images(images)
       .build();
+  }
+
+  private Authentication getAuthenticationContext() {
+    return SecurityContextHolder.getContext().getAuthentication();
   }
 
 }
