@@ -1,0 +1,152 @@
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <i class="bi bi-house-heart-fill"></i>
+      <span class="brand-name">StayEasy</span>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn-become-host" (click)="onBecomeHost()">
+        <i class="bi bi-plus-circle"></i>
+        <span>Become a Host</span>
+      </button>
+
+      <div class="user-card" (click)="toggleUserMenu()">
+        <div class="user-avatar">{{ getInitials() }}</div>
+        <div class="user-info">
+          <span class="user-name">{{ userName }}</span>
+          <span class="user-email" *ngIf="userEmail">{{ userEmail }}</span>
+        </div>
+        <i class="bi bi-chevron-down"></i>
+      </div>
+
+      <div class="user-menu" *ngIf="showUserMenu">
+        <button class="menu-item" (click)="onLogout()" [disabled]="isLoggingOut">
+          <i class="bi bi-box-arrow-right"></i>
+          <span>{{ isLoggingOut ? 'Logging out...' : 'Logout' }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="main-content">
+  <div class="content-container">
+    <div class="page-header">
+      <h1>Explore Properties</h1>
+      <p>Find your perfect stay, it's easy!</p>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <div class="search-inputs">
+        <div class="search-field">
+          <i class="bi bi-geo-alt"></i>
+          <input
+            type="text"
+            [(ngModel)]="searchCity"
+            placeholder="Search by city..."
+            (keyup.enter)="onSearch()"
+          />
+        </div>
+        <div class="search-field">
+          <i class="bi bi-currency-dollar"></i>
+          <input
+            type="number"
+            [(ngModel)]="searchMaxPrice"
+            placeholder="Max price per night..."
+            min="0"
+            (keyup.enter)="onSearch()"
+          />
+        </div>
+      </div>
+      <div class="search-actions">
+        <button class="btn-search" (click)="onSearch()" [disabled]="isSearching">
+          <i class="bi bi-search"></i>
+          <span>{{ isSearching ? 'Searching...' : 'Search' }}</span>
+        </button>
+        <button class="btn-clear" (click)="onClearSearch()" *ngIf="searchCity || searchMaxPrice">
+          <i class="bi bi-x-circle"></i>
+          <span>Clear</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading properties...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !isLoading" class="error-state">
+      <i class="bi bi-exclamation-circle"></i>
+      <p>{{ error }}</p>
+      <button class="btn-retry" (click)="loadProperties()">Try Again</button>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && !error && properties.length === 0" class="empty-state">
+      <i class="bi bi-house"></i>
+      <h3>No properties available</h3>
+      <p>Check back later for new listings!</p>
+    </div>
+
+    <!-- Properties Grid -->
+    <div *ngIf="!isLoading && !error && properties.length > 0" class="properties-grid">
+      <div class="property-card" *ngFor="let property of properties">
+        <div class="property-image">
+          <img [src]="getMainImage(property)" [alt]="property.title">
+          <div class="property-type-badge">{{ getPropertyTypeLabel(property.propertyType) }}</div>
+          <button
+            class="btn-delete-property"
+            *ngIf="isOwner(property)"
+            (click)="onDeleteProperty(property.id)"
+            title="Delete property"
+          >
+            <i class="bi bi-trash"></i>
+          </button>
+        </div>
+
+        <div class="property-content">
+          <div class="property-header">
+            <h3 class="property-title">{{ property.title }}</h3>
+            <p class="property-location">
+              <i class="bi bi-geo-alt"></i>
+              {{ property.city }}
+            </p>
+          </div>
+
+          <p class="property-description" *ngIf="property.description">
+            {{ property.description }}
+          </p>
+
+          <div class="property-details">
+            <div class="detail-item">
+              <i class="bi bi-people"></i>
+              <span>{{ property.maxGuests }} guests</span>
+            </div>
+            <div class="detail-item">
+              <i class="bi bi-person"></i>
+              <span>Host: {{ property.ownerUsername }}</span>
+            </div>
+          </div>
+
+          <div class="property-footer">
+            <div class="property-price">
+              <span class="price-amount">${{ property.pricePerNight }}</span>
+              <span class="price-period">/ night</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<app-create-property-modal
+  *ngIf="showCreateModal"
+  [currentUserId]="userId"
+  (close)="onModalClose()"
+  (propertyCreated)="onPropertyCreated()"
+></app-create-property-modal>

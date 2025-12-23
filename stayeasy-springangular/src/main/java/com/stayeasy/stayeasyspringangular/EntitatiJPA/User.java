@@ -27,7 +27,7 @@ public class User {
   private String email;
 
   @Setter
-  @Column(name = "password_hash", nullable = false, length = 255)
+  @Column(name = "password_hash", nullable = false)
   private String passwordHash;
 
   @Setter
