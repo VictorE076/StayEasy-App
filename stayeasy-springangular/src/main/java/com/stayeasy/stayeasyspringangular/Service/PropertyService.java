@@ -62,14 +62,7 @@ public class PropertyService {
 
   public PropertyResponseDTO createProperty(PropertyRequestDTO dto) { // The created property always belongs to the logged-in account
 
-    Authentication auth = getAuthenticationContext();
-    if (auth == null || !auth.isAuthenticated()) {
-      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
-    }
-
-    String username = auth.getName();
-    User owner = userRepository.findByUsername(username)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
+    User currentUser = getCurrentUser();
 
     Property property = Property.builder()
       .title(dto.getTitle())
@@ -79,7 +72,7 @@ public class PropertyService {
       .pricePerNight(dto.getPricePerNight())
       .maxGuests(dto.getMaxGuests())
       .propertyType(dto.getPropertyType())
-      .owner(owner)
+      .owner(currentUser)
       .build();
 
     var imagePaths = dto.getImagePaths() == null ? List.<String>of() : dto.getImagePaths();
@@ -97,17 +90,11 @@ public class PropertyService {
 
 
   public void deleteProperty(Long id) { // Ownership checking
+
     Property property = propertyRepository.findById(id)
       .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
 
-    Authentication auth = getAuthenticationContext();
-    if (auth == null || !auth.isAuthenticated()) {
-      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
-    }
-
-    String username = auth.getName();
-    User currentUser = userRepository.findByUsername(username)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
+    User currentUser = getCurrentUser();
 
     Integer ownerId = (property.getOwner() == null) ? null : property.getOwner().getId();
     Integer currentUserId = currentUser.getId();
@@ -144,8 +131,21 @@ public class PropertyService {
       .build();
   }
 
+
+  // Auth helpers
   private Authentication getAuthenticationContext() {
     return SecurityContextHolder.getContext().getAuthentication();
+  }
+
+  private User getCurrentUser() {
+    Authentication auth = getAuthenticationContext();
+    if (auth == null || !auth.isAuthenticated()) {
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
+    }
+
+    String username = auth.getName();
+    return userRepository.findByUsername(username)
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
   }
 
 }
