@@ -7,6 +7,7 @@ import { PropertyResponseDTO } from '../../models/property.models';
 import {PropertyService} from '../../service/property-service';
 import {CreatePropertyModal} from '../create-property-modal/create-property-modal';
 import {FormsModule} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -34,7 +35,8 @@ export class Homepage implements OnInit {
   constructor(
     private authService: AuthService,
     private loginService: LoginService,
-    private propertyService: PropertyService
+    private propertyService: PropertyService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +57,10 @@ export class Homepage implements OnInit {
         this.userName = 'User';
       }
     }
+  }
+
+  goToAdminSessions(): void {
+    this.router.navigate(['/admin/sessions']);
   }
 
   loadProperties(): void {
