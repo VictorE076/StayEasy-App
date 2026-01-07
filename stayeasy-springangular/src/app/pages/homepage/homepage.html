@@ -11,9 +11,10 @@
         <span>Become a Host</span>
       </button>
 
-      <button class="admin-btn" (click)="goToAdminSessions()">
+      <button class="btn-become-host" *ngIf="userRole === 'ADMIN'" (click)="goToAdminSessions()">
         Admin - Sesiuni
       </button>
+
 
 
       <div class="user-card" (click)="toggleUserMenu()">
