@@ -1,0 +1,134 @@
+.page {
+  padding: 18px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.subtitle {
+  margin: 6px 0 0 0;
+  opacity: 0.75;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: 1.2fr 200px 1fr 120px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.input, .select {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.12);
+  outline: none;
+}
+
+.select {
+  background: white;
+}
+
+.btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background: white;
+  cursor: pointer;
+}
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  border: 1px solid rgba(0,0,0,0.12);
+  background: white;
+  border-radius: 999px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.arrow { margin-left: 6px; }
+
+.count {
+  text-align: right;
+  opacity: 0.8;
+}
+
+.card {
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 14px;
+  overflow: hidden;
+  background: white;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead th {
+  text-align: left;
+  font-weight: 700;
+  padding: 12px 12px;
+  background: rgba(0,0,0,0.03);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.table tbody td {
+  padding: 12px 12px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  vertical-align: top;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 12px;
+  border: 1px solid rgba(0,0,0,0.12);
+}
+
+.badge.active { }
+.badge.inactive { opacity: 0.7; }
+
+.alert {
+  padding: 10px 12px;
+  border-radius: 12px;
+  margin: 10px 0;
+  border: 1px solid rgba(0,0,0,0.12);
+}
+
+.alert.error {
+  background: rgba(255,0,0,0.06);
+}
+
+.empty {
+  padding: 18px;
+  opacity: 0.75;
+}
