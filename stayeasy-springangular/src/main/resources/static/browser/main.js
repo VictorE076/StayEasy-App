@@ -46258,7 +46258,7 @@ var Login = class _Login {
     this.loginService.login(this.credentials).subscribe({
       next: (response) => {
         this.authService.saveToken(response.token);
-        this.router.navigate(["/test-logout"]);
+        this.router.navigate(["/homepage"]);
       },
       error: (error) => {
         this.isLoading = false;
@@ -46432,185 +46432,6 @@ var Login = class _Login {
 })();
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Login, { className: "Login", filePath: "src/app/pages/login/login.ts", lineNumber: 19 });
-})();
-
-// src/app/pages/test-logout.component.ts
-var _c0 = (a0) => ({ "error": a0 });
-function TestLogoutComponent_div_14_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 10)(1, "p", 11);
-    \u0275\u0275text(2, "Token (first 50 chars):");
-    \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "code");
-    \u0275\u0275text(4);
-    \u0275\u0275elementEnd()();
-  }
-  if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(ctx_r0.tokenPreview);
-  }
-}
-function TestLogoutComponent_p_17_Template(rf, ctx) {
-  if (rf & 1) {
-    \u0275\u0275elementStart(0, "p", 12);
-    \u0275\u0275text(1);
-    \u0275\u0275elementEnd();
-  }
-  if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275property("ngClass", \u0275\u0275pureFunction1(2, _c0, ctx_r0.isError));
-    \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", ctx_r0.message, " ");
-  }
-}
-var TestLogoutComponent = class _TestLogoutComponent {
-  authService;
-  loginService;
-  hasToken = false;
-  tokenPreview = "";
-  isLoading = false;
-  message = "";
-  isError = false;
-  constructor(authService, loginService) {
-    this.authService = authService;
-    this.loginService = loginService;
-    this.checkToken();
-  }
-  checkToken() {
-    const token = this.authService.getToken();
-    this.hasToken = !!token;
-    if (token) {
-      this.tokenPreview = token.substring(0, 50) + "...";
-    }
-  }
-  onLogout() {
-    this.isLoading = true;
-    this.message = "";
-    this.isError = false;
-    const token = this.authService.getToken();
-    if (!token) {
-      this.message = "No token found";
-      this.isError = true;
-      this.isLoading = false;
-      return;
-    }
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1]));
-      const sessionId = payload.sid;
-      if (!sessionId) {
-        this.message = "Session ID not found in token";
-        this.isError = true;
-        this.isLoading = false;
-        return;
-      }
-      this.loginService.logout(sessionId).pipe(finalize(() => this.isLoading = false)).subscribe({
-        next: () => {
-          this.message = "Logged out successfully!";
-          this.isError = false;
-          setTimeout(() => {
-            this.authService.logout();
-          }, 1e3);
-        },
-        error: (error) => {
-          this.isLoading = false;
-          this.message = "Logout failed: " + (error.error?.message || error.message || "Unknown error");
-          this.isError = true;
-        },
-        complete: () => {
-          this.isLoading = false;
-        }
-      });
-    } catch (error) {
-      this.message = "Invalid token format";
-      this.isError = true;
-      this.isLoading = false;
-    }
-  }
-  static \u0275fac = function TestLogoutComponent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _TestLogoutComponent)(\u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(LoginService));
-  };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _TestLogoutComponent, selectors: [["app-test-logout"]], decls: 18, vars: 5, consts: [[1, "logout-container"], [1, "logout-card"], [1, "app-branding"], [1, "app-icon"], [1, "bi", "bi-house-heart-fill"], [1, "app-name"], [1, "content"], ["class", "token-preview", 4, "ngIf"], [1, "btn-logout", 3, "click", "disabled"], ["class", "message", 3, "ngClass", 4, "ngIf"], [1, "token-preview"], [1, "token-label"], [1, "message", 3, "ngClass"]], template: function TestLogoutComponent_Template(rf, ctx) {
-    if (rf & 1) {
-      \u0275\u0275elementStart(0, "div", 0)(1, "div", 1)(2, "div", 2)(3, "div", 3);
-      \u0275\u0275element(4, "i", 4);
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(5, "h1", 5);
-      \u0275\u0275text(6, "StayEasy");
-      \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(7, "div", 6)(8, "h2");
-      \u0275\u0275text(9, "You are logged in!");
-      \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(10, "p");
-      \u0275\u0275text(11, "Token stored: ");
-      \u0275\u0275elementStart(12, "strong");
-      \u0275\u0275text(13);
-      \u0275\u0275elementEnd()();
-      \u0275\u0275template(14, TestLogoutComponent_div_14_Template, 5, 1, "div", 7);
-      \u0275\u0275elementStart(15, "button", 8);
-      \u0275\u0275listener("click", function TestLogoutComponent_Template_button_click_15_listener() {
-        return ctx.onLogout();
-      });
-      \u0275\u0275text(16);
-      \u0275\u0275elementEnd();
-      \u0275\u0275template(17, TestLogoutComponent_p_17_Template, 2, 4, "p", 9);
-      \u0275\u0275elementEnd()()();
-    }
-    if (rf & 2) {
-      \u0275\u0275advance(13);
-      \u0275\u0275textInterpolate(ctx.hasToken ? "Yes" : "No");
-      \u0275\u0275advance();
-      \u0275\u0275property("ngIf", ctx.hasToken);
-      \u0275\u0275advance();
-      \u0275\u0275property("disabled", ctx.isLoading);
-      \u0275\u0275advance();
-      \u0275\u0275textInterpolate1(" ", ctx.isLoading ? "Logging out..." : "Logout", " ");
-      \u0275\u0275advance();
-      \u0275\u0275property("ngIf", ctx.message);
-    }
-  }, dependencies: [CommonModule, NgClass, NgIf], styles: ['\n\n.logout-container[_ngcontent-%COMP%] {\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  padding: 20px;\n}\n.logout-card[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);\n  padding: 40px;\n  width: 100%;\n  max-width: 500px;\n  position: relative;\n}\n.logout-card[_ngcontent-%COMP%]::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      #667eea,\n      #764ba2);\n  border-radius: 16px 16px 0 0;\n}\n.app-branding[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 32px;\n  padding-bottom: 24px;\n  border-bottom: 1px solid #f0f0f0;\n}\n.app-icon[_ngcontent-%COMP%] {\n  width: 56px;\n  height: 56px;\n  margin: 0 auto 12px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  border-radius: 14px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: white;\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n  font-size: 28px;\n}\n.app-name[_ngcontent-%COMP%] {\n  font-size: 28px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0;\n  letter-spacing: -0.5px;\n}\n.content[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.content[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  color: #333;\n  font-size: 24px;\n  font-weight: 600;\n  margin: 0 0 20px 0;\n}\n.content[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  color: #666;\n  margin: 10px 0;\n  font-size: 15px;\n}\n.token-preview[_ngcontent-%COMP%] {\n  background: #f8f9fa;\n  border: 1px solid #e8eaed;\n  border-radius: 8px;\n  padding: 15px;\n  margin: 20px 0;\n  text-align: left;\n}\n.token-label[_ngcontent-%COMP%] {\n  font-size: 13px;\n  color: #666;\n  margin: 0 0 8px 0;\n  font-weight: 500;\n}\ncode[_ngcontent-%COMP%] {\n  display: block;\n  background: white;\n  padding: 10px;\n  border-radius: 4px;\n  font-family: "Courier New", monospace;\n  font-size: 12px;\n  color: #667eea;\n  word-break: break-all;\n  border: 1px solid #e8eaed;\n}\n.btn-logout[_ngcontent-%COMP%] {\n  width: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  padding: 14px 20px;\n  border-radius: 10px;\n  font-size: 16px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  margin-top: 30px;\n}\n.btn-logout[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.35);\n}\n.btn-logout[_ngcontent-%COMP%]:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n  transform: none;\n}\n.message[_ngcontent-%COMP%] {\n  margin-top: 15px;\n  padding: 12px;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 500;\n  background-color: #d4edda;\n  color: #155724;\n  border: 1px solid #c3e6cb;\n}\n.message.error[_ngcontent-%COMP%] {\n  background-color: #f8d7da;\n  color: #721c24;\n  border: 1px solid #f5c6cb;\n}\n@media (max-width: 480px) {\n  .logout-card[_ngcontent-%COMP%] {\n    padding: 32px 24px;\n  }\n  .app-name[_ngcontent-%COMP%] {\n    font-size: 24px;\n  }\n  .content[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n    font-size: 20px;\n  }\n}\n/*# sourceMappingURL=test-logout.component.css.map */'] });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TestLogoutComponent, [{
-    type: Component,
-    args: [{ selector: "app-test-logout", standalone: true, imports: [CommonModule], template: `
-    <div class="logout-container">
-      <div class="logout-card">
-        <div class="app-branding">
-          <div class="app-icon">
-            <i class="bi bi-house-heart-fill"></i>
-          </div>
-          <h1 class="app-name">StayEasy</h1>
-        </div>
-
-        <div class="content">
-          <h2>You are logged in!</h2>
-          <p>Token stored: <strong>{{ hasToken ? 'Yes' : 'No' }}</strong></p>
-
-          <div *ngIf="hasToken" class="token-preview">
-            <p class="token-label">Token (first 50 chars):</p>
-            <code>{{ tokenPreview }}</code>
-          </div>
-
-          <button
-            class="btn-logout"
-            (click)="onLogout()"
-            [disabled]="isLoading"
-          >
-            {{ isLoading ? 'Logging out...' : 'Logout' }}
-          </button>
-
-          <p *ngIf="message" class="message" [ngClass]="{'error': isError}">
-            {{ message }}
-          </p>
-        </div>
-      </div>
-    </div>
-  `, styles: ['/* angular:styles/component:css;9f86825f30edb0b2352832bf77a0d154bcffc79fb62a00fc4ac62b4d9b059ee8;D:/Proiect MOPS-AMSS/StayEasy-App/stayeasy-springangular/src/app/pages/test-logout.component.ts */\n.logout-container {\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  padding: 20px;\n}\n.logout-card {\n  background: white;\n  border-radius: 16px;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);\n  padding: 40px;\n  width: 100%;\n  max-width: 500px;\n  position: relative;\n}\n.logout-card::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      #667eea,\n      #764ba2);\n  border-radius: 16px 16px 0 0;\n}\n.app-branding {\n  text-align: center;\n  margin-bottom: 32px;\n  padding-bottom: 24px;\n  border-bottom: 1px solid #f0f0f0;\n}\n.app-icon {\n  width: 56px;\n  height: 56px;\n  margin: 0 auto 12px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  border-radius: 14px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: white;\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n  font-size: 28px;\n}\n.app-name {\n  font-size: 28px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0;\n  letter-spacing: -0.5px;\n}\n.content {\n  text-align: center;\n}\n.content h2 {\n  color: #333;\n  font-size: 24px;\n  font-weight: 600;\n  margin: 0 0 20px 0;\n}\n.content p {\n  color: #666;\n  margin: 10px 0;\n  font-size: 15px;\n}\n.token-preview {\n  background: #f8f9fa;\n  border: 1px solid #e8eaed;\n  border-radius: 8px;\n  padding: 15px;\n  margin: 20px 0;\n  text-align: left;\n}\n.token-label {\n  font-size: 13px;\n  color: #666;\n  margin: 0 0 8px 0;\n  font-weight: 500;\n}\ncode {\n  display: block;\n  background: white;\n  padding: 10px;\n  border-radius: 4px;\n  font-family: "Courier New", monospace;\n  font-size: 12px;\n  color: #667eea;\n  word-break: break-all;\n  border: 1px solid #e8eaed;\n}\n.btn-logout {\n  width: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  padding: 14px 20px;\n  border-radius: 10px;\n  font-size: 16px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  margin-top: 30px;\n}\n.btn-logout:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.35);\n}\n.btn-logout:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n  transform: none;\n}\n.message {\n  margin-top: 15px;\n  padding: 12px;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 500;\n  background-color: #d4edda;\n  color: #155724;\n  border: 1px solid #c3e6cb;\n}\n.message.error {\n  background-color: #f8d7da;\n  color: #721c24;\n  border: 1px solid #f5c6cb;\n}\n@media (max-width: 480px) {\n  .logout-card {\n    padding: 32px 24px;\n  }\n  .app-name {\n    font-size: 24px;\n  }\n  .content h2 {\n    font-size: 20px;\n  }\n}\n/*# sourceMappingURL=test-logout.component.css.map */\n'] }]
-  }], () => [{ type: AuthService }, { type: LoginService }], null);
-})();
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(TestLogoutComponent, { className: "TestLogoutComponent", filePath: "src/app/pages/test-logout.component.ts", lineNumber: 213 });
 })();
 
 // src/app/pages/register/register.ts
@@ -46945,10 +46766,1025 @@ var authGuard = (route, state) => {
   return false;
 };
 
+// src/app/models/property.models.ts
+var PropertyType;
+(function(PropertyType2) {
+  PropertyType2["APARTMENT"] = "APARTMENT";
+  PropertyType2["HOUSE"] = "HOUSE";
+  PropertyType2["STUDIO"] = "STUDIO";
+  PropertyType2["VILLA"] = "VILLA";
+})(PropertyType || (PropertyType = {}));
+
+// src/app/service/property-service.ts
+var PropertyService = class _PropertyService {
+  http;
+  API_URL = "/api/properties";
+  constructor(http) {
+    this.http = http;
+  }
+  getAllProperties() {
+    return this.http.get(this.API_URL);
+  }
+  getPropertyById(id) {
+    return this.http.get(`${this.API_URL}/${id}`);
+  }
+  searchProperties(city, maxPrice) {
+    let params = new HttpParams();
+    if (city) {
+      params = params.set("city", city);
+    }
+    if (maxPrice !== void 0 && maxPrice !== null) {
+      params = params.set("maxPrice", maxPrice.toString());
+    }
+    return this.http.get(`${this.API_URL}/search`, { params });
+  }
+  createProperty(property) {
+    return this.http.post(this.API_URL, property);
+  }
+  deleteProperty(id) {
+    return this.http.delete(`${this.API_URL}/${id}`);
+  }
+  static \u0275fac = function PropertyService_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _PropertyService)(\u0275\u0275inject(HttpClient));
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _PropertyService, factory: _PropertyService.\u0275fac, providedIn: "root" });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PropertyService, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [{ type: HttpClient }], null);
+})();
+
+// src/app/pages/create-property-modal/create-property-modal.ts
+function CreatePropertyModal_option_37_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "option", 34);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const type_r1 = ctx.$implicit;
+    \u0275\u0275property("value", type_r1);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", type_r1.charAt(0) + type_r1.slice(1).toLowerCase(), " ");
+  }
+}
+function CreatePropertyModal_div_58_div_1_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r2 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 37)(1, "span", 38);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "button", 39);
+    \u0275\u0275listener("click", function CreatePropertyModal_div_58_div_1_Template_button_click_3_listener() {
+      const i_r3 = \u0275\u0275restoreView(_r2).index;
+      const ctx_r3 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r3.removeImagePath(i_r3));
+    });
+    \u0275\u0275element(4, "i", 40);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const path_r5 = ctx.$implicit;
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(path_r5);
+  }
+}
+function CreatePropertyModal_div_58_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 35);
+    \u0275\u0275template(1, CreatePropertyModal_div_58_div_1_Template, 5, 1, "div", 36);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275property("ngForOf", ctx_r3.property.imagePaths);
+  }
+}
+function CreatePropertyModal_div_59_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 41);
+    \u0275\u0275element(1, "i", 42);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r3 = \u0275\u0275nextContext();
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1(" ", ctx_r3.error, " ");
+  }
+}
+function CreatePropertyModal_span_64_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span");
+    \u0275\u0275text(1, "Create Property");
+    \u0275\u0275elementEnd();
+  }
+}
+function CreatePropertyModal_span_65_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span");
+    \u0275\u0275text(1, "Creating...");
+    \u0275\u0275elementEnd();
+  }
+}
+var CreatePropertyModal = class _CreatePropertyModal {
+  propertyService;
+  currentUserId;
+  close = new EventEmitter();
+  propertyCreated = new EventEmitter();
+  propertyTypes = Object.values(PropertyType);
+  isSubmitting = false;
+  error = null;
+  property = {
+    title: "",
+    city: "",
+    address: "",
+    description: "",
+    pricePerNight: 0,
+    maxGuests: 1,
+    propertyType: PropertyType.APARTMENT,
+    imagePaths: []
+  };
+  imagePathInput = "";
+  constructor(propertyService) {
+    this.propertyService = propertyService;
+  }
+  onClose() {
+    if (!this.isSubmitting) {
+      this.close.emit();
+    }
+  }
+  addImagePath() {
+    if (this.imagePathInput.trim()) {
+      if (!this.property.imagePaths) {
+        this.property.imagePaths = [];
+      }
+      if (this.property.imagePaths.length < 20) {
+        this.property.imagePaths.push(this.imagePathInput.trim());
+        this.imagePathInput = "";
+      }
+    }
+  }
+  removeImagePath(index) {
+    this.property.imagePaths?.splice(index, 1);
+    console.log(this.currentUserId);
+  }
+  onSubmit() {
+    this.error = null;
+    if (!this.validateForm()) {
+      return;
+    }
+    this.isSubmitting = true;
+    this.propertyService.createProperty(this.property).pipe(finalize(() => this.isSubmitting = false)).subscribe({
+      next: () => {
+        this.propertyCreated.emit();
+        this.close.emit();
+      },
+      error: (error) => {
+        console.error("Error creating property:", error);
+        this.error = error.error?.message || "Failed to create property. Please try again.";
+      }
+    });
+  }
+  validateForm() {
+    if (!this.property.title.trim()) {
+      this.error = "Title is required";
+      return false;
+    }
+    if (!this.property.city.trim()) {
+      this.error = "City is required";
+      return false;
+    }
+    if (!this.property.address.trim()) {
+      this.error = "Address is required";
+      return false;
+    }
+    if (this.property.pricePerNight <= 0) {
+      this.error = "Price must be greater than 0";
+      return false;
+    }
+    if (this.property.maxGuests < 1 || this.property.maxGuests > 50) {
+      this.error = "Max guests must be between 1 and 50";
+      return false;
+    }
+    return true;
+  }
+  static \u0275fac = function CreatePropertyModal_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _CreatePropertyModal)(\u0275\u0275directiveInject(PropertyService));
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _CreatePropertyModal, selectors: [["app-create-property-modal"]], inputs: { currentUserId: "currentUserId" }, outputs: { close: "close", propertyCreated: "propertyCreated" }, decls: 66, vars: 17, consts: [[1, "modal-overlay", 3, "click"], [1, "modal-container", 3, "click"], [1, "modal-header"], [1, "btn-close", 3, "click", "disabled"], [1, "bi", "bi-x-lg"], [1, "modal-body", 3, "ngSubmit"], [1, "form-group"], ["for", "title"], [1, "required"], ["type", "text", "id", "title", "name", "title", "maxlength", "120", "placeholder", "Enter property title", "required", "", 3, "ngModelChange", "ngModel"], ["for", "city"], ["type", "text", "id", "city", "name", "city", "maxlength", "80", "placeholder", "Enter city", "required", "", 3, "ngModelChange", "ngModel"], ["for", "address"], ["type", "text", "id", "address", "name", "address", "maxlength", "200", "placeholder", "Enter address", "required", "", 3, "ngModelChange", "ngModel"], ["for", "description"], ["id", "description", "name", "description", "maxlength", "2000", "rows", "4", "placeholder", "Describe your property...", 3, "ngModelChange", "ngModel"], [1, "form-row"], ["for", "propertyType"], ["id", "propertyType", "name", "propertyType", "required", "", 3, "ngModelChange", "ngModel"], [3, "value", 4, "ngFor", "ngForOf"], ["for", "maxGuests"], ["type", "number", "id", "maxGuests", "name", "maxGuests", "min", "1", "max", "50", "required", "", 3, "ngModelChange", "ngModel"], ["for", "pricePerNight"], ["type", "number", "id", "pricePerNight", "name", "pricePerNight", "min", "0.01", "step", "0.01", "placeholder", "0.00", "required", "", 3, "ngModelChange", "ngModel"], [1, "image-input-container"], ["type", "url", "name", "imagePathInput", "placeholder", "Enter image URL", "maxlength", "500", 3, "ngModelChange", "keyup.enter", "ngModel"], ["type", "button", 1, "btn-add-image", 3, "click", "disabled"], [1, "bi", "bi-plus-circle"], ["class", "image-list", 4, "ngIf"], ["class", "error-message", 4, "ngIf"], [1, "modal-footer"], ["type", "button", 1, "btn-cancel", 3, "click", "disabled"], ["type", "submit", 1, "btn-submit", 3, "disabled"], [4, "ngIf"], [3, "value"], [1, "image-list"], ["class", "image-item", 4, "ngFor", "ngForOf"], [1, "image-item"], [1, "image-path"], ["type", "button", 1, "btn-remove", 3, "click"], [1, "bi", "bi-trash"], [1, "error-message"], [1, "bi", "bi-exclamation-circle"]], template: function CreatePropertyModal_Template(rf, ctx) {
+    if (rf & 1) {
+      \u0275\u0275elementStart(0, "div", 0);
+      \u0275\u0275listener("click", function CreatePropertyModal_Template_div_click_0_listener() {
+        return ctx.onClose();
+      });
+      \u0275\u0275elementStart(1, "div", 1);
+      \u0275\u0275listener("click", function CreatePropertyModal_Template_div_click_1_listener($event) {
+        return $event.stopPropagation();
+      });
+      \u0275\u0275elementStart(2, "div", 2)(3, "h2");
+      \u0275\u0275text(4, "Create New Property");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(5, "button", 3);
+      \u0275\u0275listener("click", function CreatePropertyModal_Template_button_click_5_listener() {
+        return ctx.onClose();
+      });
+      \u0275\u0275element(6, "i", 4);
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(7, "form", 5);
+      \u0275\u0275listener("ngSubmit", function CreatePropertyModal_Template_form_ngSubmit_7_listener() {
+        return ctx.onSubmit();
+      });
+      \u0275\u0275elementStart(8, "div", 6)(9, "label", 7);
+      \u0275\u0275text(10, "Title ");
+      \u0275\u0275elementStart(11, "span", 8);
+      \u0275\u0275text(12, "*");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(13, "input", 9);
+      \u0275\u0275twoWayListener("ngModelChange", function CreatePropertyModal_Template_input_ngModelChange_13_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.property.title, $event) || (ctx.property.title = $event);
+        return $event;
+      });
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(14, "div", 6)(15, "label", 10);
+      \u0275\u0275text(16, "City ");
+      \u0275\u0275elementStart(17, "span", 8);
+      \u0275\u0275text(18, "*");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(19, "input", 11);
+      \u0275\u0275twoWayListener("ngModelChange", function CreatePropertyModal_Template_input_ngModelChange_19_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.property.city, $event) || (ctx.property.city = $event);
+        return $event;
+      });
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(20, "div", 6)(21, "label", 12);
+      \u0275\u0275text(22, "Address ");
+      \u0275\u0275elementStart(23, "span", 8);
+      \u0275\u0275text(24, "*");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(25, "input", 13);
+      \u0275\u0275twoWayListener("ngModelChange", function CreatePropertyModal_Template_input_ngModelChange_25_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.property.address, $event) || (ctx.property.address = $event);
+        return $event;
+      });
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(26, "div", 6)(27, "label", 14);
+      \u0275\u0275text(28, "Description");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(29, "textarea", 15);
+      \u0275\u0275twoWayListener("ngModelChange", function CreatePropertyModal_Template_textarea_ngModelChange_29_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.property.description, $event) || (ctx.property.description = $event);
+        return $event;
+      });
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(30, "div", 16)(31, "div", 6)(32, "label", 17);
+      \u0275\u0275text(33, "Property Type ");
+      \u0275\u0275elementStart(34, "span", 8);
+      \u0275\u0275text(35, "*");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(36, "select", 18);
+      \u0275\u0275twoWayListener("ngModelChange", function CreatePropertyModal_Template_select_ngModelChange_36_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.property.propertyType, $event) || (ctx.property.propertyType = $event);
+        return $event;
+      });
+      \u0275\u0275template(37, CreatePropertyModal_option_37_Template, 2, 2, "option", 19);
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(38, "div", 6)(39, "label", 20);
+      \u0275\u0275text(40, "Max Guests ");
+      \u0275\u0275elementStart(41, "span", 8);
+      \u0275\u0275text(42, "*");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(43, "input", 21);
+      \u0275\u0275twoWayListener("ngModelChange", function CreatePropertyModal_Template_input_ngModelChange_43_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.property.maxGuests, $event) || (ctx.property.maxGuests = $event);
+        return $event;
+      });
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(44, "div", 6)(45, "label", 22);
+      \u0275\u0275text(46, "Price Per Night ($) ");
+      \u0275\u0275elementStart(47, "span", 8);
+      \u0275\u0275text(48, "*");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(49, "input", 23);
+      \u0275\u0275twoWayListener("ngModelChange", function CreatePropertyModal_Template_input_ngModelChange_49_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.property.pricePerNight, $event) || (ctx.property.pricePerNight = $event);
+        return $event;
+      });
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275elementStart(50, "div", 6)(51, "label");
+      \u0275\u0275text(52, "Image URLs (Optional - Max 20)");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(53, "div", 24)(54, "input", 25);
+      \u0275\u0275twoWayListener("ngModelChange", function CreatePropertyModal_Template_input_ngModelChange_54_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.imagePathInput, $event) || (ctx.imagePathInput = $event);
+        return $event;
+      });
+      \u0275\u0275listener("keyup.enter", function CreatePropertyModal_Template_input_keyup_enter_54_listener() {
+        return ctx.addImagePath();
+      });
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(55, "button", 26);
+      \u0275\u0275listener("click", function CreatePropertyModal_Template_button_click_55_listener() {
+        return ctx.addImagePath();
+      });
+      \u0275\u0275element(56, "i", 27);
+      \u0275\u0275text(57, " Add ");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275template(58, CreatePropertyModal_div_58_Template, 2, 1, "div", 28);
+      \u0275\u0275elementEnd();
+      \u0275\u0275template(59, CreatePropertyModal_div_59_Template, 3, 1, "div", 29);
+      \u0275\u0275elementStart(60, "div", 30)(61, "button", 31);
+      \u0275\u0275listener("click", function CreatePropertyModal_Template_button_click_61_listener() {
+        return ctx.onClose();
+      });
+      \u0275\u0275text(62, " Cancel ");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(63, "button", 32);
+      \u0275\u0275template(64, CreatePropertyModal_span_64_Template, 2, 0, "span", 33)(65, CreatePropertyModal_span_65_Template, 2, 0, "span", 33);
+      \u0275\u0275elementEnd()()()()();
+    }
+    if (rf & 2) {
+      \u0275\u0275advance(5);
+      \u0275\u0275property("disabled", ctx.isSubmitting);
+      \u0275\u0275advance(8);
+      \u0275\u0275twoWayProperty("ngModel", ctx.property.title);
+      \u0275\u0275advance(6);
+      \u0275\u0275twoWayProperty("ngModel", ctx.property.city);
+      \u0275\u0275advance(6);
+      \u0275\u0275twoWayProperty("ngModel", ctx.property.address);
+      \u0275\u0275advance(4);
+      \u0275\u0275twoWayProperty("ngModel", ctx.property.description);
+      \u0275\u0275advance(7);
+      \u0275\u0275twoWayProperty("ngModel", ctx.property.propertyType);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngForOf", ctx.propertyTypes);
+      \u0275\u0275advance(6);
+      \u0275\u0275twoWayProperty("ngModel", ctx.property.maxGuests);
+      \u0275\u0275advance(6);
+      \u0275\u0275twoWayProperty("ngModel", ctx.property.pricePerNight);
+      \u0275\u0275advance(5);
+      \u0275\u0275twoWayProperty("ngModel", ctx.imagePathInput);
+      \u0275\u0275advance();
+      \u0275\u0275property("disabled", !ctx.imagePathInput.trim() || ((ctx.property.imagePaths == null ? null : ctx.property.imagePaths.length) || 0) >= 20);
+      \u0275\u0275advance(3);
+      \u0275\u0275property("ngIf", ctx.property.imagePaths && ctx.property.imagePaths.length > 0);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", ctx.error);
+      \u0275\u0275advance(2);
+      \u0275\u0275property("disabled", ctx.isSubmitting);
+      \u0275\u0275advance(2);
+      \u0275\u0275property("disabled", ctx.isSubmitting);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", !ctx.isSubmitting);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", ctx.isSubmitting);
+    }
+  }, dependencies: [CommonModule, NgForOf, NgIf, FormsModule, \u0275NgNoValidate, NgSelectOption, \u0275NgSelectMultipleOption, DefaultValueAccessor, NumberValueAccessor, SelectControlValueAccessor, NgControlStatus, NgControlStatusGroup, RequiredValidator, MaxLengthValidator, MinValidator, MaxValidator, NgModel, NgForm], styles: ["\n\n.modal-overlay[_ngcontent-%COMP%] {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: rgba(0, 0, 0, 0.5);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 2000;\n  padding: 20px;\n  animation: fadeIn 0.2s ease;\n}\n.modal-container[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  width: 100%;\n  max-width: 700px;\n  max-height: 90vh;\n  overflow: hidden;\n  display: flex;\n  flex-direction: column;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  animation: _ngcontent-%COMP%_slideUp 0.3s ease;\n}\n@keyframes _ngcontent-%COMP%_slideUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.modal-header[_ngcontent-%COMP%] {\n  padding: 24px;\n  border-bottom: 1px solid #f0f0f0;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.modal-header[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-size: 24px;\n  font-weight: 700;\n  color: #333;\n  margin: 0;\n}\n.btn-close[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: #f8f9fa;\n  color: #666;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n}\n.btn-close[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #e9ecef;\n  color: #333;\n}\n.btn-close[_ngcontent-%COMP%]:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.modal-body[_ngcontent-%COMP%] {\n  padding: 24px;\n  overflow-y: auto;\n  flex: 1;\n}\n.form-group[_ngcontent-%COMP%] {\n  margin-bottom: 20px;\n}\n.form-group[_ngcontent-%COMP%]   label[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n  margin-bottom: 8px;\n}\n.required[_ngcontent-%COMP%] {\n  color: #dc3545;\n}\n.form-group[_ngcontent-%COMP%]   input[_ngcontent-%COMP%], \n.form-group[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%], \n.form-group[_ngcontent-%COMP%]   select[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 12px;\n  border: 2px solid #e9ecef;\n  border-radius: 8px;\n  font-size: 14px;\n  color: #333;\n  transition: all 0.2s ease;\n  font-family: inherit;\n}\n.form-group[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]:focus, \n.form-group[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%]:focus, \n.form-group[_ngcontent-%COMP%]   select[_ngcontent-%COMP%]:focus {\n  outline: none;\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.form-group[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%] {\n  resize: vertical;\n  min-height: 100px;\n}\n.form-row[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 16px;\n}\n.image-input-container[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 8px;\n}\n.image-input-container[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  flex: 1;\n}\n.btn-add-image[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  padding: 12px 20px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  white-space: nowrap;\n}\n.btn-add-image[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #5568d3;\n}\n.btn-add-image[_ngcontent-%COMP%]:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.image-list[_ngcontent-%COMP%] {\n  margin-top: 12px;\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n}\n.image-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 12px;\n  background: #f8f9fa;\n  border-radius: 8px;\n  font-size: 13px;\n}\n.image-path[_ngcontent-%COMP%] {\n  flex: 1;\n  color: #666;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.btn-remove[_ngcontent-%COMP%] {\n  padding: 6px 10px;\n  background: #dc3545;\n  color: white;\n  border: none;\n  border-radius: 6px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  font-size: 12px;\n}\n.btn-remove[_ngcontent-%COMP%]:hover {\n  background: #c82333;\n}\n.error-message[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px;\n  background: #fff3cd;\n  border: 1px solid #ffc107;\n  border-radius: 8px;\n  color: #856404;\n  font-size: 14px;\n  margin-top: 16px;\n}\n.error-message[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 18px;\n}\n.modal-footer[_ngcontent-%COMP%] {\n  padding: 24px;\n  border-top: 1px solid #f0f0f0;\n  display: flex;\n  gap: 12px;\n  justify-content: flex-end;\n}\n.btn-cancel[_ngcontent-%COMP%], \n.btn-submit[_ngcontent-%COMP%] {\n  padding: 12px 24px;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: none;\n}\n.btn-cancel[_ngcontent-%COMP%] {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-cancel[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #e9ecef;\n}\n.btn-submit[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-submit[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-cancel[_ngcontent-%COMP%]:disabled, \n.btn-submit[_ngcontent-%COMP%]:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n@media (max-width: 768px) {\n  .modal-container[_ngcontent-%COMP%] {\n    max-width: 100%;\n    max-height: 100vh;\n    border-radius: 0;\n  }\n  .modal-body[_ngcontent-%COMP%] {\n    padding: 16px;\n  }\n  .modal-header[_ngcontent-%COMP%], \n   .modal-footer[_ngcontent-%COMP%] {\n    padding: 16px;\n  }\n  .form-row[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .modal-footer[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .btn-cancel[_ngcontent-%COMP%], \n   .btn-submit[_ngcontent-%COMP%] {\n    width: 100%;\n  }\n}\n/*# sourceMappingURL=create-property-modal.css.map */"] });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CreatePropertyModal, [{
+    type: Component,
+    args: [{ selector: "app-create-property-modal", imports: [CommonModule, FormsModule], standalone: true, template: '<div class="modal-overlay" (click)="onClose()">\r\n  <div class="modal-container" (click)="$event.stopPropagation()">\r\n    <div class="modal-header">\r\n      <h2>Create New Property</h2>\r\n      <button class="btn-close" (click)="onClose()" [disabled]="isSubmitting">\r\n        <i class="bi bi-x-lg"></i>\r\n      </button>\r\n    </div>\r\n\r\n    <form (ngSubmit)="onSubmit()" class="modal-body">\r\n      <div class="form-group">\r\n        <label for="title">Title <span class="required">*</span></label>\r\n        <input\r\n          type="text"\r\n          id="title"\r\n          [(ngModel)]="property.title"\r\n          name="title"\r\n          maxlength="120"\r\n          placeholder="Enter property title"\r\n          required\r\n        />\r\n      </div>\r\n\r\n      <div class="form-group">\r\n        <label for="city">City <span class="required">*</span></label>\r\n        <input\r\n          type="text"\r\n          id="city"\r\n          [(ngModel)]="property.city"\r\n          name="city"\r\n          maxlength="80"\r\n          placeholder="Enter city"\r\n          required\r\n        />\r\n      </div>\r\n\r\n      <div class="form-group">\r\n        <label for="address">Address <span class="required">*</span></label>\r\n        <input\r\n          type="text"\r\n          id="address"\r\n          [(ngModel)]="property.address"\r\n          name="address"\r\n          maxlength="200"\r\n          placeholder="Enter address"\r\n          required\r\n        />\r\n      </div>\r\n\r\n      <div class="form-group">\r\n        <label for="description">Description</label>\r\n        <textarea\r\n          id="description"\r\n          [(ngModel)]="property.description"\r\n          name="description"\r\n          maxlength="2000"\r\n          rows="4"\r\n          placeholder="Describe your property..."\r\n        ></textarea>\r\n      </div>\r\n\r\n      <div class="form-row">\r\n        <div class="form-group">\r\n          <label for="propertyType">Property Type <span class="required">*</span></label>\r\n          <select\r\n            id="propertyType"\r\n            [(ngModel)]="property.propertyType"\r\n            name="propertyType"\r\n            required\r\n          >\r\n            <option *ngFor="let type of propertyTypes" [value]="type">\r\n              {{ type.charAt(0) + type.slice(1).toLowerCase() }}\r\n            </option>\r\n          </select>\r\n        </div>\r\n\r\n        <div class="form-group">\r\n          <label for="maxGuests">Max Guests <span class="required">*</span></label>\r\n          <input\r\n            type="number"\r\n            id="maxGuests"\r\n            [(ngModel)]="property.maxGuests"\r\n            name="maxGuests"\r\n            min="1"\r\n            max="50"\r\n            required\r\n          />\r\n        </div>\r\n\r\n        <div class="form-group">\r\n          <label for="pricePerNight">Price Per Night ($) <span class="required">*</span></label>\r\n          <input\r\n            type="number"\r\n            id="pricePerNight"\r\n            [(ngModel)]="property.pricePerNight"\r\n            name="pricePerNight"\r\n            min="0.01"\r\n            step="0.01"\r\n            placeholder="0.00"\r\n            required\r\n          />\r\n        </div>\r\n      </div>\r\n\r\n      <div class="form-group">\r\n        <label>Image URLs (Optional - Max 20)</label>\r\n        <div class="image-input-container">\r\n          <input\r\n            type="url"\r\n            [(ngModel)]="imagePathInput"\r\n            name="imagePathInput"\r\n            placeholder="Enter image URL"\r\n            maxlength="500"\r\n            (keyup.enter)="addImagePath()"\r\n          />\r\n          <button\r\n            type="button"\r\n            class="btn-add-image"\r\n            (click)="addImagePath()"\r\n            [disabled]="!imagePathInput.trim() || (property.imagePaths?.length || 0) >= 20"\r\n          >\r\n            <i class="bi bi-plus-circle"></i>\r\n            Add\r\n          </button>\r\n        </div>\r\n\r\n        <div class="image-list" *ngIf="property.imagePaths && property.imagePaths.length > 0">\r\n          <div class="image-item" *ngFor="let path of property.imagePaths; let i = index">\r\n            <span class="image-path">{{ path }}</span>\r\n            <button type="button" class="btn-remove" (click)="removeImagePath(i)">\r\n              <i class="bi bi-trash"></i>\r\n            </button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class="error-message" *ngIf="error">\r\n        <i class="bi bi-exclamation-circle"></i>\r\n        {{ error }}\r\n      </div>\r\n\r\n      <div class="modal-footer">\r\n        <button\r\n          type="button"\r\n          class="btn-cancel"\r\n          (click)="onClose()"\r\n          [disabled]="isSubmitting"\r\n        >\r\n          Cancel\r\n        </button>\r\n        <button\r\n          type="submit"\r\n          class="btn-submit"\r\n          [disabled]="isSubmitting"\r\n        >\r\n          <span *ngIf="!isSubmitting">Create Property</span>\r\n          <span *ngIf="isSubmitting">Creating...</span>\r\n        </button>\r\n      </div>\r\n    </form>\r\n  </div>\r\n</div>\r\n', styles: ["/* src/app/pages/create-property-modal/create-property-modal.css */\n.modal-overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: rgba(0, 0, 0, 0.5);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 2000;\n  padding: 20px;\n  animation: fadeIn 0.2s ease;\n}\n.modal-container {\n  background: white;\n  border-radius: 16px;\n  width: 100%;\n  max-width: 700px;\n  max-height: 90vh;\n  overflow: hidden;\n  display: flex;\n  flex-direction: column;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  animation: slideUp 0.3s ease;\n}\n@keyframes slideUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.modal-header {\n  padding: 24px;\n  border-bottom: 1px solid #f0f0f0;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.modal-header h2 {\n  font-size: 24px;\n  font-weight: 700;\n  color: #333;\n  margin: 0;\n}\n.btn-close {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: #f8f9fa;\n  color: #666;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n}\n.btn-close:hover:not(:disabled) {\n  background: #e9ecef;\n  color: #333;\n}\n.btn-close:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.modal-body {\n  padding: 24px;\n  overflow-y: auto;\n  flex: 1;\n}\n.form-group {\n  margin-bottom: 20px;\n}\n.form-group label {\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n  margin-bottom: 8px;\n}\n.required {\n  color: #dc3545;\n}\n.form-group input,\n.form-group textarea,\n.form-group select {\n  width: 100%;\n  padding: 12px;\n  border: 2px solid #e9ecef;\n  border-radius: 8px;\n  font-size: 14px;\n  color: #333;\n  transition: all 0.2s ease;\n  font-family: inherit;\n}\n.form-group input:focus,\n.form-group textarea:focus,\n.form-group select:focus {\n  outline: none;\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.form-group textarea {\n  resize: vertical;\n  min-height: 100px;\n}\n.form-row {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 16px;\n}\n.image-input-container {\n  display: flex;\n  gap: 8px;\n}\n.image-input-container input {\n  flex: 1;\n}\n.btn-add-image {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  padding: 12px 20px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  white-space: nowrap;\n}\n.btn-add-image:hover:not(:disabled) {\n  background: #5568d3;\n}\n.btn-add-image:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.image-list {\n  margin-top: 12px;\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n}\n.image-item {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 12px;\n  background: #f8f9fa;\n  border-radius: 8px;\n  font-size: 13px;\n}\n.image-path {\n  flex: 1;\n  color: #666;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.btn-remove {\n  padding: 6px 10px;\n  background: #dc3545;\n  color: white;\n  border: none;\n  border-radius: 6px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  font-size: 12px;\n}\n.btn-remove:hover {\n  background: #c82333;\n}\n.error-message {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px;\n  background: #fff3cd;\n  border: 1px solid #ffc107;\n  border-radius: 8px;\n  color: #856404;\n  font-size: 14px;\n  margin-top: 16px;\n}\n.error-message i {\n  font-size: 18px;\n}\n.modal-footer {\n  padding: 24px;\n  border-top: 1px solid #f0f0f0;\n  display: flex;\n  gap: 12px;\n  justify-content: flex-end;\n}\n.btn-cancel,\n.btn-submit {\n  padding: 12px 24px;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: none;\n}\n.btn-cancel {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-cancel:hover:not(:disabled) {\n  background: #e9ecef;\n}\n.btn-submit {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-submit:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-cancel:disabled,\n.btn-submit:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n@media (max-width: 768px) {\n  .modal-container {\n    max-width: 100%;\n    max-height: 100vh;\n    border-radius: 0;\n  }\n  .modal-body {\n    padding: 16px;\n  }\n  .modal-header,\n  .modal-footer {\n    padding: 16px;\n  }\n  .form-row {\n    grid-template-columns: 1fr;\n  }\n  .modal-footer {\n    flex-direction: column;\n  }\n  .btn-cancel,\n  .btn-submit {\n    width: 100%;\n  }\n}\n/*# sourceMappingURL=create-property-modal.css.map */\n"] }]
+  }], () => [{ type: PropertyService }], { currentUserId: [{
+    type: Input
+  }], close: [{
+    type: Output
+  }], propertyCreated: [{
+    type: Output
+  }] });
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CreatePropertyModal, { className: "CreatePropertyModal", filePath: "src/app/pages/create-property-modal/create-property-modal.ts", lineNumber: 15 });
+})();
+
+// src/app/pages/homepage/homepage.ts
+function Homepage_span_17_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 34);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r0.userEmail);
+  }
+}
+function Homepage_div_19_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r2 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 35)(1, "button", 36);
+    \u0275\u0275listener("click", function Homepage_div_19_Template_button_click_1_listener() {
+      \u0275\u0275restoreView(_r2);
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.onLogout());
+    });
+    \u0275\u0275element(2, "i", 37);
+    \u0275\u0275elementStart(3, "span");
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275property("disabled", ctx_r0.isLoggingOut);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r0.isLoggingOut ? "Logging out..." : "Logout");
+  }
+}
+function Homepage_button_40_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r3 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 38);
+    \u0275\u0275listener("click", function Homepage_button_40_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.onClearSearch());
+    });
+    \u0275\u0275element(1, "i", 39);
+    \u0275\u0275elementStart(2, "span");
+    \u0275\u0275text(3, "Clear");
+    \u0275\u0275elementEnd()();
+  }
+}
+function Homepage_div_41_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 40);
+    \u0275\u0275element(1, "div", 41);
+    \u0275\u0275elementStart(2, "p");
+    \u0275\u0275text(3, "Loading properties...");
+    \u0275\u0275elementEnd()();
+  }
+}
+function Homepage_div_42_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r4 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 42);
+    \u0275\u0275element(1, "i", 43);
+    \u0275\u0275elementStart(2, "p");
+    \u0275\u0275text(3);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "button", 44);
+    \u0275\u0275listener("click", function Homepage_div_42_Template_button_click_4_listener() {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.loadProperties());
+    });
+    \u0275\u0275text(5, "Try Again");
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate(ctx_r0.error);
+  }
+}
+function Homepage_div_43_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 45);
+    \u0275\u0275element(1, "i", 46);
+    \u0275\u0275elementStart(2, "h3");
+    \u0275\u0275text(3, "No properties available");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "p");
+    \u0275\u0275text(5, "Check back later for new listings!");
+    \u0275\u0275elementEnd()();
+  }
+}
+function Homepage_div_44_div_1_button_5_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 67);
+    \u0275\u0275listener("click", function Homepage_div_44_div_1_button_5_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r5);
+      const property_r6 = \u0275\u0275nextContext().$implicit;
+      const ctx_r0 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r0.onDeleteProperty(property_r6.id));
+    });
+    \u0275\u0275element(1, "i", 68);
+    \u0275\u0275elementEnd();
+  }
+}
+function Homepage_div_44_div_1_p_13_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "p", 69);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const property_r6 = \u0275\u0275nextContext().$implicit;
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", property_r6.description, " ");
+  }
+}
+function Homepage_div_44_div_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 49)(1, "div", 50);
+    \u0275\u0275element(2, "img", 51);
+    \u0275\u0275elementStart(3, "div", 52);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275template(5, Homepage_div_44_div_1_button_5_Template, 2, 0, "button", 53);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(6, "div", 54)(7, "div", 55)(8, "h3", 56);
+    \u0275\u0275text(9);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(10, "p", 57);
+    \u0275\u0275element(11, "i", 21);
+    \u0275\u0275text(12);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275template(13, Homepage_div_44_div_1_p_13_Template, 2, 1, "p", 58);
+    \u0275\u0275elementStart(14, "div", 59)(15, "div", 60);
+    \u0275\u0275element(16, "i", 61);
+    \u0275\u0275elementStart(17, "span");
+    \u0275\u0275text(18);
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(19, "div", 60);
+    \u0275\u0275element(20, "i", 62);
+    \u0275\u0275elementStart(21, "span");
+    \u0275\u0275text(22);
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(23, "div", 63)(24, "div", 64)(25, "span", 65);
+    \u0275\u0275text(26);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(27, "span", 66);
+    \u0275\u0275text(28, "/ night");
+    \u0275\u0275elementEnd()()()()();
+  }
+  if (rf & 2) {
+    const property_r6 = ctx.$implicit;
+    const ctx_r0 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("src", ctx_r0.getMainImage(property_r6), \u0275\u0275sanitizeUrl)("alt", property_r6.title);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r0.getPropertyTypeLabel(property_r6.propertyType));
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r0.isOwner(property_r6));
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate(property_r6.title);
+    \u0275\u0275advance(3);
+    \u0275\u0275textInterpolate1(" ", property_r6.city, " ");
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", property_r6.description);
+    \u0275\u0275advance(5);
+    \u0275\u0275textInterpolate1("", property_r6.maxGuests, " guests");
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate1("Host: ", property_r6.ownerUsername);
+    \u0275\u0275advance(4);
+    \u0275\u0275textInterpolate1("$", property_r6.pricePerNight);
+  }
+}
+function Homepage_div_44_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 47);
+    \u0275\u0275template(1, Homepage_div_44_div_1_Template, 29, 10, "div", 48);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275property("ngForOf", ctx_r0.properties);
+  }
+}
+function Homepage_app_create_property_modal_45_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "app-create-property-modal", 70);
+    \u0275\u0275listener("close", function Homepage_app_create_property_modal_45_Template_app_create_property_modal_close_0_listener() {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.onModalClose());
+    })("propertyCreated", function Homepage_app_create_property_modal_45_Template_app_create_property_modal_propertyCreated_0_listener() {
+      \u0275\u0275restoreView(_r7);
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.onPropertyCreated());
+    });
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275property("currentUserId", ctx_r0.userId);
+  }
+}
+var Homepage = class _Homepage {
+  authService;
+  loginService;
+  propertyService;
+  userName = "";
+  userEmail = "";
+  userId = 0;
+  isLoggingOut = false;
+  showUserMenu = false;
+  showCreateModal = false;
+  properties = [];
+  isLoading = false;
+  error = null;
+  searchCity = "";
+  searchMaxPrice = null;
+  isSearching = false;
+  constructor(authService, loginService, propertyService) {
+    this.authService = authService;
+    this.loginService = loginService;
+    this.propertyService = propertyService;
+  }
+  ngOnInit() {
+    this.loadUserInfo();
+    this.loadProperties();
+  }
+  loadUserInfo() {
+    const token = this.authService.getToken();
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        this.userName = payload.name || payload.sub || "User";
+        this.userEmail = payload.email || "";
+        this.userId = payload.userId || payload.id || 0;
+      } catch (error) {
+        console.error("Error parsing token:", error);
+        this.userName = "User";
+      }
+    }
+  }
+  loadProperties() {
+    this.isLoading = true;
+    this.error = null;
+    this.propertyService.getAllProperties().pipe(finalize(() => this.isLoading = false)).subscribe({
+      next: (properties) => {
+        this.properties = properties;
+      },
+      error: (error) => {
+        console.error("Error loading properties:", error);
+        this.error = "Failed to load properties. Please try again later.";
+      }
+    });
+  }
+  toggleUserMenu() {
+    this.showUserMenu = !this.showUserMenu;
+  }
+  onLogout() {
+    this.isLoggingOut = true;
+    const token = this.authService.getToken();
+    if (!token) {
+      this.authService.logout();
+      return;
+    }
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const sessionId = payload.sid;
+      if (sessionId) {
+        this.loginService.logout(sessionId).pipe(finalize(() => this.isLoggingOut = false)).subscribe({
+          next: () => {
+            this.authService.logout();
+          },
+          error: (error) => {
+            console.error("Logout error:", error);
+            this.authService.logout();
+          }
+        });
+      } else {
+        this.authService.logout();
+        this.isLoggingOut = false;
+      }
+    } catch (error) {
+      console.error("Token parsing error:", error);
+      this.authService.logout();
+      this.isLoggingOut = false;
+    }
+  }
+  getInitials() {
+    return this.userName.charAt(0).toUpperCase();
+  }
+  onBecomeHost() {
+    this.showCreateModal = true;
+  }
+  onModalClose() {
+    this.showCreateModal = false;
+  }
+  onPropertyCreated() {
+    this.loadProperties();
+  }
+  getMainImage(property) {
+    return property.images && property.images.length > 0 ? property.images[0] : "https://dummyimage.com/600x400/cccccc/000000&text=No+Image+Available";
+  }
+  getPropertyTypeLabel(type) {
+    return type.charAt(0) + type.slice(1).toLowerCase();
+  }
+  isOwner(property) {
+    return this.userName != null && property.ownerUsername === this.userName;
+  }
+  onDeleteProperty(propertyId) {
+    if (!confirm("Are you sure you want to delete this property?")) {
+      return;
+    }
+    this.propertyService.deleteProperty(propertyId).subscribe({
+      next: () => {
+        this.loadProperties();
+      },
+      error: (error) => {
+        console.error("Error deleting property:", error);
+        alert("Failed to delete property. Please try again.");
+      }
+    });
+  }
+  onSearch() {
+    this.isSearching = true;
+    this.error = null;
+    const city = this.searchCity.trim() || void 0;
+    const maxPrice = this.searchMaxPrice && this.searchMaxPrice > 0 ? this.searchMaxPrice : void 0;
+    this.propertyService.searchProperties(city, maxPrice).pipe(finalize(() => this.isSearching = false)).subscribe({
+      next: (properties) => {
+        this.properties = properties;
+      },
+      error: (error) => {
+        console.error("Error searching properties:", error);
+        this.error = "Failed to search properties. Please try again.";
+      }
+    });
+  }
+  onClearSearch() {
+    this.searchCity = "";
+    this.searchMaxPrice = null;
+    this.loadProperties();
+  }
+  static \u0275fac = function Homepage_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _Homepage)(\u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(LoginService), \u0275\u0275directiveInject(PropertyService));
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Homepage, selectors: [["app-homepage"]], decls: 46, vars: 14, consts: [[1, "navbar"], [1, "nav-container"], [1, "nav-brand"], [1, "bi", "bi-house-heart-fill"], [1, "brand-name"], [1, "nav-actions"], [1, "btn-become-host", 3, "click"], [1, "bi", "bi-plus-circle"], [1, "user-card", 3, "click"], [1, "user-avatar"], [1, "user-info"], [1, "user-name"], ["class", "user-email", 4, "ngIf"], [1, "bi", "bi-chevron-down"], ["class", "user-menu", 4, "ngIf"], [1, "main-content"], [1, "content-container"], [1, "page-header"], [1, "search-container"], [1, "search-inputs"], [1, "search-field"], [1, "bi", "bi-geo-alt"], ["type", "text", "placeholder", "Search by city...", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "bi", "bi-currency-dollar"], ["type", "number", "placeholder", "Max price per night...", "min", "0", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "search-actions"], [1, "btn-search", 3, "click", "disabled"], [1, "bi", "bi-search"], ["class", "btn-clear", 3, "click", 4, "ngIf"], ["class", "loading-state", 4, "ngIf"], ["class", "error-state", 4, "ngIf"], ["class", "empty-state", 4, "ngIf"], ["class", "properties-grid", 4, "ngIf"], [3, "currentUserId", "close", "propertyCreated", 4, "ngIf"], [1, "user-email"], [1, "user-menu"], [1, "menu-item", 3, "click", "disabled"], [1, "bi", "bi-box-arrow-right"], [1, "btn-clear", 3, "click"], [1, "bi", "bi-x-circle"], [1, "loading-state"], [1, "spinner"], [1, "error-state"], [1, "bi", "bi-exclamation-circle"], [1, "btn-retry", 3, "click"], [1, "empty-state"], [1, "bi", "bi-house"], [1, "properties-grid"], ["class", "property-card", 4, "ngFor", "ngForOf"], [1, "property-card"], [1, "property-image"], [3, "src", "alt"], [1, "property-type-badge"], ["class", "btn-delete-property", "title", "Delete property", 3, "click", 4, "ngIf"], [1, "property-content"], [1, "property-header"], [1, "property-title"], [1, "property-location"], ["class", "property-description", 4, "ngIf"], [1, "property-details"], [1, "detail-item"], [1, "bi", "bi-people"], [1, "bi", "bi-person"], [1, "property-footer"], [1, "property-price"], [1, "price-amount"], [1, "price-period"], ["title", "Delete property", 1, "btn-delete-property", 3, "click"], [1, "bi", "bi-trash"], [1, "property-description"], [3, "close", "propertyCreated", "currentUserId"]], template: function Homepage_Template(rf, ctx) {
+    if (rf & 1) {
+      \u0275\u0275elementStart(0, "nav", 0)(1, "div", 1)(2, "div", 2);
+      \u0275\u0275element(3, "i", 3);
+      \u0275\u0275elementStart(4, "span", 4);
+      \u0275\u0275text(5, "StayEasy");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(6, "div", 5)(7, "button", 6);
+      \u0275\u0275listener("click", function Homepage_Template_button_click_7_listener() {
+        return ctx.onBecomeHost();
+      });
+      \u0275\u0275element(8, "i", 7);
+      \u0275\u0275elementStart(9, "span");
+      \u0275\u0275text(10, "Become a Host");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(11, "div", 8);
+      \u0275\u0275listener("click", function Homepage_Template_div_click_11_listener() {
+        return ctx.toggleUserMenu();
+      });
+      \u0275\u0275elementStart(12, "div", 9);
+      \u0275\u0275text(13);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(14, "div", 10)(15, "span", 11);
+      \u0275\u0275text(16);
+      \u0275\u0275elementEnd();
+      \u0275\u0275template(17, Homepage_span_17_Template, 2, 1, "span", 12);
+      \u0275\u0275elementEnd();
+      \u0275\u0275element(18, "i", 13);
+      \u0275\u0275elementEnd();
+      \u0275\u0275template(19, Homepage_div_19_Template, 5, 2, "div", 14);
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275elementStart(20, "main", 15)(21, "div", 16)(22, "div", 17)(23, "h1");
+      \u0275\u0275text(24, "Explore Properties");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(25, "p");
+      \u0275\u0275text(26, "Find your perfect stay, it's easy!");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(27, "div", 18)(28, "div", 19)(29, "div", 20);
+      \u0275\u0275element(30, "i", 21);
+      \u0275\u0275elementStart(31, "input", 22);
+      \u0275\u0275twoWayListener("ngModelChange", function Homepage_Template_input_ngModelChange_31_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.searchCity, $event) || (ctx.searchCity = $event);
+        return $event;
+      });
+      \u0275\u0275listener("keyup.enter", function Homepage_Template_input_keyup_enter_31_listener() {
+        return ctx.onSearch();
+      });
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(32, "div", 20);
+      \u0275\u0275element(33, "i", 23);
+      \u0275\u0275elementStart(34, "input", 24);
+      \u0275\u0275twoWayListener("ngModelChange", function Homepage_Template_input_ngModelChange_34_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.searchMaxPrice, $event) || (ctx.searchMaxPrice = $event);
+        return $event;
+      });
+      \u0275\u0275listener("keyup.enter", function Homepage_Template_input_keyup_enter_34_listener() {
+        return ctx.onSearch();
+      });
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275elementStart(35, "div", 25)(36, "button", 26);
+      \u0275\u0275listener("click", function Homepage_Template_button_click_36_listener() {
+        return ctx.onSearch();
+      });
+      \u0275\u0275element(37, "i", 27);
+      \u0275\u0275elementStart(38, "span");
+      \u0275\u0275text(39);
+      \u0275\u0275elementEnd()();
+      \u0275\u0275template(40, Homepage_button_40_Template, 4, 0, "button", 28);
+      \u0275\u0275elementEnd()();
+      \u0275\u0275template(41, Homepage_div_41_Template, 4, 0, "div", 29)(42, Homepage_div_42_Template, 6, 1, "div", 30)(43, Homepage_div_43_Template, 6, 0, "div", 31)(44, Homepage_div_44_Template, 2, 1, "div", 32);
+      \u0275\u0275elementEnd()();
+      \u0275\u0275template(45, Homepage_app_create_property_modal_45_Template, 1, 1, "app-create-property-modal", 33);
+    }
+    if (rf & 2) {
+      \u0275\u0275advance(13);
+      \u0275\u0275textInterpolate(ctx.getInitials());
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate(ctx.userName);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", ctx.userEmail);
+      \u0275\u0275advance(2);
+      \u0275\u0275property("ngIf", ctx.showUserMenu);
+      \u0275\u0275advance(12);
+      \u0275\u0275twoWayProperty("ngModel", ctx.searchCity);
+      \u0275\u0275advance(3);
+      \u0275\u0275twoWayProperty("ngModel", ctx.searchMaxPrice);
+      \u0275\u0275advance(2);
+      \u0275\u0275property("disabled", ctx.isSearching);
+      \u0275\u0275advance(3);
+      \u0275\u0275textInterpolate(ctx.isSearching ? "Searching..." : "Search");
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", ctx.searchCity || ctx.searchMaxPrice);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", ctx.isLoading);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", ctx.error && !ctx.isLoading);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", !ctx.isLoading && !ctx.error && ctx.properties.length === 0);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", !ctx.isLoading && !ctx.error && ctx.properties.length > 0);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", ctx.showCreateModal);
+    }
+  }, dependencies: [NgIf, NgForOf, CreatePropertyModal, FormsModule, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, MinValidator, NgModel], styles: ["\n\n.navbar[_ngcontent-%COMP%] {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.nav-brand[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name[_ngcontent-%COMP%] {\n  letter-spacing: -0.5px;\n}\n.nav-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.btn-become-host[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n}\n.user-card[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name[_ngcontent-%COMP%] {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email[_ngcontent-%COMP%] {\n  font-size: 12px;\n  color: #666;\n}\n.user-card[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu[_ngcontent-%COMP%] {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: _ngcontent-%COMP%_fadeIn 0.2s ease;\n}\n@keyframes _ngcontent-%COMP%_fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item[_ngcontent-%COMP%] {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item[_ngcontent-%COMP%]:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n}\n.main-content[_ngcontent-%COMP%] {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header[_ngcontent-%COMP%] {\n  margin-bottom: 40px;\n}\n.page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field[_ngcontent-%COMP%]:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]::placeholder {\n  color: #999;\n}\n.search-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 12px;\n}\n.btn-search[_ngcontent-%COMP%], \n.btn-clear[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear[_ngcontent-%COMP%] {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n}\n.loading-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry[_ngcontent-%COMP%] {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry[_ngcontent-%COMP%]:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card[_ngcontent-%COMP%]:hover   .property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  transform: scale(1.05);\n}\n.property-type-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property[_ngcontent-%COMP%]:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n}\n.property-content[_ngcontent-%COMP%] {\n  padding: 20px;\n}\n.property-header[_ngcontent-%COMP%] {\n  margin-bottom: 12px;\n}\n.property-title[_ngcontent-%COMP%] {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount[_ngcontent-%COMP%] {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .user-info[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .user-card[_ngcontent-%COMP%] {\n    padding: 8px;\n  }\n  .btn-become-host[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .btn-become-host[_ngcontent-%COMP%] {\n    padding: 10px 14px;\n  }\n  .content-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n    font-size: 24px;\n  }\n  .search-inputs[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .search-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .properties-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content[_ngcontent-%COMP%] {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .page-header[_ngcontent-%COMP%] {\n    margin-bottom: 24px;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */"] });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Homepage, [{
+    type: Component,
+    args: [{ selector: "app-homepage", imports: [NgIf, NgForOf, CreatePropertyModal, FormsModule], standalone: true, template: `<nav class="navbar">\r
+  <div class="nav-container">\r
+    <div class="nav-brand">\r
+      <i class="bi bi-house-heart-fill"></i>\r
+      <span class="brand-name">StayEasy</span>\r
+    </div>\r
+\r
+    <div class="nav-actions">\r
+      <button class="btn-become-host" (click)="onBecomeHost()">\r
+        <i class="bi bi-plus-circle"></i>\r
+        <span>Become a Host</span>\r
+      </button>\r
+\r
+      <div class="user-card" (click)="toggleUserMenu()">\r
+        <div class="user-avatar">{{ getInitials() }}</div>\r
+        <div class="user-info">\r
+          <span class="user-name">{{ userName }}</span>\r
+          <span class="user-email" *ngIf="userEmail">{{ userEmail }}</span>\r
+        </div>\r
+        <i class="bi bi-chevron-down"></i>\r
+      </div>\r
+\r
+      <div class="user-menu" *ngIf="showUserMenu">\r
+        <button class="menu-item" (click)="onLogout()" [disabled]="isLoggingOut">\r
+          <i class="bi bi-box-arrow-right"></i>\r
+          <span>{{ isLoggingOut ? 'Logging out...' : 'Logout' }}</span>\r
+        </button>\r
+      </div>\r
+    </div>\r
+  </div>\r
+</nav>\r
+\r
+<main class="main-content">\r
+  <div class="content-container">\r
+    <div class="page-header">\r
+      <h1>Explore Properties</h1>\r
+      <p>Find your perfect stay, it's easy!</p>\r
+    </div>\r
+\r
+    <!-- Search Bar -->\r
+    <div class="search-container">\r
+      <div class="search-inputs">\r
+        <div class="search-field">\r
+          <i class="bi bi-geo-alt"></i>\r
+          <input\r
+            type="text"\r
+            [(ngModel)]="searchCity"\r
+            placeholder="Search by city..."\r
+            (keyup.enter)="onSearch()"\r
+          />\r
+        </div>\r
+        <div class="search-field">\r
+          <i class="bi bi-currency-dollar"></i>\r
+          <input\r
+            type="number"\r
+            [(ngModel)]="searchMaxPrice"\r
+            placeholder="Max price per night..."\r
+            min="0"\r
+            (keyup.enter)="onSearch()"\r
+          />\r
+        </div>\r
+      </div>\r
+      <div class="search-actions">\r
+        <button class="btn-search" (click)="onSearch()" [disabled]="isSearching">\r
+          <i class="bi bi-search"></i>\r
+          <span>{{ isSearching ? 'Searching...' : 'Search' }}</span>\r
+        </button>\r
+        <button class="btn-clear" (click)="onClearSearch()" *ngIf="searchCity || searchMaxPrice">\r
+          <i class="bi bi-x-circle"></i>\r
+          <span>Clear</span>\r
+        </button>\r
+      </div>\r
+    </div>\r
+\r
+    <!-- Loading State -->\r
+    <div *ngIf="isLoading" class="loading-state">\r
+      <div class="spinner"></div>\r
+      <p>Loading properties...</p>\r
+    </div>\r
+\r
+    <!-- Error State -->\r
+    <div *ngIf="error && !isLoading" class="error-state">\r
+      <i class="bi bi-exclamation-circle"></i>\r
+      <p>{{ error }}</p>\r
+      <button class="btn-retry" (click)="loadProperties()">Try Again</button>\r
+    </div>\r
+\r
+    <!-- Empty State -->\r
+    <div *ngIf="!isLoading && !error && properties.length === 0" class="empty-state">\r
+      <i class="bi bi-house"></i>\r
+      <h3>No properties available</h3>\r
+      <p>Check back later for new listings!</p>\r
+    </div>\r
+\r
+    <!-- Properties Grid -->\r
+    <div *ngIf="!isLoading && !error && properties.length > 0" class="properties-grid">\r
+      <div class="property-card" *ngFor="let property of properties">\r
+        <div class="property-image">\r
+          <img [src]="getMainImage(property)" [alt]="property.title">\r
+          <div class="property-type-badge">{{ getPropertyTypeLabel(property.propertyType) }}</div>\r
+          <button\r
+            class="btn-delete-property"\r
+            *ngIf="isOwner(property)"\r
+            (click)="onDeleteProperty(property.id)"\r
+            title="Delete property"\r
+          >\r
+            <i class="bi bi-trash"></i>\r
+          </button>\r
+        </div>\r
+\r
+        <div class="property-content">\r
+          <div class="property-header">\r
+            <h3 class="property-title">{{ property.title }}</h3>\r
+            <p class="property-location">\r
+              <i class="bi bi-geo-alt"></i>\r
+              {{ property.city }}\r
+            </p>\r
+          </div>\r
+\r
+          <p class="property-description" *ngIf="property.description">\r
+            {{ property.description }}\r
+          </p>\r
+\r
+          <div class="property-details">\r
+            <div class="detail-item">\r
+              <i class="bi bi-people"></i>\r
+              <span>{{ property.maxGuests }} guests</span>\r
+            </div>\r
+            <div class="detail-item">\r
+              <i class="bi bi-person"></i>\r
+              <span>Host: {{ property.ownerUsername }}</span>\r
+            </div>\r
+          </div>\r
+\r
+          <div class="property-footer">\r
+            <div class="property-price">\r
+              <span class="price-amount">\${{ property.pricePerNight }}</span>\r
+              <span class="price-period">/ night</span>\r
+            </div>\r
+          </div>\r
+        </div>\r
+      </div>\r
+    </div>\r
+  </div>\r
+</main>\r
+\r
+<app-create-property-modal\r
+  *ngIf="showCreateModal"\r
+  [currentUserId]="userId"\r
+  (close)="onModalClose()"\r
+  (propertyCreated)="onPropertyCreated()"\r
+></app-create-property-modal>\r
+`, styles: ["/* src/app/pages/homepage/homepage.css */\n.navbar {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.nav-brand {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand i {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name {\n  letter-spacing: -0.5px;\n}\n.nav-actions {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.btn-become-host {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host i {\n  font-size: 16px;\n}\n.user-card {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email {\n  font-size: 12px;\n  color: #666;\n}\n.user-card i {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: fadeIn 0.2s ease;\n}\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item i {\n  font-size: 16px;\n  color: #666;\n}\n.main-content {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header {\n  margin-bottom: 40px;\n}\n.page-header h1 {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field i {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field input {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field input::placeholder {\n  color: #999;\n}\n.search-actions {\n  display: flex;\n  gap: 12px;\n}\n.btn-search,\n.btn-clear {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear:hover {\n  background: #e9ecef;\n}\n.loading-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state i {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state i {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state h3 {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card:hover .property-image img {\n  transform: scale(1.05);\n}\n.property-type-badge {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property i {\n  font-size: 14px;\n}\n.property-content {\n  padding: 20px;\n}\n.property-header {\n  margin-bottom: 12px;\n}\n.property-title {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container {\n    padding: 0 16px;\n  }\n  .user-info {\n    display: none;\n  }\n  .user-card {\n    padding: 8px;\n  }\n  .btn-become-host span {\n    display: none;\n  }\n  .btn-become-host {\n    padding: 10px 14px;\n  }\n  .content-container {\n    padding: 0 16px;\n  }\n  .page-header h1 {\n    font-size: 24px;\n  }\n  .search-inputs {\n    grid-template-columns: 1fr;\n  }\n  .search-actions {\n    flex-direction: column;\n  }\n  .properties-grid {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name {\n    display: none;\n  }\n  .page-header {\n    margin-bottom: 24px;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */\n"] }]
+  }], () => [{ type: AuthService }, { type: LoginService }, { type: PropertyService }], null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Homepage, { className: "Homepage", filePath: "src/app/pages/homepage/homepage.ts", lineNumber: 18 });
+})();
+
 // src/app/app.routes.ts
 var routes = [
   { path: "login", component: Login },
-  { path: "test-logout", component: TestLogoutComponent, canActivate: [authGuard] },
+  { path: "homepage", component: Homepage, canActivate: [authGuard] },
   { path: "", redirectTo: "/login", pathMatch: "full" },
   { path: "register", component: Register }
 ];

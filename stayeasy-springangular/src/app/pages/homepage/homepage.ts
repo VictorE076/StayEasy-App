@@ -6,7 +6,10 @@ import { AuthService } from '../../service/auth-service';
 import { PropertyResponseDTO } from '../../models/property.models';
 import {PropertyService} from '../../service/property-service';
 import {CreatePropertyModal} from '../create-property-modal/create-property-modal';
+import { UserADMIN_DTO } from '../../models/user-admin.dto';
+
 import {FormsModule} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
@@ -22,11 +25,11 @@ export class Homepage implements OnInit {
   isLoggingOut: boolean = false;
   showUserMenu: boolean = false;
   showCreateModal: boolean = false;
-
+  user: UserADMIN_DTO | null = null;
   properties: PropertyResponseDTO[] = [];
   isLoading: boolean = false;
   error: string | null = null;
-
+  userRole: string | null = null;
   searchCity: string = '';
   searchMaxPrice: number | null = null;
   isSearching: boolean = false;
@@ -34,7 +37,8 @@ export class Homepage implements OnInit {
   constructor(
     private authService: AuthService,
     private loginService: LoginService,
-    private propertyService: PropertyService
+    private propertyService: PropertyService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -50,11 +54,18 @@ export class Homepage implements OnInit {
         this.userName = payload.name || payload.sub || 'User';
         this.userEmail = payload.email || '';
         this.userId = payload.userId || payload.id || 0;
+        this.userRole = payload.role || null;
       } catch (error) {
         console.error('Error parsing token:', error);
         this.userName = 'User';
+        this.userRole = null;
       }
     }
+  }
+
+
+  goToAdminSessions(): void {
+    this.router.navigate(['/admin/sessions']);
   }
 
   loadProperties(): void {
