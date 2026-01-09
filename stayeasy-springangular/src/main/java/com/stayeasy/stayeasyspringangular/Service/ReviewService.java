@@ -78,7 +78,7 @@ public class ReviewService {
 
   }
 
-  // DELETE review only if the current logged-in user is the author.
+  // DELETE review only if the current logged-in user is the author (except for "ROLE_ADMIN").
   @Transactional
   public void deleteReview(Long reviewId) {
 
@@ -87,9 +87,14 @@ public class ReviewService {
     Review review = reviewRepository.findById(reviewId)
       .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found"));
 
-    if (review.getUser() == null || review.getUser().getId() == null
-      || !review.getUser().getId().equals(currentUser.getId())) {
-      throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Deletion not allowed");
+    boolean isAdmin = getAuthenticationContext().getAuthorities().stream()
+      .anyMatch(a -> "ROLE_ADMIN".equals(a.getAuthority()));
+
+    if(!isAdmin) { // Only normal (GUEST or HOST) user must also be the review's owner.
+      if (review.getUser() == null || review.getUser().getId() == null
+        || !review.getUser().getId().equals(currentUser.getId())) {
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Deletion not allowed");
+      }
     }
 
     reviewRepository.delete(review);

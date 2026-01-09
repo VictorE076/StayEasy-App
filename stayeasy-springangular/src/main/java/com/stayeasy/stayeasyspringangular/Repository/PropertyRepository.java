@@ -18,4 +18,6 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
 
   List<Property> findByPricePerNightLessThanEqual(BigDecimal maxPrice);
 
+  boolean existsByOwner_Id(Integer ownerId);
+
 }

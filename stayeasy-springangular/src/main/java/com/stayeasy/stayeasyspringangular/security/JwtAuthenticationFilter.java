@@ -8,8 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -75,30 +72,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           return;
         }
 
-//        // 3. daca sesiunea e valida, autentifica userul
-//        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-//
-//        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-//
-//        // The respecting user is authenticated in SecurityContext
-//        SecurityContextHolder.getContext().setAuthentication(authToken);
-
-        // 3. extrage ROLE din JWT
-        String role = jwtService.extractClaim(jwt, claims -> claims.get("role", String.class));
-
-        // 4. creeaza authority
-        GrantedAuthority authority = new SimpleGrantedAuthority(role);
-
-        // 5. autentificare cu ROLE
-        UsernamePasswordAuthenticationToken authToken =
-          new UsernamePasswordAuthenticationToken(
-            userDetails,
-            null,
-            List.of(authority)
-          );
+        // 3. Authenticate the user if the session is valid (using the current role from DB)
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+        // The respecting user is authenticated in SecurityContext
         SecurityContextHolder.getContext().setAuthentication(authToken);
+
+//        // 3. extrage ROLE din JWT
+//        String role = jwtService.extractClaim(jwt, claims -> claims.get("role", String.class));
+
+//        // 4. creeaza authority
+//        GrantedAuthority authority = new SimpleGrantedAuthority(role);
+//
+//        // 5. autentificare cu ROLE
+//        UsernamePasswordAuthenticationToken authToken =
+//          new UsernamePasswordAuthenticationToken(
+//            userDetails,
+//            null,
+//            List.of(authority)
+//          );
+//
+//        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//        SecurityContextHolder.getContext().setAuthentication(authToken);
 
         //System.out.println("AUTH ROLE = " + role);
 
