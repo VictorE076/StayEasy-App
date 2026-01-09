@@ -71,7 +71,7 @@ export class Homepage implements OnInit {
       // Rol - strict din payload.role
       this.userRole = payload.role || null;
 
-      console.log('[DEBUG] userRole set to:', this.userRole);
+      console.log('[DEBUG] userRole set to: ', this.userRole);
 
     } catch (error) {
       console.error('[DEBUG] Error parsing token:', error);
