@@ -10,7 +10,6 @@ import {FormsModule} from '@angular/forms';
 
  @Component({
    selector: 'property-review',
-   imports: [NgIf, NgForOf, CreatePropertyModal, FormsModule],
    templateUrl: './review.html',
    styleUrls: ['./review.css'],
    standalone: true
