@@ -25,7 +25,7 @@ export class ReviewComponent implements OnInit {
   rating: number = 0;
   maxStars: number = 5;
   reviewText: string = '';
-  stars: number[] = [];
+  stars: number[] = [1,2,3,4,5];
 
   reviews: any[] = [];
   loadingReviews: boolean = false;
@@ -43,7 +43,7 @@ export class ReviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUserInfo();
-    this.stars = Array.from({ length: this.maxStars }, (_, i) => i + 1);
+    this.stars = [1,2,3,4.5];
 
     if (this.propertyId) {
       this.loadReviews();

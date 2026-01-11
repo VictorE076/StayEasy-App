@@ -6,11 +6,14 @@ import { AuthService } from '../../service/auth-service';
 import { PropertyResponseDTO } from '../../models/property.models';
 import {PropertyService} from '../../service/property-service';
 import {CreatePropertyModal} from '../create-property-modal/create-property-modal';
+import { UserADMIN_DTO } from '../../models/user-admin.dto';
+
 import {FormsModule} from '@angular/forms';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
-  imports: [NgIf, NgForOf, CreatePropertyModal, FormsModule],
+  imports: [NgIf, NgForOf, CreatePropertyModal, FormsModule,RouterLink],
   templateUrl: './homepage.html',
   styleUrl: './homepage.css',
   standalone: true
@@ -22,11 +25,11 @@ export class Homepage implements OnInit {
   isLoggingOut: boolean = false;
   showUserMenu: boolean = false;
   showCreateModal: boolean = false;
-
+  user: UserADMIN_DTO | null = null;
   properties: PropertyResponseDTO[] = [];
   isLoading: boolean = false;
   error: string | null = null;
-
+  userRole: string | null = null;
   searchCity: string = '';
   searchMaxPrice: number | null = null;
   isSearching: boolean = false;
@@ -34,7 +37,8 @@ export class Homepage implements OnInit {
   constructor(
     private authService: AuthService,
     private loginService: LoginService,
-    private propertyService: PropertyService
+    private propertyService: PropertyService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -44,17 +48,42 @@ export class Homepage implements OnInit {
 
   loadUserInfo(): void {
     const token = this.authService.getToken();
-    if (token) {
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        this.userName = payload.name || payload.sub || 'User';
-        this.userEmail = payload.email || '';
-        this.userId = payload.userId || payload.id || 0;
-      } catch (error) {
-        console.error('Error parsing token:', error);
-        this.userName = 'User';
-      }
+
+    console.log('[DEBUG] token exists:', !!token);
+
+    if (!token) {
+      this.userRole = null;
+      return;
     }
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+
+      console.log('[DEBUG] JWT payload:', payload);
+      console.log('[DEBUG] payload.role:', payload.role);
+      console.log('[DEBUG] payload.roles:', payload.roles);
+      console.log('[DEBUG] payload.authorities:', payload.authorities);
+
+      this.userName = payload.name || payload.sub || 'User';
+      this.userEmail = payload.email || '';
+      this.userId = payload.userId || payload.id || 0;
+
+      // Rol - strict din payload.role
+      this.userRole = payload.role || null;
+
+      console.log('[DEBUG] userRole set to: ', this.userRole);
+
+    } catch (error) {
+      console.error('[DEBUG] Error parsing token:', error);
+      this.userName = 'User';
+      this.userRole = null;
+    }
+  }
+
+
+
+  goToAdminSessions(): void {
+    this.router.navigate(['/admin/sessions']);
   }
 
   loadProperties(): void {
