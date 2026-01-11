@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PropertyResponseDTO, PropertyRequestDTO } from '../models/property.models';
+import {PropertyResponseDTO, PropertyRequestDTO, PropertyDetailDTO} from '../models/property.models';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,10 @@ export class PropertyService {
 
   getPropertyById(id: number): Observable<PropertyResponseDTO> {
     return this.http.get<PropertyResponseDTO>(`${this.API_URL}/${id}`);
+  }
+
+  getPropertyDetailById(id: number): Observable<PropertyDetailDTO> {
+    return this.http.get<PropertyDetailDTO>(`${this.API_URL}/${id}/details`);
   }
 
   searchProperties(city?: string, maxPrice?: number): Observable<PropertyResponseDTO[]> {
