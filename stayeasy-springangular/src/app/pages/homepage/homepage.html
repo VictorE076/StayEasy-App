@@ -100,14 +100,14 @@
 
     <!-- Properties Grid -->
     <div *ngIf="!isLoading && !error && properties.length > 0" class="properties-grid">
-      <div class="property-card" *ngFor="let property of properties">
+      <div class="property-card" *ngFor="let property of properties" (click)="onPropertyClick(property.id)">
         <div class="property-image">
           <img [src]="getMainImage(property)" [alt]="property.title">
           <div class="property-type-badge">{{ getPropertyTypeLabel(property.propertyType) }}</div>
           <button
             class="btn-delete-property"
             *ngIf="isOwner(property)"
-            (click)="onDeleteProperty(property.id)"
+            (click)="onDeleteProperty(property.id); $event.stopPropagation()"
             title="Delete property"
           >
             <i class="bi bi-trash"></i>

@@ -1,5 +1,6 @@
 package com.stayeasy.stayeasyspringangular.controller;
 
+import com.stayeasy.stayeasyspringangular.DTO.PropertyDetailDTO;
 import com.stayeasy.stayeasyspringangular.DTO.PropertyRequestDTO;
 import com.stayeasy.stayeasyspringangular.DTO.PropertyResponseDTO;
 import com.stayeasy.stayeasyspringangular.Service.PropertyService;
@@ -57,4 +58,9 @@ public class PropertyController {
     propertyService.deleteProperty(id);
   }
 
+  // GET /api/properties/{id}/details
+  @GetMapping("/{id}/details")
+  public PropertyDetailDTO getDetailById(@PathVariable Long id) {
+    return propertyService.getPropertyDetailById(id);
+  }
 }

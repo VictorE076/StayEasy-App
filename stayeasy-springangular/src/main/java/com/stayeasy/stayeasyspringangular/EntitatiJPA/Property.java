@@ -53,4 +53,11 @@ public class Property {
     inverseJoinColumns = @JoinColumn(name = "amenity_id")
   )
   private List<Amenity> amenities;
+
+  @OneToOne(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
+  private HouseRules houseRules;
+
+  @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Availability> availability;
+
 }

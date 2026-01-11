@@ -1,17 +1,13 @@
 package com.stayeasy.stayeasyspringangular.Service;
 
-import com.stayeasy.stayeasyspringangular.EntitatiJPA.Role;
+import com.stayeasy.stayeasyspringangular.DTO.*;
+import com.stayeasy.stayeasyspringangular.EntitatiJPA.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.stayeasy.stayeasyspringangular.DTO.PropertyRequestDTO;
-import com.stayeasy.stayeasyspringangular.DTO.PropertyResponseDTO;
-import com.stayeasy.stayeasyspringangular.EntitatiJPA.Property;
-import com.stayeasy.stayeasyspringangular.EntitatiJPA.PropertyImage;
-import com.stayeasy.stayeasyspringangular.EntitatiJPA.User;
 import com.stayeasy.stayeasyspringangular.Repository.PropertyRepository;
 import com.stayeasy.stayeasyspringangular.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -175,6 +171,87 @@ public class PropertyService {
     String username = auth.getName();
     return userRepository.findByUsername(username)
       .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
+  }
+
+  public PropertyDetailDTO getPropertyDetailById(Long id) {
+    Property property = propertyRepository.findById(id)
+      .orElseThrow(() -> new RuntimeException("Property not found"));
+
+    return mapToDetailResponse(property);
+  }
+
+  private PropertyDetailDTO mapToDetailResponse(Property property) {
+
+    List<String> images = property.getImages() == null ? List.of()
+      : property.getImages().stream()
+      .map(PropertyImage::getImagePath)
+      .toList();
+
+    List<AmenityDTO> amenities = property.getAmenities() == null ? List.of()
+      : property.getAmenities().stream()
+      .map(amenity -> AmenityDTO.builder()
+        .id(amenity.getId())
+        .name(amenity.getName())
+        .build())
+      .toList();
+
+    List<ReviewDTO> reviews = property.getReviews() == null ? List.of()
+      : property.getReviews().stream()
+      .map(review -> ReviewDTO.builder()
+        .id(review.getId())
+        .rating(review.getRating())
+        .comment(review.getComment())
+        .userName(review.getUser() != null ? review.getUser().getUsername() : "Unknown")
+        .createdAt(review.getCreatedAt())
+        .build())
+      .toList();
+
+    Double averageRating = reviews.isEmpty() ? null
+      : reviews.stream()
+      .mapToInt(ReviewDTO::getRating)
+      .average()
+      .orElse(0.0);
+
+    HouseRulesDTO houseRulesDTO = null;
+    if (property.getHouseRules() != null) {
+      HouseRules rules = property.getHouseRules();
+      houseRulesDTO = HouseRulesDTO.builder()
+        .id(rules.getId())
+        .smokingAllowed(rules.isSmokingAllowed())
+        .petsAllowed(rules.isPetsAllowed())
+        .checkInTime(rules.getCheckInTime() != null ? rules.getCheckInTime().toString() : null)
+        .checkOutTime(rules.getCheckOutTime() != null ? rules.getCheckOutTime().toString() : null)
+        .build();
+    }
+
+    List<AvailabilityDTO> availabilityList = property.getAvailability() == null ? List.of()
+      : property.getAvailability().stream()
+      .map(avail -> AvailabilityDTO.builder()
+        .id(avail.getId())
+        .availableFrom(avail.getAvailableFrom())
+        .availableTo(avail.getAvailableTo())
+        .build())
+      .toList();
+
+    return PropertyDetailDTO.builder()
+      .id(property.getId())
+      .title(property.getTitle())
+      .description(property.getDescription())
+      .city(property.getCity())
+      .address(property.getAddress())
+      .pricePerNight(property.getPricePerNight())
+      .maxGuests(property.getMaxGuests())
+      .propertyType(property.getPropertyType() != null ? property.getPropertyType().name() : null)
+      .ownerUsername(property.getOwner() != null ? property.getOwner().getUsername() : null)
+      .createdAt(property.getCreatedAt())
+      .images(images)
+      .amenities(amenities)
+      .reviews(reviews)
+      .houseRules(houseRulesDTO)
+      .availability(availabilityList)
+      .averageRating(averageRating)
+      .totalReviews(reviews.size())
+      .build();
   }
 
 }

@@ -186,4 +186,8 @@ export class Homepage implements OnInit {
     this.searchMaxPrice = null;
     this.loadProperties();
   }
+
+  onPropertyClick(propertyId: number): void {
+    this.router.navigate(['/property', propertyId]);
+  }
 }
