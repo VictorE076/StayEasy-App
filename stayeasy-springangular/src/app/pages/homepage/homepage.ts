@@ -48,20 +48,38 @@ export class Homepage implements OnInit {
 
   loadUserInfo(): void {
     const token = this.authService.getToken();
-    if (token) {
-      try {
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        this.userName = payload.name || payload.sub || 'User';
-        this.userEmail = payload.email || '';
-        this.userId = payload.userId || payload.id || 0;
-        this.userRole = payload.role || null;
-      } catch (error) {
-        console.error('Error parsing token:', error);
-        this.userName = 'User';
-        this.userRole = null;
-      }
+
+    console.log('[DEBUG] token exists:', !!token);
+
+    if (!token) {
+      this.userRole = null;
+      return;
+    }
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+
+      console.log('[DEBUG] JWT payload:', payload);
+      console.log('[DEBUG] payload.role:', payload.role);
+      console.log('[DEBUG] payload.roles:', payload.roles);
+      console.log('[DEBUG] payload.authorities:', payload.authorities);
+
+      this.userName = payload.name || payload.sub || 'User';
+      this.userEmail = payload.email || '';
+      this.userId = payload.userId || payload.id || 0;
+
+      // Rol - strict din payload.role
+      this.userRole = payload.role || null;
+
+      console.log('[DEBUG] userRole set to: ', this.userRole);
+
+    } catch (error) {
+      console.error('[DEBUG] Error parsing token:', error);
+      this.userName = 'User';
+      this.userRole = null;
     }
   }
+
 
 
   goToAdminSessions(): void {

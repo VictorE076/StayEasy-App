@@ -3,12 +3,10 @@
     <div>
       <h1>Admin • Audit sesiuni</h1>
     </div>
-    <button class="home-btn" (click)="goToHomePage()">
-      Go Back to home
-    </button>
-    <button class="btn" (click)="load()" [disabled]="loading">
-      {{ loading ? 'Loading...' : 'Refresh' }}
-    </button>
+    <div class="header-actions">
+      <button class="btn" (click)="load()" [disabled]="loading">{{ loading ? 'Loading...' : 'Refresh' }}</button>
+      <button class="home-btn" (click)="goToHomePage()">Go Back to home</button>
+    </div>
   </div>
 
   <div class="toolbar">
