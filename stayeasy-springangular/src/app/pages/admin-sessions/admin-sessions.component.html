@@ -1,0 +1,83 @@
+<div class="page">
+  <div class="header">
+    <div>
+      <h1>Admin • Audit sesiuni</h1>
+    </div>
+    <div class="header-actions">
+      <button class="btn" (click)="load()" [disabled]="loading">{{ loading ? 'Loading...' : 'Refresh' }}</button>
+      <button class="home-btn" (click)="goToHomePage()">Go Back to Homepage</button>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <input
+      class="input"
+      type="text"
+      placeholder="Search by username or sessionId…"
+      [(ngModel)]="q"
+    />
+
+    <select class="select" [(ngModel)]="status">
+      <option value="ALL">Toate</option>
+      <option value="ACTIVE">Doar active</option>
+      <option value="INACTIVE">Doar inactive</option>
+    </select>
+
+    <div class="chips">
+      <button class="chip" (click)="setSort('createdAt')">
+        CreatedAt
+        <span class="arrow" *ngIf="sortBy==='createdAt'">{{ sortDir==='asc' ? '↑' : '↓' }}</span>
+      </button>
+      <button class="chip" (click)="setSort('lastActivity')">
+        LastActivity
+        <span class="arrow" *ngIf="sortBy==='lastActivity'">{{ sortDir==='asc' ? '↑' : '↓' }}</span>
+      </button>
+      <button class="chip" (click)="setSort('username')">
+        Username
+        <span class="arrow" *ngIf="sortBy==='username'">{{ sortDir==='asc' ? '↑' : '↓' }}</span>
+      </button>
+    </div>
+
+    <div class="count">
+      Total: <b>{{ total }}</b>
+    </div>
+  </div>
+
+  <div class="alert error" *ngIf="errorMsg">
+    {{ errorMsg }}
+  </div>
+
+  <div class="card" *ngIf="!loading">
+    <table class="table" *ngIf="filtered.length; else empty">
+      <thead>
+      <tr>
+        <th>Session ID</th>
+        <th>Username</th>
+        <th>Created At</th>
+        <th>Last Activity</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let s of filtered">
+        <td class="mono">{{ s.sessionId }}</td>
+        <td>{{ s.username }}</td>
+        <td>{{ formatDate(s.createdAt) }}</td>
+        <td>{{ formatDate(s.lastActivity) }}</td>
+        <td>
+            <span class="badge" [class.active]="s.active" [class.inactive]="!s.active">
+              {{ s.active ? 'ACTIVE' : 'INACTIVE' }}
+            </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <ng-template #empty>
+      <div class="empty">
+        Doesn't exist any sessions to be shown (or the filter has hidden all).
+      </div>
+    </ng-template>
+  </div>
+</div>

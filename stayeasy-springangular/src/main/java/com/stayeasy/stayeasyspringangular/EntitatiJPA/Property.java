@@ -43,6 +43,9 @@ public class Property {
   @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<PropertyImage> images;
 
+  @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<Review> reviews;
+
   @ManyToMany
   @JoinTable(
     name = "property_amenities",

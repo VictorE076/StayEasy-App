@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { NgForOf, NgIf } from '@angular/common';
 import { finalize } from 'rxjs/operators';
@@ -8,11 +7,10 @@ import { PropertyResponseDTO } from '../../models/property.models';
 import {PropertyService} from '../../service/property-service';
 import {CreatePropertyModal} from '../create-property-modal/create-property-modal';
 import {FormsModule} from '@angular/forms';
-import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-homepage',
-  imports: [NgIf, NgForOf, CreatePropertyModal, FormsModule, RouterLink],
+  imports: [NgIf, NgForOf, CreatePropertyModal, FormsModule],
   templateUrl: './homepage.html',
   styleUrl: './homepage.css',
   standalone: true

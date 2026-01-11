@@ -17,6 +17,22 @@
   align-items: center;
 }
 
+.admin-btn {
+  margin-top: 16px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  background: #2c3e50;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-btn:hover {
+  background: #1f2a36;
+}
+
+
 .nav-brand {
   display: flex;
   align-items: center;

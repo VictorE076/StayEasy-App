@@ -1,5 +1,6 @@
 package com.stayeasy.stayeasyspringangular.Service;
 
+import com.stayeasy.stayeasyspringangular.EntitatiJPA.Role;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -62,14 +63,14 @@ public class PropertyService {
 
   public PropertyResponseDTO createProperty(PropertyRequestDTO dto) { // The created property always belongs to the logged-in account
 
-    Authentication auth = getAuthenticationContext();
-    if (auth == null || !auth.isAuthenticated()) {
-      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
+    User currentUser = getCurrentUser();
+
+    // Once a GUEST user adds its first property, it becomes a HOST.
+    if (currentUser.getRole() == Role.GUEST) {
+      currentUser.setRole(Role.HOST);
+      userRepository.save(currentUser);
     }
 
-    String username = auth.getName();
-    User owner = userRepository.findByUsername(username)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
 
     Property property = Property.builder()
       .title(dto.getTitle())
@@ -79,7 +80,7 @@ public class PropertyService {
       .pricePerNight(dto.getPricePerNight())
       .maxGuests(dto.getMaxGuests())
       .propertyType(dto.getPropertyType())
-      .owner(owner)
+      .owner(currentUser)
       .build();
 
     var imagePaths = dto.getImagePaths() == null ? List.<String>of() : dto.getImagePaths();
@@ -96,27 +97,42 @@ public class PropertyService {
   }
 
 
-  public void deleteProperty(Long id) { // Ownership checking
+  public void deleteProperty(Long id) { // Ownership checking (except for "ROLE_ADMIN")
+
     Property property = propertyRepository.findById(id)
       .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
 
-    Authentication auth = getAuthenticationContext();
-    if (auth == null || !auth.isAuthenticated()) {
-      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
-    }
-
-    String username = auth.getName();
-    User currentUser = userRepository.findByUsername(username)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
+    User currentUser = getCurrentUser();
 
     Integer ownerId = (property.getOwner() == null) ? null : property.getOwner().getId();
     Integer currentUserId = currentUser.getId();
 
-    if (ownerId == null || !ownerId.equals(currentUserId)) {
-      throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Deletion not allowed");
+    boolean isAdmin = getAuthenticationContext().getAuthorities().stream()
+      .anyMatch(a -> "ROLE_ADMIN".equals(a.getAuthority()));
+
+    if (!isAdmin) { // Only normal (GUEST or HOST) user must also be the property's owner.
+      if (ownerId == null || !ownerId.equals(currentUserId)) {
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Deletion not allowed");
+      }
     }
 
+    User owner = property.getOwner(); // Keep the owner before deleting its property.
+
+    // DELETE Property
     propertyRepository.delete(property);
+
+    // After property deletion, if the owner is not ADMIN,
+    // then check if it still has at least one property registered.
+    if (owner != null && owner.getRole() != Role.ADMIN) {
+      boolean stillHasProperties = propertyRepository.existsByOwner_Id(owner.getId());
+      Role newRole = (stillHasProperties) ? Role.HOST : Role.GUEST;
+
+      if (owner.getRole() != newRole) {
+        owner.setRole(newRole);
+        userRepository.save(owner);
+      }
+    }
+
   }
 
 
@@ -144,8 +160,21 @@ public class PropertyService {
       .build();
   }
 
+
+  // Auth helpers
   private Authentication getAuthenticationContext() {
     return SecurityContextHolder.getContext().getAuthentication();
+  }
+
+  private User getCurrentUser() {
+    Authentication auth = getAuthenticationContext();
+    if (auth == null || !auth.isAuthenticated()) {
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
+    }
+
+    String username = auth.getName();
+    return userRepository.findByUsername(username)
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
   }
 
 }
