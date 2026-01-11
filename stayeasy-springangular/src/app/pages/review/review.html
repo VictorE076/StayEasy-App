@@ -1,10 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Reviews</title>
-</head>
-<body>
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <i class="bi bi-house-heart-fill"></i>
+      <span class="brand-name">StayEasy</span>
+    </div>
 
-</body>
-</html>
+    <div class="nav-actions">
+      <button class="btn-homepage" (click)="onBack()">
+        <i class="bi bi-plus-circle"></i>
+        <span>Go back to the main page</span>
+      </button>
+
+      <div class="user-card" (click)="toggleUserMenu()">
+        <div class="user-avatar">{{ getInitials() }}</div>
+        <div class="user-info">
+          <span class="user-name">{{ userName }}</span>
+          <span class="user-email" *ngIf="userEmail">{{ userEmail }}</span>
+        </div>
+        <i class="bi bi-chevron-down"></i>
+      </div>
+
+      <div class="user-menu" *ngIf="showUserMenu">
+        <button class="menu-item" (click)="onLogout()" [disabled]="isLoggingOut">
+          <i class="bi bi-box-arrow-right"></i>
+          <span>{{ isLoggingOut ? 'Logging out...' : 'Logout' }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="review-component">
+
+  <!-- Average Rating -->
+  <div class="average-rating" *ngIf="reviews.length > 0">
+    <h3>Average Rating</h3>
+    <div class="stars">
+      <ng-container *ngFor="let star of stars; let i = index">
+        <span [class.active]="i < averageRating">★</span>
+      </ng-container>
+      <span class="avg-text">({{ averageRating | number:'1.1-1' }}/{{ maxStars }})</span>
+    </div>
+  </div>
+
+  <!-- Review Form -->
+  <div class="review-box">
+    <div class="rating">
+      <button *ngFor="let star of stars"
+              (click)="setRating(star)"
+              [class.active]="star <= rating"
+              aria-label="Rate {{ star }} stars">
+        ★
+      </button>
+    </div>
+    <p class="rating-text">Rating: {{ rating }} / {{ maxStars }}</p>
+
+    <textarea [(ngModel)]="reviewText"
+              placeholder="Write your review..."
+              rows="3"></textarea>
+    <button class="submit-btn" (click)="submitReview()" [disabled]="rating === 0">
+      Submit Review
+    </button>
+  </div>
+
+  <!-- Reviews List -->
+  <div class="reviews-list" *ngIf="!loadingReviews && reviews.length > 0">
+    <h3>Reviews</h3>
+    <div *ngFor="let review of reviews" class="review-item">
+      <div class="review-header">
+        <strong>{{ review.userName || 'User' }}</strong>
+        <span class="review-rating">
+          <ng-container *ngFor="let star of stars; let i = index">
+            <span [class.active]="i < review.rating">★</span>
+          </ng-container>
+          ({{ review.rating }}/{{ maxStars }})
+        </span>
+      </div>
+      <p>{{ review.comment }}</p>
+      <small>{{ review.createdAt | date:'medium' }}</small>
+    </div>
+  </div>
+
+  <div *ngIf="!loadingReviews && reviews.length === 0">
+    <p>No reviews yet. Be the first to review!</p>
+  </div>
+
+  <div *ngIf="loadingReviews">
+    <p>Loading reviews...</p>
+  </div>
+</div>
+

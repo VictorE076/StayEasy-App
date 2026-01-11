@@ -136,6 +136,10 @@
             <div class="property-price">
               <span class="price-amount">${{ property.pricePerNight }}</span>
               <span class="price-period">/ night</span>
+              <button class="btn-view-reviews"
+                      [routerLink]="['/properties', property.id, 'reviews']">
+                View Reviews
+              </button>
             </div>
           </div>
         </div>
