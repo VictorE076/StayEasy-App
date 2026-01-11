@@ -1,17 +1,19 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ReviewService, Review } from '../../service/review-service';
+import { ReviewService } from '../../service/review-service';
+import { ReviewRequest, ReviewResponse} from '../../models/reviewDTO';
 import { AuthService } from '../../service/auth-service';
 import { LoginService } from '../../service/login-service';
-import {DatePipe, DecimalPipe} from '@angular/common';
+import {DecimalPipe, DatePipe, CommonModule} from '@angular/common';
 import {finalize} from 'rxjs/operators';
+import {NgForOf,NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-review',
   templateUrl: './review.html',
   styleUrls: ['./review.css'],
   standalone: true,
-  imports: [FormsModule, DecimalPipe, DatePipe]
+  imports: [NgForOf, NgIf, FormsModule, DecimalPipe, DatePipe,CommonModule]
 })
 export class ReviewComponent implements OnInit {
   @Input({ required: true }) propertyId!: number;
@@ -25,13 +27,12 @@ export class ReviewComponent implements OnInit {
   reviewText: string = '';
   stars: number[] = [];
 
-  reviews: Review[] = [];
+  reviews: any[] = [];
   loadingReviews: boolean = false;
   averageRating: number = 0;
 
   isLoggingOut: boolean = false;
   showUserMenu: boolean = false;
-  showCreateModal: boolean = false;
   router: any;
 
   constructor(
@@ -115,7 +116,7 @@ export class ReviewComponent implements OnInit {
   submitReview(): void {
     if (this.rating === 0 || !this.reviewText.trim()) return;
 
-    const payload: Review = {
+    const payload: ReviewRequest = {
       rating: this.rating,
       comment: this.reviewText,
       userId: this.userId,
@@ -127,7 +128,6 @@ export class ReviewComponent implements OnInit {
         // reset form
         this.rating = 0;
         this.reviewText = '';
-        // reload reviews
         this.loadReviews();
       },
       error: (err: any) => console.error(err)
@@ -136,12 +136,12 @@ export class ReviewComponent implements OnInit {
   loadReviews(): void {
     this.loadingReviews = true;
     this.reviewService.getReviews(this.propertyId).subscribe({
-      next: (res: Review[]) => {
+      next: (res: ReviewResponse[]) => {
         this.reviews = res;
         this.loadingReviews = false;
         this.calculateAverageRating();
       },
-      error: (err: any) => {
+      error: (err: ReviewResponse) => {
         console.error('Failed to load reviews', err);
         this.loadingReviews = false;
       }
