@@ -47163,91 +47163,104 @@ var CreatePropertyModal = class _CreatePropertyModal {
 })();
 
 // src/app/pages/homepage/homepage.ts
-function Homepage_span_17_Template(rf, ctx) {
+function Homepage_button_11_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 34);
+    const _r1 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 6);
+    \u0275\u0275listener("click", function Homepage_button_11_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r1);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.goToAdminSessions());
+    });
+    \u0275\u0275text(1, " Admin - Sesiuni ");
+    \u0275\u0275elementEnd();
+  }
+}
+function Homepage_span_18_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 35);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r0.userEmail);
+    \u0275\u0275textInterpolate(ctx_r1.userEmail);
   }
 }
-function Homepage_div_19_Template(rf, ctx) {
+function Homepage_div_20_Template(rf, ctx) {
   if (rf & 1) {
-    const _r2 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 35)(1, "button", 36);
-    \u0275\u0275listener("click", function Homepage_div_19_Template_button_click_1_listener() {
-      \u0275\u0275restoreView(_r2);
-      const ctx_r0 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r0.onLogout());
+    const _r3 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 36)(1, "button", 37);
+    \u0275\u0275listener("click", function Homepage_div_20_Template_button_click_1_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onLogout());
     });
-    \u0275\u0275element(2, "i", 37);
+    \u0275\u0275element(2, "i", 38);
     \u0275\u0275elementStart(3, "span");
     \u0275\u0275text(4);
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275property("disabled", ctx_r0.isLoggingOut);
+    \u0275\u0275property("disabled", ctx_r1.isLoggingOut);
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(ctx_r0.isLoggingOut ? "Logging out..." : "Logout");
+    \u0275\u0275textInterpolate(ctx_r1.isLoggingOut ? "Logging out..." : "Logout");
   }
 }
-function Homepage_button_40_Template(rf, ctx) {
+function Homepage_button_41_Template(rf, ctx) {
   if (rf & 1) {
-    const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 38);
-    \u0275\u0275listener("click", function Homepage_button_40_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r3);
-      const ctx_r0 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r0.onClearSearch());
+    const _r4 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 39);
+    \u0275\u0275listener("click", function Homepage_button_41_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r4);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onClearSearch());
     });
-    \u0275\u0275element(1, "i", 39);
+    \u0275\u0275element(1, "i", 40);
     \u0275\u0275elementStart(2, "span");
     \u0275\u0275text(3, "Clear");
     \u0275\u0275elementEnd()();
   }
 }
-function Homepage_div_41_Template(rf, ctx) {
+function Homepage_div_42_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 40);
-    \u0275\u0275element(1, "div", 41);
+    \u0275\u0275elementStart(0, "div", 41);
+    \u0275\u0275element(1, "div", 42);
     \u0275\u0275elementStart(2, "p");
     \u0275\u0275text(3, "Loading properties...");
     \u0275\u0275elementEnd()();
   }
 }
-function Homepage_div_42_Template(rf, ctx) {
+function Homepage_div_43_Template(rf, ctx) {
   if (rf & 1) {
-    const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 42);
-    \u0275\u0275element(1, "i", 43);
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 43);
+    \u0275\u0275element(1, "i", 44);
     \u0275\u0275elementStart(2, "p");
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "button", 44);
-    \u0275\u0275listener("click", function Homepage_div_42_Template_button_click_4_listener() {
-      \u0275\u0275restoreView(_r4);
-      const ctx_r0 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r0.loadProperties());
+    \u0275\u0275elementStart(4, "button", 45);
+    \u0275\u0275listener("click", function Homepage_div_43_Template_button_click_4_listener() {
+      \u0275\u0275restoreView(_r5);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.loadProperties());
     });
     \u0275\u0275text(5, "Try Again");
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext();
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(ctx_r0.error);
+    \u0275\u0275textInterpolate(ctx_r1.error);
   }
 }
-function Homepage_div_43_Template(rf, ctx) {
+function Homepage_div_44_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 45);
-    \u0275\u0275element(1, "i", 46);
+    \u0275\u0275elementStart(0, "div", 46);
+    \u0275\u0275element(1, "i", 47);
     \u0275\u0275elementStart(2, "h3");
     \u0275\u0275text(3, "No properties available");
     \u0275\u0275elementEnd();
@@ -47256,141 +47269,145 @@ function Homepage_div_43_Template(rf, ctx) {
     \u0275\u0275elementEnd()();
   }
 }
-function Homepage_div_44_div_1_button_5_Template(rf, ctx) {
+function Homepage_div_45_div_1_button_5_Template(rf, ctx) {
   if (rf & 1) {
-    const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 67);
-    \u0275\u0275listener("click", function Homepage_div_44_div_1_button_5_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r5);
-      const property_r6 = \u0275\u0275nextContext().$implicit;
-      const ctx_r0 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r0.onDeleteProperty(property_r6.id));
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 68);
+    \u0275\u0275listener("click", function Homepage_div_45_div_1_button_5_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r6);
+      const property_r7 = \u0275\u0275nextContext().$implicit;
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.onDeleteProperty(property_r7.id));
     });
-    \u0275\u0275element(1, "i", 68);
+    \u0275\u0275element(1, "i", 69);
     \u0275\u0275elementEnd();
   }
 }
-function Homepage_div_44_div_1_p_13_Template(rf, ctx) {
+function Homepage_div_45_div_1_p_13_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "p", 69);
+    \u0275\u0275elementStart(0, "p", 70);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const property_r6 = \u0275\u0275nextContext().$implicit;
+    const property_r7 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", property_r6.description, " ");
+    \u0275\u0275textInterpolate1(" ", property_r7.description, " ");
   }
 }
-function Homepage_div_44_div_1_Template(rf, ctx) {
+function Homepage_div_45_div_1_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 49)(1, "div", 50);
-    \u0275\u0275element(2, "img", 51);
-    \u0275\u0275elementStart(3, "div", 52);
+    \u0275\u0275elementStart(0, "div", 50)(1, "div", 51);
+    \u0275\u0275element(2, "img", 52);
+    \u0275\u0275elementStart(3, "div", 53);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275template(5, Homepage_div_44_div_1_button_5_Template, 2, 0, "button", 53);
+    \u0275\u0275template(5, Homepage_div_45_div_1_button_5_Template, 2, 0, "button", 54);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "div", 54)(7, "div", 55)(8, "h3", 56);
+    \u0275\u0275elementStart(6, "div", 55)(7, "div", 56)(8, "h3", 57);
     \u0275\u0275text(9);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "p", 57);
-    \u0275\u0275element(11, "i", 21);
+    \u0275\u0275elementStart(10, "p", 58);
+    \u0275\u0275element(11, "i", 22);
     \u0275\u0275text(12);
     \u0275\u0275elementEnd()();
-    \u0275\u0275template(13, Homepage_div_44_div_1_p_13_Template, 2, 1, "p", 58);
-    \u0275\u0275elementStart(14, "div", 59)(15, "div", 60);
-    \u0275\u0275element(16, "i", 61);
+    \u0275\u0275template(13, Homepage_div_45_div_1_p_13_Template, 2, 1, "p", 59);
+    \u0275\u0275elementStart(14, "div", 60)(15, "div", 61);
+    \u0275\u0275element(16, "i", 62);
     \u0275\u0275elementStart(17, "span");
     \u0275\u0275text(18);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(19, "div", 60);
-    \u0275\u0275element(20, "i", 62);
+    \u0275\u0275elementStart(19, "div", 61);
+    \u0275\u0275element(20, "i", 63);
     \u0275\u0275elementStart(21, "span");
     \u0275\u0275text(22);
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(23, "div", 63)(24, "div", 64)(25, "span", 65);
+    \u0275\u0275elementStart(23, "div", 64)(24, "div", 65)(25, "span", 66);
     \u0275\u0275text(26);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(27, "span", 66);
+    \u0275\u0275elementStart(27, "span", 67);
     \u0275\u0275text(28, "/ night");
     \u0275\u0275elementEnd()()()()();
   }
   if (rf & 2) {
-    const property_r6 = ctx.$implicit;
-    const ctx_r0 = \u0275\u0275nextContext(2);
+    const property_r7 = ctx.$implicit;
+    const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(2);
-    \u0275\u0275property("src", ctx_r0.getMainImage(property_r6), \u0275\u0275sanitizeUrl)("alt", property_r6.title);
+    \u0275\u0275property("src", ctx_r1.getMainImage(property_r7), \u0275\u0275sanitizeUrl)("alt", property_r7.title);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r0.getPropertyTypeLabel(property_r6.propertyType));
+    \u0275\u0275textInterpolate(ctx_r1.getPropertyTypeLabel(property_r7.propertyType));
     \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r0.isOwner(property_r6));
+    \u0275\u0275property("ngIf", ctx_r1.isOwner(property_r7));
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(property_r6.title);
+    \u0275\u0275textInterpolate(property_r7.title);
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate1(" ", property_r6.city, " ");
+    \u0275\u0275textInterpolate1(" ", property_r7.city, " ");
     \u0275\u0275advance();
-    \u0275\u0275property("ngIf", property_r6.description);
+    \u0275\u0275property("ngIf", property_r7.description);
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate1("", property_r6.maxGuests, " guests");
+    \u0275\u0275textInterpolate1("", property_r7.maxGuests, " guests");
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate1("Host: ", property_r6.ownerUsername);
+    \u0275\u0275textInterpolate1("Host: ", property_r7.ownerUsername);
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate1("$", property_r6.pricePerNight);
+    \u0275\u0275textInterpolate1("$", property_r7.pricePerNight);
   }
 }
-function Homepage_div_44_Template(rf, ctx) {
+function Homepage_div_45_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 47);
-    \u0275\u0275template(1, Homepage_div_44_div_1_Template, 29, 10, "div", 48);
+    \u0275\u0275elementStart(0, "div", 48);
+    \u0275\u0275template(1, Homepage_div_45_div_1_Template, 29, 10, "div", 49);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
+    const ctx_r1 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275property("ngForOf", ctx_r0.properties);
+    \u0275\u0275property("ngForOf", ctx_r1.properties);
   }
 }
-function Homepage_app_create_property_modal_45_Template(rf, ctx) {
+function Homepage_app_create_property_modal_46_Template(rf, ctx) {
   if (rf & 1) {
-    const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "app-create-property-modal", 70);
-    \u0275\u0275listener("close", function Homepage_app_create_property_modal_45_Template_app_create_property_modal_close_0_listener() {
-      \u0275\u0275restoreView(_r7);
-      const ctx_r0 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r0.onModalClose());
-    })("propertyCreated", function Homepage_app_create_property_modal_45_Template_app_create_property_modal_propertyCreated_0_listener() {
-      \u0275\u0275restoreView(_r7);
-      const ctx_r0 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r0.onPropertyCreated());
+    const _r8 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "app-create-property-modal", 71);
+    \u0275\u0275listener("close", function Homepage_app_create_property_modal_46_Template_app_create_property_modal_close_0_listener() {
+      \u0275\u0275restoreView(_r8);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onModalClose());
+    })("propertyCreated", function Homepage_app_create_property_modal_46_Template_app_create_property_modal_propertyCreated_0_listener() {
+      \u0275\u0275restoreView(_r8);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onPropertyCreated());
     });
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r0 = \u0275\u0275nextContext();
-    \u0275\u0275property("currentUserId", ctx_r0.userId);
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275property("currentUserId", ctx_r1.userId);
   }
 }
 var Homepage = class _Homepage {
   authService;
   loginService;
   propertyService;
+  router;
   userName = "";
   userEmail = "";
   userId = 0;
   isLoggingOut = false;
   showUserMenu = false;
   showCreateModal = false;
+  user = null;
   properties = [];
   isLoading = false;
   error = null;
+  userRole = null;
   searchCity = "";
   searchMaxPrice = null;
   isSearching = false;
-  constructor(authService, loginService, propertyService) {
+  constructor(authService, loginService, propertyService, router) {
     this.authService = authService;
     this.loginService = loginService;
     this.propertyService = propertyService;
+    this.router = router;
   }
   ngOnInit() {
     this.loadUserInfo();
@@ -47398,17 +47415,30 @@ var Homepage = class _Homepage {
   }
   loadUserInfo() {
     const token = this.authService.getToken();
-    if (token) {
-      try {
-        const payload = JSON.parse(atob(token.split(".")[1]));
-        this.userName = payload.name || payload.sub || "User";
-        this.userEmail = payload.email || "";
-        this.userId = payload.userId || payload.id || 0;
-      } catch (error) {
-        console.error("Error parsing token:", error);
-        this.userName = "User";
-      }
+    console.log("[DEBUG] token exists:", !!token);
+    if (!token) {
+      this.userRole = null;
+      return;
     }
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      console.log("[DEBUG] JWT payload:", payload);
+      console.log("[DEBUG] payload.role:", payload.role);
+      console.log("[DEBUG] payload.roles:", payload.roles);
+      console.log("[DEBUG] payload.authorities:", payload.authorities);
+      this.userName = payload.name || payload.sub || "User";
+      this.userEmail = payload.email || "";
+      this.userId = payload.userId || payload.id || 0;
+      this.userRole = payload.role || null;
+      console.log("[DEBUG] userRole set to: ", this.userRole);
+    } catch (error) {
+      console.error("[DEBUG] Error parsing token:", error);
+      this.userName = "User";
+      this.userRole = null;
+    }
+  }
+  goToAdminSessions() {
+    this.router.navigate(["/admin/sessions"]);
   }
   loadProperties() {
     this.isLoading = true;
@@ -47512,9 +47542,9 @@ var Homepage = class _Homepage {
     this.loadProperties();
   }
   static \u0275fac = function Homepage_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _Homepage)(\u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(LoginService), \u0275\u0275directiveInject(PropertyService));
+    return new (__ngFactoryType__ || _Homepage)(\u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(LoginService), \u0275\u0275directiveInject(PropertyService), \u0275\u0275directiveInject(Router));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Homepage, selectors: [["app-homepage"]], decls: 46, vars: 14, consts: [[1, "navbar"], [1, "nav-container"], [1, "nav-brand"], [1, "bi", "bi-house-heart-fill"], [1, "brand-name"], [1, "nav-actions"], [1, "btn-become-host", 3, "click"], [1, "bi", "bi-plus-circle"], [1, "user-card", 3, "click"], [1, "user-avatar"], [1, "user-info"], [1, "user-name"], ["class", "user-email", 4, "ngIf"], [1, "bi", "bi-chevron-down"], ["class", "user-menu", 4, "ngIf"], [1, "main-content"], [1, "content-container"], [1, "page-header"], [1, "search-container"], [1, "search-inputs"], [1, "search-field"], [1, "bi", "bi-geo-alt"], ["type", "text", "placeholder", "Search by city...", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "bi", "bi-currency-dollar"], ["type", "number", "placeholder", "Max price per night...", "min", "0", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "search-actions"], [1, "btn-search", 3, "click", "disabled"], [1, "bi", "bi-search"], ["class", "btn-clear", 3, "click", 4, "ngIf"], ["class", "loading-state", 4, "ngIf"], ["class", "error-state", 4, "ngIf"], ["class", "empty-state", 4, "ngIf"], ["class", "properties-grid", 4, "ngIf"], [3, "currentUserId", "close", "propertyCreated", 4, "ngIf"], [1, "user-email"], [1, "user-menu"], [1, "menu-item", 3, "click", "disabled"], [1, "bi", "bi-box-arrow-right"], [1, "btn-clear", 3, "click"], [1, "bi", "bi-x-circle"], [1, "loading-state"], [1, "spinner"], [1, "error-state"], [1, "bi", "bi-exclamation-circle"], [1, "btn-retry", 3, "click"], [1, "empty-state"], [1, "bi", "bi-house"], [1, "properties-grid"], ["class", "property-card", 4, "ngFor", "ngForOf"], [1, "property-card"], [1, "property-image"], [3, "src", "alt"], [1, "property-type-badge"], ["class", "btn-delete-property", "title", "Delete property", 3, "click", 4, "ngIf"], [1, "property-content"], [1, "property-header"], [1, "property-title"], [1, "property-location"], ["class", "property-description", 4, "ngIf"], [1, "property-details"], [1, "detail-item"], [1, "bi", "bi-people"], [1, "bi", "bi-person"], [1, "property-footer"], [1, "property-price"], [1, "price-amount"], [1, "price-period"], ["title", "Delete property", 1, "btn-delete-property", 3, "click"], [1, "bi", "bi-trash"], [1, "property-description"], [3, "close", "propertyCreated", "currentUserId"]], template: function Homepage_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Homepage, selectors: [["app-homepage"]], decls: 47, vars: 15, consts: [[1, "navbar"], [1, "nav-container"], [1, "nav-brand"], [1, "bi", "bi-house-heart-fill"], [1, "brand-name"], [1, "nav-actions"], [1, "btn-become-host", 3, "click"], [1, "bi", "bi-plus-circle"], ["class", "btn-become-host", 3, "click", 4, "ngIf"], [1, "user-card", 3, "click"], [1, "user-avatar"], [1, "user-info"], [1, "user-name"], ["class", "user-email", 4, "ngIf"], [1, "bi", "bi-chevron-down"], ["class", "user-menu", 4, "ngIf"], [1, "main-content"], [1, "content-container"], [1, "page-header"], [1, "search-container"], [1, "search-inputs"], [1, "search-field"], [1, "bi", "bi-geo-alt"], ["type", "text", "placeholder", "Search by city...", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "bi", "bi-currency-dollar"], ["type", "number", "placeholder", "Max price per night...", "min", "0", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "search-actions"], [1, "btn-search", 3, "click", "disabled"], [1, "bi", "bi-search"], ["class", "btn-clear", 3, "click", 4, "ngIf"], ["class", "loading-state", 4, "ngIf"], ["class", "error-state", 4, "ngIf"], ["class", "empty-state", 4, "ngIf"], ["class", "properties-grid", 4, "ngIf"], [3, "currentUserId", "close", "propertyCreated", 4, "ngIf"], [1, "user-email"], [1, "user-menu"], [1, "menu-item", 3, "click", "disabled"], [1, "bi", "bi-box-arrow-right"], [1, "btn-clear", 3, "click"], [1, "bi", "bi-x-circle"], [1, "loading-state"], [1, "spinner"], [1, "error-state"], [1, "bi", "bi-exclamation-circle"], [1, "btn-retry", 3, "click"], [1, "empty-state"], [1, "bi", "bi-house"], [1, "properties-grid"], ["class", "property-card", 4, "ngFor", "ngForOf"], [1, "property-card"], [1, "property-image"], [3, "src", "alt"], [1, "property-type-badge"], ["class", "btn-delete-property", "title", "Delete property", 3, "click", 4, "ngIf"], [1, "property-content"], [1, "property-header"], [1, "property-title"], [1, "property-location"], ["class", "property-description", 4, "ngIf"], [1, "property-details"], [1, "detail-item"], [1, "bi", "bi-people"], [1, "bi", "bi-person"], [1, "property-footer"], [1, "property-price"], [1, "price-amount"], [1, "price-period"], ["title", "Delete property", 1, "btn-delete-property", 3, "click"], [1, "bi", "bi-trash"], [1, "property-description"], [3, "close", "propertyCreated", "currentUserId"]], template: function Homepage_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "nav", 0)(1, "div", 1)(2, "div", 2);
       \u0275\u0275element(3, "i", 3);
@@ -47529,66 +47559,69 @@ var Homepage = class _Homepage {
       \u0275\u0275elementStart(9, "span");
       \u0275\u0275text(10, "Become a Host");
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(11, "div", 8);
-      \u0275\u0275listener("click", function Homepage_Template_div_click_11_listener() {
+      \u0275\u0275template(11, Homepage_button_11_Template, 2, 0, "button", 8);
+      \u0275\u0275elementStart(12, "div", 9);
+      \u0275\u0275listener("click", function Homepage_Template_div_click_12_listener() {
         return ctx.toggleUserMenu();
       });
-      \u0275\u0275elementStart(12, "div", 9);
-      \u0275\u0275text(13);
+      \u0275\u0275elementStart(13, "div", 10);
+      \u0275\u0275text(14);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(14, "div", 10)(15, "span", 11);
-      \u0275\u0275text(16);
+      \u0275\u0275elementStart(15, "div", 11)(16, "span", 12);
+      \u0275\u0275text(17);
       \u0275\u0275elementEnd();
-      \u0275\u0275template(17, Homepage_span_17_Template, 2, 1, "span", 12);
+      \u0275\u0275template(18, Homepage_span_18_Template, 2, 1, "span", 13);
       \u0275\u0275elementEnd();
-      \u0275\u0275element(18, "i", 13);
+      \u0275\u0275element(19, "i", 14);
       \u0275\u0275elementEnd();
-      \u0275\u0275template(19, Homepage_div_19_Template, 5, 2, "div", 14);
+      \u0275\u0275template(20, Homepage_div_20_Template, 5, 2, "div", 15);
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(20, "main", 15)(21, "div", 16)(22, "div", 17)(23, "h1");
-      \u0275\u0275text(24, "Explore Properties");
+      \u0275\u0275elementStart(21, "main", 16)(22, "div", 17)(23, "div", 18)(24, "h1");
+      \u0275\u0275text(25, "Explore Properties");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(25, "p");
-      \u0275\u0275text(26, "Find your perfect stay, it's easy!");
+      \u0275\u0275elementStart(26, "p");
+      \u0275\u0275text(27, "Find your perfect stay, it's easy!");
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(27, "div", 18)(28, "div", 19)(29, "div", 20);
-      \u0275\u0275element(30, "i", 21);
-      \u0275\u0275elementStart(31, "input", 22);
-      \u0275\u0275twoWayListener("ngModelChange", function Homepage_Template_input_ngModelChange_31_listener($event) {
+      \u0275\u0275elementStart(28, "div", 19)(29, "div", 20)(30, "div", 21);
+      \u0275\u0275element(31, "i", 22);
+      \u0275\u0275elementStart(32, "input", 23);
+      \u0275\u0275twoWayListener("ngModelChange", function Homepage_Template_input_ngModelChange_32_listener($event) {
         \u0275\u0275twoWayBindingSet(ctx.searchCity, $event) || (ctx.searchCity = $event);
         return $event;
       });
-      \u0275\u0275listener("keyup.enter", function Homepage_Template_input_keyup_enter_31_listener() {
+      \u0275\u0275listener("keyup.enter", function Homepage_Template_input_keyup_enter_32_listener() {
         return ctx.onSearch();
       });
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(32, "div", 20);
-      \u0275\u0275element(33, "i", 23);
-      \u0275\u0275elementStart(34, "input", 24);
-      \u0275\u0275twoWayListener("ngModelChange", function Homepage_Template_input_ngModelChange_34_listener($event) {
+      \u0275\u0275elementStart(33, "div", 21);
+      \u0275\u0275element(34, "i", 24);
+      \u0275\u0275elementStart(35, "input", 25);
+      \u0275\u0275twoWayListener("ngModelChange", function Homepage_Template_input_ngModelChange_35_listener($event) {
         \u0275\u0275twoWayBindingSet(ctx.searchMaxPrice, $event) || (ctx.searchMaxPrice = $event);
         return $event;
       });
-      \u0275\u0275listener("keyup.enter", function Homepage_Template_input_keyup_enter_34_listener() {
+      \u0275\u0275listener("keyup.enter", function Homepage_Template_input_keyup_enter_35_listener() {
         return ctx.onSearch();
       });
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(35, "div", 25)(36, "button", 26);
-      \u0275\u0275listener("click", function Homepage_Template_button_click_36_listener() {
+      \u0275\u0275elementStart(36, "div", 26)(37, "button", 27);
+      \u0275\u0275listener("click", function Homepage_Template_button_click_37_listener() {
         return ctx.onSearch();
       });
-      \u0275\u0275element(37, "i", 27);
-      \u0275\u0275elementStart(38, "span");
-      \u0275\u0275text(39);
+      \u0275\u0275element(38, "i", 28);
+      \u0275\u0275elementStart(39, "span");
+      \u0275\u0275text(40);
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(40, Homepage_button_40_Template, 4, 0, "button", 28);
+      \u0275\u0275template(41, Homepage_button_41_Template, 4, 0, "button", 29);
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(41, Homepage_div_41_Template, 4, 0, "div", 29)(42, Homepage_div_42_Template, 6, 1, "div", 30)(43, Homepage_div_43_Template, 6, 0, "div", 31)(44, Homepage_div_44_Template, 2, 1, "div", 32);
+      \u0275\u0275template(42, Homepage_div_42_Template, 4, 0, "div", 30)(43, Homepage_div_43_Template, 6, 1, "div", 31)(44, Homepage_div_44_Template, 6, 0, "div", 32)(45, Homepage_div_45_Template, 2, 1, "div", 33);
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(45, Homepage_app_create_property_modal_45_Template, 1, 1, "app-create-property-modal", 33);
+      \u0275\u0275template(46, Homepage_app_create_property_modal_46_Template, 1, 1, "app-create-property-modal", 34);
     }
     if (rf & 2) {
-      \u0275\u0275advance(13);
+      \u0275\u0275advance(11);
+      \u0275\u0275property("ngIf", ctx.userRole === "ROLE_ADMIN");
+      \u0275\u0275advance(3);
       \u0275\u0275textInterpolate(ctx.getInitials());
       \u0275\u0275advance(3);
       \u0275\u0275textInterpolate(ctx.userName);
@@ -47617,7 +47650,7 @@ var Homepage = class _Homepage {
       \u0275\u0275advance();
       \u0275\u0275property("ngIf", ctx.showCreateModal);
     }
-  }, dependencies: [NgIf, NgForOf, CreatePropertyModal, FormsModule, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, MinValidator, NgModel], styles: ["\n\n.navbar[_ngcontent-%COMP%] {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.nav-brand[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name[_ngcontent-%COMP%] {\n  letter-spacing: -0.5px;\n}\n.nav-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.btn-become-host[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n}\n.user-card[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name[_ngcontent-%COMP%] {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email[_ngcontent-%COMP%] {\n  font-size: 12px;\n  color: #666;\n}\n.user-card[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu[_ngcontent-%COMP%] {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: _ngcontent-%COMP%_fadeIn 0.2s ease;\n}\n@keyframes _ngcontent-%COMP%_fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item[_ngcontent-%COMP%] {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item[_ngcontent-%COMP%]:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n}\n.main-content[_ngcontent-%COMP%] {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header[_ngcontent-%COMP%] {\n  margin-bottom: 40px;\n}\n.page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field[_ngcontent-%COMP%]:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]::placeholder {\n  color: #999;\n}\n.search-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 12px;\n}\n.btn-search[_ngcontent-%COMP%], \n.btn-clear[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear[_ngcontent-%COMP%] {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n}\n.loading-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry[_ngcontent-%COMP%] {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry[_ngcontent-%COMP%]:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card[_ngcontent-%COMP%]:hover   .property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  transform: scale(1.05);\n}\n.property-type-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property[_ngcontent-%COMP%]:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n}\n.property-content[_ngcontent-%COMP%] {\n  padding: 20px;\n}\n.property-header[_ngcontent-%COMP%] {\n  margin-bottom: 12px;\n}\n.property-title[_ngcontent-%COMP%] {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount[_ngcontent-%COMP%] {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .user-info[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .user-card[_ngcontent-%COMP%] {\n    padding: 8px;\n  }\n  .btn-become-host[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .btn-become-host[_ngcontent-%COMP%] {\n    padding: 10px 14px;\n  }\n  .content-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n    font-size: 24px;\n  }\n  .search-inputs[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .search-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .properties-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content[_ngcontent-%COMP%] {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .page-header[_ngcontent-%COMP%] {\n    margin-bottom: 24px;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */"] });
+  }, dependencies: [NgIf, NgForOf, CreatePropertyModal, FormsModule, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, MinValidator, NgModel], styles: ["\n\n.navbar[_ngcontent-%COMP%] {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin-btn[_ngcontent-%COMP%] {\n  margin-top: 16px;\n  padding: 10px 18px;\n  border-radius: 10px;\n  border: none;\n  background: #2c3e50;\n  color: #fff;\n  font-weight: 600;\n  cursor: pointer;\n}\n.admin-btn[_ngcontent-%COMP%]:hover {\n  background: #1f2a36;\n}\n.nav-brand[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name[_ngcontent-%COMP%] {\n  letter-spacing: -0.5px;\n}\n.nav-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.btn-become-host[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n}\n.user-card[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name[_ngcontent-%COMP%] {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email[_ngcontent-%COMP%] {\n  font-size: 12px;\n  color: #666;\n}\n.user-card[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu[_ngcontent-%COMP%] {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: _ngcontent-%COMP%_fadeIn 0.2s ease;\n}\n@keyframes _ngcontent-%COMP%_fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item[_ngcontent-%COMP%] {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item[_ngcontent-%COMP%]:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n}\n.main-content[_ngcontent-%COMP%] {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header[_ngcontent-%COMP%] {\n  margin-bottom: 40px;\n}\n.page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field[_ngcontent-%COMP%]:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]::placeholder {\n  color: #999;\n}\n.search-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 12px;\n}\n.btn-search[_ngcontent-%COMP%], \n.btn-clear[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear[_ngcontent-%COMP%] {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n}\n.loading-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry[_ngcontent-%COMP%] {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry[_ngcontent-%COMP%]:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card[_ngcontent-%COMP%]:hover   .property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  transform: scale(1.05);\n}\n.property-type-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property[_ngcontent-%COMP%]:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n}\n.property-content[_ngcontent-%COMP%] {\n  padding: 20px;\n}\n.property-header[_ngcontent-%COMP%] {\n  margin-bottom: 12px;\n}\n.property-title[_ngcontent-%COMP%] {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount[_ngcontent-%COMP%] {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .user-info[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .user-card[_ngcontent-%COMP%] {\n    padding: 8px;\n  }\n  .btn-become-host[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .btn-become-host[_ngcontent-%COMP%] {\n    padding: 10px 14px;\n  }\n  .content-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n    font-size: 24px;\n  }\n  .search-inputs[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .search-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .properties-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content[_ngcontent-%COMP%] {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .page-header[_ngcontent-%COMP%] {\n    margin-bottom: 24px;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Homepage, [{
@@ -47634,6 +47667,12 @@ var Homepage = class _Homepage {
         <i class="bi bi-plus-circle"></i>\r
         <span>Become a Host</span>\r
       </button>\r
+\r
+      <button class="btn-become-host" *ngIf="userRole === 'ROLE_ADMIN'" (click)="goToAdminSessions()">\r
+        Admin - Sesiuni\r
+      </button>\r
+\r
+\r
 \r
       <div class="user-card" (click)="toggleUserMenu()">\r
         <div class="user-avatar">{{ getInitials() }}</div>\r
@@ -47774,11 +47813,431 @@ var Homepage = class _Homepage {
   (close)="onModalClose()"\r
   (propertyCreated)="onPropertyCreated()"\r
 ></app-create-property-modal>\r
-`, styles: ["/* src/app/pages/homepage/homepage.css */\n.navbar {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.nav-brand {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand i {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name {\n  letter-spacing: -0.5px;\n}\n.nav-actions {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.btn-become-host {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host i {\n  font-size: 16px;\n}\n.user-card {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email {\n  font-size: 12px;\n  color: #666;\n}\n.user-card i {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: fadeIn 0.2s ease;\n}\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item i {\n  font-size: 16px;\n  color: #666;\n}\n.main-content {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header {\n  margin-bottom: 40px;\n}\n.page-header h1 {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field i {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field input {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field input::placeholder {\n  color: #999;\n}\n.search-actions {\n  display: flex;\n  gap: 12px;\n}\n.btn-search,\n.btn-clear {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear:hover {\n  background: #e9ecef;\n}\n.loading-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state i {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state i {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state h3 {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card:hover .property-image img {\n  transform: scale(1.05);\n}\n.property-type-badge {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property i {\n  font-size: 14px;\n}\n.property-content {\n  padding: 20px;\n}\n.property-header {\n  margin-bottom: 12px;\n}\n.property-title {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container {\n    padding: 0 16px;\n  }\n  .user-info {\n    display: none;\n  }\n  .user-card {\n    padding: 8px;\n  }\n  .btn-become-host span {\n    display: none;\n  }\n  .btn-become-host {\n    padding: 10px 14px;\n  }\n  .content-container {\n    padding: 0 16px;\n  }\n  .page-header h1 {\n    font-size: 24px;\n  }\n  .search-inputs {\n    grid-template-columns: 1fr;\n  }\n  .search-actions {\n    flex-direction: column;\n  }\n  .properties-grid {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name {\n    display: none;\n  }\n  .page-header {\n    margin-bottom: 24px;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */\n"] }]
-  }], () => [{ type: AuthService }, { type: LoginService }, { type: PropertyService }], null);
+`, styles: ["/* src/app/pages/homepage/homepage.css */\n.navbar {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin-btn {\n  margin-top: 16px;\n  padding: 10px 18px;\n  border-radius: 10px;\n  border: none;\n  background: #2c3e50;\n  color: #fff;\n  font-weight: 600;\n  cursor: pointer;\n}\n.admin-btn:hover {\n  background: #1f2a36;\n}\n.nav-brand {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand i {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name {\n  letter-spacing: -0.5px;\n}\n.nav-actions {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.btn-become-host {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host i {\n  font-size: 16px;\n}\n.user-card {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email {\n  font-size: 12px;\n  color: #666;\n}\n.user-card i {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: fadeIn 0.2s ease;\n}\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item i {\n  font-size: 16px;\n  color: #666;\n}\n.main-content {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header {\n  margin-bottom: 40px;\n}\n.page-header h1 {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field i {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field input {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field input::placeholder {\n  color: #999;\n}\n.search-actions {\n  display: flex;\n  gap: 12px;\n}\n.btn-search,\n.btn-clear {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear:hover {\n  background: #e9ecef;\n}\n.loading-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state i {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state i {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state h3 {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card:hover .property-image img {\n  transform: scale(1.05);\n}\n.property-type-badge {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property i {\n  font-size: 14px;\n}\n.property-content {\n  padding: 20px;\n}\n.property-header {\n  margin-bottom: 12px;\n}\n.property-title {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container {\n    padding: 0 16px;\n  }\n  .user-info {\n    display: none;\n  }\n  .user-card {\n    padding: 8px;\n  }\n  .btn-become-host span {\n    display: none;\n  }\n  .btn-become-host {\n    padding: 10px 14px;\n  }\n  .content-container {\n    padding: 0 16px;\n  }\n  .page-header h1 {\n    font-size: 24px;\n  }\n  .search-inputs {\n    grid-template-columns: 1fr;\n  }\n  .search-actions {\n    flex-direction: column;\n  }\n  .properties-grid {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name {\n    display: none;\n  }\n  .page-header {\n    margin-bottom: 24px;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */\n"] }]
+  }], () => [{ type: AuthService }, { type: LoginService }, { type: PropertyService }, { type: Router }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Homepage, { className: "Homepage", filePath: "src/app/pages/homepage/homepage.ts", lineNumber: 18 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Homepage, { className: "Homepage", filePath: "src/app/pages/homepage/homepage.ts", lineNumber: 21 });
+})();
+
+// src/app/service/admin-audit.service.ts
+var API_BASE = "http://localhost:8080";
+var AdminAuditService = class _AdminAuditService {
+  http;
+  constructor(http) {
+    this.http = http;
+  }
+  getSessionsAudit() {
+    return this.http.get(`${API_BASE}/api/admin/audit/sessions`);
+  }
+  static \u0275fac = function AdminAuditService_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _AdminAuditService)(\u0275\u0275inject(HttpClient));
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _AdminAuditService, factory: _AdminAuditService.\u0275fac, providedIn: "root" });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AdminAuditService, [{
+    type: Injectable,
+    args: [{ providedIn: "root" }]
+  }], () => [{ type: HttpClient }], null);
+})();
+
+// src/app/pages/admin-sessions/admin-sessions.component.ts
+function AdminSessionsComponent_span_22_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 18);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r0.sortDir === "asc" ? "\u2191" : "\u2193");
+  }
+}
+function AdminSessionsComponent_span_25_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 18);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r0.sortDir === "asc" ? "\u2191" : "\u2193");
+  }
+}
+function AdminSessionsComponent_span_28_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 18);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate(ctx_r0.sortDir === "asc" ? "\u2191" : "\u2193");
+  }
+}
+function AdminSessionsComponent_div_33_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 19);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r0.errorMsg, " ");
+  }
+}
+function AdminSessionsComponent_div_34_table_1_tr_14_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "tr")(1, "td", 24);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "td");
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "td");
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "td");
+    \u0275\u0275text(8);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "td")(10, "span", 25);
+    \u0275\u0275text(11);
+    \u0275\u0275elementEnd()()();
+  }
+  if (rf & 2) {
+    const s_r2 = ctx.$implicit;
+    const ctx_r0 = \u0275\u0275nextContext(3);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(s_r2.sessionId);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(s_r2.username);
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r0.formatDate(s_r2.createdAt));
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate(ctx_r0.formatDate(s_r2.lastActivity));
+    \u0275\u0275advance(2);
+    \u0275\u0275classProp("active", s_r2.active)("inactive", !s_r2.active);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", s_r2.active ? "ACTIVE" : "INACTIVE", " ");
+  }
+}
+function AdminSessionsComponent_div_34_table_1_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "table", 22)(1, "thead")(2, "tr")(3, "th");
+    \u0275\u0275text(4, "Session ID");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(5, "th");
+    \u0275\u0275text(6, "Username");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "th");
+    \u0275\u0275text(8, "Created At");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "th");
+    \u0275\u0275text(10, "Last Activity");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "th");
+    \u0275\u0275text(12, "Status");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(13, "tbody");
+    \u0275\u0275template(14, AdminSessionsComponent_div_34_table_1_tr_14_Template, 12, 9, "tr", 23);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance(14);
+    \u0275\u0275property("ngForOf", ctx_r0.filtered);
+  }
+}
+function AdminSessionsComponent_div_34_ng_template_2_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 26);
+    \u0275\u0275text(1, " Doesn't exist any sessions to be shown (or the filter has hidden all). ");
+    \u0275\u0275elementEnd();
+  }
+}
+function AdminSessionsComponent_div_34_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 20);
+    \u0275\u0275template(1, AdminSessionsComponent_div_34_table_1_Template, 15, 1, "table", 21)(2, AdminSessionsComponent_div_34_ng_template_2_Template, 2, 0, "ng-template", null, 0, \u0275\u0275templateRefExtractor);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const empty_r3 = \u0275\u0275reference(3);
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r0.filtered.length)("ngIfElse", empty_r3);
+  }
+}
+var AdminSessionsComponent = class _AdminSessionsComponent {
+  auditService;
+  router;
+  loading = false;
+  errorMsg = "";
+  sessions = [];
+  // UI state
+  q = "";
+  status = "ALL";
+  sortBy = "createdAt";
+  sortDir = "desc";
+  constructor(auditService, router) {
+    this.auditService = auditService;
+    this.router = router;
+  }
+  ngOnInit() {
+    this.load();
+  }
+  goToHomePage() {
+    this.router.navigate(["/homepage"]);
+  }
+  load() {
+    this.loading = true;
+    this.errorMsg = "";
+    this.auditService.getSessionsAudit().subscribe({
+      next: (data) => {
+        this.sessions = data ?? [];
+        this.loading = false;
+      },
+      error: (err) => {
+        this.loading = false;
+        if (err.status === 401) {
+          this.errorMsg = "Neautorizat (401). Token invalid/expirat.";
+        } else if (err.status === 403) {
+          this.errorMsg = "Interzis (403). Nu ai drepturi pentru acest endpoint.";
+        } else {
+          this.errorMsg = "Eroare la \xEEnc\u0103rcarea sesiunilor.";
+        }
+      }
+    });
+  }
+  setSort(col) {
+    if (this.sortBy === col) {
+      this.sortDir = this.sortDir === "asc" ? "desc" : "asc";
+    } else {
+      this.sortBy = col;
+      this.sortDir = "asc";
+    }
+  }
+  get filtered() {
+    const query = this.q.trim().toLowerCase();
+    let out = [...this.sessions];
+    if (this.status === "ACTIVE")
+      out = out.filter((s) => s.active);
+    if (this.status === "INACTIVE")
+      out = out.filter((s) => !s.active);
+    if (query) {
+      out = out.filter((s) => (s.username ?? "").toLowerCase().includes(query) || (s.sessionId ?? "").toLowerCase().includes(query));
+    }
+    const dirMul = this.sortDir === "asc" ? 1 : -1;
+    out.sort((a, b) => {
+      if (this.sortBy === "username") {
+        return dirMul * (a.username ?? "").localeCompare(b.username ?? "");
+      }
+      const av = new Date(a[this.sortBy]).getTime();
+      const bv = new Date(b[this.sortBy]).getTime();
+      return dirMul * (av - bv);
+    });
+    return out;
+  }
+  formatDate(iso) {
+    if (!iso)
+      return "-";
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime()))
+      return iso;
+    return d.toLocaleString();
+  }
+  get total() {
+    return this.filtered.length;
+  }
+  static \u0275fac = function AdminSessionsComponent_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _AdminSessionsComponent)(\u0275\u0275directiveInject(AdminAuditService), \u0275\u0275directiveInject(Router));
+  };
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _AdminSessionsComponent, selectors: [["app-admin-sessions"]], decls: 35, vars: 10, consts: [["empty", ""], [1, "page"], [1, "header"], [1, "header-actions"], [1, "btn", 3, "click", "disabled"], [1, "home-btn", 3, "click"], [1, "toolbar"], ["type", "text", "placeholder", "Search by username or sessionId\u2026", 1, "input", 3, "ngModelChange", "ngModel"], [1, "select", 3, "ngModelChange", "ngModel"], ["value", "ALL"], ["value", "ACTIVE"], ["value", "INACTIVE"], [1, "chips"], [1, "chip", 3, "click"], ["class", "arrow", 4, "ngIf"], [1, "count"], ["class", "alert error", 4, "ngIf"], ["class", "card", 4, "ngIf"], [1, "arrow"], [1, "alert", "error"], [1, "card"], ["class", "table", 4, "ngIf", "ngIfElse"], [1, "table"], [4, "ngFor", "ngForOf"], [1, "mono"], [1, "badge"], [1, "empty"]], template: function AdminSessionsComponent_Template(rf, ctx) {
+    if (rf & 1) {
+      \u0275\u0275elementStart(0, "div", 1)(1, "div", 2)(2, "div")(3, "h1");
+      \u0275\u0275text(4, "Admin \u2022 Audit sesiuni");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(5, "div", 3)(6, "button", 4);
+      \u0275\u0275listener("click", function AdminSessionsComponent_Template_button_click_6_listener() {
+        return ctx.load();
+      });
+      \u0275\u0275text(7);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(8, "button", 5);
+      \u0275\u0275listener("click", function AdminSessionsComponent_Template_button_click_8_listener() {
+        return ctx.goToHomePage();
+      });
+      \u0275\u0275text(9, "Go Back to Homepage");
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275elementStart(10, "div", 6)(11, "input", 7);
+      \u0275\u0275twoWayListener("ngModelChange", function AdminSessionsComponent_Template_input_ngModelChange_11_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.q, $event) || (ctx.q = $event);
+        return $event;
+      });
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(12, "select", 8);
+      \u0275\u0275twoWayListener("ngModelChange", function AdminSessionsComponent_Template_select_ngModelChange_12_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.status, $event) || (ctx.status = $event);
+        return $event;
+      });
+      \u0275\u0275elementStart(13, "option", 9);
+      \u0275\u0275text(14, "Toate");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(15, "option", 10);
+      \u0275\u0275text(16, "Doar active");
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(17, "option", 11);
+      \u0275\u0275text(18, "Doar inactive");
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(19, "div", 12)(20, "button", 13);
+      \u0275\u0275listener("click", function AdminSessionsComponent_Template_button_click_20_listener() {
+        return ctx.setSort("createdAt");
+      });
+      \u0275\u0275text(21, " CreatedAt ");
+      \u0275\u0275template(22, AdminSessionsComponent_span_22_Template, 2, 1, "span", 14);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(23, "button", 13);
+      \u0275\u0275listener("click", function AdminSessionsComponent_Template_button_click_23_listener() {
+        return ctx.setSort("lastActivity");
+      });
+      \u0275\u0275text(24, " LastActivity ");
+      \u0275\u0275template(25, AdminSessionsComponent_span_25_Template, 2, 1, "span", 14);
+      \u0275\u0275elementEnd();
+      \u0275\u0275elementStart(26, "button", 13);
+      \u0275\u0275listener("click", function AdminSessionsComponent_Template_button_click_26_listener() {
+        return ctx.setSort("username");
+      });
+      \u0275\u0275text(27, " Username ");
+      \u0275\u0275template(28, AdminSessionsComponent_span_28_Template, 2, 1, "span", 14);
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(29, "div", 15);
+      \u0275\u0275text(30, " Total: ");
+      \u0275\u0275elementStart(31, "b");
+      \u0275\u0275text(32);
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275template(33, AdminSessionsComponent_div_33_Template, 2, 1, "div", 16)(34, AdminSessionsComponent_div_34_Template, 4, 2, "div", 17);
+      \u0275\u0275elementEnd();
+    }
+    if (rf & 2) {
+      \u0275\u0275advance(6);
+      \u0275\u0275property("disabled", ctx.loading);
+      \u0275\u0275advance();
+      \u0275\u0275textInterpolate(ctx.loading ? "Loading..." : "Refresh");
+      \u0275\u0275advance(4);
+      \u0275\u0275twoWayProperty("ngModel", ctx.q);
+      \u0275\u0275advance();
+      \u0275\u0275twoWayProperty("ngModel", ctx.status);
+      \u0275\u0275advance(10);
+      \u0275\u0275property("ngIf", ctx.sortBy === "createdAt");
+      \u0275\u0275advance(3);
+      \u0275\u0275property("ngIf", ctx.sortBy === "lastActivity");
+      \u0275\u0275advance(3);
+      \u0275\u0275property("ngIf", ctx.sortBy === "username");
+      \u0275\u0275advance(4);
+      \u0275\u0275textInterpolate(ctx.total);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", ctx.errorMsg);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", !ctx.loading);
+    }
+  }, dependencies: [CommonModule, NgForOf, NgIf, FormsModule, NgSelectOption, \u0275NgSelectMultipleOption, DefaultValueAccessor, SelectControlValueAccessor, NgControlStatus, NgModel], styles: ['\n\n.page[_ngcontent-%COMP%] {\n  padding: 18px;\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.header[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 16px;\n  justify-content: space-between;\n  align-items: flex-start;\n  margin-bottom: 14px;\n}\n.home-btn[_ngcontent-%COMP%] {\n  margin-top: 0;\n  padding: 10px 18px;\n  border-radius: 10px;\n  border: none;\n  background: #2c3e50;\n  color: #fff;\n  font-weight: 600;\n  cursor: pointer;\n}\n.header-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 12px;\n  align-items: center;\n  flex-wrap: wrap;\n  justify-content: flex-end;\n  max-width: 100%;\n}\n.home-btn[_ngcontent-%COMP%]:hover {\n  background: #1f2a36;\n}\nh1[_ngcontent-%COMP%] {\n  margin: 0;\n  font-size: 22px;\n}\n.subtitle[_ngcontent-%COMP%] {\n  margin: 6px 0 0 0;\n  opacity: 0.75;\n}\n.toolbar[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1.2fr 200px 1fr 120px;\n  gap: 10px;\n  align-items: center;\n  margin-bottom: 12px;\n}\n.input[_ngcontent-%COMP%], \n.select[_ngcontent-%COMP%] {\n  padding: 10px 12px;\n  border-radius: 10px;\n  border: 1px solid rgba(0, 0, 0, 0.12);\n  outline: none;\n}\n.select[_ngcontent-%COMP%] {\n  background: white;\n}\n.btn[_ngcontent-%COMP%] {\n  padding: 10px 14px;\n  border-radius: 10px;\n  border: 1px solid rgba(0, 0, 0, 0.12);\n  background: white;\n  cursor: pointer;\n}\n.btn[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n.chips[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 8px;\n  flex-wrap: wrap;\n}\n.chip[_ngcontent-%COMP%] {\n  border: 1px solid rgba(0, 0, 0, 0.12);\n  background: white;\n  border-radius: 999px;\n  padding: 8px 12px;\n  cursor: pointer;\n}\n.arrow[_ngcontent-%COMP%] {\n  margin-left: 6px;\n}\n.count[_ngcontent-%COMP%] {\n  text-align: right;\n  opacity: 0.8;\n}\n.card[_ngcontent-%COMP%] {\n  border: 1px solid rgba(0, 0, 0, 0.08);\n  border-radius: 14px;\n  overflow: hidden;\n  background: white;\n}\n.table[_ngcontent-%COMP%] {\n  width: 100%;\n  border-collapse: collapse;\n}\n.table[_ngcontent-%COMP%]   thead[_ngcontent-%COMP%]   th[_ngcontent-%COMP%] {\n  text-align: left;\n  font-weight: 700;\n  padding: 12px 12px;\n  background: rgba(0, 0, 0, 0.03);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.08);\n}\n.table[_ngcontent-%COMP%]   tbody[_ngcontent-%COMP%]   td[_ngcontent-%COMP%] {\n  padding: 12px 12px;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.06);\n  vertical-align: top;\n}\n.mono[_ngcontent-%COMP%] {\n  font-family:\n    ui-monospace,\n    SFMono-Regular,\n    Menlo,\n    Monaco,\n    Consolas,\n    "Liberation Mono",\n    "Courier New",\n    monospace;\n  font-size: 12px;\n}\n.badge[_ngcontent-%COMP%] {\n  display: inline-block;\n  padding: 6px 10px;\n  border-radius: 999px;\n  font-weight: 700;\n  font-size: 12px;\n  border: 1px solid rgba(0, 0, 0, 0.12);\n}\n.badge.active[_ngcontent-%COMP%] {\n}\n.badge.inactive[_ngcontent-%COMP%] {\n  opacity: 0.7;\n}\n.alert[_ngcontent-%COMP%] {\n  padding: 10px 12px;\n  border-radius: 12px;\n  margin: 10px 0;\n  border: 1px solid rgba(0, 0, 0, 0.12);\n}\n.alert.error[_ngcontent-%COMP%] {\n  background: rgba(255, 0, 0, 0.06);\n}\n.empty[_ngcontent-%COMP%] {\n  padding: 18px;\n  opacity: 0.75;\n}\n/*# sourceMappingURL=admin-sessions.component.css.map */'] });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(AdminSessionsComponent, [{
+    type: Component,
+    args: [{ selector: "app-admin-sessions", standalone: true, imports: [CommonModule, FormsModule], template: `<div class="page">\r
+  <div class="header">\r
+    <div>\r
+      <h1>Admin \u2022 Audit sesiuni</h1>\r
+    </div>\r
+    <div class="header-actions">\r
+      <button class="btn" (click)="load()" [disabled]="loading">{{ loading ? 'Loading...' : 'Refresh' }}</button>\r
+      <button class="home-btn" (click)="goToHomePage()">Go Back to Homepage</button>\r
+    </div>\r
+  </div>\r
+\r
+  <div class="toolbar">\r
+    <input\r
+      class="input"\r
+      type="text"\r
+      placeholder="Search by username or sessionId\u2026"\r
+      [(ngModel)]="q"\r
+    />\r
+\r
+    <select class="select" [(ngModel)]="status">\r
+      <option value="ALL">Toate</option>\r
+      <option value="ACTIVE">Doar active</option>\r
+      <option value="INACTIVE">Doar inactive</option>\r
+    </select>\r
+\r
+    <div class="chips">\r
+      <button class="chip" (click)="setSort('createdAt')">\r
+        CreatedAt\r
+        <span class="arrow" *ngIf="sortBy==='createdAt'">{{ sortDir==='asc' ? '\u2191' : '\u2193' }}</span>\r
+      </button>\r
+      <button class="chip" (click)="setSort('lastActivity')">\r
+        LastActivity\r
+        <span class="arrow" *ngIf="sortBy==='lastActivity'">{{ sortDir==='asc' ? '\u2191' : '\u2193' }}</span>\r
+      </button>\r
+      <button class="chip" (click)="setSort('username')">\r
+        Username\r
+        <span class="arrow" *ngIf="sortBy==='username'">{{ sortDir==='asc' ? '\u2191' : '\u2193' }}</span>\r
+      </button>\r
+    </div>\r
+\r
+    <div class="count">\r
+      Total: <b>{{ total }}</b>\r
+    </div>\r
+  </div>\r
+\r
+  <div class="alert error" *ngIf="errorMsg">\r
+    {{ errorMsg }}\r
+  </div>\r
+\r
+  <div class="card" *ngIf="!loading">\r
+    <table class="table" *ngIf="filtered.length; else empty">\r
+      <thead>\r
+      <tr>\r
+        <th>Session ID</th>\r
+        <th>Username</th>\r
+        <th>Created At</th>\r
+        <th>Last Activity</th>\r
+        <th>Status</th>\r
+      </tr>\r
+      </thead>\r
+\r
+      <tbody>\r
+      <tr *ngFor="let s of filtered">\r
+        <td class="mono">{{ s.sessionId }}</td>\r
+        <td>{{ s.username }}</td>\r
+        <td>{{ formatDate(s.createdAt) }}</td>\r
+        <td>{{ formatDate(s.lastActivity) }}</td>\r
+        <td>\r
+            <span class="badge" [class.active]="s.active" [class.inactive]="!s.active">\r
+              {{ s.active ? 'ACTIVE' : 'INACTIVE' }}\r
+            </span>\r
+        </td>\r
+      </tr>\r
+      </tbody>\r
+    </table>\r
+\r
+    <ng-template #empty>\r
+      <div class="empty">\r
+        Doesn't exist any sessions to be shown (or the filter has hidden all).\r
+      </div>\r
+    </ng-template>\r
+  </div>\r
+</div>\r
+`, styles: ['/* src/app/pages/admin-sessions/admin-sessions.component.css */\n.page {\n  padding: 18px;\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.header {\n  display: flex;\n  gap: 16px;\n  justify-content: space-between;\n  align-items: flex-start;\n  margin-bottom: 14px;\n}\n.home-btn {\n  margin-top: 0;\n  padding: 10px 18px;\n  border-radius: 10px;\n  border: none;\n  background: #2c3e50;\n  color: #fff;\n  font-weight: 600;\n  cursor: pointer;\n}\n.header-actions {\n  display: flex;\n  gap: 12px;\n  align-items: center;\n  flex-wrap: wrap;\n  justify-content: flex-end;\n  max-width: 100%;\n}\n.home-btn:hover {\n  background: #1f2a36;\n}\nh1 {\n  margin: 0;\n  font-size: 22px;\n}\n.subtitle {\n  margin: 6px 0 0 0;\n  opacity: 0.75;\n}\n.toolbar {\n  display: grid;\n  grid-template-columns: 1.2fr 200px 1fr 120px;\n  gap: 10px;\n  align-items: center;\n  margin-bottom: 12px;\n}\n.input,\n.select {\n  padding: 10px 12px;\n  border-radius: 10px;\n  border: 1px solid rgba(0, 0, 0, 0.12);\n  outline: none;\n}\n.select {\n  background: white;\n}\n.btn {\n  padding: 10px 14px;\n  border-radius: 10px;\n  border: 1px solid rgba(0, 0, 0, 0.12);\n  background: white;\n  cursor: pointer;\n}\n.btn:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n.chips {\n  display: flex;\n  gap: 8px;\n  flex-wrap: wrap;\n}\n.chip {\n  border: 1px solid rgba(0, 0, 0, 0.12);\n  background: white;\n  border-radius: 999px;\n  padding: 8px 12px;\n  cursor: pointer;\n}\n.arrow {\n  margin-left: 6px;\n}\n.count {\n  text-align: right;\n  opacity: 0.8;\n}\n.card {\n  border: 1px solid rgba(0, 0, 0, 0.08);\n  border-radius: 14px;\n  overflow: hidden;\n  background: white;\n}\n.table {\n  width: 100%;\n  border-collapse: collapse;\n}\n.table thead th {\n  text-align: left;\n  font-weight: 700;\n  padding: 12px 12px;\n  background: rgba(0, 0, 0, 0.03);\n  border-bottom: 1px solid rgba(0, 0, 0, 0.08);\n}\n.table tbody td {\n  padding: 12px 12px;\n  border-bottom: 1px solid rgba(0, 0, 0, 0.06);\n  vertical-align: top;\n}\n.mono {\n  font-family:\n    ui-monospace,\n    SFMono-Regular,\n    Menlo,\n    Monaco,\n    Consolas,\n    "Liberation Mono",\n    "Courier New",\n    monospace;\n  font-size: 12px;\n}\n.badge {\n  display: inline-block;\n  padding: 6px 10px;\n  border-radius: 999px;\n  font-weight: 700;\n  font-size: 12px;\n  border: 1px solid rgba(0, 0, 0, 0.12);\n}\n.badge.active {\n}\n.badge.inactive {\n  opacity: 0.7;\n}\n.alert {\n  padding: 10px 12px;\n  border-radius: 12px;\n  margin: 10px 0;\n  border: 1px solid rgba(0, 0, 0, 0.12);\n}\n.alert.error {\n  background: rgba(255, 0, 0, 0.06);\n}\n.empty {\n  padding: 18px;\n  opacity: 0.75;\n}\n/*# sourceMappingURL=admin-sessions.component.css.map */\n'] }]
+  }], () => [{ type: AdminAuditService }, { type: Router }], null);
+})();
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(AdminSessionsComponent, { className: "AdminSessionsComponent", filePath: "src/app/pages/admin-sessions/admin-sessions.component.ts", lineNumber: 19 });
 })();
 
 // src/app/app.routes.ts
@@ -47786,7 +48245,8 @@ var routes = [
   { path: "login", component: Login },
   { path: "homepage", component: Homepage, canActivate: [authGuard] },
   { path: "", redirectTo: "/login", pathMatch: "full" },
-  { path: "register", component: Register }
+  { path: "register", component: Register },
+  { path: "admin/sessions", component: AdminSessionsComponent }
 ];
 
 // src/app/interceptor/jwt-interceptor.ts
