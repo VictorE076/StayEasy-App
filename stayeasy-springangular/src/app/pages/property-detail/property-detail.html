@@ -1,0 +1,191 @@
+<div class="detail-page">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading property details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !isLoading" class="error-container">
+    <i class="bi bi-exclamation-circle"></i>
+    <p>{{ error }}</p>
+    <button class="btn-back" (click)="goBack()">Go Back</button>
+  </div>
+
+  <!-- Property Details -->
+  <div *ngIf="property && !isLoading" class="detail-container">
+    <!-- Back Button -->
+    <button class="btn-back-small" (click)="goBack()">
+      <i class="bi bi-arrow-left"></i>
+      Back to Properties
+    </button>
+
+    <!-- Image Gallery -->
+    <div class="image-gallery">
+      <img [src]="getCurrentImage()" [alt]="property.title">
+      <button class="btn-prev" (click)="previousImage()" *ngIf="property.images.length > 1">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button class="btn-next" (click)="nextImage()" *ngIf="property.images.length > 1">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+      <div class="image-indicators" *ngIf="property.images.length > 1">
+        <span
+          *ngFor="let img of property.images; let i = index"
+          class="indicator"
+          [class.active]="i === currentImageIndex"
+        ></span>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <div class="left-column">
+        <div class="property-header">
+          <div class="header-top">
+            <h1>{{ property.title }}</h1>
+            <span class="type-badge">{{ getPropertyTypeLabel(property.propertyType) }}</span>
+          </div>
+          <div class="location">
+            <i class="bi bi-geo-alt"></i>
+            <span>{{ property.city }}, {{ property.address }}</span>
+          </div>
+          <div class="rating-row" *ngIf="property.averageRating">
+            <div class="stars">
+              <i
+                *ngFor="let star of getStarArray(property.averageRating || 0)"
+                class="bi"
+                [class.bi-star-fill]="star === 1"
+                [class.bi-star]="star === 0"
+              ></i>
+            </div>
+            <span class="rating-text">{{ property.averageRating?.toFixed(1) }} ({{ property.totalReviews }} reviews)</span>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>About this property</h2>
+          <p class="description">{{ property.description || 'No description available.' }}</p>
+        </div>
+
+        <div class="section">
+          <h2>Property Details</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <i class="bi bi-people"></i>
+              <div>
+                <span class="label">Max Guests</span>
+                <span class="value">{{ property.maxGuests }}</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="bi bi-person"></i>
+              <div>
+                <span class="label">Hosted by</span>
+                <span class="value">{{ property.ownerUsername }}</span>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="bi bi-calendar"></i>
+              <div>
+                <span class="label">Listed on</span>
+                <span class="value">{{ formatDate(property.createdAt) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Amenities -->
+        <div class="section" *ngIf="property.amenities.length > 0">
+          <h2>Amenities</h2>
+          <div class="amenities-grid">
+            <div class="amenity-item" *ngFor="let amenity of property.amenities">
+              <i class="bi bi-check-circle"></i>
+              <span>{{ amenity.name }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- House Rules -->
+        <div class="section" *ngIf="property.houseRules">
+          <h2>House Rules</h2>
+          <div class="rules-grid">
+            <div class="rule-item">
+              <i class="bi bi-clock"></i>
+              <div>
+                <span class="label">Check-in</span>
+                <span class="value">{{ property.houseRules.checkInTime || 'Not specified' }}</span>
+              </div>
+            </div>
+            <div class="rule-item">
+              <i class="bi bi-clock-history"></i>
+              <div>
+                <span class="label">Check-out</span>
+                <span class="value">{{ property.houseRules.checkOutTime || 'Not specified' }}</span>
+              </div>
+            </div>
+            <div class="rule-item">
+              <i class="bi" [class.bi-check-circle]="property.houseRules.petsAllowed" [class.bi-x-circle]="!property.houseRules.petsAllowed"></i>
+              <div>
+                <span class="label">Pets</span>
+                <span class="value">{{ property.houseRules.petsAllowed ? 'Allowed' : 'Not allowed' }}</span>
+              </div>
+            </div>
+            <div class="rule-item">
+              <i class="bi" [class.bi-check-circle]="property.houseRules.smokingAllowed" [class.bi-x-circle]="!property.houseRules.smokingAllowed"></i>
+              <div>
+                <span class="label">Smoking</span>
+                <span class="value">{{ property.houseRules.smokingAllowed ? 'Allowed' : 'Not allowed' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reviews -->
+        <div class="section" *ngIf="property.reviews.length > 0">
+          <h2>Reviews ({{ property.totalReviews }})</h2>
+          <div class="reviews-list">
+            <div class="review-item" *ngFor="let review of property.reviews">
+              <div class="review-header">
+                <div class="reviewer-avatar">{{ review.userName.charAt(0).toUpperCase() }}</div>
+                <div class="reviewer-info">
+                  <span class="reviewer-name">{{ review.userName }}</span>
+                  <span class="review-date">{{ formatDate(review.createdAt) }}</span>
+                </div>
+              </div>
+              <div class="review-rating">
+                <i
+                  *ngFor="let star of getStarArray(review.rating)"
+                  class="bi"
+                  [class.bi-star-fill]="star === 1"
+                  [class.bi-star]="star === 0"
+                ></i>
+              </div>
+              <p class="review-comment">{{ review.comment }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-column">
+        <div class="booking-card">
+          <div class="price-section">
+            <span class="price">${{ property.pricePerNight }}</span>
+            <span class="period">/ night</span>
+          </div>
+
+          <div class="availability-section" *ngIf="property.availability.length > 0">
+            <h3>Availability</h3>
+            <div class="availability-list">
+              <div class="availability-item" *ngFor="let avail of property.availability">
+                <i class="bi bi-calendar-check"></i>
+                <span>{{ formatDate(avail.availableFrom) }} - {{ formatDate(avail.availableTo) }}</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-book">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
