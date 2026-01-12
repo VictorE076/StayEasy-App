@@ -1,19 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {ReviewResponse, ReviewRequest} from '../models/reviewDTO';
+import {ReviewDTO} from '../models/reviewDTO';
 
 @Injectable({ providedIn: 'root' })
 export class ReviewService {
-  private apiUrl = 'http://localhost:8080/api/reviews';
+
+  private api = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) {}
 
-  submitReview(review: ReviewRequest): Observable<void> {
-    return this.http.post<void>(this.apiUrl, review);
+  getReviews(propertyId: number) {
+    return this.http.get<any[]>(
+      `${this.api}/properties/${propertyId}/reviews`
+    );
   }
 
-  getReviews(propertyId: number): Observable<ReviewResponse[]> {
-    return this.http.get<ReviewResponse[]>(`${this.apiUrl}/property/${propertyId}`);
+  createOrUpdate(propertyId: number, payload: { rating: number; comment: string }) {
+    return this.http.put(
+      `${this.api}/properties/${propertyId}/reviews`,
+      payload
+    );
+  }
+
+  getSummary(propertyId: number) {
+    return this.http.get<any>(
+      `${this.api}/properties/${propertyId}/reviews/summary`
+    );
+  }
+
+  deleteReview(reviewId: number) {
+    return this.http.delete(
+      `${this.api}/reviews/${reviewId}`
+    );
   }
 }

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReviewService } from '../../service/review-service';
-import { ReviewRequest, ReviewResponse} from '../../models/reviewDTO';
+import { ReviewDTO} from '../../models/reviewDTO';
 import { AuthService } from '../../service/auth-service';
 import { LoginService } from '../../service/login-service';
 import {DecimalPipe, DatePipe, CommonModule} from '@angular/common';
@@ -21,7 +21,7 @@ export class ReviewComponent implements OnInit {
   userName: string = '';
   userEmail: string = '';
   userId: number = 0;
-
+  comment: string = '';
   rating: number = 0;
   maxStars: number = 5;
   reviewText: string = '';
@@ -114,34 +114,32 @@ export class ReviewComponent implements OnInit {
   }
 
   submitReview(): void {
-    if (this.rating === 0 || !this.reviewText.trim()) return;
+    if (!this.rating || !this.comment.trim()) {
+      alert('Rating and comment required');
+      return;
+    }
 
-    const payload: ReviewRequest = {
+    this.reviewService.createOrUpdate(this.propertyId, {
       rating: this.rating,
-      comment: this.reviewText,
-      userId: this.userId,
-      propertyId: this.propertyId
-    };
-
-    this.reviewService.submitReview(payload).subscribe({
+      comment: this.comment
+    }).subscribe({
       next: () => {
-        // reset form
         this.rating = 0;
-        this.reviewText = '';
+        this.comment = '';
         this.loadReviews();
       },
-      error: (err: any) => console.error(err)
+      error: err => console.error('❌ Review submit failed', err)
     });
   }
   loadReviews(): void {
     this.loadingReviews = true;
     this.reviewService.getReviews(this.propertyId).subscribe({
-      next: (res: ReviewResponse[]) => {
+      next: (res: ReviewDTO[]) => {
         this.reviews = res;
         this.loadingReviews = false;
         this.calculateAverageRating();
       },
-      error: (err: ReviewResponse) => {
+      error: (err: ReviewDTO) => {
         console.error('Failed to load reviews', err);
         this.loadingReviews = false;
       }

@@ -1,12 +1,6 @@
-export interface ReviewRequest {
+export interface ReviewDTO{
   rating: number;
-  comment: string;
-  userId: number;
-  propertyId: number;
-}
-
-export interface ReviewResponse {
-  rating: number;
+  ID: number;
   comment: string;
   userName: string;
   createdAt: string;
