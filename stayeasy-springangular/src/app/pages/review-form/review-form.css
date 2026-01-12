@@ -1,4 +1,101 @@
-.review-form-page { max-width: 650px; margin: 0 auto; padding: 20px; }
-textarea, select { width: 100%; margin-top: 6px; margin-bottom: 16px; padding: 10px; }
-.actions { display: flex; gap: 10px; justify-content: flex-end; }
-.error { margin: 10px 0; padding: 10px; border-radius: 8px; }
+.review-form-page {
+  max-width: 650px;
+  margin: 80px auto 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+/* Error message */
+.error {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #fdecea;
+  color: #b00020;
+  font-size: 14px;
+}
+
+/* Title */
+.review-title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #333;
+}
+
+/* Inputs */
+textarea,
+select {
+  width: 100%;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  padding: 12px;
+  font-size: 14px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+textarea:focus,
+select:focus {
+  border-color: #6f6be8;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+/* Cancel button */
+.actions button[type="button"] {
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 999px;
+  cursor: pointer;
+
+  background: transparent;
+  color: #6f6be8;
+  border: 2px solid #6f6be8;
+
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.actions button[type="button"]:hover {
+  background: #6f6be8;
+  color: #ffffff;
+}
+
+
+/* Submit button */
+.actions button[type="submit"] {
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #7b77f2, #6f6be8);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.actions button[type="submit"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(111, 107, 232, 0.3);
+}
+
+.actions button[type="submit"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

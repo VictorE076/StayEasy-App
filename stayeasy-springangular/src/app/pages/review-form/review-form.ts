@@ -28,7 +28,7 @@ export class ReviewFormComponent implements OnInit {
   ) {
     this.form = this.fb.group({
       rating: [5, [Validators.required, Validators.min(1), Validators.max(5)]],
-      comment: ['', [Validators.required, Validators.maxLength(2000)]],
+      comment: ['', [Validators.maxLength(2000)]],
     });
   }
 
@@ -45,7 +45,7 @@ export class ReviewFormComponent implements OnInit {
     const comment = String(this.form.get('comment')?.value ?? '').trim();
 
     this.reviewService.upsertReview(this.propertyId, { rating, comment }).subscribe({
-      next: () => void this.router.navigate(['/property-detail', this.propertyId]),
+      next: () => void this.router.navigate(['/property/', this.propertyId]),
       error: () => {
         this.error = 'Failed to submit review.';
         this.isSubmitting = false;
@@ -54,6 +54,6 @@ export class ReviewFormComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/property-detail', this.propertyId]);
+    this.router.navigate(['/property/', this.propertyId]);
   }
 }

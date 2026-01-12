@@ -1,5 +1,7 @@
 <div class="review-form-page">
 
+  <h2 class="review-title">Leave a Review</h2>
+
   <div class="error" *ngIf="error">{{ error }}</div>
 
   <form [formGroup]="form" (ngSubmit)="submit()">
@@ -16,7 +18,7 @@
     <textarea rows="6" formControlName="comment"></textarea>
 
     <div class="actions">
-      <button type="button" (click)="cancel()">Cancel</button>
+      <button type="button" (click)="cancel()">Go back to the property</button>
       <button type="submit" [disabled]="form.invalid || isSubmitting">
         Submit
       </button>

@@ -91,5 +91,17 @@
     </orderEntry>
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-jpa:3.3.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-crypto:6.3.4" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.validation:jakarta.validation-api:3.0.2" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/26.0.2/annotations-26.0.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:6.3.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:6.3.4" level="project" />
   </component>
 </module>

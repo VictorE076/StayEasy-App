@@ -20,22 +20,22 @@
   background: rgba(220, 53, 69, 0.2);
 }
 
-/*.reviews-title-row {*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  justify-content: space-between;*/
-/*  gap: 12px;*/
-/*}*/
+.reviews-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
 
-/*.btn-add-review {*/
-/*  border: none;*/
-/*  border-radius: 10px;*/
-/*  padding: 10px 12px;*/
-/*  cursor: pointer;*/
-/*  display: inline-flex;*/
-/*  gap: 8px;*/
-/*  align-items: center;*/
-/*}*/
+.btn-add-review {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
 
 .review-header {
   display: flex;

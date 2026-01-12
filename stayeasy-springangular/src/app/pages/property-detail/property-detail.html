@@ -163,7 +163,7 @@
             </button>
           </div>
 
-          <div class="reviews-list" *ngIf="property.reviews?.length > 0; else noReviews">
+          <div class="reviews-list">
             <div class="review-item" *ngFor="let review of property.reviews">
               <div class="review-header">
                 <div class="reviewer-avatar">{{ review.userName.charAt(0).toUpperCase() }}</div>
