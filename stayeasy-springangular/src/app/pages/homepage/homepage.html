@@ -106,7 +106,7 @@
           <div class="property-type-badge">{{ getPropertyTypeLabel(property.propertyType) }}</div>
           <button
             class="btn-delete-property"
-            *ngIf="isOwner(property)"
+            *ngIf="isOwner(property) || isAdmin()"
             (click)="onDeleteProperty(property.id); $event.stopPropagation()"
             title="Delete property"
           >

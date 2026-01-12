@@ -43,7 +43,18 @@
         <div class="property-header">
           <div class="header-top">
             <h1>{{ property.title }}</h1>
-            <span class="type-badge">{{ getPropertyTypeLabel(property.propertyType) }}</span>
+
+            <div class="header-actions">
+              <button
+                class="btn-delete-property-detail"
+                *ngIf="canDeleteProperty()"
+                (click)="onDeleteProperty()"
+                title="Delete property"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+              <span class="type-badge">{{ getPropertyTypeLabel(property.propertyType) }}</span>
+            </div>
           </div>
           <div class="location">
             <i class="bi bi-geo-alt"></i>
@@ -141,9 +152,18 @@
         </div>
 
         <!-- Reviews -->
-        <div class="section" *ngIf="property.reviews.length > 0">
-          <h2>Reviews ({{ property.totalReviews }})</h2>
-          <div class="reviews-list">
+        <div class="section">
+
+          <div class="reviews-title-row">
+            <h2>Reviews ({{ property.totalReviews || (property.reviews?.length || 0)}})</h2>
+
+            <button class="btn-add-review" (click)="goToReviewForm()">
+              <i class="bi bi-pencil-square"></i>
+              Write a review
+            </button>
+          </div>
+
+          <div class="reviews-list" *ngIf="property.reviews?.length > 0; else noReviews">
             <div class="review-item" *ngFor="let review of property.reviews">
               <div class="review-header">
                 <div class="reviewer-avatar">{{ review.userName.charAt(0).toUpperCase() }}</div>
@@ -152,6 +172,16 @@
                   <span class="review-date">{{ formatDate(review.createdAt) }}</span>
                 </div>
               </div>
+
+              <button
+                class="btn-delete-review"
+                *ngIf="canDeleteReview(review)"
+                (click)="onDeleteReview(review.id)"
+                title="Delete review"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+
               <div class="review-rating">
                 <i
                   *ngFor="let star of getStarArray(review.rating)"
@@ -163,6 +193,11 @@
               <p class="review-comment">{{ review.comment }}</p>
             </div>
           </div>
+
+          <ng-template #noReviews>
+            <p class="no-reviews">No reviews yet. Be the first to write one!</p>
+          </ng-template>
+
         </div>
       </div>
 

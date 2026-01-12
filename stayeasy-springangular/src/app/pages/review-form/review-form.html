@@ -1,0 +1,26 @@
+<div class="review-form-page">
+
+  <div class="error" *ngIf="error">{{ error }}</div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <label>Rating (1–5)</label>
+    <select formControlName="rating">
+      <option [value]="1">1</option>
+      <option [value]="2">2</option>
+      <option [value]="3">3</option>
+      <option [value]="4">4</option>
+      <option [value]="5">5</option>
+    </select>
+
+    <label>Comment</label>
+    <textarea rows="6" formControlName="comment"></textarea>
+
+    <div class="actions">
+      <button type="button" (click)="cancel()">Cancel</button>
+      <button type="submit" [disabled]="form.invalid || isSubmitting">
+        Submit
+      </button>
+    </div>
+  </form>
+
+</div>

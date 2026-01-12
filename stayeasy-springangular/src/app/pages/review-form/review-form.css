@@ -1,0 +1,4 @@
+.review-form-page { max-width: 650px; margin: 0 auto; padding: 20px; }
+textarea, select { width: 100%; margin-top: 6px; margin-bottom: 16px; padding: 10px; }
+.actions { display: flex; gap: 10px; justify-content: flex-end; }
+.error { margin: 10px 0; padding: 10px; border-radius: 8px; }

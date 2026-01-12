@@ -173,6 +173,11 @@ export class Homepage implements OnInit {
     return this.userName != null && property.ownerUsername === this.userName;
   }
 
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+
   onDeleteProperty(propertyId: number): void {
     if (!confirm('Are you sure you want to delete this property?')) {
       return;

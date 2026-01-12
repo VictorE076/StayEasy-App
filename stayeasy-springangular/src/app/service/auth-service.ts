@@ -9,6 +9,22 @@ export class AuthService {
 
   constructor(private router: Router) {}
 
+  private decodePayload(): any | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch {
+      return null;
+    }
+  }
+
+  getUsername(): string | null {
+    const payload = this.decodePayload();
+    return payload?.sub ?? null; // sub=username (backend)
+  }
+
   saveToken(token: string): void {
     localStorage.setItem(this.TOKEN_KEY, token);
   }
@@ -19,6 +35,15 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !!this.getToken();
+  }
+
+  getRole(): string | null {
+    const payload = this.decodePayload();
+    return payload?.role ?? null;
+  }
+
+  isAdmin(): boolean {
+    return this.getRole() === 'ROLE_ADMIN';
   }
 
   clearToken(): void {
