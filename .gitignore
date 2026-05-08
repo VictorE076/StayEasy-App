@@ -23,3 +23,9 @@ mvnw.cmd
 .idea/
 .vscode/
 .DS_Store
+
+# Angular build output generated for Spring Boot static serving
+stayeasy-springangular/src/main/resources/static/browser/
+stayeasy-springangular/src/main/resources/static/media/
+stayeasy-springangular/src/main/resources/static/3rdpartylicenses.txt
+stayeasy-springangular/src/main/resources/static/prerendered-routes.json
