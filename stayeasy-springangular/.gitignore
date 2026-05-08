@@ -35,3 +35,9 @@ build/
 ### Custom: Sensitive Config Files ###
 src/main/resources/application.properties
 src/main/resources/*.env
+
+# Angular build output generated for Spring Boot static serving
+/src/main/resources/static/browser/
+/src/main/resources/static/media/
+/src/main/resources/static/3rdpartylicenses.txt
+/src/main/resources/static/prerendered-routes.json
