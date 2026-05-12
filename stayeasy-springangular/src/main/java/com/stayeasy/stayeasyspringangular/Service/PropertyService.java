@@ -5,8 +5,9 @@ import com.stayeasy.stayeasyspringangular.EntitatiJPA.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
+import com.stayeasy.stayeasyspringangular.exception.ForbiddenActionException;
+import com.stayeasy.stayeasyspringangular.exception.ResourceNotFoundException;
+import com.stayeasy.stayeasyspringangular.exception.UnauthorizedActionException;
 
 import com.stayeasy.stayeasyspringangular.Repository.PropertyRepository;
 import com.stayeasy.stayeasyspringangular.Repository.UserRepository;
@@ -33,7 +34,7 @@ public class PropertyService {
 
   public PropertyResponseDTO getPropertyById(Long id) {
     Property property = propertyRepository.findById(id)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
+      .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
     return mapToResponse(property);
   }
 
@@ -96,7 +97,7 @@ public class PropertyService {
   public void deleteProperty(Long id) { // Ownership checking (except for "ROLE_ADMIN")
 
     Property property = propertyRepository.findById(id)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
+      .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
 
     User currentUser = getCurrentUser();
 
@@ -108,7 +109,7 @@ public class PropertyService {
 
     if (!isAdmin) { // Only normal (GUEST or HOST) user must also be the property's owner.
       if (ownerId == null || !ownerId.equals(currentUserId)) {
-        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Deletion not allowed");
+        throw new ForbiddenActionException("You are not allowed to delete this property");
       }
     }
 
@@ -165,17 +166,17 @@ public class PropertyService {
   private User getCurrentUser() {
     Authentication auth = getAuthenticationContext();
     if (auth == null || !auth.isAuthenticated()) {
-      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
+      throw new UnauthorizedActionException("You must be logged in");
     }
 
     String username = auth.getName();
     return userRepository.findByUsername(username)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
+      .orElseThrow(() -> new UnauthorizedActionException("Authenticated user was not found"));
   }
 
   public PropertyDetailDTO getPropertyDetailById(Long id) {
     Property property = propertyRepository.findById(id)
-      .orElseThrow(() -> new RuntimeException("Property not found"));
+      .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
 
     return mapToDetailResponse(property);
   }

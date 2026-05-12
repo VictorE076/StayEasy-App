@@ -10,12 +10,14 @@ import com.stayeasy.stayeasyspringangular.Repository.PropertyRepository;
 import com.stayeasy.stayeasyspringangular.Repository.ReviewRepository;
 import com.stayeasy.stayeasyspringangular.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
+
+import com.stayeasy.stayeasyspringangular.exception.ForbiddenActionException;
+import com.stayeasy.stayeasyspringangular.exception.ResourceNotFoundException;
+import com.stayeasy.stayeasyspringangular.exception.UnauthorizedActionException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,7 +35,7 @@ public class ReviewService {
 
     // Throws 404 if property is missing
     propertyRepository.findById(propertyId)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
+      .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
 
     return reviewRepository.findByProperty_IdOrderByCreatedAtDesc(propertyId)
       .stream()
@@ -50,12 +52,12 @@ public class ReviewService {
     User currentUser = getCurrentUser();
 
     Property property = propertyRepository.findById(propertyId)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
+      .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
 
     // Reviewing your own property is FORBIDDEN
     if (property.getOwner() != null && property.getOwner().getId() != null
       && property.getOwner().getId().equals(currentUser.getId())) {
-      throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You cannot review your own property");
+      throw new ForbiddenActionException("You cannot review your own property");
     }
 
     // CREATE one review per user per property ( UPDATE if already exists ).
@@ -85,7 +87,7 @@ public class ReviewService {
     User currentUser = getCurrentUser();
 
     Review review = reviewRepository.findById(reviewId)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found"));
+      .orElseThrow(() -> new ResourceNotFoundException("Review not found"));
 
     boolean isAdmin = getAuthenticationContext().getAuthorities().stream()
       .anyMatch(a -> "ROLE_ADMIN".equals(a.getAuthority()));
@@ -93,7 +95,7 @@ public class ReviewService {
     if(!isAdmin) { // Only normal (GUEST or HOST) user must also be the review's owner.
       if (review.getUser() == null || review.getUser().getId() == null
         || !review.getUser().getId().equals(currentUser.getId())) {
-        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Deletion not allowed");
+        throw new ForbiddenActionException("You are not allowed to delete this review");
       }
     }
 
@@ -107,7 +109,7 @@ public class ReviewService {
   public ReviewSummaryDTO summary(Long propertyId) {
 
     propertyRepository.findById(propertyId)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
+      .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
 
     Double avg = reviewRepository.averageRating(propertyId);
     Long count = reviewRepository.countByProperty(propertyId);
@@ -142,12 +144,12 @@ public class ReviewService {
   private User getCurrentUser() {
     Authentication auth = getAuthenticationContext();
     if (auth == null || !auth.isAuthenticated()) {
-      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Not authenticated");
+      throw new UnauthorizedActionException("You must be logged in");
     }
 
     String username = auth.getName();
     return userRepository.findByUsername(username)
-      .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
+      .orElseThrow(() -> new UnauthorizedActionException("Authenticated user was not found"));
   }
 
 }
