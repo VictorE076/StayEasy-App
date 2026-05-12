@@ -36,12 +36,13 @@ class PropertyServiceTest {
   @InjectMocks
   private PropertyService propertyService;
 
-  // helper pentru authentication
+  // helper pt authentication
   private void mockAuth(String username) {
     Authentication auth = mock(Authentication.class);
     when(auth.isAuthenticated()).thenReturn(true);
     when(auth.getName()).thenReturn(username);
-    when(auth.getAuthorities()).thenReturn(List.of()); // default: nu e admin
+    // Se evita UnnecessaryStubbingException
+    lenient().when(auth.getAuthorities()).thenReturn(List.of()); // default: nu e admin
 
     SecurityContextHolder.getContext().setAuthentication(auth);
   }
