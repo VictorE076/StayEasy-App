@@ -3,12 +3,15 @@ package com.stayeasy.stayeasyspringangular.registery;
 import com.stayeasy.stayeasyspringangular.EntitatiJPA.Role;
 import com.stayeasy.stayeasyspringangular.EntitatiJPA.User;
 import com.stayeasy.stayeasyspringangular.Repository.UserRepository;
+import com.stayeasy.stayeasyspringangular.exception.BadRequestException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -19,21 +22,16 @@ public class RegController {
   private final PasswordEncoder passwordEncoder;
 
   @PostMapping("/register")
-  public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+  public ResponseEntity<Map<String, String>> register(@Valid @RequestBody RegisterRequest request) {
 
     // Verificare username
     if (userRepository.existsByUsername(request.getUsername())) {
-      return ResponseEntity.badRequest().body("Username already exists");
-    }
-
-    // Verificare email valid
-    if (!request.getEmail().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-      return ResponseEntity.badRequest().body("Invalid email address");
+      throw new BadRequestException("Username already exists");
     }
 
     // Verificare email duplicat
     if (userRepository.existsByEmail(request.getEmail())) {
-      return ResponseEntity.badRequest().body("Email already used");
+      throw new BadRequestException("Email already used");
     }
 
     // Creare user
@@ -47,6 +45,6 @@ public class RegController {
 
     userRepository.save(user);
 
-    return ResponseEntity.ok("Account created successfully");
+    return ResponseEntity.ok(Map.of("message", "Account created successfully"));
   }
 }

@@ -18,6 +18,9 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -151,6 +154,34 @@ public class GlobalExceptionHandler {
     );
 
     return ResponseEntity.status(statusCode).body(body);
+  }
+
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  public ResponseEntity<ApiErrorResponse> handleInvalidJson(
+    HttpMessageNotReadableException ex,
+    HttpServletRequest request
+  ) {
+    return buildResponse(
+      HttpStatus.BAD_REQUEST,
+      "Invalid request body",
+      request.getRequestURI(),
+      null
+    );
+  }
+
+  @ExceptionHandler(MissingServletRequestParameterException.class)
+  public ResponseEntity<ApiErrorResponse> handleMissingParameter(
+    MissingServletRequestParameterException ex,
+    HttpServletRequest request
+  ) {
+    String message = "Missing required parameter: " + ex.getParameterName();
+
+    return buildResponse(
+      HttpStatus.BAD_REQUEST,
+      message,
+      request.getRequestURI(),
+      null
+    );
   }
 
   @ExceptionHandler(Exception.class)

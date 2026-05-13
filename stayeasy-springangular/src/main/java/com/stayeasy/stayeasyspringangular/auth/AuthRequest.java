@@ -1,5 +1,6 @@
 package com.stayeasy.stayeasyspringangular.auth;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,10 @@ import lombok.Setter;
 @Getter
 public class AuthRequest {
 
+  @NotBlank(message = "Username is required")
   private String username;
+
+  @NotBlank(message = "Password is required")
   private String password;
 
   public AuthRequest() {
@@ -17,6 +21,4 @@ public class AuthRequest {
     this.username = username;
     this.password = password;
   }
-
 }
-
