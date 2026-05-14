@@ -47,8 +47,11 @@ public class AuthController {
     var user = userRepository.findByUsername(request.getUsername())
       .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-    UserSession session = sessionService.createSession(user);
-    String jwtToken = jwtService.generateToken(user, session.getId());
+//    UserSession session = sessionService.createSession(user);
+//    String jwtToken = jwtService.generateToken(user, session.getId());
+
+    UserSession session = sessionService.createSession(user, request.isRememberMe());
+    String jwtToken = jwtService.generateToken(user, session.getId(), request.isRememberMe());
 
     return ResponseEntity.ok(new AuthResponse(jwtToken));
   }

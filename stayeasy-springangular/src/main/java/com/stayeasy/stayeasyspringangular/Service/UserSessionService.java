@@ -23,18 +23,31 @@ public class UserSessionService {
   @Value("${app.session.timeout-minutes:15}")
   private int timeoutMinutes;
 
-  public UserSession createSession(User user) {
+  public UserSession createSession(User user, boolean rememberMe) {
     UserSession session = new UserSession();
     session.setUser(user);
     session.setCreatedAt(LocalDateTime.now());
     session.setLastActivity(LocalDateTime.now());
     session.setActive(true);
+    session.setRememberMe(rememberMe);
+
     return sessionRepository.save(session);
+  }
+
+  public UserSession createSession(User user) {
+    return createSession(user, false);
   }
 
   public boolean isSessionExpired(@NotNull UserSession session) {
     LocalDateTime now = LocalDateTime.now();
-    return Duration.between(session.getLastActivity(), now).toMinutes() > timeoutMinutes;
+
+    // RememberMe Session expires after 14 days.
+    // Normal Session expires after 15 minutes of inactivity.
+    long effectiveTimeoutMinutes = session.isRememberMe()
+      ? 14L * 24L * 60L
+      : timeoutMinutes;
+
+    return Duration.between(session.getLastActivity(), now).toMinutes() > effectiveTimeoutMinutes;
   }
 
   public Optional<UserSession> validateAndRefresh(String sessionId) {
@@ -52,6 +65,34 @@ public class UserSessionService {
     sessionRepository.save(session);
     return Optional.of(session);
   }
+
+//  public boolean validateAndRefresh(String sessionId) {
+//    UserSession session = sessionRepository.findById(sessionId)
+//      .orElse(null);
+//
+//    if (session == null || !session.isActive()) {
+//      return false;
+//    }
+//
+//    LocalDateTime now = LocalDateTime.now();
+//
+//    // RememberMe Session expires after 14 days.
+//    // Normal Session expires after 15 minutes of inactivity.
+//    long timeoutMinutes = session.isRememberMe()
+//      ? 14L * 24L * 60L
+//      : 15L;
+//
+//    if (session.getLastActivity().plusMinutes(timeoutMinutes).isBefore(now)) {
+//      session.setActive(false);
+//      sessionRepository.save(session);
+//      return false;
+//    }
+//
+//    session.setLastActivity(now);
+//    sessionRepository.save(session);
+//
+//    return true;
+//  }
 
   public void logout(String sessionId) {
     sessionRepository.findById(sessionId).ifPresent(session -> {

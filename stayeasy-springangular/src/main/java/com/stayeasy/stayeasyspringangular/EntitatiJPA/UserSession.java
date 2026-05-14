@@ -33,6 +33,11 @@ public class UserSession {
   @Column(nullable = false)
   private boolean active;
 
+  @Setter
+  @Getter
+  @Column(nullable = false)
+  private boolean rememberMe = false;
+
   // Constructors
   public UserSession() {}
 

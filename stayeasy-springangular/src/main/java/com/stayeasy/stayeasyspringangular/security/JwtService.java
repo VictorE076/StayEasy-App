@@ -90,18 +90,27 @@ public class JwtService {
     return Keys.hmacShaKeyFor(keyBytes);
   }
 
-  public String generateToken(@NotNull User user, String sessionId) {
+  public String generateToken(@NotNull User user, String sessionId, boolean rememberMe) {
     Map<String, Object> claims = new HashMap<>();
     claims.put("sid", sessionId);
     claims.put("role", "ROLE_" + user.getRole().name());
     claims.put("userId", user.getId());
+
+    long expirationMs = rememberMe
+      ? 14L * 24L * 60L * 60L * 1000L
+      : jwtProperties.getExpiration();
+
     return Jwts.builder()
       .setClaims(claims)
       .setSubject(user.getUsername())
       .setIssuedAt(new Date(System.currentTimeMillis()))
-      .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60)) // 1h default exp
+      .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
       .signWith(getSignInKey(), SignatureAlgorithm.HS256)
       .compact();
+  }
+
+  public String generateToken(User user, String sessionId) {
+    return generateToken(user, sessionId, false);
   }
 
 }

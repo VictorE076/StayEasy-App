@@ -14,11 +14,20 @@ public class AuthRequest {
   @NotBlank(message = "Password is required")
   private String password;
 
+  private boolean rememberMe;
+
   public AuthRequest() {
   }
 
   public AuthRequest(String username, String password) {
-    this.username = username;
-    this.password = password;
+      this.username = username;
+      this.password = password;
+      this.rememberMe = false;
+  }
+
+  public AuthRequest(String username, String password, boolean rememberMe) {
+      this.username = username;
+      this.password = password;
+      this.rememberMe = rememberMe;
   }
 }
