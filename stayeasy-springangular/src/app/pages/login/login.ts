@@ -4,6 +4,7 @@ import {LoginDTO} from '../../models/loginDTO';
 import {AuthService} from '../../service/auth-service';
 import {Router} from '@angular/router';
 import {LoginService} from '../../service/login-service';
+import { ApiErrorService } from '../../service/api-error.service';
 import {NgIf} from '@angular/common';
 
 @Component({
@@ -28,7 +29,8 @@ export class Login {
   constructor(
     private loginService: LoginService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private apiErrorService: ApiErrorService
   ) {}
 
   onSubmit(): void {
@@ -47,7 +49,10 @@ export class Login {
       },
       error: (error) => {
         this.isLoading = false;
-        this.errorMessage = error.error || 'LoginService failed. Please check your credentials.';
+        this.errorMessage = this.apiErrorService.getMessage(
+          error,
+          'Login failed. Please check your credentials.'
+        );
       },
       complete: () => {
         this.isLoading = false;

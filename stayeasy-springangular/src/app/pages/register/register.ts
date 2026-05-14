@@ -4,6 +4,7 @@ import { RegisterDTO } from '../../models/registerDTO';
 import { LoginService } from '../../service/login-service';
 import { FormsModule } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
+import { ApiErrorService } from '../../service/api-error.service';
 import {NgIf} from '@angular/common';
 // import { AuthService } from '../../service/auth-service';
 
@@ -31,7 +32,11 @@ export class Register {
   successMessage: string = '';
   isLoading: boolean = false;
 
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private apiErrorService: ApiErrorService
+  ) {}
 
   register(): void {
     if (!this.userToRegister.username || !this.userToRegister.email ||
@@ -58,25 +63,22 @@ export class Register {
     this.successMessage = '';
 
     /// TEST Register (See browser's console)
-    console.log('Register clicked', this.userToRegister);
+    // console.log('Register clicked', this.userToRegister);
     ///
 
     this.loginService.register(this.userToRegister)
       .pipe(finalize(() => this.isLoading = false))
       .subscribe({
-      next: (msg) => {
-        this.successMessage = msg || 'Account created successfully';
-
-        // Redirect to "login" page
-        this.router.navigate(['/login']);
-      },
-      error: (error) => {
-        this.errorMessage =
-          (typeof error.error === 'string' && error.error) ||
-          error.error?.message ||
-          error.message ||
-          'Register failed';
-      },
+        next: (response) => {
+          this.successMessage = response.message || 'Account created successfully';
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          this.errorMessage = this.apiErrorService.getMessage(
+            error,
+            'Register failed. Please try again.'
+          );
+        },
       complete: () => {
         this.isLoading = false;
       }

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReviewService } from '../../service/review-service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ApiErrorService } from '../../service/api-error.service';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class ReviewFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private apiErrorService: ApiErrorService
   ) {
     this.form = this.fb.group({
       rating: [5, [Validators.required, Validators.min(1), Validators.max(5)]],
@@ -46,8 +48,11 @@ export class ReviewFormComponent implements OnInit {
 
     this.reviewService.upsertReview(this.propertyId, { rating, comment }).subscribe({
       next: () => void this.router.navigate(['/property/', this.propertyId]),
-      error: () => {
-        this.error = 'Failed to submit review.';
+      error: (error) => {
+        this.error = this.apiErrorService.getMessage(
+          error,
+          'Failed to submit review.'
+        );
         this.isSubmitting = false;
       }
     });

@@ -46445,7 +46445,7 @@ var LoginService = class _LoginService {
     return this.http.post(`${this.apiUrl}/logout?sessionId=${sessionId}`, {});
   }
   register(data) {
-    return this.http.post(`${this.apiUrl}/register`, data, { responseType: "text" });
+    return this.http.post(`${this.apiUrl}/register`, data);
   }
   static \u0275fac = function LoginService_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _LoginService)(\u0275\u0275inject(HttpClient));
@@ -46519,6 +46519,57 @@ var AuthService = class _AuthService {
   }], () => [{ type: Router }], null);
 })();
 
+// src/app/service/api-error.service.ts
+var ApiErrorService = class _ApiErrorService {
+  getMessage(error, fallback = "Something went wrong. Please try again.") {
+    if (!(error instanceof HttpErrorResponse)) {
+      return fallback;
+    }
+    const body = error.error;
+    if (!body) {
+      return fallback;
+    }
+    if (typeof body === "string") {
+      return body.trim() ? body : fallback;
+    }
+    if (body.validationErrors && Object.keys(body.validationErrors).length > 0) {
+      return Object.values(body.validationErrors).join("\n");
+    }
+    if (body.message) {
+      return body.message;
+    }
+    if (body.error) {
+      return body.error;
+    }
+    return fallback;
+  }
+  getValidationErrors(error) {
+    if (!(error instanceof HttpErrorResponse)) {
+      return [];
+    }
+    const body = error.error;
+    if (!body || typeof body === "string") {
+      return [];
+    }
+    if (!body.validationErrors) {
+      return [];
+    }
+    return Object.values(body.validationErrors);
+  }
+  static \u0275fac = function ApiErrorService_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _ApiErrorService)();
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _ApiErrorService, factory: _ApiErrorService.\u0275fac, providedIn: "root" });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ApiErrorService, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+
 // src/app/pages/login/login.ts
 function Login_div_12_Template(rf, ctx) {
   if (rf & 1) {
@@ -46536,16 +46587,18 @@ var Login = class _Login {
   loginService;
   authService;
   router;
+  apiErrorService;
   credentials = {
     username: "",
     password: ""
   };
   errorMessage = "";
   isLoading = false;
-  constructor(loginService, authService, router) {
+  constructor(loginService, authService, router, apiErrorService) {
     this.loginService = loginService;
     this.authService = authService;
     this.router = router;
+    this.apiErrorService = apiErrorService;
   }
   onSubmit() {
     if (!this.credentials.username || !this.credentials.password) {
@@ -46561,7 +46614,7 @@ var Login = class _Login {
       },
       error: (error) => {
         this.isLoading = false;
-        this.errorMessage = error.error || "LoginService failed. Please check your credentials.";
+        this.errorMessage = this.apiErrorService.getMessage(error, "Login failed. Please check your credentials.");
       },
       complete: () => {
         this.isLoading = false;
@@ -46572,7 +46625,7 @@ var Login = class _Login {
     this.router.navigate(["/register"]);
   }
   static \u0275fac = function Login_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _Login)(\u0275\u0275directiveInject(LoginService), \u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(Router));
+    return new (__ngFactoryType__ || _Login)(\u0275\u0275directiveInject(LoginService), \u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(ApiErrorService));
   };
   static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Login, selectors: [["app-login"]], decls: 31, vars: 8, consts: [["loginForm", "ngForm"], [1, "login-container"], [1, "login-card"], [1, "app-branding"], [1, "app-icon"], [1, "bi", "bi-house-heart-fill"], [1, "app-name"], [1, "login-header"], ["class", "ui-message error", 4, "ngIf"], [1, "login-form", 3, "ngSubmit"], [1, "form-group"], ["for", "username"], ["type", "text", "name", "username", "id", "username", "placeholder", "Enter your username", "required", "", 1, "form-input", 3, "ngModelChange", "ngModel", "disabled"], ["for", "password"], ["type", "password", "name", "password", "id", "password", "placeholder", "Enter your password", "required", "", 1, "form-input", 3, "ngModelChange", "ngModel", "disabled"], [1, "form-actions"], ["type", "submit", 1, "btn-login", 3, "disabled"], ["type", "button", 1, "btn-register", 3, "click", "disabled"], [1, "forgot-password"], ["href", "#", 1, "forgot-link"], [1, "ui-message", "error"]], template: function Login_Template(rf, ctx) {
     if (rf & 1) {
@@ -46727,10 +46780,10 @@ var Login = class _Login {
   </div>\r
 </div>\r
 `, styles: ['/* src/app/pages/login/login.css */\n.login-container {\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  padding: 20px;\n}\n.login-card {\n  background: white;\n  border-radius: 16px;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);\n  padding: 40px;\n  width: 100%;\n  max-width: 420px;\n  position: relative;\n}\n.login-card::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      #667eea,\n      #764ba2);\n  border-radius: 16px 16px 0 0;\n}\n.app-branding {\n  text-align: center;\n  margin-bottom: 32px;\n  padding-bottom: 24px;\n  border-bottom: 1px solid #f0f0f0;\n}\n.app-icon {\n  width: 56px;\n  height: 56px;\n  margin: 0 auto 12px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  border-radius: 14px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: white;\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n}\n.app-icon i {\n  font-size: 28px;\n}\n.app-name {\n  font-size: 28px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0;\n  letter-spacing: -0.5px;\n}\n.login-header {\n  text-align: center;\n  margin-bottom: 32px;\n}\n.login-header h2 {\n  color: #333;\n  font-size: 24px;\n  font-weight: 600;\n  margin: 0 0 6px 0;\n}\n.login-header p {\n  color: #666;\n  font-size: 14px;\n  margin: 0;\n}\n.ui-message {\n  padding: 12px 16px;\n  border-radius: 8px;\n  margin-bottom: 20px;\n  font-size: 14px;\n  font-weight: 500;\n  text-align: center;\n}\n.ui-message.error {\n  background-color: #fee;\n  color: #c33;\n  border: 1px solid #fcc;\n}\n.login-form {\n  width: 100%;\n}\n.form-group {\n  margin-bottom: 20px;\n}\n.form-group label {\n  display: block;\n  color: #333;\n  font-weight: 500;\n  margin-bottom: 8px;\n  font-size: 14px;\n}\n.form-input {\n  width: 100%;\n  padding: 13px 16px;\n  border: 2px solid #e8eaed;\n  border-radius: 10px;\n  font-size: 15px;\n  transition: all 0.3s ease;\n  box-sizing: border-box;\n  font-family: inherit;\n}\n.form-input:focus {\n  outline: none;\n  border-color: #667eea;\n  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.08);\n}\n.form-input::placeholder {\n  color: #aaa;\n}\n.form-actions {\n  margin-top: 28px;\n}\n.btn-login {\n  width: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  padding: 14px 20px;\n  border-radius: 10px;\n  font-size: 16px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  margin-bottom: 12px;\n  font-family: inherit;\n}\n.btn-login:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.35);\n}\n.btn-login:active:not(:disabled) {\n  transform: translateY(0);\n}\n.btn-login:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-register {\n  width: 100%;\n  background: transparent;\n  color: #667eea;\n  border: 2px solid #e8eaed;\n  padding: 12px 20px;\n  border-radius: 10px;\n  font-size: 15px;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-family: inherit;\n}\n.btn-register:hover {\n  background: #f8f9fa;\n  border-color: #667eea;\n  color: #667eea;\n  transform: translateY(-1px);\n}\n.forgot-password {\n  text-align: center;\n  margin-top: 20px;\n}\n.forgot-link {\n  color: #667eea;\n  text-decoration: none;\n  font-size: 14px;\n  font-weight: 500;\n  transition: color 0.3s ease;\n}\n.forgot-link:hover {\n  color: #764ba2;\n  text-decoration: underline;\n}\n@media (max-width: 480px) {\n  .login-container {\n    padding: 10px;\n  }\n  .login-card {\n    padding: 32px 24px;\n  }\n  .app-name {\n    font-size: 24px;\n  }\n  .login-header h2 {\n    font-size: 22px;\n  }\n}\n/*# sourceMappingURL=login.css.map */\n'] }]
-  }], () => [{ type: LoginService }, { type: AuthService }, { type: Router }], null);
+  }], () => [{ type: LoginService }, { type: AuthService }, { type: Router }, { type: ApiErrorService }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Login, { className: "Login", filePath: "src/app/pages/login/login.ts", lineNumber: 19 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Login, { className: "Login", filePath: "src/app/pages/login/login.ts", lineNumber: 20 });
 })();
 
 // src/app/pages/register/register.ts
@@ -46761,6 +46814,7 @@ function Register_div_13_Template(rf, ctx) {
 var Register = class _Register {
   router;
   loginService;
+  apiErrorService;
   userToRegister = {
     username: "",
     email: "",
@@ -46771,9 +46825,10 @@ var Register = class _Register {
   errorMessage = "";
   successMessage = "";
   isLoading = false;
-  constructor(router, loginService) {
+  constructor(router, loginService, apiErrorService) {
     this.router = router;
     this.loginService = loginService;
+    this.apiErrorService = apiErrorService;
   }
   register() {
     if (!this.userToRegister.username || !this.userToRegister.email || !this.userToRegister.password || !this.userToRegister.fullName) {
@@ -46794,14 +46849,13 @@ var Register = class _Register {
     this.isLoading = true;
     this.errorMessage = "";
     this.successMessage = "";
-    console.log("Register clicked", this.userToRegister);
     this.loginService.register(this.userToRegister).pipe(finalize(() => this.isLoading = false)).subscribe({
-      next: (msg) => {
-        this.successMessage = msg || "Account created successfully";
+      next: (response) => {
+        this.successMessage = response.message || "Account created successfully";
         this.router.navigate(["/login"]);
       },
       error: (error) => {
-        this.errorMessage = typeof error.error === "string" && error.error || error.error?.message || error.message || "Register failed";
+        this.errorMessage = this.apiErrorService.getMessage(error, "Register failed. Please try again.");
       },
       complete: () => {
         this.isLoading = false;
@@ -46812,7 +46866,7 @@ var Register = class _Register {
     this.router.navigate(["/login"]);
   }
   static \u0275fac = function Register_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _Register)(\u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(LoginService));
+    return new (__ngFactoryType__ || _Register)(\u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(LoginService), \u0275\u0275directiveInject(ApiErrorService));
   };
   static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Register, selectors: [["app-register"]], decls: 41, vars: 15, consts: [["registerForm", "ngForm"], [1, "register-container"], [1, "register-card"], [1, "app-branding"], [1, "app-icon"], [1, "bi", "bi-house-heart-fill"], [1, "app-name"], [1, "register-header"], ["class", "ui-message success", 4, "ngIf"], ["class", "ui-message error", 4, "ngIf"], [1, "register-form", 3, "ngSubmit"], [1, "form-group"], ["for", "username"], ["type", "text", "name", "username", "id", "username", "placeholder", "Choose a username", "required", "", 1, "form-input", 3, "ngModelChange", "ngModel", "disabled"], ["for", "fullName"], ["type", "text", "name", "fullName", "id", "fullName", "placeholder", "Your full name", "required", "", 1, "form-input", 3, "ngModelChange", "ngModel", "disabled"], ["for", "email"], ["type", "email", "name", "email", "id", "email", "placeholder", "your@email.com", "required", "", 1, "form-input", 3, "ngModelChange", "ngModel", "disabled"], ["for", "password"], ["type", "password", "name", "password", "id", "password", "placeholder", "Choose a password", "required", "", "minlength", "6", 1, "form-input", 3, "ngModelChange", "ngModel", "disabled"], ["for", "confirmPassword"], ["type", "password", "name", "confirmPassword", "id", "confirmPassword", "placeholder", "Re-enter your password", "required", "", 1, "form-input", 3, "ngModelChange", "ngModel", "disabled"], [1, "form-actions"], ["type", "submit", 1, "btn-register", 3, "disabled"], ["type", "button", 1, "btn-login", 3, "click", "disabled"], [1, "ui-message", "success"], [1, "ui-message", "error"]], template: function Register_Template(rf, ctx) {
     if (rf & 1) {
@@ -47048,10 +47102,10 @@ var Register = class _Register {
   </div>\r
 </div>\r
 `, styles: ['/* src/app/pages/register/register.css */\n.register-container {\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  padding: 20px;\n}\n.register-card {\n  background: white;\n  border-radius: 16px;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);\n  padding: 40px;\n  width: 100%;\n  max-width: 480px;\n  position: relative;\n}\n.register-card::before {\n  content: "";\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 4px;\n  background:\n    linear-gradient(\n      90deg,\n      #667eea,\n      #764ba2);\n  border-radius: 16px 16px 0 0;\n}\n.app-branding {\n  text-align: center;\n  margin-bottom: 32px;\n  padding-bottom: 24px;\n  border-bottom: 1px solid #f0f0f0;\n}\n.app-icon {\n  width: 56px;\n  height: 56px;\n  margin: 0 auto 12px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  border-radius: 14px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: white;\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);\n  font-size: 28px;\n}\n.app-name {\n  font-size: 28px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n  margin: 0;\n  letter-spacing: -0.5px;\n}\n.register-header {\n  text-align: center;\n  margin-bottom: 32px;\n}\n.register-header h2 {\n  color: #333;\n  font-size: 24px;\n  font-weight: 600;\n  margin: 0 0 6px 0;\n}\n.register-header p {\n  color: #666;\n  font-size: 14px;\n  margin: 0;\n}\n.ui-message {\n  padding: 12px 16px;\n  border-radius: 8px;\n  margin-bottom: 20px;\n  font-size: 14px;\n  font-weight: 500;\n  text-align: center;\n}\n.ui-message.success {\n  background-color: #d4edda;\n  color: #155724;\n  border: 1px solid #c3e6cb;\n}\n.ui-message.error {\n  background-color: #fee;\n  color: #c33;\n  border: 1px solid #fcc;\n}\n.register-form {\n  width: 100%;\n}\n.form-group {\n  margin-bottom: 20px;\n}\n.form-group label {\n  display: block;\n  color: #333;\n  font-weight: 500;\n  margin-bottom: 8px;\n  font-size: 14px;\n}\n.form-input {\n  width: 100%;\n  padding: 13px 16px;\n  border: 2px solid #e8eaed;\n  border-radius: 10px;\n  font-size: 15px;\n  transition: all 0.3s ease;\n  box-sizing: border-box;\n  font-family: inherit;\n}\n.form-input:focus {\n  outline: none;\n  border-color: #667eea;\n  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.08);\n}\n.form-input::placeholder {\n  color: #aaa;\n}\n.form-input:disabled {\n  background-color: #f5f5f5;\n  cursor: not-allowed;\n}\n.form-actions {\n  margin-top: 28px;\n}\n.btn-register {\n  width: 100%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  padding: 14px 20px;\n  border-radius: 10px;\n  font-size: 16px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  margin-bottom: 12px;\n  font-family: inherit;\n}\n.btn-register:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.35);\n}\n.btn-register:active:not(:disabled) {\n  transform: translateY(0);\n}\n.btn-register:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-login {\n  width: 100%;\n  background: transparent;\n  color: #667eea;\n  border: 2px solid #e8eaed;\n  padding: 12px 20px;\n  border-radius: 10px;\n  font-size: 15px;\n  font-weight: 500;\n  cursor: pointer;\n  transition: all 0.3s ease;\n  font-family: inherit;\n}\n.btn-login:hover:not(:disabled) {\n  background: #f8f9fa;\n  border-color: #667eea;\n  color: #667eea;\n  transform: translateY(-1px);\n}\n.btn-login:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n@media (max-width: 480px) {\n  .register-container {\n    padding: 10px;\n  }\n  .register-card {\n    padding: 32px 24px;\n  }\n  .app-name {\n    font-size: 24px;\n  }\n  .register-header h2 {\n    font-size: 22px;\n  }\n}\n/*# sourceMappingURL=register.css.map */\n'] }]
-  }], () => [{ type: Router }, { type: LoginService }], null);
+  }], () => [{ type: Router }, { type: LoginService }, { type: ApiErrorService }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Register, { className: "Register", filePath: "src/app/pages/register/register.ts", lineNumber: 21 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Register, { className: "Register", filePath: "src/app/pages/register/register.ts", lineNumber: 22 });
 })();
 
 // src/app/guards/auth-guard.ts
@@ -47196,6 +47250,7 @@ function CreatePropertyModal_span_65_Template(rf, ctx) {
 }
 var CreatePropertyModal = class _CreatePropertyModal {
   propertyService;
+  apiErrorService;
   currentUserId;
   close = new EventEmitter();
   propertyCreated = new EventEmitter();
@@ -47213,8 +47268,9 @@ var CreatePropertyModal = class _CreatePropertyModal {
     imagePaths: []
   };
   imagePathInput = "";
-  constructor(propertyService) {
+  constructor(propertyService, apiErrorService) {
     this.propertyService = propertyService;
+    this.apiErrorService = apiErrorService;
   }
   onClose() {
     if (!this.isSubmitting) {
@@ -47249,7 +47305,7 @@ var CreatePropertyModal = class _CreatePropertyModal {
       },
       error: (error) => {
         console.error("Error creating property:", error);
-        this.error = error.error?.message || "Failed to create property. Please try again.";
+        this.error = this.apiErrorService.getMessage(error, "Failed to create property. Please try again.");
       }
     });
   }
@@ -47277,7 +47333,7 @@ var CreatePropertyModal = class _CreatePropertyModal {
     return true;
   }
   static \u0275fac = function CreatePropertyModal_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _CreatePropertyModal)(\u0275\u0275directiveInject(PropertyService));
+    return new (__ngFactoryType__ || _CreatePropertyModal)(\u0275\u0275directiveInject(PropertyService), \u0275\u0275directiveInject(ApiErrorService));
   };
   static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _CreatePropertyModal, selectors: [["app-create-property-modal"]], inputs: { currentUserId: "currentUserId" }, outputs: { close: "close", propertyCreated: "propertyCreated" }, decls: 66, vars: 17, consts: [[1, "modal-overlay", 3, "click"], [1, "modal-container", 3, "click"], [1, "modal-header"], [1, "btn-close", 3, "click", "disabled"], [1, "bi", "bi-x-lg"], [1, "modal-body", 3, "ngSubmit"], [1, "form-group"], ["for", "title"], [1, "required"], ["type", "text", "id", "title", "name", "title", "maxlength", "120", "placeholder", "Enter property title", "required", "", 3, "ngModelChange", "ngModel"], ["for", "city"], ["type", "text", "id", "city", "name", "city", "maxlength", "80", "placeholder", "Enter city", "required", "", 3, "ngModelChange", "ngModel"], ["for", "address"], ["type", "text", "id", "address", "name", "address", "maxlength", "200", "placeholder", "Enter address", "required", "", 3, "ngModelChange", "ngModel"], ["for", "description"], ["id", "description", "name", "description", "maxlength", "2000", "rows", "4", "placeholder", "Describe your property...", 3, "ngModelChange", "ngModel"], [1, "form-row"], ["for", "propertyType"], ["id", "propertyType", "name", "propertyType", "required", "", 3, "ngModelChange", "ngModel"], [3, "value", 4, "ngFor", "ngForOf"], ["for", "maxGuests"], ["type", "number", "id", "maxGuests", "name", "maxGuests", "min", "1", "max", "50", "required", "", 3, "ngModelChange", "ngModel"], ["for", "pricePerNight"], ["type", "number", "id", "pricePerNight", "name", "pricePerNight", "min", "0.01", "step", "0.01", "placeholder", "0.00", "required", "", 3, "ngModelChange", "ngModel"], [1, "image-input-container"], ["type", "url", "name", "imagePathInput", "placeholder", "Enter image URL", "maxlength", "500", 3, "ngModelChange", "keyup.enter", "ngModel"], ["type", "button", 1, "btn-add-image", 3, "click", "disabled"], [1, "bi", "bi-plus-circle"], ["class", "image-list", 4, "ngIf"], ["class", "error-message", 4, "ngIf"], [1, "modal-footer"], ["type", "button", 1, "btn-cancel", 3, "click", "disabled"], ["type", "submit", 1, "btn-submit", 3, "disabled"], [4, "ngIf"], [3, "value"], [1, "image-list"], ["class", "image-item", 4, "ngFor", "ngForOf"], [1, "image-item"], [1, "image-path"], ["type", "button", 1, "btn-remove", 3, "click"], [1, "bi", "bi-trash"], [1, "error-message"], [1, "bi", "bi-exclamation-circle"]], template: function CreatePropertyModal_Template(rf, ctx) {
     if (rf & 1) {
@@ -47452,7 +47508,7 @@ var CreatePropertyModal = class _CreatePropertyModal {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CreatePropertyModal, [{
     type: Component,
     args: [{ selector: "app-create-property-modal", imports: [CommonModule, FormsModule], standalone: true, template: '<div class="modal-overlay" (click)="onClose()">\r\n  <div class="modal-container" (click)="$event.stopPropagation()">\r\n    <div class="modal-header">\r\n      <h2>Create New Property</h2>\r\n      <button class="btn-close" (click)="onClose()" [disabled]="isSubmitting">\r\n        <i class="bi bi-x-lg"></i>\r\n      </button>\r\n    </div>\r\n\r\n    <form (ngSubmit)="onSubmit()" class="modal-body">\r\n      <div class="form-group">\r\n        <label for="title">Title <span class="required">*</span></label>\r\n        <input\r\n          type="text"\r\n          id="title"\r\n          [(ngModel)]="property.title"\r\n          name="title"\r\n          maxlength="120"\r\n          placeholder="Enter property title"\r\n          required\r\n        />\r\n      </div>\r\n\r\n      <div class="form-group">\r\n        <label for="city">City <span class="required">*</span></label>\r\n        <input\r\n          type="text"\r\n          id="city"\r\n          [(ngModel)]="property.city"\r\n          name="city"\r\n          maxlength="80"\r\n          placeholder="Enter city"\r\n          required\r\n        />\r\n      </div>\r\n\r\n      <div class="form-group">\r\n        <label for="address">Address <span class="required">*</span></label>\r\n        <input\r\n          type="text"\r\n          id="address"\r\n          [(ngModel)]="property.address"\r\n          name="address"\r\n          maxlength="200"\r\n          placeholder="Enter address"\r\n          required\r\n        />\r\n      </div>\r\n\r\n      <div class="form-group">\r\n        <label for="description">Description</label>\r\n        <textarea\r\n          id="description"\r\n          [(ngModel)]="property.description"\r\n          name="description"\r\n          maxlength="2000"\r\n          rows="4"\r\n          placeholder="Describe your property..."\r\n        ></textarea>\r\n      </div>\r\n\r\n      <div class="form-row">\r\n        <div class="form-group">\r\n          <label for="propertyType">Property Type <span class="required">*</span></label>\r\n          <select\r\n            id="propertyType"\r\n            [(ngModel)]="property.propertyType"\r\n            name="propertyType"\r\n            required\r\n          >\r\n            <option *ngFor="let type of propertyTypes" [value]="type">\r\n              {{ type.charAt(0) + type.slice(1).toLowerCase() }}\r\n            </option>\r\n          </select>\r\n        </div>\r\n\r\n        <div class="form-group">\r\n          <label for="maxGuests">Max Guests <span class="required">*</span></label>\r\n          <input\r\n            type="number"\r\n            id="maxGuests"\r\n            [(ngModel)]="property.maxGuests"\r\n            name="maxGuests"\r\n            min="1"\r\n            max="50"\r\n            required\r\n          />\r\n        </div>\r\n\r\n        <div class="form-group">\r\n          <label for="pricePerNight">Price Per Night ($) <span class="required">*</span></label>\r\n          <input\r\n            type="number"\r\n            id="pricePerNight"\r\n            [(ngModel)]="property.pricePerNight"\r\n            name="pricePerNight"\r\n            min="0.01"\r\n            step="0.01"\r\n            placeholder="0.00"\r\n            required\r\n          />\r\n        </div>\r\n      </div>\r\n\r\n      <div class="form-group">\r\n        <label>Image URLs (Optional - Max 20)</label>\r\n        <div class="image-input-container">\r\n          <input\r\n            type="url"\r\n            [(ngModel)]="imagePathInput"\r\n            name="imagePathInput"\r\n            placeholder="Enter image URL"\r\n            maxlength="500"\r\n            (keyup.enter)="addImagePath()"\r\n          />\r\n          <button\r\n            type="button"\r\n            class="btn-add-image"\r\n            (click)="addImagePath()"\r\n            [disabled]="!imagePathInput.trim() || (property.imagePaths?.length || 0) >= 20"\r\n          >\r\n            <i class="bi bi-plus-circle"></i>\r\n            Add\r\n          </button>\r\n        </div>\r\n\r\n        <div class="image-list" *ngIf="property.imagePaths && property.imagePaths.length > 0">\r\n          <div class="image-item" *ngFor="let path of property.imagePaths; let i = index">\r\n            <span class="image-path">{{ path }}</span>\r\n            <button type="button" class="btn-remove" (click)="removeImagePath(i)">\r\n              <i class="bi bi-trash"></i>\r\n            </button>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      <div class="error-message" *ngIf="error">\r\n        <i class="bi bi-exclamation-circle"></i>\r\n        {{ error }}\r\n      </div>\r\n\r\n      <div class="modal-footer">\r\n        <button\r\n          type="button"\r\n          class="btn-cancel"\r\n          (click)="onClose()"\r\n          [disabled]="isSubmitting"\r\n        >\r\n          Cancel\r\n        </button>\r\n        <button\r\n          type="submit"\r\n          class="btn-submit"\r\n          [disabled]="isSubmitting"\r\n        >\r\n          <span *ngIf="!isSubmitting">Create Property</span>\r\n          <span *ngIf="isSubmitting">Creating...</span>\r\n        </button>\r\n      </div>\r\n    </form>\r\n  </div>\r\n</div>\r\n', styles: ["/* src/app/pages/create-property-modal/create-property-modal.css */\n.modal-overlay {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background: rgba(0, 0, 0, 0.5);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  z-index: 2000;\n  padding: 20px;\n  animation: fadeIn 0.2s ease;\n}\n.modal-container {\n  background: white;\n  border-radius: 16px;\n  width: 100%;\n  max-width: 700px;\n  max-height: 90vh;\n  overflow: hidden;\n  display: flex;\n  flex-direction: column;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);\n  animation: slideUp 0.3s ease;\n}\n@keyframes slideUp {\n  from {\n    opacity: 0;\n    transform: translateY(30px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.modal-header {\n  padding: 24px;\n  border-bottom: 1px solid #f0f0f0;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.modal-header h2 {\n  font-size: 24px;\n  font-weight: 700;\n  color: #333;\n  margin: 0;\n}\n.btn-close {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: #f8f9fa;\n  color: #666;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n}\n.btn-close:hover:not(:disabled) {\n  background: #e9ecef;\n  color: #333;\n}\n.btn-close:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.modal-body {\n  padding: 24px;\n  overflow-y: auto;\n  flex: 1;\n}\n.form-group {\n  margin-bottom: 20px;\n}\n.form-group label {\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n  margin-bottom: 8px;\n}\n.required {\n  color: #dc3545;\n}\n.form-group input,\n.form-group textarea,\n.form-group select {\n  width: 100%;\n  padding: 12px;\n  border: 2px solid #e9ecef;\n  border-radius: 8px;\n  font-size: 14px;\n  color: #333;\n  transition: all 0.2s ease;\n  font-family: inherit;\n}\n.form-group input:focus,\n.form-group textarea:focus,\n.form-group select:focus {\n  outline: none;\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.form-group textarea {\n  resize: vertical;\n  min-height: 100px;\n}\n.form-row {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 16px;\n}\n.image-input-container {\n  display: flex;\n  gap: 8px;\n}\n.image-input-container input {\n  flex: 1;\n}\n.btn-add-image {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  padding: 12px 20px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  white-space: nowrap;\n}\n.btn-add-image:hover:not(:disabled) {\n  background: #5568d3;\n}\n.btn-add-image:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.image-list {\n  margin-top: 12px;\n  display: flex;\n  flex-direction: column;\n  gap: 8px;\n}\n.image-item {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 12px;\n  background: #f8f9fa;\n  border-radius: 8px;\n  font-size: 13px;\n}\n.image-path {\n  flex: 1;\n  color: #666;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.btn-remove {\n  padding: 6px 10px;\n  background: #dc3545;\n  color: white;\n  border: none;\n  border-radius: 6px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  font-size: 12px;\n}\n.btn-remove:hover {\n  background: #c82333;\n}\n.error-message {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px;\n  background: #fff3cd;\n  border: 1px solid #ffc107;\n  border-radius: 8px;\n  color: #856404;\n  font-size: 14px;\n  margin-top: 16px;\n}\n.error-message i {\n  font-size: 18px;\n}\n.modal-footer {\n  padding: 24px;\n  border-top: 1px solid #f0f0f0;\n  display: flex;\n  gap: 12px;\n  justify-content: flex-end;\n}\n.btn-cancel,\n.btn-submit {\n  padding: 12px 24px;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: none;\n}\n.btn-cancel {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-cancel:hover:not(:disabled) {\n  background: #e9ecef;\n}\n.btn-submit {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-submit:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-cancel:disabled,\n.btn-submit:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n@media (max-width: 768px) {\n  .modal-container {\n    max-width: 100%;\n    max-height: 100vh;\n    border-radius: 0;\n  }\n  .modal-body {\n    padding: 16px;\n  }\n  .modal-header,\n  .modal-footer {\n    padding: 16px;\n  }\n  .form-row {\n    grid-template-columns: 1fr;\n  }\n  .modal-footer {\n    flex-direction: column;\n  }\n  .btn-cancel,\n  .btn-submit {\n    width: 100%;\n  }\n}\n/*# sourceMappingURL=create-property-modal.css.map */\n"] }]
-  }], () => [{ type: PropertyService }], { currentUserId: [{
+  }], () => [{ type: PropertyService }, { type: ApiErrorService }], { currentUserId: [{
     type: Input
   }], close: [{
     type: Output
@@ -47461,7 +47517,7 @@ var CreatePropertyModal = class _CreatePropertyModal {
   }] });
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CreatePropertyModal, { className: "CreatePropertyModal", filePath: "src/app/pages/create-property-modal/create-property-modal.ts", lineNumber: 15 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CreatePropertyModal, { className: "CreatePropertyModal", filePath: "src/app/pages/create-property-modal/create-property-modal.ts", lineNumber: 16 });
 })();
 
 // src/app/pages/homepage/homepage.ts
@@ -49397,15 +49453,17 @@ var ReviewFormComponent = class _ReviewFormComponent {
   router;
   fb;
   reviewService;
+  apiErrorService;
   propertyId;
   isSubmitting = false;
   error = null;
   form;
-  constructor(route, router, fb, reviewService) {
+  constructor(route, router, fb, reviewService, apiErrorService) {
     this.route = route;
     this.router = router;
     this.fb = fb;
     this.reviewService = reviewService;
+    this.apiErrorService = apiErrorService;
     this.form = this.fb.group({
       rating: [5, [Validators.required, Validators.min(1), Validators.max(5)]],
       comment: ["", [Validators.maxLength(2e3)]]
@@ -49423,8 +49481,8 @@ var ReviewFormComponent = class _ReviewFormComponent {
     const comment = String(this.form.get("comment")?.value ?? "").trim();
     this.reviewService.upsertReview(this.propertyId, { rating, comment }).subscribe({
       next: () => void this.router.navigate(["/property/", this.propertyId]),
-      error: () => {
-        this.error = "Failed to submit review.";
+      error: (error) => {
+        this.error = this.apiErrorService.getMessage(error, "Failed to submit review.");
         this.isSubmitting = false;
       }
     });
@@ -49433,7 +49491,7 @@ var ReviewFormComponent = class _ReviewFormComponent {
     this.router.navigate(["/property/", this.propertyId]);
   }
   static \u0275fac = function ReviewFormComponent_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _ReviewFormComponent)(\u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(ReviewService));
+    return new (__ngFactoryType__ || _ReviewFormComponent)(\u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(FormBuilder), \u0275\u0275directiveInject(ReviewService), \u0275\u0275directiveInject(ApiErrorService));
   };
   static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _ReviewFormComponent, selectors: [["app-review-form"]], decls: 26, vars: 8, consts: [[1, "review-form-page"], [1, "review-title"], ["class", "error", 4, "ngIf"], [3, "ngSubmit", "formGroup"], ["formControlName", "rating"], [3, "value"], ["rows", "6", "formControlName", "comment"], [1, "actions"], ["type", "button", 3, "click"], ["type", "submit", 3, "disabled"], [1, "error"]], template: function ReviewFormComponent_Template(rf, ctx) {
     if (rf & 1) {
@@ -49501,10 +49559,10 @@ var ReviewFormComponent = class _ReviewFormComponent {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ReviewFormComponent, [{
     type: Component,
     args: [{ selector: "app-review-form", standalone: true, imports: [CommonModule, ReactiveFormsModule], template: '<div class="review-form-page">\r\n\r\n  <h2 class="review-title">Leave a Review</h2>\r\n\r\n  <div class="error" *ngIf="error">{{ error }}</div>\r\n\r\n  <form [formGroup]="form" (ngSubmit)="submit()">\r\n    <label>Rating (1\u20135)</label>\r\n    <select formControlName="rating">\r\n      <option [value]="1">1</option>\r\n      <option [value]="2">2</option>\r\n      <option [value]="3">3</option>\r\n      <option [value]="4">4</option>\r\n      <option [value]="5">5</option>\r\n    </select>\r\n\r\n    <label>Comment</label>\r\n    <textarea rows="6" formControlName="comment"></textarea>\r\n\r\n    <div class="actions">\r\n      <button type="button" (click)="cancel()">Go back to the property</button>\r\n      <button type="submit" [disabled]="form.invalid || isSubmitting">\r\n        Submit\r\n      </button>\r\n    </div>\r\n  </form>\r\n\r\n</div>\r\n', styles: ["/* src/app/pages/review-form/review-form.css */\n.review-form-page {\n  max-width: 650px;\n  margin: 80px auto 0 auto;\n  padding: 20px;\n  background-color: #ffffff;\n}\n.error {\n  margin: 10px 0;\n  padding: 10px;\n  border-radius: 8px;\n  background-color: #fdecea;\n  color: #b00020;\n  font-size: 14px;\n}\n.review-title {\n  text-align: center;\n  font-size: 22px;\n  font-weight: 600;\n  margin-bottom: 24px;\n  color: #333;\n}\ntextarea,\nselect {\n  width: 100%;\n  margin-top: 6px;\n  margin-bottom: 16px;\n  padding: 12px;\n  font-size: 14px;\n  border: 2px solid #333;\n  border-radius: 4px;\n  outline: none;\n  box-sizing: border-box;\n}\ntextarea {\n  min-height: 90px;\n  resize: vertical;\n}\ntextarea:focus,\nselect:focus {\n  border-color: #6f6be8;\n}\n.actions {\n  display: flex;\n  gap: 10px;\n  justify-content: flex-start;\n  margin-top: 10px;\n}\n.actions button[type=button] {\n  padding: 8px 20px;\n  font-size: 14px;\n  font-weight: 500;\n  border-radius: 999px;\n  cursor: pointer;\n  background: transparent;\n  color: #6f6be8;\n  border: 2px solid #6f6be8;\n  transition: background 0.15s ease, color 0.15s ease;\n}\n.actions button[type=button]:hover {\n  background: #6f6be8;\n  color: #ffffff;\n}\n.actions button[type=submit] {\n  padding: 8px 20px;\n  font-size: 14px;\n  font-weight: 500;\n  color: #fff;\n  border-radius: 999px;\n  border: none;\n  cursor: pointer;\n  background:\n    linear-gradient(\n      135deg,\n      #7b77f2,\n      #6f6be8);\n  transition: transform 0.15s ease, box-shadow 0.15s ease;\n}\n.actions button[type=submit]:hover {\n  transform: translateY(-1px);\n  box-shadow: 0 4px 10px rgba(111, 107, 232, 0.3);\n}\n.actions button[type=submit]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n/*# sourceMappingURL=review-form.css.map */\n"] }]
-  }], () => [{ type: ActivatedRoute }, { type: Router }, { type: FormBuilder }, { type: ReviewService }], null);
+  }], () => [{ type: ActivatedRoute }, { type: Router }, { type: FormBuilder }, { type: ReviewService }, { type: ApiErrorService }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ReviewFormComponent, { className: "ReviewFormComponent", filePath: "src/app/pages/review-form/review-form.ts", lineNumber: 16 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(ReviewFormComponent, { className: "ReviewFormComponent", filePath: "src/app/pages/review-form/review-form.ts", lineNumber: 17 });
 })();
 
 // src/app/app.routes.ts

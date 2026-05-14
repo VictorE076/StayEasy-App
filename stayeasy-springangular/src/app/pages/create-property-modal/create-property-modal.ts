@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {PropertyRequestDTO, PropertyType} from '../../models/property.models';
 import {PropertyService} from '../../service/property-service';
 import {finalize} from 'rxjs/operators';
+import { ApiErrorService } from '../../service/api-error.service';
 
 @Component({
   selector: 'app-create-property-modal',
@@ -34,7 +35,10 @@ export class CreatePropertyModal {
 
   imagePathInput = '';
 
-  constructor(private propertyService: PropertyService) {}
+  constructor(
+    private propertyService: PropertyService,
+    private apiErrorService: ApiErrorService
+  ) {}
 
   onClose(): void {
     if (!this.isSubmitting) {
@@ -78,7 +82,10 @@ export class CreatePropertyModal {
         },
         error: (error) => {
           console.error('Error creating property:', error);
-          this.error = error.error?.message || 'Failed to create property. Please try again.';
+          this.error = this.apiErrorService.getMessage(
+            error,
+            'Failed to create property. Please try again.'
+          );
         }
       });
   }

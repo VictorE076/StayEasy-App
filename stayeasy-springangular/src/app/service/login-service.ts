@@ -3,12 +3,19 @@ import {HttpClient} from '@angular/common/http';
 import {LoginDTO} from '../models/loginDTO';
 import { RegisterDTO } from '../models/registerDTO';
 import {Observable} from 'rxjs';
+
 export interface AuthResponse {
   token: string;
 }
+
+export interface ApiMessageResponse {
+  message: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
+
 export class LoginService {
   private apiUrl = '/api/auth';
 
@@ -22,8 +29,8 @@ export class LoginService {
     return this.http.post<any>(`${this.apiUrl}/logout?sessionId=${sessionId}`, {});
   }
 
-  register(data: RegisterDTO): Observable<string> {
-    return this.http.post(`${this.apiUrl}/register`, data, { responseType: 'text' });
+  register(data: RegisterDTO): Observable<ApiMessageResponse> {
+    return this.http.post<ApiMessageResponse>(`${this.apiUrl}/register`, data);
   }
 
 }
