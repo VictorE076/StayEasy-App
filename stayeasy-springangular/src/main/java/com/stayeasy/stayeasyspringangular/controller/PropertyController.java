@@ -51,6 +51,15 @@ public class PropertyController {
     return propertyService.createProperty(dto);
   }
 
+  // PUT /api/properties/{id}
+  @PutMapping("/{id}")
+  public PropertyResponseDTO update(
+    @PathVariable Long id,
+    @Valid @RequestBody PropertyRequestDTO dto
+  ) {
+    return propertyService.updateProperty(id, dto);
+  }
+
   // DELETE /api/properties/{id}
   @DeleteMapping("/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)

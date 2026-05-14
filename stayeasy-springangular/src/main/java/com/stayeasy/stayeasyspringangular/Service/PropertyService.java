@@ -18,6 +18,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class PropertyService {
@@ -93,6 +95,52 @@ public class PropertyService {
     return mapToResponse(propertyRepository.save(property));
   }
 
+  @Transactional
+  public PropertyResponseDTO updateProperty(Long id, PropertyRequestDTO dto) { // Ownership checking (except for "ROLE_ADMIN")
+
+    Property property = propertyRepository.findById(id)
+      .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
+
+    User currentUser = getCurrentUser();
+
+    Integer ownerId = property.getOwner() == null ? null : property.getOwner().getId();
+    Integer currentUserId = currentUser.getId();
+
+    boolean isAdmin = getAuthenticationContext().getAuthorities().stream()
+      .anyMatch(a -> "ROLE_ADMIN".equals(a.getAuthority()));
+
+    if (!isAdmin) { // Only normal (GUEST or HOST) user must also be the property's owner.
+      if (ownerId == null || !ownerId.equals(currentUserId)) {
+        throw new ForbiddenActionException("You are not allowed to update this property");
+      }
+    }
+
+    property.setTitle(dto.getTitle());
+    property.setDescription(dto.getDescription());
+    property.setCity(dto.getCity());
+    property.setAddress(dto.getAddress());
+    property.setPricePerNight(dto.getPricePerNight());
+    property.setMaxGuests(dto.getMaxGuests());
+    property.setPropertyType(dto.getPropertyType());
+
+    var imagePaths = dto.getImagePaths() == null ? List.<String>of() : dto.getImagePaths();
+
+    List<PropertyImage> updatedImages = imagePaths.stream()
+      .map(path -> PropertyImage.builder()
+        .imagePath(path)
+        .property(property)
+        .build())
+      .toList();
+
+    if (property.getImages() == null) {
+      property.setImages(new java.util.ArrayList<>());
+    }
+
+    property.getImages().clear();
+    property.getImages().addAll(updatedImages);
+
+    return mapToResponse(propertyRepository.save(property));
+  }
 
   public void deleteProperty(Long id) { // Ownership checking (except for "ROLE_ADMIN")
 
