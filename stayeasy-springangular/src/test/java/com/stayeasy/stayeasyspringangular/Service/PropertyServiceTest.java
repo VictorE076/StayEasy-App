@@ -76,9 +76,9 @@ class PropertyServiceTest {
     SecurityContextHolder.clearContext();
   }
 
-  // ========================
+
   // GET ALL
-  // ========================
+
   @Test
   void getAllProperties_shouldReturnList() {
     Property property = new Property();
@@ -93,9 +93,9 @@ class PropertyServiceTest {
     assertEquals(1, result.size());
   }
 
-  // ========================
+
   // GET BY ID
-  // ========================
+
   @Test
   void getPropertyById_shouldReturnProperty() {
     Property property = new Property();
@@ -120,9 +120,9 @@ class PropertyServiceTest {
       () -> propertyService.getPropertyById(1L));
   }
 
-  // ========================
+
   // SEARCH
-  // ========================
+
   @Test
   void search_byCityAndPrice() {
     when(propertyRepository.findByCityAndPricePerNightLessThanEqual(any(), any()))
@@ -163,9 +163,9 @@ class PropertyServiceTest {
     assertEquals(1, result.size());
   }
 
-  // ========================
+
   // CREATE PROPERTY
-  // ========================
+
   @Test
   void createProperty_shouldCreateAndPromoteUserToHost() {
     mockAuth("user1");
@@ -190,9 +190,9 @@ class PropertyServiceTest {
     verify(userRepository).save(user);
   }
 
-  // ========================
+
   // DELETE PROPERTY
-  // ========================
+
   @Test
   void deleteProperty_shouldWorkForOwner() {
     mockAuth("user1");
@@ -233,9 +233,9 @@ class PropertyServiceTest {
       () -> propertyService.deleteProperty(1L));
   }
 
-  // ========================
+
   // DETAIL
-  // ========================
+
   @Test
   void getPropertyDetail_shouldReturnDetails() {
     Property property = new Property();
