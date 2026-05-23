@@ -7,6 +7,7 @@ import { PropertyResponseDTO } from '../../models/property.models';
 import {PropertyService} from '../../service/property-service';
 import {CreatePropertyModal} from '../create-property-modal/create-property-modal';
 import { UserADMIN_DTO } from '../../models/user-admin.dto';
+import { BookingService, LoyaltyStatus } from '../../service/booking.service';
 
 import {FormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
@@ -33,17 +34,38 @@ export class Homepage implements OnInit {
   searchCity: string = '';
   searchMaxPrice: number | null = null;
   isSearching: boolean = false;
+  loyalty: LoyaltyStatus | null = null;
 
   constructor(
     private authService: AuthService,
     private loginService: LoginService,
     private propertyService: PropertyService,
-    private router: Router
+    private router: Router,
+    private bookingService: BookingService
   ) {}
 
   ngOnInit(): void {
     this.loadUserInfo();
     this.loadProperties();
+
+    if(this.isLoggedIn()){
+      this.loadLoyaltyStatus();
+    }
+  }
+
+  loadLoyaltyStatus(): void {
+    this.bookingService.getLoyaltyStatus().subscribe({
+      next: (data) => {
+        this.loyalty = data;
+      },
+      error: (err) => {
+        console.error('Loyalty points could not be loaded:', err);
+      }
+    });
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.authService.getToken();
   }
 
   loadUserInfo(): void {

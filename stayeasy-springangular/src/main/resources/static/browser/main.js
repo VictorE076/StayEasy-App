@@ -47520,105 +47520,150 @@ var CreatePropertyModal = class _CreatePropertyModal {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CreatePropertyModal, { className: "CreatePropertyModal", filePath: "src/app/pages/create-property-modal/create-property-modal.ts", lineNumber: 16 });
 })();
 
+// src/app/service/booking.service.ts
+var BookingService = class _BookingService {
+  http;
+  apiUrl = "/api/bookings";
+  constructor(http) {
+    this.http = http;
+  }
+  bookNow(propertyId) {
+    return this.http.post(`${this.apiUrl}/book-now/${propertyId}`, {}, { responseType: "text" });
+  }
+  getLoyaltyStatus() {
+    return this.http.get(`${this.apiUrl}/my-loyalty`);
+  }
+  static \u0275fac = function BookingService_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _BookingService)(\u0275\u0275inject(HttpClient));
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _BookingService, factory: _BookingService.\u0275fac, providedIn: "root" });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BookingService, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [{ type: HttpClient }], null);
+})();
+
 // src/app/pages/homepage/homepage.ts
-function Homepage_button_11_Template(rf, ctx) {
+function Homepage_div_7_Template(rf, ctx) {
   if (rf & 1) {
-    const _r1 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 6);
-    \u0275\u0275listener("click", function Homepage_button_11_Template_button_click_0_listener() {
-      \u0275\u0275restoreView(_r1);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.goToAdminSessions());
+    \u0275\u0275elementStart(0, "div", 36)(1, "span", 37);
+    \u0275\u0275text(2);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(3, "span", 38);
+    \u0275\u0275text(4);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275property("title", "You still have " + ctx_r0.loyalty.bookingsUntilNextCoin + " reservations until the next coin!");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1("\u{1F4CA} ", ctx_r0.loyalty.completedBookings, " Bookings");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1("\u{1FA99} ", ctx_r0.loyalty.loyaltyCoins, " Coins");
+  }
+}
+function Homepage_button_12_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r2 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 7);
+    \u0275\u0275listener("click", function Homepage_button_12_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r2);
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.goToAdminSessions());
     });
     \u0275\u0275text(1, " Admin - Sesiuni ");
     \u0275\u0275elementEnd();
   }
 }
-function Homepage_span_18_Template(rf, ctx) {
+function Homepage_span_19_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 35);
+    \u0275\u0275elementStart(0, "span", 39);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r0 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate(ctx_r1.userEmail);
+    \u0275\u0275textInterpolate(ctx_r0.userEmail);
   }
 }
-function Homepage_div_20_Template(rf, ctx) {
+function Homepage_div_21_Template(rf, ctx) {
   if (rf & 1) {
     const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 36)(1, "button", 37);
-    \u0275\u0275listener("click", function Homepage_div_20_Template_button_click_1_listener() {
+    \u0275\u0275elementStart(0, "div", 40)(1, "button", 41);
+    \u0275\u0275listener("click", function Homepage_div_21_Template_button_click_1_listener() {
       \u0275\u0275restoreView(_r3);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onLogout());
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.onLogout());
     });
-    \u0275\u0275element(2, "i", 38);
+    \u0275\u0275element(2, "i", 42);
     \u0275\u0275elementStart(3, "span");
     \u0275\u0275text(4);
     \u0275\u0275elementEnd()()();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r0 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275property("disabled", ctx_r1.isLoggingOut);
+    \u0275\u0275property("disabled", ctx_r0.isLoggingOut);
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(ctx_r1.isLoggingOut ? "Logging out..." : "Logout");
+    \u0275\u0275textInterpolate(ctx_r0.isLoggingOut ? "Logging out..." : "Logout");
   }
 }
-function Homepage_button_41_Template(rf, ctx) {
+function Homepage_button_42_Template(rf, ctx) {
   if (rf & 1) {
     const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 39);
-    \u0275\u0275listener("click", function Homepage_button_41_Template_button_click_0_listener() {
+    \u0275\u0275elementStart(0, "button", 43);
+    \u0275\u0275listener("click", function Homepage_button_42_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r4);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onClearSearch());
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.onClearSearch());
     });
-    \u0275\u0275element(1, "i", 40);
+    \u0275\u0275element(1, "i", 44);
     \u0275\u0275elementStart(2, "span");
     \u0275\u0275text(3, "Clear");
     \u0275\u0275elementEnd()();
   }
 }
-function Homepage_div_42_Template(rf, ctx) {
+function Homepage_div_43_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 41);
-    \u0275\u0275element(1, "div", 42);
+    \u0275\u0275elementStart(0, "div", 45);
+    \u0275\u0275element(1, "div", 46);
     \u0275\u0275elementStart(2, "p");
     \u0275\u0275text(3, "Loading properties...");
     \u0275\u0275elementEnd()();
   }
 }
-function Homepage_div_43_Template(rf, ctx) {
+function Homepage_div_44_Template(rf, ctx) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 43);
-    \u0275\u0275element(1, "i", 44);
+    \u0275\u0275elementStart(0, "div", 47);
+    \u0275\u0275element(1, "i", 48);
     \u0275\u0275elementStart(2, "p");
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "button", 45);
-    \u0275\u0275listener("click", function Homepage_div_43_Template_button_click_4_listener() {
+    \u0275\u0275elementStart(4, "button", 49);
+    \u0275\u0275listener("click", function Homepage_div_44_Template_button_click_4_listener() {
       \u0275\u0275restoreView(_r5);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.loadProperties());
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.loadProperties());
     });
     \u0275\u0275text(5, "Try Again");
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r0 = \u0275\u0275nextContext();
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate(ctx_r1.error);
+    \u0275\u0275textInterpolate(ctx_r0.error);
   }
 }
-function Homepage_div_44_Template(rf, ctx) {
+function Homepage_div_45_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 46);
-    \u0275\u0275element(1, "i", 47);
+    \u0275\u0275elementStart(0, "div", 50);
+    \u0275\u0275element(1, "i", 51);
     \u0275\u0275elementStart(2, "h3");
     \u0275\u0275text(3, "No properties available");
     \u0275\u0275elementEnd();
@@ -47627,24 +47672,24 @@ function Homepage_div_44_Template(rf, ctx) {
     \u0275\u0275elementEnd()();
   }
 }
-function Homepage_div_45_div_1_button_5_Template(rf, ctx) {
+function Homepage_div_46_div_1_button_5_Template(rf, ctx) {
   if (rf & 1) {
     const _r8 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 68);
-    \u0275\u0275listener("click", function Homepage_div_45_div_1_button_5_Template_button_click_0_listener($event) {
+    \u0275\u0275elementStart(0, "button", 72);
+    \u0275\u0275listener("click", function Homepage_div_46_div_1_button_5_Template_button_click_0_listener($event) {
       \u0275\u0275restoreView(_r8);
       const property_r7 = \u0275\u0275nextContext().$implicit;
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      ctx_r1.onDeleteProperty(property_r7.id);
+      const ctx_r0 = \u0275\u0275nextContext(2);
+      ctx_r0.onDeleteProperty(property_r7.id);
       return \u0275\u0275resetView($event.stopPropagation());
     });
-    \u0275\u0275element(1, "i", 69);
+    \u0275\u0275element(1, "i", 73);
     \u0275\u0275elementEnd();
   }
 }
-function Homepage_div_45_div_1_p_13_Template(rf, ctx) {
+function Homepage_div_46_div_1_p_13_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "p", 70);
+    \u0275\u0275elementStart(0, "p", 74);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -47654,56 +47699,56 @@ function Homepage_div_45_div_1_p_13_Template(rf, ctx) {
     \u0275\u0275textInterpolate1(" ", property_r7.description, " ");
   }
 }
-function Homepage_div_45_div_1_Template(rf, ctx) {
+function Homepage_div_46_div_1_Template(rf, ctx) {
   if (rf & 1) {
     const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 50);
-    \u0275\u0275listener("click", function Homepage_div_45_div_1_Template_div_click_0_listener() {
+    \u0275\u0275elementStart(0, "div", 54);
+    \u0275\u0275listener("click", function Homepage_div_46_div_1_Template_div_click_0_listener() {
       const property_r7 = \u0275\u0275restoreView(_r6).$implicit;
-      const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.onPropertyClick(property_r7.id));
+      const ctx_r0 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r0.onPropertyClick(property_r7.id));
     });
-    \u0275\u0275elementStart(1, "div", 51);
-    \u0275\u0275element(2, "img", 52);
-    \u0275\u0275elementStart(3, "div", 53);
+    \u0275\u0275elementStart(1, "div", 55);
+    \u0275\u0275element(2, "img", 56);
+    \u0275\u0275elementStart(3, "div", 57);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275template(5, Homepage_div_45_div_1_button_5_Template, 2, 0, "button", 54);
+    \u0275\u0275template(5, Homepage_div_46_div_1_button_5_Template, 2, 0, "button", 58);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "div", 55)(7, "div", 56)(8, "h3", 57);
+    \u0275\u0275elementStart(6, "div", 59)(7, "div", 60)(8, "h3", 61);
     \u0275\u0275text(9);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "p", 58);
-    \u0275\u0275element(11, "i", 22);
+    \u0275\u0275elementStart(10, "p", 62);
+    \u0275\u0275element(11, "i", 23);
     \u0275\u0275text(12);
     \u0275\u0275elementEnd()();
-    \u0275\u0275template(13, Homepage_div_45_div_1_p_13_Template, 2, 1, "p", 59);
-    \u0275\u0275elementStart(14, "div", 60)(15, "div", 61);
-    \u0275\u0275element(16, "i", 62);
+    \u0275\u0275template(13, Homepage_div_46_div_1_p_13_Template, 2, 1, "p", 63);
+    \u0275\u0275elementStart(14, "div", 64)(15, "div", 65);
+    \u0275\u0275element(16, "i", 66);
     \u0275\u0275elementStart(17, "span");
     \u0275\u0275text(18);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(19, "div", 61);
-    \u0275\u0275element(20, "i", 63);
+    \u0275\u0275elementStart(19, "div", 65);
+    \u0275\u0275element(20, "i", 67);
     \u0275\u0275elementStart(21, "span");
     \u0275\u0275text(22);
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(23, "div", 64)(24, "div", 65)(25, "span", 66);
+    \u0275\u0275elementStart(23, "div", 68)(24, "div", 69)(25, "span", 70);
     \u0275\u0275text(26);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(27, "span", 67);
+    \u0275\u0275elementStart(27, "span", 71);
     \u0275\u0275text(28, "/ night");
     \u0275\u0275elementEnd()()()()();
   }
   if (rf & 2) {
     const property_r7 = ctx.$implicit;
-    const ctx_r1 = \u0275\u0275nextContext(2);
+    const ctx_r0 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(2);
-    \u0275\u0275property("src", ctx_r1.getMainImage(property_r7), \u0275\u0275sanitizeUrl)("alt", property_r7.title);
+    \u0275\u0275property("src", ctx_r0.getMainImage(property_r7), \u0275\u0275sanitizeUrl)("alt", property_r7.title);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.getPropertyTypeLabel(property_r7.propertyType));
+    \u0275\u0275textInterpolate(ctx_r0.getPropertyTypeLabel(property_r7.propertyType));
     \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.isOwner(property_r7) || ctx_r1.isAdmin());
+    \u0275\u0275property("ngIf", ctx_r0.isOwner(property_r7) || ctx_r0.isAdmin());
     \u0275\u0275advance(4);
     \u0275\u0275textInterpolate(property_r7.title);
     \u0275\u0275advance(3);
@@ -47718,36 +47763,36 @@ function Homepage_div_45_div_1_Template(rf, ctx) {
     \u0275\u0275textInterpolate1("$", property_r7.pricePerNight);
   }
 }
-function Homepage_div_45_Template(rf, ctx) {
+function Homepage_div_46_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 48);
-    \u0275\u0275template(1, Homepage_div_45_div_1_Template, 29, 10, "div", 49);
+    \u0275\u0275elementStart(0, "div", 52);
+    \u0275\u0275template(1, Homepage_div_46_div_1_Template, 29, 10, "div", 53);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
+    const ctx_r0 = \u0275\u0275nextContext();
     \u0275\u0275advance();
-    \u0275\u0275property("ngForOf", ctx_r1.properties);
+    \u0275\u0275property("ngForOf", ctx_r0.properties);
   }
 }
-function Homepage_app_create_property_modal_46_Template(rf, ctx) {
+function Homepage_app_create_property_modal_47_Template(rf, ctx) {
   if (rf & 1) {
     const _r9 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "app-create-property-modal", 71);
-    \u0275\u0275listener("close", function Homepage_app_create_property_modal_46_Template_app_create_property_modal_close_0_listener() {
+    \u0275\u0275elementStart(0, "app-create-property-modal", 75);
+    \u0275\u0275listener("close", function Homepage_app_create_property_modal_47_Template_app_create_property_modal_close_0_listener() {
       \u0275\u0275restoreView(_r9);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onModalClose());
-    })("propertyCreated", function Homepage_app_create_property_modal_46_Template_app_create_property_modal_propertyCreated_0_listener() {
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.onModalClose());
+    })("propertyCreated", function Homepage_app_create_property_modal_47_Template_app_create_property_modal_propertyCreated_0_listener() {
       \u0275\u0275restoreView(_r9);
-      const ctx_r1 = \u0275\u0275nextContext();
-      return \u0275\u0275resetView(ctx_r1.onPropertyCreated());
+      const ctx_r0 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r0.onPropertyCreated());
     });
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275property("currentUserId", ctx_r1.userId);
+    const ctx_r0 = \u0275\u0275nextContext();
+    \u0275\u0275property("currentUserId", ctx_r0.userId);
   }
 }
 var Homepage = class _Homepage {
@@ -47755,6 +47800,7 @@ var Homepage = class _Homepage {
   loginService;
   propertyService;
   router;
+  bookingService;
   userName = "";
   userEmail = "";
   userId = 0;
@@ -47769,15 +47815,33 @@ var Homepage = class _Homepage {
   searchCity = "";
   searchMaxPrice = null;
   isSearching = false;
-  constructor(authService, loginService, propertyService, router) {
+  loyalty = null;
+  constructor(authService, loginService, propertyService, router, bookingService) {
     this.authService = authService;
     this.loginService = loginService;
     this.propertyService = propertyService;
     this.router = router;
+    this.bookingService = bookingService;
   }
   ngOnInit() {
     this.loadUserInfo();
     this.loadProperties();
+    if (this.isLoggedIn()) {
+      this.loadLoyaltyStatus();
+    }
+  }
+  loadLoyaltyStatus() {
+    this.bookingService.getLoyaltyStatus().subscribe({
+      next: (data) => {
+        this.loyalty = data;
+      },
+      error: (err) => {
+        console.error("Loyalty points could not be loaded:", err);
+      }
+    });
+  }
+  isLoggedIn() {
+    return !!this.authService.getToken();
   }
   loadUserInfo() {
     const token = this.authService.getToken();
@@ -47914,84 +47978,88 @@ var Homepage = class _Homepage {
     this.router.navigate(["/property", propertyId]);
   }
   static \u0275fac = function Homepage_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _Homepage)(\u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(LoginService), \u0275\u0275directiveInject(PropertyService), \u0275\u0275directiveInject(Router));
+    return new (__ngFactoryType__ || _Homepage)(\u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(LoginService), \u0275\u0275directiveInject(PropertyService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(BookingService));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Homepage, selectors: [["app-homepage"]], decls: 47, vars: 15, consts: [[1, "navbar"], [1, "nav-container"], [1, "nav-brand"], [1, "bi", "bi-house-heart-fill"], [1, "brand-name"], [1, "nav-actions"], [1, "btn-become-host", 3, "click"], [1, "bi", "bi-plus-circle"], ["class", "btn-become-host", 3, "click", 4, "ngIf"], [1, "user-card", 3, "click"], [1, "user-avatar"], [1, "user-info"], [1, "user-name"], ["class", "user-email", 4, "ngIf"], [1, "bi", "bi-chevron-down"], ["class", "user-menu", 4, "ngIf"], [1, "main-content"], [1, "content-container"], [1, "page-header"], [1, "search-container"], [1, "search-inputs"], [1, "search-field"], [1, "bi", "bi-geo-alt"], ["type", "text", "placeholder", "Search by city...", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "bi", "bi-currency-dollar"], ["type", "number", "placeholder", "Max price per night...", "min", "0", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "search-actions"], [1, "btn-search", 3, "click", "disabled"], [1, "bi", "bi-search"], ["class", "btn-clear", 3, "click", 4, "ngIf"], ["class", "loading-state", 4, "ngIf"], ["class", "error-state", 4, "ngIf"], ["class", "empty-state", 4, "ngIf"], ["class", "properties-grid", 4, "ngIf"], [3, "currentUserId", "close", "propertyCreated", 4, "ngIf"], [1, "user-email"], [1, "user-menu"], [1, "menu-item", 3, "click", "disabled"], [1, "bi", "bi-box-arrow-right"], [1, "btn-clear", 3, "click"], [1, "bi", "bi-x-circle"], [1, "loading-state"], [1, "spinner"], [1, "error-state"], [1, "bi", "bi-exclamation-circle"], [1, "btn-retry", 3, "click"], [1, "empty-state"], [1, "bi", "bi-house"], [1, "properties-grid"], ["class", "property-card", 3, "click", 4, "ngFor", "ngForOf"], [1, "property-card", 3, "click"], [1, "property-image"], [3, "src", "alt"], [1, "property-type-badge"], ["class", "btn-delete-property", "title", "Delete property", 3, "click", 4, "ngIf"], [1, "property-content"], [1, "property-header"], [1, "property-title"], [1, "property-location"], ["class", "property-description", 4, "ngIf"], [1, "property-details"], [1, "detail-item"], [1, "bi", "bi-people"], [1, "bi", "bi-person"], [1, "property-footer"], [1, "property-price"], [1, "price-amount"], [1, "price-period"], ["title", "Delete property", 1, "btn-delete-property", 3, "click"], [1, "bi", "bi-trash"], [1, "property-description"], [3, "close", "propertyCreated", "currentUserId"]], template: function Homepage_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Homepage, selectors: [["app-homepage"]], decls: 48, vars: 16, consts: [[1, "navbar"], [1, "nav-container"], [1, "nav-brand"], [1, "bi", "bi-house-heart-fill"], [1, "brand-name"], [1, "nav-actions"], ["class", "loyalty-widget", 3, "title", 4, "ngIf"], [1, "btn-become-host", 3, "click"], [1, "bi", "bi-plus-circle"], ["class", "btn-become-host", 3, "click", 4, "ngIf"], [1, "user-card", 3, "click"], [1, "user-avatar"], [1, "user-info"], [1, "user-name"], ["class", "user-email", 4, "ngIf"], [1, "bi", "bi-chevron-down"], ["class", "user-menu", 4, "ngIf"], [1, "main-content"], [1, "content-container"], [1, "page-header"], [1, "search-container"], [1, "search-inputs"], [1, "search-field"], [1, "bi", "bi-geo-alt"], ["type", "text", "placeholder", "Search by city...", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "bi", "bi-currency-dollar"], ["type", "number", "placeholder", "Max price per night...", "min", "0", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "search-actions"], [1, "btn-search", 3, "click", "disabled"], [1, "bi", "bi-search"], ["class", "btn-clear", 3, "click", 4, "ngIf"], ["class", "loading-state", 4, "ngIf"], ["class", "error-state", 4, "ngIf"], ["class", "empty-state", 4, "ngIf"], ["class", "properties-grid", 4, "ngIf"], [3, "currentUserId", "close", "propertyCreated", 4, "ngIf"], [1, "loyalty-widget", 3, "title"], [1, "bookings-count"], [1, "coins-count"], [1, "user-email"], [1, "user-menu"], [1, "menu-item", 3, "click", "disabled"], [1, "bi", "bi-box-arrow-right"], [1, "btn-clear", 3, "click"], [1, "bi", "bi-x-circle"], [1, "loading-state"], [1, "spinner"], [1, "error-state"], [1, "bi", "bi-exclamation-circle"], [1, "btn-retry", 3, "click"], [1, "empty-state"], [1, "bi", "bi-house"], [1, "properties-grid"], ["class", "property-card", 3, "click", 4, "ngFor", "ngForOf"], [1, "property-card", 3, "click"], [1, "property-image"], [3, "src", "alt"], [1, "property-type-badge"], ["class", "btn-delete-property", "title", "Delete property", 3, "click", 4, "ngIf"], [1, "property-content"], [1, "property-header"], [1, "property-title"], [1, "property-location"], ["class", "property-description", 4, "ngIf"], [1, "property-details"], [1, "detail-item"], [1, "bi", "bi-people"], [1, "bi", "bi-person"], [1, "property-footer"], [1, "property-price"], [1, "price-amount"], [1, "price-period"], ["title", "Delete property", 1, "btn-delete-property", 3, "click"], [1, "bi", "bi-trash"], [1, "property-description"], [3, "close", "propertyCreated", "currentUserId"]], template: function Homepage_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "nav", 0)(1, "div", 1)(2, "div", 2);
       \u0275\u0275element(3, "i", 3);
       \u0275\u0275elementStart(4, "span", 4);
       \u0275\u0275text(5, "StayEasy");
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(6, "div", 5)(7, "button", 6);
-      \u0275\u0275listener("click", function Homepage_Template_button_click_7_listener() {
+      \u0275\u0275elementStart(6, "div", 5);
+      \u0275\u0275template(7, Homepage_div_7_Template, 5, 3, "div", 6);
+      \u0275\u0275elementStart(8, "button", 7);
+      \u0275\u0275listener("click", function Homepage_Template_button_click_8_listener() {
         return ctx.onBecomeHost();
       });
-      \u0275\u0275element(8, "i", 7);
-      \u0275\u0275elementStart(9, "span");
-      \u0275\u0275text(10, "Add Property");
+      \u0275\u0275element(9, "i", 8);
+      \u0275\u0275elementStart(10, "span");
+      \u0275\u0275text(11, "Add Property");
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(11, Homepage_button_11_Template, 2, 0, "button", 8);
-      \u0275\u0275elementStart(12, "div", 9);
-      \u0275\u0275listener("click", function Homepage_Template_div_click_12_listener() {
+      \u0275\u0275template(12, Homepage_button_12_Template, 2, 0, "button", 9);
+      \u0275\u0275elementStart(13, "div", 10);
+      \u0275\u0275listener("click", function Homepage_Template_div_click_13_listener() {
         return ctx.toggleUserMenu();
       });
-      \u0275\u0275elementStart(13, "div", 10);
-      \u0275\u0275text(14);
+      \u0275\u0275elementStart(14, "div", 11);
+      \u0275\u0275text(15);
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(15, "div", 11)(16, "span", 12);
-      \u0275\u0275text(17);
+      \u0275\u0275elementStart(16, "div", 12)(17, "span", 13);
+      \u0275\u0275text(18);
       \u0275\u0275elementEnd();
-      \u0275\u0275template(18, Homepage_span_18_Template, 2, 1, "span", 13);
+      \u0275\u0275template(19, Homepage_span_19_Template, 2, 1, "span", 14);
       \u0275\u0275elementEnd();
-      \u0275\u0275element(19, "i", 14);
+      \u0275\u0275element(20, "i", 15);
       \u0275\u0275elementEnd();
-      \u0275\u0275template(20, Homepage_div_20_Template, 5, 2, "div", 15);
+      \u0275\u0275template(21, Homepage_div_21_Template, 5, 2, "div", 16);
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(21, "main", 16)(22, "div", 17)(23, "div", 18)(24, "h1");
-      \u0275\u0275text(25, "Explore Properties");
+      \u0275\u0275elementStart(22, "main", 17)(23, "div", 18)(24, "div", 19)(25, "h1");
+      \u0275\u0275text(26, "Explore Properties");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(26, "p");
-      \u0275\u0275text(27, "Find your perfect stay, it's easy!");
+      \u0275\u0275elementStart(27, "p");
+      \u0275\u0275text(28, "Find your perfect stay, it's easy!");
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(28, "div", 19)(29, "div", 20)(30, "div", 21);
-      \u0275\u0275element(31, "i", 22);
-      \u0275\u0275elementStart(32, "input", 23);
-      \u0275\u0275twoWayListener("ngModelChange", function Homepage_Template_input_ngModelChange_32_listener($event) {
+      \u0275\u0275elementStart(29, "div", 20)(30, "div", 21)(31, "div", 22);
+      \u0275\u0275element(32, "i", 23);
+      \u0275\u0275elementStart(33, "input", 24);
+      \u0275\u0275twoWayListener("ngModelChange", function Homepage_Template_input_ngModelChange_33_listener($event) {
         \u0275\u0275twoWayBindingSet(ctx.searchCity, $event) || (ctx.searchCity = $event);
         return $event;
       });
-      \u0275\u0275listener("keyup.enter", function Homepage_Template_input_keyup_enter_32_listener() {
+      \u0275\u0275listener("keyup.enter", function Homepage_Template_input_keyup_enter_33_listener() {
         return ctx.onSearch();
       });
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(33, "div", 21);
-      \u0275\u0275element(34, "i", 24);
-      \u0275\u0275elementStart(35, "input", 25);
-      \u0275\u0275twoWayListener("ngModelChange", function Homepage_Template_input_ngModelChange_35_listener($event) {
+      \u0275\u0275elementStart(34, "div", 22);
+      \u0275\u0275element(35, "i", 25);
+      \u0275\u0275elementStart(36, "input", 26);
+      \u0275\u0275twoWayListener("ngModelChange", function Homepage_Template_input_ngModelChange_36_listener($event) {
         \u0275\u0275twoWayBindingSet(ctx.searchMaxPrice, $event) || (ctx.searchMaxPrice = $event);
         return $event;
       });
-      \u0275\u0275listener("keyup.enter", function Homepage_Template_input_keyup_enter_35_listener() {
+      \u0275\u0275listener("keyup.enter", function Homepage_Template_input_keyup_enter_36_listener() {
         return ctx.onSearch();
       });
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(36, "div", 26)(37, "button", 27);
-      \u0275\u0275listener("click", function Homepage_Template_button_click_37_listener() {
+      \u0275\u0275elementStart(37, "div", 27)(38, "button", 28);
+      \u0275\u0275listener("click", function Homepage_Template_button_click_38_listener() {
         return ctx.onSearch();
       });
-      \u0275\u0275element(38, "i", 28);
-      \u0275\u0275elementStart(39, "span");
-      \u0275\u0275text(40);
+      \u0275\u0275element(39, "i", 29);
+      \u0275\u0275elementStart(40, "span");
+      \u0275\u0275text(41);
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(41, Homepage_button_41_Template, 4, 0, "button", 29);
+      \u0275\u0275template(42, Homepage_button_42_Template, 4, 0, "button", 30);
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(42, Homepage_div_42_Template, 4, 0, "div", 30)(43, Homepage_div_43_Template, 6, 1, "div", 31)(44, Homepage_div_44_Template, 6, 0, "div", 32)(45, Homepage_div_45_Template, 2, 1, "div", 33);
+      \u0275\u0275template(43, Homepage_div_43_Template, 4, 0, "div", 31)(44, Homepage_div_44_Template, 6, 1, "div", 32)(45, Homepage_div_45_Template, 6, 0, "div", 33)(46, Homepage_div_46_Template, 2, 1, "div", 34);
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(46, Homepage_app_create_property_modal_46_Template, 1, 1, "app-create-property-modal", 34);
+      \u0275\u0275template(47, Homepage_app_create_property_modal_47_Template, 1, 1, "app-create-property-modal", 35);
     }
     if (rf & 2) {
-      \u0275\u0275advance(11);
+      \u0275\u0275advance(7);
+      \u0275\u0275property("ngIf", ctx.loyalty);
+      \u0275\u0275advance(5);
       \u0275\u0275property("ngIf", ctx.userRole === "ROLE_ADMIN");
       \u0275\u0275advance(3);
       \u0275\u0275textInterpolate(ctx.getInitials());
@@ -48022,7 +48090,7 @@ var Homepage = class _Homepage {
       \u0275\u0275advance();
       \u0275\u0275property("ngIf", ctx.showCreateModal);
     }
-  }, dependencies: [NgIf, NgForOf, CreatePropertyModal, FormsModule, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, MinValidator, NgModel], styles: ["\n\n.navbar[_ngcontent-%COMP%] {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin-btn[_ngcontent-%COMP%] {\n  margin-top: 16px;\n  padding: 10px 18px;\n  border-radius: 10px;\n  border: none;\n  background: #2c3e50;\n  color: #fff;\n  font-weight: 600;\n  cursor: pointer;\n}\n.admin-btn[_ngcontent-%COMP%]:hover {\n  background: #1f2a36;\n}\n.nav-brand[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name[_ngcontent-%COMP%] {\n  letter-spacing: -0.5px;\n}\n.nav-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.btn-become-host[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n}\n.user-card[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name[_ngcontent-%COMP%] {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email[_ngcontent-%COMP%] {\n  font-size: 12px;\n  color: #666;\n}\n.user-card[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu[_ngcontent-%COMP%] {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: _ngcontent-%COMP%_fadeIn 0.2s ease;\n}\n@keyframes _ngcontent-%COMP%_fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item[_ngcontent-%COMP%] {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item[_ngcontent-%COMP%]:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n}\n.main-content[_ngcontent-%COMP%] {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header[_ngcontent-%COMP%] {\n  margin-bottom: 40px;\n}\n.page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field[_ngcontent-%COMP%]:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]::placeholder {\n  color: #999;\n}\n.search-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 12px;\n}\n.btn-search[_ngcontent-%COMP%], \n.btn-clear[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear[_ngcontent-%COMP%] {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n}\n.loading-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry[_ngcontent-%COMP%] {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry[_ngcontent-%COMP%]:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card[_ngcontent-%COMP%]:hover   .property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  transform: scale(1.05);\n}\n.property-type-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property[_ngcontent-%COMP%]:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n}\n.property-content[_ngcontent-%COMP%] {\n  padding: 20px;\n}\n.property-header[_ngcontent-%COMP%] {\n  margin-bottom: 12px;\n}\n.property-title[_ngcontent-%COMP%] {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount[_ngcontent-%COMP%] {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .user-info[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .user-card[_ngcontent-%COMP%] {\n    padding: 8px;\n  }\n  .btn-become-host[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .btn-become-host[_ngcontent-%COMP%] {\n    padding: 10px 14px;\n  }\n  .content-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n    font-size: 24px;\n  }\n  .search-inputs[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .search-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .properties-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content[_ngcontent-%COMP%] {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .page-header[_ngcontent-%COMP%] {\n    margin-bottom: 24px;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */"] });
+  }, dependencies: [NgIf, NgForOf, CreatePropertyModal, FormsModule, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, MinValidator, NgModel], styles: ["\n\n.navbar[_ngcontent-%COMP%] {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin-btn[_ngcontent-%COMP%] {\n  margin-top: 16px;\n  padding: 10px 18px;\n  border-radius: 10px;\n  border: none;\n  background: #2c3e50;\n  color: #fff;\n  font-weight: 600;\n  cursor: pointer;\n}\n.admin-btn[_ngcontent-%COMP%]:hover {\n  background: #1f2a36;\n}\n.nav-brand[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name[_ngcontent-%COMP%] {\n  letter-spacing: -0.5px;\n}\n.nav-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.loyalty-widget[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.loyalty-widget[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.coins-count[_ngcontent-%COMP%] {\n  color: white;\n  border-left: 1px solid #d1d5db;\n  padding-left: 8px;\n}\n.btn-become-host[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n}\n.user-card[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name[_ngcontent-%COMP%] {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email[_ngcontent-%COMP%] {\n  font-size: 12px;\n  color: #666;\n}\n.user-card[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu[_ngcontent-%COMP%] {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: _ngcontent-%COMP%_fadeIn 0.2s ease;\n}\n@keyframes _ngcontent-%COMP%_fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item[_ngcontent-%COMP%] {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item[_ngcontent-%COMP%]:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n}\n.main-content[_ngcontent-%COMP%] {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header[_ngcontent-%COMP%] {\n  margin-bottom: 40px;\n}\n.page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field[_ngcontent-%COMP%]:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]::placeholder {\n  color: #999;\n}\n.search-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 12px;\n}\n.btn-search[_ngcontent-%COMP%], \n.btn-clear[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear[_ngcontent-%COMP%] {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n}\n.loading-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry[_ngcontent-%COMP%] {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry[_ngcontent-%COMP%]:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card[_ngcontent-%COMP%]:hover   .property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  transform: scale(1.05);\n}\n.property-type-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property[_ngcontent-%COMP%]:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n}\n.property-content[_ngcontent-%COMP%] {\n  padding: 20px;\n}\n.property-header[_ngcontent-%COMP%] {\n  margin-bottom: 12px;\n}\n.property-title[_ngcontent-%COMP%] {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount[_ngcontent-%COMP%] {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .user-info[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .user-card[_ngcontent-%COMP%] {\n    padding: 8px;\n  }\n  .btn-become-host[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .btn-become-host[_ngcontent-%COMP%] {\n    padding: 10px 14px;\n  }\n  .content-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n    font-size: 24px;\n  }\n  .search-inputs[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .search-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .properties-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content[_ngcontent-%COMP%] {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .page-header[_ngcontent-%COMP%] {\n    margin-bottom: 24px;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Homepage, [{
@@ -48035,6 +48103,12 @@ var Homepage = class _Homepage {
     </div>\r
 \r
     <div class="nav-actions">\r
+\r
+      <div class="loyalty-widget" *ngIf="loyalty" [title]="'You still have ' + loyalty.bookingsUntilNextCoin + ' reservations until the next coin!'">\r
+        <span class="bookings-count">\u{1F4CA} {{ loyalty.completedBookings }} Bookings</span>\r
+        <span class="coins-count">\u{1FA99} {{ loyalty.loyaltyCoins }} Coins</span>\r
+      </div>\r
+\r
       <button class="btn-become-host" (click)="onBecomeHost()">\r
         <i class="bi bi-plus-circle"></i>\r
         <span>Add Property</span>\r
@@ -48185,11 +48259,11 @@ var Homepage = class _Homepage {
   (close)="onModalClose()"\r
   (propertyCreated)="onPropertyCreated()"\r
 ></app-create-property-modal>\r
-`, styles: ["/* src/app/pages/homepage/homepage.css */\n.navbar {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin-btn {\n  margin-top: 16px;\n  padding: 10px 18px;\n  border-radius: 10px;\n  border: none;\n  background: #2c3e50;\n  color: #fff;\n  font-weight: 600;\n  cursor: pointer;\n}\n.admin-btn:hover {\n  background: #1f2a36;\n}\n.nav-brand {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand i {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name {\n  letter-spacing: -0.5px;\n}\n.nav-actions {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.btn-become-host {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host i {\n  font-size: 16px;\n}\n.user-card {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email {\n  font-size: 12px;\n  color: #666;\n}\n.user-card i {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: fadeIn 0.2s ease;\n}\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item i {\n  font-size: 16px;\n  color: #666;\n}\n.main-content {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header {\n  margin-bottom: 40px;\n}\n.page-header h1 {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field i {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field input {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field input::placeholder {\n  color: #999;\n}\n.search-actions {\n  display: flex;\n  gap: 12px;\n}\n.btn-search,\n.btn-clear {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear:hover {\n  background: #e9ecef;\n}\n.loading-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state i {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state i {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state h3 {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card:hover .property-image img {\n  transform: scale(1.05);\n}\n.property-type-badge {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property i {\n  font-size: 14px;\n}\n.property-content {\n  padding: 20px;\n}\n.property-header {\n  margin-bottom: 12px;\n}\n.property-title {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container {\n    padding: 0 16px;\n  }\n  .user-info {\n    display: none;\n  }\n  .user-card {\n    padding: 8px;\n  }\n  .btn-become-host span {\n    display: none;\n  }\n  .btn-become-host {\n    padding: 10px 14px;\n  }\n  .content-container {\n    padding: 0 16px;\n  }\n  .page-header h1 {\n    font-size: 24px;\n  }\n  .search-inputs {\n    grid-template-columns: 1fr;\n  }\n  .search-actions {\n    flex-direction: column;\n  }\n  .properties-grid {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name {\n    display: none;\n  }\n  .page-header {\n    margin-bottom: 24px;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */\n"] }]
-  }], () => [{ type: AuthService }, { type: LoginService }, { type: PropertyService }, { type: Router }], null);
+`, styles: ["/* src/app/pages/homepage/homepage.css */\n.navbar {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin-btn {\n  margin-top: 16px;\n  padding: 10px 18px;\n  border-radius: 10px;\n  border: none;\n  background: #2c3e50;\n  color: #fff;\n  font-weight: 600;\n  cursor: pointer;\n}\n.admin-btn:hover {\n  background: #1f2a36;\n}\n.nav-brand {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand i {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name {\n  letter-spacing: -0.5px;\n}\n.nav-actions {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.loyalty-widget {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.loyalty-widget:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.coins-count {\n  color: white;\n  border-left: 1px solid #d1d5db;\n  padding-left: 8px;\n}\n.btn-become-host {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host i {\n  font-size: 16px;\n}\n.user-card {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email {\n  font-size: 12px;\n  color: #666;\n}\n.user-card i {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: fadeIn 0.2s ease;\n}\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item i {\n  font-size: 16px;\n  color: #666;\n}\n.main-content {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header {\n  margin-bottom: 40px;\n}\n.page-header h1 {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field i {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field input {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field input::placeholder {\n  color: #999;\n}\n.search-actions {\n  display: flex;\n  gap: 12px;\n}\n.btn-search,\n.btn-clear {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear:hover {\n  background: #e9ecef;\n}\n.loading-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state i {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state i {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state h3 {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card:hover .property-image img {\n  transform: scale(1.05);\n}\n.property-type-badge {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property i {\n  font-size: 14px;\n}\n.property-content {\n  padding: 20px;\n}\n.property-header {\n  margin-bottom: 12px;\n}\n.property-title {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container {\n    padding: 0 16px;\n  }\n  .user-info {\n    display: none;\n  }\n  .user-card {\n    padding: 8px;\n  }\n  .btn-become-host span {\n    display: none;\n  }\n  .btn-become-host {\n    padding: 10px 14px;\n  }\n  .content-container {\n    padding: 0 16px;\n  }\n  .page-header h1 {\n    font-size: 24px;\n  }\n  .search-inputs {\n    grid-template-columns: 1fr;\n  }\n  .search-actions {\n    flex-direction: column;\n  }\n  .properties-grid {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name {\n    display: none;\n  }\n  .page-header {\n    margin-bottom: 24px;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */\n"] }]
+  }], () => [{ type: AuthService }, { type: LoginService }, { type: PropertyService }, { type: Router }, { type: BookingService }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Homepage, { className: "Homepage", filePath: "src/app/pages/homepage/homepage.ts", lineNumber: 21 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Homepage, { className: "Homepage", filePath: "src/app/pages/homepage/homepage.ts", lineNumber: 22 });
 })();
 
 // src/app/service/admin-audit.service.ts
@@ -48633,30 +48707,6 @@ var ReviewService = class _ReviewService {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ReviewService, [{
     type: Injectable,
     args: [{ providedIn: "root" }]
-  }], () => [{ type: HttpClient }], null);
-})();
-
-// src/app/service/booking.service.ts
-var BookingService = class _BookingService {
-  http;
-  apiUrl = "/api/bookings";
-  constructor(http) {
-    this.http = http;
-  }
-  bookNow(propertyId) {
-    return this.http.post(`${this.apiUrl}/book-now/${propertyId}`, {}, { responseType: "text" });
-  }
-  static \u0275fac = function BookingService_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _BookingService)(\u0275\u0275inject(HttpClient));
-  };
-  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _BookingService, factory: _BookingService.\u0275fac, providedIn: "root" });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BookingService, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root"
-    }]
   }], () => [{ type: HttpClient }], null);
 })();
 

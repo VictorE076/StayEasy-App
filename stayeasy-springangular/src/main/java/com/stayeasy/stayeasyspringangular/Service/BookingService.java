@@ -1,5 +1,6 @@
 package com.stayeasy.stayeasyspringangular.Service;
 
+import com.stayeasy.stayeasyspringangular.DTO.LoyaltyStatusDTO;
 import com.stayeasy.stayeasyspringangular.EntitatiJPA.Property;
 import com.stayeasy.stayeasyspringangular.EntitatiJPA.User;
 import com.stayeasy.stayeasyspringangular.Repository.PropertyRepository;
@@ -36,6 +37,16 @@ public class BookingService {
 
     System.out.println("Am adaugat o rezervare pentru user " + currentUser.getUsername() + ". Total completed bookings: " + currentUser.getCompletedBookings() + ", Loyalty coins: " + currentUser.getLoyaltyCoins());
 
+  }
+
+  public LoyaltyStatusDTO getMyLoyaltyStatus() {
+    User currentUser = getCurrentUser();
+
+    return LoyaltyStatusDTO.builder()
+      .completedBookings(currentUser.getCompletedBookings())
+      .loyaltyCoins(currentUser.getLoyaltyCoins())
+      .bookingsUntilNextCoin(currentUser.bookingsUntilNextCoin())
+      .build();
   }
 
   // Helper pentru a lua user logat
