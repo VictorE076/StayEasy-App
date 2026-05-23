@@ -48636,6 +48636,30 @@ var ReviewService = class _ReviewService {
   }], () => [{ type: HttpClient }], null);
 })();
 
+// src/app/service/booking.service.ts
+var BookingService = class _BookingService {
+  http;
+  apiUrl = "/api/bookings";
+  constructor(http) {
+    this.http = http;
+  }
+  bookNow(propertyId) {
+    return this.http.post(`${this.apiUrl}/book-now/${propertyId}`, {}, { responseType: "text" });
+  }
+  static \u0275fac = function BookingService_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _BookingService)(\u0275\u0275inject(HttpClient));
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _BookingService, factory: _BookingService.\u0275fac, providedIn: "root" });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BookingService, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [{ type: HttpClient }], null);
+})();
+
 // src/app/pages/property-detail/property-detail.ts
 function PropertyDetail_div_1_Template(rf, ctx) {
   if (rf & 1) {
@@ -49025,6 +49049,11 @@ function PropertyDetail_div_3_Template(rf, ctx) {
     \u0275\u0275elementEnd()();
     \u0275\u0275template(74, PropertyDetail_div_3_div_74_Template, 5, 1, "div", 48);
     \u0275\u0275elementStart(75, "button", 49);
+    \u0275\u0275listener("click", function PropertyDetail_div_3_Template_button_click_75_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onBookNowClicked());
+    });
     \u0275\u0275text(76, "Book Now");
     \u0275\u0275elementEnd()()()()();
   }
@@ -49076,16 +49105,18 @@ var PropertyDetail = class _PropertyDetail {
   propertyService;
   authService;
   reviewService;
+  bookingService;
   property = null;
   isLoading = false;
   error = null;
   currentImageIndex = 0;
-  constructor(route, router, propertyService, authService, reviewService) {
+  constructor(route, router, propertyService, authService, reviewService, bookingService) {
     this.route = route;
     this.router = router;
     this.propertyService = propertyService;
     this.authService = authService;
     this.reviewService = reviewService;
+    this.bookingService = bookingService;
   }
   isAdmin() {
     return this.authService.isAdmin();
@@ -49124,6 +49155,24 @@ var PropertyDetail = class _PropertyDetail {
       error: (err) => {
         console.error("Error deleting review:", err);
         alert("Failed to delete review.");
+      }
+    });
+  }
+  onBookNowClicked() {
+    if (!this.property)
+      return;
+    const me = this.authService.getUsername();
+    if (!me) {
+      alert("You must be logged in to make a reservation.");
+      return;
+    }
+    this.bookingService.bookNow(this.property.id).subscribe({
+      next: (response) => {
+        alert(response || "Booking successful!");
+      },
+      error: (err) => {
+        console.error("Booking error:", err);
+        alert(err.error || "An error occurred while processing the reservation.");
       }
     });
   }
@@ -49181,9 +49230,9 @@ var PropertyDetail = class _PropertyDetail {
     this.router.navigate(["/properties", this.property.id, "review"]);
   }
   static \u0275fac = function PropertyDetail_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _PropertyDetail)(\u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(PropertyService), \u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(ReviewService));
+    return new (__ngFactoryType__ || _PropertyDetail)(\u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(PropertyService), \u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(ReviewService), \u0275\u0275directiveInject(BookingService));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PropertyDetail, selectors: [["app-property-detail"]], decls: 4, vars: 3, consts: [["noReviews", ""], [1, "detail-page"], ["class", "loading-container", 4, "ngIf"], ["class", "error-container", 4, "ngIf"], ["class", "detail-container", 4, "ngIf"], [1, "loading-container"], [1, "spinner"], [1, "error-container"], [1, "bi", "bi-exclamation-circle"], [1, "btn-back", 3, "click"], [1, "detail-container"], [1, "btn-back-small", 3, "click"], [1, "bi", "bi-arrow-left"], [1, "image-gallery"], [3, "src", "alt"], ["class", "btn-prev", 3, "click", 4, "ngIf"], ["class", "btn-next", 3, "click", 4, "ngIf"], ["class", "image-indicators", 4, "ngIf"], [1, "content-grid"], [1, "left-column"], [1, "property-header"], [1, "header-top"], [1, "header-actions"], ["class", "btn-delete-property-detail", "title", "Delete property", 3, "click", 4, "ngIf"], [1, "type-badge"], [1, "location"], [1, "bi", "bi-geo-alt"], ["class", "rating-row", 4, "ngIf"], [1, "section"], [1, "description"], [1, "info-grid"], [1, "info-item"], [1, "bi", "bi-people"], [1, "label"], [1, "value"], [1, "bi", "bi-person"], [1, "bi", "bi-calendar"], ["class", "section", 4, "ngIf"], [1, "reviews-title-row"], [1, "btn-add-review", 3, "click"], [1, "bi", "bi-pencil-square"], [1, "reviews-list"], ["class", "review-item", 4, "ngFor", "ngForOf"], [1, "right-column"], [1, "booking-card"], [1, "price-section"], [1, "price"], [1, "period"], ["class", "availability-section", 4, "ngIf"], [1, "btn-book"], [1, "btn-prev", 3, "click"], [1, "bi", "bi-chevron-left"], [1, "btn-next", 3, "click"], [1, "bi", "bi-chevron-right"], [1, "image-indicators"], ["class", "indicator", 3, "active", 4, "ngFor", "ngForOf"], [1, "indicator"], ["title", "Delete property", 1, "btn-delete-property-detail", 3, "click"], [1, "bi", "bi-trash"], [1, "rating-row"], [1, "stars"], ["class", "bi", 3, "bi-star-fill", "bi-star", 4, "ngFor", "ngForOf"], [1, "rating-text"], [1, "bi"], [1, "amenities-grid"], ["class", "amenity-item", 4, "ngFor", "ngForOf"], [1, "amenity-item"], [1, "bi", "bi-check-circle"], [1, "rules-grid"], [1, "rule-item"], [1, "bi", "bi-clock"], [1, "bi", "bi-clock-history"], [1, "review-item"], [1, "review-header"], [1, "reviewer-avatar"], [1, "reviewer-info"], [1, "reviewer-name"], [1, "review-date"], ["class", "btn-delete-review", "title", "Delete review", 3, "click", 4, "ngIf"], [1, "review-rating"], [1, "review-comment"], ["title", "Delete review", 1, "btn-delete-review", 3, "click"], [1, "no-reviews"], [1, "availability-section"], [1, "availability-list"], ["class", "availability-item", 4, "ngFor", "ngForOf"], [1, "availability-item"], [1, "bi", "bi-calendar-check"]], template: function PropertyDetail_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PropertyDetail, selectors: [["app-property-detail"]], decls: 4, vars: 3, consts: [["noReviews", ""], [1, "detail-page"], ["class", "loading-container", 4, "ngIf"], ["class", "error-container", 4, "ngIf"], ["class", "detail-container", 4, "ngIf"], [1, "loading-container"], [1, "spinner"], [1, "error-container"], [1, "bi", "bi-exclamation-circle"], [1, "btn-back", 3, "click"], [1, "detail-container"], [1, "btn-back-small", 3, "click"], [1, "bi", "bi-arrow-left"], [1, "image-gallery"], [3, "src", "alt"], ["class", "btn-prev", 3, "click", 4, "ngIf"], ["class", "btn-next", 3, "click", 4, "ngIf"], ["class", "image-indicators", 4, "ngIf"], [1, "content-grid"], [1, "left-column"], [1, "property-header"], [1, "header-top"], [1, "header-actions"], ["class", "btn-delete-property-detail", "title", "Delete property", 3, "click", 4, "ngIf"], [1, "type-badge"], [1, "location"], [1, "bi", "bi-geo-alt"], ["class", "rating-row", 4, "ngIf"], [1, "section"], [1, "description"], [1, "info-grid"], [1, "info-item"], [1, "bi", "bi-people"], [1, "label"], [1, "value"], [1, "bi", "bi-person"], [1, "bi", "bi-calendar"], ["class", "section", 4, "ngIf"], [1, "reviews-title-row"], [1, "btn-add-review", 3, "click"], [1, "bi", "bi-pencil-square"], [1, "reviews-list"], ["class", "review-item", 4, "ngFor", "ngForOf"], [1, "right-column"], [1, "booking-card"], [1, "price-section"], [1, "price"], [1, "period"], ["class", "availability-section", 4, "ngIf"], [1, "btn-book", 3, "click"], [1, "btn-prev", 3, "click"], [1, "bi", "bi-chevron-left"], [1, "btn-next", 3, "click"], [1, "bi", "bi-chevron-right"], [1, "image-indicators"], ["class", "indicator", 3, "active", 4, "ngFor", "ngForOf"], [1, "indicator"], ["title", "Delete property", 1, "btn-delete-property-detail", 3, "click"], [1, "bi", "bi-trash"], [1, "rating-row"], [1, "stars"], ["class", "bi", 3, "bi-star-fill", "bi-star", 4, "ngFor", "ngForOf"], [1, "rating-text"], [1, "bi"], [1, "amenities-grid"], ["class", "amenity-item", 4, "ngFor", "ngForOf"], [1, "amenity-item"], [1, "bi", "bi-check-circle"], [1, "rules-grid"], [1, "rule-item"], [1, "bi", "bi-clock"], [1, "bi", "bi-clock-history"], [1, "review-item"], [1, "review-header"], [1, "reviewer-avatar"], [1, "reviewer-info"], [1, "reviewer-name"], [1, "review-date"], ["class", "btn-delete-review", "title", "Delete review", 3, "click", 4, "ngIf"], [1, "review-rating"], [1, "review-comment"], ["title", "Delete review", 1, "btn-delete-review", 3, "click"], [1, "no-reviews"], [1, "availability-section"], [1, "availability-list"], ["class", "availability-item", 4, "ngFor", "ngForOf"], [1, "availability-item"], [1, "bi", "bi-calendar-check"]], template: function PropertyDetail_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "div", 1);
       \u0275\u0275template(1, PropertyDetail_div_1_Template, 4, 0, "div", 2)(2, PropertyDetail_div_2_Template, 6, 1, "div", 3)(3, PropertyDetail_div_3_Template, 77, 21, "div", 4);
@@ -49422,17 +49471,17 @@ var PropertyDetail = class _PropertyDetail {
             </div>\r
           </div>\r
 \r
-          <button class="btn-book">Book Now</button>\r
+          <button class="btn-book" (click)="onBookNowClicked()">Book Now</button>\r
         </div>\r
       </div>\r
     </div>\r
   </div>\r
 </div>\r
 `, styles: ["/* src/app/pages/property-detail/property-detail.css */\n.header-actions {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.btn-delete-property-detail {\n  width: 38px;\n  height: 38px;\n  border: none;\n  border-radius: 10px;\n  background: rgba(220, 53, 69, 0.12);\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.btn-delete-property-detail:hover {\n  background: rgba(220, 53, 69, 0.2);\n}\n.reviews-title-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 12px;\n}\n.btn-add-review {\n  border: none;\n  border-radius: 10px;\n  padding: 10px 12px;\n  cursor: pointer;\n  display: inline-flex;\n  gap: 8px;\n  align-items: center;\n}\n.review-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.review-left {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.btn-delete-review {\n  width: 34px;\n  height: 34px;\n  border: none;\n  border-radius: 10px;\n  background: rgba(220, 53, 69, 0.12);\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.btn-delete-review:hover {\n  background: rgba(220, 53, 69, 0.2);\n}\n.detail-page {\n  min-height: 100vh;\n  background: #fafafa;\n}\n.loading-container,\n.error-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  min-height: 60vh;\n  gap: 20px;\n}\n.spinner {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.error-container i {\n  font-size: 48px;\n  color: #dc3545;\n}\n.detail-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 24px;\n}\n.btn-back-small {\n  display: inline-flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background: white;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  color: #333;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  margin-bottom: 24px;\n}\n.btn-back-small:hover {\n  border-color: #667eea;\n  color: #667eea;\n}\n.image-gallery {\n  position: relative;\n  width: 100%;\n  height: 500px;\n  border-radius: 16px;\n  overflow: hidden;\n  margin-bottom: 32px;\n}\n.image-gallery img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\n.btn-prev,\n.btn-next {\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n  width: 48px;\n  height: 48px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(255, 255, 255, 0.9);\n  color: #333;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-prev {\n  left: 20px;\n}\n.btn-next {\n  right: 20px;\n}\n.btn-prev:hover,\n.btn-next:hover {\n  background: white;\n  transform: translateY(-50%) scale(1.1);\n}\n.image-indicators {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 8px;\n}\n.indicator {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.5);\n  transition: all 0.2s ease;\n}\n.indicator.active {\n  background: white;\n  width: 24px;\n  border-radius: 4px;\n}\n.content-grid {\n  display: grid;\n  grid-template-columns: 1fr 400px;\n  gap: 32px;\n}\n.left-column {\n  display: flex;\n  flex-direction: column;\n  gap: 32px;\n}\n.property-header {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.header-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 12px;\n}\n.property-header h1 {\n  font-size: 28px;\n  font-weight: 700;\n  color: #333;\n  margin: 0;\n}\n.type-badge {\n  padding: 6px 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border-radius: 20px;\n  font-size: 14px;\n  font-weight: 600;\n  text-transform: capitalize;\n}\n.location {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  color: #666;\n  font-size: 16px;\n  margin-bottom: 12px;\n}\n.location i {\n  color: #667eea;\n  font-size: 18px;\n}\n.rating-row {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.stars {\n  display: flex;\n  gap: 4px;\n}\n.stars i {\n  color: #fbbf24;\n  font-size: 18px;\n}\n.rating-text {\n  color: #666;\n  font-size: 14px;\n  font-weight: 600;\n}\n.section {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.section h2 {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 16px 0;\n}\n.description {\n  color: #666;\n  line-height: 1.6;\n  margin: 0;\n}\n.info-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 16px;\n}\n.info-item {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.info-item i {\n  font-size: 24px;\n  color: #667eea;\n}\n.info-item .label {\n  display: block;\n  font-size: 12px;\n  color: #999;\n  margin-bottom: 4px;\n}\n.info-item .value {\n  display: block;\n  font-size: 16px;\n  font-weight: 600;\n  color: #333;\n}\n.amenities-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\n  gap: 12px;\n}\n.amenity-item {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 10px;\n  background: #f8f9fa;\n  border-radius: 8px;\n}\n.amenity-item i {\n  color: #667eea;\n  font-size: 18px;\n}\n.amenity-item span {\n  color: #333;\n  font-size: 14px;\n}\n.rules-grid {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 16px;\n}\n.rule-item {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.rule-item i {\n  font-size: 24px;\n}\n.rule-item i.bi-check-circle {\n  color: #28a745;\n}\n.rule-item i.bi-x-circle {\n  color: #dc3545;\n}\n.rule-item i.bi-clock,\n.rule-item i.bi-clock-history {\n  color: #667eea;\n}\n.rule-item .label {\n  display: block;\n  font-size: 12px;\n  color: #999;\n  margin-bottom: 4px;\n}\n.rule-item .value {\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.reviews-list {\n  display: flex;\n  flex-direction: column;\n  gap: 20px;\n}\n.review-item {\n  padding: 20px;\n  background: #f8f9fa;\n  border-radius: 12px;\n}\n.review-header {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  margin-bottom: 12px;\n}\n.reviewer-avatar {\n  width: 48px;\n  height: 48px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 18px;\n}\n.reviewer-info {\n  display: flex;\n  flex-direction: column;\n}\n.reviewer-name {\n  font-weight: 600;\n  color: #333;\n  font-size: 14px;\n}\n.review-date {\n  font-size: 12px;\n  color: #999;\n}\n.review-rating {\n  display: flex;\n  gap: 4px;\n  margin-bottom: 12px;\n}\n.review-rating i {\n  color: #fbbf24;\n  font-size: 14px;\n}\n.review-comment {\n  color: #666;\n  line-height: 1.5;\n  margin: 0;\n  font-size: 14px;\n}\n.right-column {\n  position: sticky;\n  top: 24px;\n  height: fit-content;\n}\n.booking-card {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.price-section {\n  display: flex;\n  align-items: baseline;\n  gap: 8px;\n  margin-bottom: 24px;\n  padding-bottom: 24px;\n  border-bottom: 1px solid #f0f0f0;\n}\n.price {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n}\n.period {\n  font-size: 16px;\n  color: #666;\n}\n.availability-section {\n  margin-bottom: 24px;\n}\n.availability-section h3 {\n  font-size: 16px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 12px 0;\n}\n.availability-list {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n}\n.availability-item {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 12px;\n  background: #f8f9fa;\n  border-radius: 8px;\n  font-size: 13px;\n  color: #666;\n}\n.availability-item i {\n  color: #667eea;\n  font-size: 16px;\n}\n.btn-book {\n  width: 100%;\n  padding: 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 12px;\n  font-size: 16px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-book:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-back {\n  padding: 12px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-back:hover {\n  background: #5568d3;\n}\n@media (max-width: 1024px) {\n  .content-grid {\n    grid-template-columns: 1fr;\n  }\n  .right-column {\n    position: static;\n  }\n}\n@media (max-width: 768px) {\n  .image-gallery {\n    height: 300px;\n    border-radius: 0;\n    margin-left: -24px;\n    margin-right: -24px;\n    width: calc(100% + 48px);\n  }\n  .rules-grid {\n    grid-template-columns: 1fr;\n  }\n  .info-grid {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=property-detail.css.map */\n"] }]
-  }], () => [{ type: ActivatedRoute }, { type: Router }, { type: PropertyService }, { type: AuthService }, { type: ReviewService }], null);
+  }], () => [{ type: ActivatedRoute }, { type: Router }, { type: PropertyService }, { type: AuthService }, { type: ReviewService }, { type: BookingService }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PropertyDetail, { className: "PropertyDetail", filePath: "src/app/pages/property-detail/property-detail.ts", lineNumber: 18 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(PropertyDetail, { className: "PropertyDetail", filePath: "src/app/pages/property-detail/property-detail.ts", lineNumber: 19 });
 })();
 
 // src/app/pages/review-form/review-form.ts

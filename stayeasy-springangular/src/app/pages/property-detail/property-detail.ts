@@ -7,6 +7,7 @@ import {finalize} from 'rxjs/operators';
 import { AuthService } from '../../service/auth-service';
 import { ReviewService } from '../../service/review-service';
 import { ReviewDTO } from '../../models/property.models';
+import { BookingService } from '../../service/booking.service';
 
 @Component({
   selector: 'app-property-detail',
@@ -26,7 +27,8 @@ export class PropertyDetail {
     private router: Router,
     private propertyService: PropertyService,
     private authService: AuthService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private bookingService: BookingService
   ) {}
 
   isAdmin(): boolean {
@@ -68,6 +70,26 @@ export class PropertyDetail {
       error: (err) => {
         console.error('Error deleting review:', err);
         alert('Failed to delete review.');
+      }
+    });
+  }
+
+  onBookNowClicked(): void {
+    if (!this.property) return;
+
+    const me = this.authService.getUsername();
+    if (!me) {
+      alert('You must be logged in to make a reservation.');
+      return;
+    }
+
+    this.bookingService.bookNow(this.property.id).subscribe({
+      next: (response) => {
+        alert(response || 'Booking successful!');
+      },
+      error: (err) => {
+        console.error('Booking error:', err);
+        alert(err.error || 'An error occurred while processing the reservation.');
       }
     });
   }

@@ -43,6 +43,14 @@ public class User {
   @Column(nullable = false)
   private Role role = Role.GUEST; // default 'user'
 
+  @Setter
+  @Column(name = "completed_bookings", nullable = false)
+  private Integer completedBookings = 0; //nr de rezervari finalizate pentru coins
+
+  @Setter
+  @Column(name = "loyalty_coins", nullable = false)
+  private Integer loyaltyCoins = 0; //nr de coins acumulati
+
   // Relație 1-to-many cu sesiunile (pe care tu o vei crea)
   @Setter
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -58,6 +66,34 @@ public class User {
     this.fullName = fullName;
     this.role = role;
     this.createdAt = LocalDateTime.now();
+    this.completedBookings = 0;
+    this.loyaltyCoins = 0;
+  }
+
+  //adauga o rezervare finalizata
+  public void addCompletedBooking() {
+    this.completedBookings++;
+
+    //la 5 rezervari finalizate, se acorda 1 coin
+    if (this.completedBookings % 5 == 0) {
+      this.loyaltyCoins ++;
+    }
+  }
+
+  //verificare daca userul are "destui coins" pentru reducere
+  public boolean canUseDiscount() {
+    return this.loyaltyCoins >= 5;
+  }
+
+  // Consuma 5 coins pentru reducere
+  public  void useDiscount() {
+    if(canUseDiscount()) {
+      this.loyaltyCoins -= 5;
+    }
+  }
+
+  public int bookingsUntilNextCoin() {
+    return 5 - (this.completedBookings % 5);
   }
 
 }
