@@ -7,6 +7,8 @@ import { PropertyResponseDTO } from '../../models/property.models';
 import {PropertyService} from '../../service/property-service';
 import {CreatePropertyModal} from '../create-property-modal/create-property-modal';
 import { UserADMIN_DTO } from '../../models/user-admin.dto';
+import { PremiumService, PremiumStatusDTO } from '../../service/premium-service';
+import { ApiErrorService } from '../../service/api-error.service';
 
 import {FormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
@@ -33,17 +35,24 @@ export class Homepage implements OnInit {
   searchCity: string = '';
   searchMaxPrice: number | null = null;
   isSearching: boolean = false;
+  premiumStatus: PremiumStatusDTO | null = null;
+  isPremiumLoading: boolean = false;
+  premiumError: string | null = null;
+  showPremiumDetails: boolean = false;
 
   constructor(
     private authService: AuthService,
     private loginService: LoginService,
     private propertyService: PropertyService,
-    private router: Router
+    private router: Router,
+    private premiumService: PremiumService,
+    private apiErrorService: ApiErrorService
   ) {}
 
   ngOnInit(): void {
     this.loadUserInfo();
     this.loadProperties();
+    this.loadPremiumStatus();
   }
 
   loadUserInfo(): void {
@@ -153,6 +162,75 @@ export class Homepage implements OnInit {
 
   onModalClose(): void {
     this.showCreateModal = false;
+  }
+
+  loadPremiumStatus(): void {
+    this.isPremiumLoading = true;
+    this.premiumError = null;
+
+    this.premiumService.getStatus()
+      .pipe(finalize(() => this.isPremiumLoading = false))
+      .subscribe({
+        next: (status) => {
+          this.premiumStatus = status;
+        },
+        error: (error) => {
+          console.error('Error loading premium status:', error);
+          this.premiumError = this.apiErrorService.getMessage(
+            error,
+            'Failed to load premium status.'
+          );
+        }
+      });
+  }
+
+  openPremiumDetails(): void {
+    this.showPremiumDetails = true;
+  }
+
+  closePremiumDetails(): void {
+    this.showPremiumDetails = false;
+  }
+
+  activatePremiumDemo(): void {
+    this.isPremiumLoading = true;
+    this.premiumError = null;
+
+    this.premiumService.activateDemo()
+      .pipe(finalize(() => this.isPremiumLoading = false))
+      .subscribe({
+        next: (status) => {
+          this.premiumStatus = status;
+          this.showPremiumDetails = false;
+        },
+        error: (error) => {
+          console.error('Error activating premium:', error);
+          this.premiumError = this.apiErrorService.getMessage(
+            error,
+            'Failed to activate premium account.'
+          );
+        }
+      });
+  }
+
+  deactivatePremiumDemo(): void {
+    this.isPremiumLoading = true;
+    this.premiumError = null;
+
+    this.premiumService.deactivateDemo()
+      .pipe(finalize(() => this.isPremiumLoading = false))
+      .subscribe({
+        next: (status) => {
+          this.premiumStatus = status;
+        },
+        error: (error) => {
+          console.error('Error deactivating premium:', error);
+          this.premiumError = this.apiErrorService.getMessage(
+            error,
+            'Failed to deactivate premium account.'
+          );
+        }
+      });
   }
 
   onPropertyCreated(): void {

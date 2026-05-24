@@ -47520,6 +47520,36 @@ var CreatePropertyModal = class _CreatePropertyModal {
   (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(CreatePropertyModal, { className: "CreatePropertyModal", filePath: "src/app/pages/create-property-modal/create-property-modal.ts", lineNumber: 16 });
 })();
 
+// src/app/service/premium-service.ts
+var PremiumService = class _PremiumService {
+  http;
+  apiUrl = "/api/premium";
+  constructor(http) {
+    this.http = http;
+  }
+  getStatus() {
+    return this.http.get(`${this.apiUrl}/status`);
+  }
+  activateDemo() {
+    return this.http.post(`${this.apiUrl}/activate-demo`, {});
+  }
+  deactivateDemo() {
+    return this.http.post(`${this.apiUrl}/deactivate-demo`, {});
+  }
+  static \u0275fac = function PremiumService_Factory(__ngFactoryType__) {
+    return new (__ngFactoryType__ || _PremiumService)(\u0275\u0275inject(HttpClient));
+  };
+  static \u0275prov = /* @__PURE__ */ \u0275\u0275defineInjectable({ token: _PremiumService, factory: _PremiumService.\u0275fac, providedIn: "root" });
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PremiumService, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [{ type: HttpClient }], null);
+})();
+
 // src/app/pages/homepage/homepage.ts
 function Homepage_button_11_Template(rf, ctx) {
   if (rf & 1) {
@@ -47536,7 +47566,7 @@ function Homepage_button_11_Template(rf, ctx) {
 }
 function Homepage_span_18_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "span", 35);
+    \u0275\u0275elementStart(0, "span", 39);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
@@ -47546,16 +47576,23 @@ function Homepage_span_18_Template(rf, ctx) {
     \u0275\u0275textInterpolate(ctx_r1.userEmail);
   }
 }
-function Homepage_div_20_Template(rf, ctx) {
+function Homepage_span_19_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "span", 40);
+    \u0275\u0275text(1, " Premium ");
+    \u0275\u0275elementEnd();
+  }
+}
+function Homepage_div_21_Template(rf, ctx) {
   if (rf & 1) {
     const _r3 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 36)(1, "button", 37);
-    \u0275\u0275listener("click", function Homepage_div_20_Template_button_click_1_listener() {
+    \u0275\u0275elementStart(0, "div", 41)(1, "button", 42);
+    \u0275\u0275listener("click", function Homepage_div_21_Template_button_click_1_listener() {
       \u0275\u0275restoreView(_r3);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.onLogout());
     });
-    \u0275\u0275element(2, "i", 38);
+    \u0275\u0275element(2, "i", 43);
     \u0275\u0275elementStart(3, "span");
     \u0275\u0275text(4);
     \u0275\u0275elementEnd()()();
@@ -47568,41 +47605,147 @@ function Homepage_div_20_Template(rf, ctx) {
     \u0275\u0275textInterpolate(ctx_r1.isLoggingOut ? "Logging out..." : "Logout");
   }
 }
-function Homepage_button_41_Template(rf, ctx) {
+function Homepage_section_29_button_29_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r5 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 60);
+    \u0275\u0275listener("click", function Homepage_section_29_button_29_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r5);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.activatePremiumDemo());
+    });
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("disabled", ctx_r1.isPremiumLoading);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r1.isPremiumLoading ? "Activating..." : "Activate Demo Premium", " ");
+  }
+}
+function Homepage_section_29_button_30_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r6 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 61);
+    \u0275\u0275listener("click", function Homepage_section_29_button_30_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r6);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.deactivatePremiumDemo());
+    });
+    \u0275\u0275text(1, " Disable Demo ");
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("disabled", ctx_r1.isPremiumLoading);
+  }
+}
+function Homepage_section_29_Template(rf, ctx) {
   if (rf & 1) {
     const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 39);
-    \u0275\u0275listener("click", function Homepage_button_41_Template_button_click_0_listener() {
+    \u0275\u0275elementStart(0, "section", 44)(1, "div", 45)(2, "div", 46);
+    \u0275\u0275element(3, "i", 47);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "div", 48)(5, "span", 49);
+    \u0275\u0275text(6);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "h2");
+    \u0275\u0275text(8);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "p");
+    \u0275\u0275text(10);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(11, "div", 50)(12, "span");
+    \u0275\u0275element(13, "i", 51);
+    \u0275\u0275text(14, " 2x StayEasy Coins");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(15, "span");
+    \u0275\u0275element(16, "i", 52);
+    \u0275\u0275text(17, " Member-only deals");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(18, "span");
+    \u0275\u0275element(19, "i", 53);
+    \u0275\u0275text(20, " Premium badge");
+    \u0275\u0275elementEnd()()()();
+    \u0275\u0275elementStart(21, "div", 54)(22, "div", 55)(23, "span", 56);
+    \u0275\u0275text(24, "Demo price");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(25, "strong");
+    \u0275\u0275text(26, "9.99 $/month");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(27, "button", 57);
+    \u0275\u0275listener("click", function Homepage_section_29_Template_button_click_27_listener() {
       \u0275\u0275restoreView(_r4);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.openPremiumDetails());
+    });
+    \u0275\u0275text(28, " View benefits ");
+    \u0275\u0275elementEnd();
+    \u0275\u0275template(29, Homepage_section_29_button_29_Template, 2, 2, "button", 58)(30, Homepage_section_29_button_30_Template, 2, 1, "button", 59);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(6);
+    \u0275\u0275textInterpolate1(" ", ctx_r1.premiumStatus.premium ? "Premium Active" : "Upgrade available", " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1(" ", ctx_r1.premiumStatus.premium ? "You are a StayEasy Premium member" : "Unlock StayEasy Premium", " ");
+    \u0275\u0275advance(2);
+    \u0275\u0275textInterpolate1(" ", ctx_r1.premiumStatus.premium ? "Enjoy 2x StayEasy Coins, exclusive member benefits and a premium booking experience." : "Get 2x StayEasy Coins, access to member-only deals and a premium badge for your account.", " ");
+    \u0275\u0275advance(19);
+    \u0275\u0275property("ngIf", !ctx_r1.premiumStatus.premium);
+    \u0275\u0275advance();
+    \u0275\u0275property("ngIf", ctx_r1.premiumStatus.premium);
+  }
+}
+function Homepage_div_30_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "div", 62);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r1.premiumError, " ");
+  }
+}
+function Homepage_button_44_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r7 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 63);
+    \u0275\u0275listener("click", function Homepage_button_44_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r7);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.onClearSearch());
     });
-    \u0275\u0275element(1, "i", 40);
+    \u0275\u0275element(1, "i", 64);
     \u0275\u0275elementStart(2, "span");
     \u0275\u0275text(3, "Clear");
     \u0275\u0275elementEnd()();
   }
 }
-function Homepage_div_42_Template(rf, ctx) {
+function Homepage_div_45_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 41);
-    \u0275\u0275element(1, "div", 42);
+    \u0275\u0275elementStart(0, "div", 65);
+    \u0275\u0275element(1, "div", 66);
     \u0275\u0275elementStart(2, "p");
     \u0275\u0275text(3, "Loading properties...");
     \u0275\u0275elementEnd()();
   }
 }
-function Homepage_div_43_Template(rf, ctx) {
+function Homepage_div_46_Template(rf, ctx) {
   if (rf & 1) {
-    const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 43);
-    \u0275\u0275element(1, "i", 44);
+    const _r8 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 67);
+    \u0275\u0275element(1, "i", 68);
     \u0275\u0275elementStart(2, "p");
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "button", 45);
-    \u0275\u0275listener("click", function Homepage_div_43_Template_button_click_4_listener() {
-      \u0275\u0275restoreView(_r5);
+    \u0275\u0275elementStart(4, "button", 69);
+    \u0275\u0275listener("click", function Homepage_div_46_Template_button_click_4_listener() {
+      \u0275\u0275restoreView(_r8);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.loadProperties());
     });
@@ -47615,10 +47758,10 @@ function Homepage_div_43_Template(rf, ctx) {
     \u0275\u0275textInterpolate(ctx_r1.error);
   }
 }
-function Homepage_div_44_Template(rf, ctx) {
+function Homepage_div_47_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 46);
-    \u0275\u0275element(1, "i", 47);
+    \u0275\u0275elementStart(0, "div", 70);
+    \u0275\u0275element(1, "i", 71);
     \u0275\u0275elementStart(2, "h3");
     \u0275\u0275text(3, "No properties available");
     \u0275\u0275elementEnd();
@@ -47627,101 +47770,101 @@ function Homepage_div_44_Template(rf, ctx) {
     \u0275\u0275elementEnd()();
   }
 }
-function Homepage_div_45_div_1_button_5_Template(rf, ctx) {
+function Homepage_div_48_div_1_button_5_Template(rf, ctx) {
   if (rf & 1) {
-    const _r8 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 68);
-    \u0275\u0275listener("click", function Homepage_div_45_div_1_button_5_Template_button_click_0_listener($event) {
-      \u0275\u0275restoreView(_r8);
-      const property_r7 = \u0275\u0275nextContext().$implicit;
+    const _r11 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 92);
+    \u0275\u0275listener("click", function Homepage_div_48_div_1_button_5_Template_button_click_0_listener($event) {
+      \u0275\u0275restoreView(_r11);
+      const property_r10 = \u0275\u0275nextContext().$implicit;
       const ctx_r1 = \u0275\u0275nextContext(2);
-      ctx_r1.onDeleteProperty(property_r7.id);
+      ctx_r1.onDeleteProperty(property_r10.id);
       return \u0275\u0275resetView($event.stopPropagation());
     });
-    \u0275\u0275element(1, "i", 69);
+    \u0275\u0275element(1, "i", 93);
     \u0275\u0275elementEnd();
   }
 }
-function Homepage_div_45_div_1_p_13_Template(rf, ctx) {
+function Homepage_div_48_div_1_p_13_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "p", 70);
+    \u0275\u0275elementStart(0, "p", 94);
     \u0275\u0275text(1);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
-    const property_r7 = \u0275\u0275nextContext().$implicit;
+    const property_r10 = \u0275\u0275nextContext().$implicit;
     \u0275\u0275advance();
-    \u0275\u0275textInterpolate1(" ", property_r7.description, " ");
+    \u0275\u0275textInterpolate1(" ", property_r10.description, " ");
   }
 }
-function Homepage_div_45_div_1_Template(rf, ctx) {
+function Homepage_div_48_div_1_Template(rf, ctx) {
   if (rf & 1) {
-    const _r6 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "div", 50);
-    \u0275\u0275listener("click", function Homepage_div_45_div_1_Template_div_click_0_listener() {
-      const property_r7 = \u0275\u0275restoreView(_r6).$implicit;
+    const _r9 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 74);
+    \u0275\u0275listener("click", function Homepage_div_48_div_1_Template_div_click_0_listener() {
+      const property_r10 = \u0275\u0275restoreView(_r9).$implicit;
       const ctx_r1 = \u0275\u0275nextContext(2);
-      return \u0275\u0275resetView(ctx_r1.onPropertyClick(property_r7.id));
+      return \u0275\u0275resetView(ctx_r1.onPropertyClick(property_r10.id));
     });
-    \u0275\u0275elementStart(1, "div", 51);
-    \u0275\u0275element(2, "img", 52);
-    \u0275\u0275elementStart(3, "div", 53);
+    \u0275\u0275elementStart(1, "div", 75);
+    \u0275\u0275element(2, "img", 76);
+    \u0275\u0275elementStart(3, "div", 77);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd();
-    \u0275\u0275template(5, Homepage_div_45_div_1_button_5_Template, 2, 0, "button", 54);
+    \u0275\u0275template(5, Homepage_div_48_div_1_button_5_Template, 2, 0, "button", 78);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(6, "div", 55)(7, "div", 56)(8, "h3", 57);
+    \u0275\u0275elementStart(6, "div", 79)(7, "div", 80)(8, "h3", 81);
     \u0275\u0275text(9);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(10, "p", 58);
-    \u0275\u0275element(11, "i", 22);
+    \u0275\u0275elementStart(10, "p", 82);
+    \u0275\u0275element(11, "i", 25);
     \u0275\u0275text(12);
     \u0275\u0275elementEnd()();
-    \u0275\u0275template(13, Homepage_div_45_div_1_p_13_Template, 2, 1, "p", 59);
-    \u0275\u0275elementStart(14, "div", 60)(15, "div", 61);
-    \u0275\u0275element(16, "i", 62);
+    \u0275\u0275template(13, Homepage_div_48_div_1_p_13_Template, 2, 1, "p", 83);
+    \u0275\u0275elementStart(14, "div", 84)(15, "div", 85);
+    \u0275\u0275element(16, "i", 86);
     \u0275\u0275elementStart(17, "span");
     \u0275\u0275text(18);
     \u0275\u0275elementEnd()();
-    \u0275\u0275elementStart(19, "div", 61);
-    \u0275\u0275element(20, "i", 63);
+    \u0275\u0275elementStart(19, "div", 85);
+    \u0275\u0275element(20, "i", 87);
     \u0275\u0275elementStart(21, "span");
     \u0275\u0275text(22);
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(23, "div", 64)(24, "div", 65)(25, "span", 66);
+    \u0275\u0275elementStart(23, "div", 88)(24, "div", 89)(25, "span", 90);
     \u0275\u0275text(26);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(27, "span", 67);
+    \u0275\u0275elementStart(27, "span", 91);
     \u0275\u0275text(28, "/ night");
     \u0275\u0275elementEnd()()()()();
   }
   if (rf & 2) {
-    const property_r7 = ctx.$implicit;
+    const property_r10 = ctx.$implicit;
     const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(2);
-    \u0275\u0275property("src", ctx_r1.getMainImage(property_r7), \u0275\u0275sanitizeUrl)("alt", property_r7.title);
+    \u0275\u0275property("src", ctx_r1.getMainImage(property_r10), \u0275\u0275sanitizeUrl)("alt", property_r10.title);
     \u0275\u0275advance(2);
-    \u0275\u0275textInterpolate(ctx_r1.getPropertyTypeLabel(property_r7.propertyType));
+    \u0275\u0275textInterpolate(ctx_r1.getPropertyTypeLabel(property_r10.propertyType));
     \u0275\u0275advance();
-    \u0275\u0275property("ngIf", ctx_r1.isOwner(property_r7) || ctx_r1.isAdmin());
+    \u0275\u0275property("ngIf", ctx_r1.isOwner(property_r10) || ctx_r1.isAdmin());
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate(property_r7.title);
+    \u0275\u0275textInterpolate(property_r10.title);
     \u0275\u0275advance(3);
-    \u0275\u0275textInterpolate1(" ", property_r7.city, " ");
+    \u0275\u0275textInterpolate1(" ", property_r10.city, " ");
     \u0275\u0275advance();
-    \u0275\u0275property("ngIf", property_r7.description);
+    \u0275\u0275property("ngIf", property_r10.description);
     \u0275\u0275advance(5);
-    \u0275\u0275textInterpolate1("", property_r7.maxGuests, " guests");
+    \u0275\u0275textInterpolate1("", property_r10.maxGuests, " guests");
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate1("Host: ", property_r7.ownerUsername);
+    \u0275\u0275textInterpolate1("Host: ", property_r10.ownerUsername);
     \u0275\u0275advance(4);
-    \u0275\u0275textInterpolate1("$", property_r7.pricePerNight);
+    \u0275\u0275textInterpolate1("$", property_r10.pricePerNight);
   }
 }
-function Homepage_div_45_Template(rf, ctx) {
+function Homepage_div_48_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 48);
-    \u0275\u0275template(1, Homepage_div_45_div_1_Template, 29, 10, "div", 49);
+    \u0275\u0275elementStart(0, "div", 72);
+    \u0275\u0275template(1, Homepage_div_48_div_1_Template, 29, 10, "div", 73);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
@@ -47730,16 +47873,16 @@ function Homepage_div_45_Template(rf, ctx) {
     \u0275\u0275property("ngForOf", ctx_r1.properties);
   }
 }
-function Homepage_app_create_property_modal_46_Template(rf, ctx) {
+function Homepage_app_create_property_modal_49_Template(rf, ctx) {
   if (rf & 1) {
-    const _r9 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "app-create-property-modal", 71);
-    \u0275\u0275listener("close", function Homepage_app_create_property_modal_46_Template_app_create_property_modal_close_0_listener() {
-      \u0275\u0275restoreView(_r9);
+    const _r12 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "app-create-property-modal", 95);
+    \u0275\u0275listener("close", function Homepage_app_create_property_modal_49_Template_app_create_property_modal_close_0_listener() {
+      \u0275\u0275restoreView(_r12);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.onModalClose());
-    })("propertyCreated", function Homepage_app_create_property_modal_46_Template_app_create_property_modal_propertyCreated_0_listener() {
-      \u0275\u0275restoreView(_r9);
+    })("propertyCreated", function Homepage_app_create_property_modal_49_Template_app_create_property_modal_propertyCreated_0_listener() {
+      \u0275\u0275restoreView(_r12);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.onPropertyCreated());
     });
@@ -47750,11 +47893,101 @@ function Homepage_app_create_property_modal_46_Template(rf, ctx) {
     \u0275\u0275property("currentUserId", ctx_r1.userId);
   }
 }
+function Homepage_div_50_button_34_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r14 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "button", 106);
+    \u0275\u0275listener("click", function Homepage_div_50_button_34_Template_button_click_0_listener() {
+      \u0275\u0275restoreView(_r14);
+      const ctx_r1 = \u0275\u0275nextContext(2);
+      return \u0275\u0275resetView(ctx_r1.activatePremiumDemo());
+    });
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275property("disabled", ctx_r1.isPremiumLoading);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" ", ctx_r1.isPremiumLoading ? "Activating..." : "Activate Demo Premium", " ");
+  }
+}
+function Homepage_div_50_Template(rf, ctx) {
+  if (rf & 1) {
+    const _r13 = \u0275\u0275getCurrentView();
+    \u0275\u0275elementStart(0, "div", 96);
+    \u0275\u0275listener("click", function Homepage_div_50_Template_div_click_0_listener() {
+      \u0275\u0275restoreView(_r13);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.closePremiumDetails());
+    });
+    \u0275\u0275elementStart(1, "div", 97);
+    \u0275\u0275listener("click", function Homepage_div_50_Template_div_click_1_listener($event) {
+      \u0275\u0275restoreView(_r13);
+      return \u0275\u0275resetView($event.stopPropagation());
+    });
+    \u0275\u0275elementStart(2, "button", 98);
+    \u0275\u0275listener("click", function Homepage_div_50_Template_button_click_2_listener() {
+      \u0275\u0275restoreView(_r13);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.closePremiumDetails());
+    });
+    \u0275\u0275element(3, "i", 99);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(4, "div", 100)(5, "div", 101);
+    \u0275\u0275element(6, "i", 47);
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(7, "h2");
+    \u0275\u0275text(8, "StayEasy Premium");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(9, "p");
+    \u0275\u0275text(10, "A demo subscription concept focused on loyalty, trust and better offers.");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(11, "div", 102)(12, "div", 103);
+    \u0275\u0275element(13, "i", 51);
+    \u0275\u0275elementStart(14, "h3");
+    \u0275\u0275text(15, "2x StayEasy Coins");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(16, "p");
+    \u0275\u0275text(17, "Premium users receive double loyalty rewards compared to basic users.");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(18, "div", 103);
+    \u0275\u0275element(19, "i", 52);
+    \u0275\u0275elementStart(20, "h3");
+    \u0275\u0275text(21, "Member-only deals");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(22, "p");
+    \u0275\u0275text(23, "Special offers can be displayed only for Premium members.");
+    \u0275\u0275elementEnd()();
+    \u0275\u0275elementStart(24, "div", 103);
+    \u0275\u0275element(25, "i", 53);
+    \u0275\u0275elementStart(26, "h3");
+    \u0275\u0275text(27, "Premium badge");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(28, "p");
+    \u0275\u0275text(29, "The account receives a visible badge that confirms premium status.");
+    \u0275\u0275elementEnd()()();
+    \u0275\u0275elementStart(30, "div", 104)(31, "strong");
+    \u0275\u0275text(32, "UI/UX demo:");
+    \u0275\u0275elementEnd();
+    \u0275\u0275text(33, " payment management is not implemented in this stage. ");
+    \u0275\u0275elementEnd();
+    \u0275\u0275template(34, Homepage_div_50_button_34_Template, 2, 2, "button", 105);
+    \u0275\u0275elementEnd()();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext();
+    \u0275\u0275advance(34);
+    \u0275\u0275property("ngIf", !(ctx_r1.premiumStatus == null ? null : ctx_r1.premiumStatus.premium));
+  }
+}
 var Homepage = class _Homepage {
   authService;
   loginService;
   propertyService;
   router;
+  premiumService;
+  apiErrorService;
   userName = "";
   userEmail = "";
   userId = 0;
@@ -47769,15 +48002,22 @@ var Homepage = class _Homepage {
   searchCity = "";
   searchMaxPrice = null;
   isSearching = false;
-  constructor(authService, loginService, propertyService, router) {
+  premiumStatus = null;
+  isPremiumLoading = false;
+  premiumError = null;
+  showPremiumDetails = false;
+  constructor(authService, loginService, propertyService, router, premiumService, apiErrorService) {
     this.authService = authService;
     this.loginService = loginService;
     this.propertyService = propertyService;
     this.router = router;
+    this.premiumService = premiumService;
+    this.apiErrorService = apiErrorService;
   }
   ngOnInit() {
     this.loadUserInfo();
     this.loadProperties();
+    this.loadPremiumStatus();
   }
   loadUserInfo() {
     const token = this.authService.getToken();
@@ -47861,6 +48101,52 @@ var Homepage = class _Homepage {
   onModalClose() {
     this.showCreateModal = false;
   }
+  loadPremiumStatus() {
+    this.isPremiumLoading = true;
+    this.premiumError = null;
+    this.premiumService.getStatus().pipe(finalize(() => this.isPremiumLoading = false)).subscribe({
+      next: (status) => {
+        this.premiumStatus = status;
+      },
+      error: (error) => {
+        console.error("Error loading premium status:", error);
+        this.premiumError = this.apiErrorService.getMessage(error, "Failed to load premium status.");
+      }
+    });
+  }
+  openPremiumDetails() {
+    this.showPremiumDetails = true;
+  }
+  closePremiumDetails() {
+    this.showPremiumDetails = false;
+  }
+  activatePremiumDemo() {
+    this.isPremiumLoading = true;
+    this.premiumError = null;
+    this.premiumService.activateDemo().pipe(finalize(() => this.isPremiumLoading = false)).subscribe({
+      next: (status) => {
+        this.premiumStatus = status;
+        this.showPremiumDetails = false;
+      },
+      error: (error) => {
+        console.error("Error activating premium:", error);
+        this.premiumError = this.apiErrorService.getMessage(error, "Failed to activate premium account.");
+      }
+    });
+  }
+  deactivatePremiumDemo() {
+    this.isPremiumLoading = true;
+    this.premiumError = null;
+    this.premiumService.deactivateDemo().pipe(finalize(() => this.isPremiumLoading = false)).subscribe({
+      next: (status) => {
+        this.premiumStatus = status;
+      },
+      error: (error) => {
+        console.error("Error deactivating premium:", error);
+        this.premiumError = this.apiErrorService.getMessage(error, "Failed to deactivate premium account.");
+      }
+    });
+  }
   onPropertyCreated() {
     this.loadProperties();
   }
@@ -47914,9 +48200,9 @@ var Homepage = class _Homepage {
     this.router.navigate(["/property", propertyId]);
   }
   static \u0275fac = function Homepage_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _Homepage)(\u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(LoginService), \u0275\u0275directiveInject(PropertyService), \u0275\u0275directiveInject(Router));
+    return new (__ngFactoryType__ || _Homepage)(\u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(LoginService), \u0275\u0275directiveInject(PropertyService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(PremiumService), \u0275\u0275directiveInject(ApiErrorService));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Homepage, selectors: [["app-homepage"]], decls: 47, vars: 15, consts: [[1, "navbar"], [1, "nav-container"], [1, "nav-brand"], [1, "bi", "bi-house-heart-fill"], [1, "brand-name"], [1, "nav-actions"], [1, "btn-become-host", 3, "click"], [1, "bi", "bi-plus-circle"], ["class", "btn-become-host", 3, "click", 4, "ngIf"], [1, "user-card", 3, "click"], [1, "user-avatar"], [1, "user-info"], [1, "user-name"], ["class", "user-email", 4, "ngIf"], [1, "bi", "bi-chevron-down"], ["class", "user-menu", 4, "ngIf"], [1, "main-content"], [1, "content-container"], [1, "page-header"], [1, "search-container"], [1, "search-inputs"], [1, "search-field"], [1, "bi", "bi-geo-alt"], ["type", "text", "placeholder", "Search by city...", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "bi", "bi-currency-dollar"], ["type", "number", "placeholder", "Max price per night...", "min", "0", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "search-actions"], [1, "btn-search", 3, "click", "disabled"], [1, "bi", "bi-search"], ["class", "btn-clear", 3, "click", 4, "ngIf"], ["class", "loading-state", 4, "ngIf"], ["class", "error-state", 4, "ngIf"], ["class", "empty-state", 4, "ngIf"], ["class", "properties-grid", 4, "ngIf"], [3, "currentUserId", "close", "propertyCreated", 4, "ngIf"], [1, "user-email"], [1, "user-menu"], [1, "menu-item", 3, "click", "disabled"], [1, "bi", "bi-box-arrow-right"], [1, "btn-clear", 3, "click"], [1, "bi", "bi-x-circle"], [1, "loading-state"], [1, "spinner"], [1, "error-state"], [1, "bi", "bi-exclamation-circle"], [1, "btn-retry", 3, "click"], [1, "empty-state"], [1, "bi", "bi-house"], [1, "properties-grid"], ["class", "property-card", 3, "click", 4, "ngFor", "ngForOf"], [1, "property-card", 3, "click"], [1, "property-image"], [3, "src", "alt"], [1, "property-type-badge"], ["class", "btn-delete-property", "title", "Delete property", 3, "click", 4, "ngIf"], [1, "property-content"], [1, "property-header"], [1, "property-title"], [1, "property-location"], ["class", "property-description", 4, "ngIf"], [1, "property-details"], [1, "detail-item"], [1, "bi", "bi-people"], [1, "bi", "bi-person"], [1, "property-footer"], [1, "property-price"], [1, "price-amount"], [1, "price-period"], ["title", "Delete property", 1, "btn-delete-property", 3, "click"], [1, "bi", "bi-trash"], [1, "property-description"], [3, "close", "propertyCreated", "currentUserId"]], template: function Homepage_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Homepage, selectors: [["app-homepage"]], decls: 51, vars: 19, consts: [[1, "navbar"], [1, "nav-container"], [1, "nav-brand"], [1, "bi", "bi-house-heart-fill"], [1, "brand-name"], [1, "nav-actions"], [1, "btn-become-host", 3, "click"], [1, "bi", "bi-plus-circle"], ["class", "btn-become-host", 3, "click", 4, "ngIf"], [1, "user-card", 3, "click"], [1, "user-avatar"], [1, "user-info"], [1, "user-name"], ["class", "user-email", 4, "ngIf"], ["class", "premium-mini-badge", 4, "ngIf"], [1, "bi", "bi-chevron-down"], ["class", "user-menu", 4, "ngIf"], [1, "main-content"], [1, "content-container"], [1, "page-header"], ["class", "premium-banner", 4, "ngIf"], ["class", "premium-error", 4, "ngIf"], [1, "search-container"], [1, "search-inputs"], [1, "search-field"], [1, "bi", "bi-geo-alt"], ["type", "text", "placeholder", "Search by city...", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "bi", "bi-currency-dollar"], ["type", "number", "placeholder", "Max price per night...", "min", "0", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "search-actions"], [1, "btn-search", 3, "click", "disabled"], [1, "bi", "bi-search"], ["class", "btn-clear", 3, "click", 4, "ngIf"], ["class", "loading-state", 4, "ngIf"], ["class", "error-state", 4, "ngIf"], ["class", "empty-state", 4, "ngIf"], ["class", "properties-grid", 4, "ngIf"], [3, "currentUserId", "close", "propertyCreated", 4, "ngIf"], ["class", "premium-modal-backdrop", 3, "click", 4, "ngIf"], [1, "user-email"], [1, "premium-mini-badge"], [1, "user-menu"], [1, "menu-item", 3, "click", "disabled"], [1, "bi", "bi-box-arrow-right"], [1, "premium-banner"], [1, "premium-content"], [1, "premium-icon"], [1, "bi", "bi-stars"], [1, "premium-text"], [1, "premium-label"], [1, "premium-benefits"], [1, "bi", "bi-coin"], [1, "bi", "bi-tag"], [1, "bi", "bi-patch-check"], [1, "premium-actions"], [1, "premium-price"], [1, "price-label"], [1, "btn-premium-secondary", 3, "click"], ["class", "btn-premium-primary", 3, "disabled", "click", 4, "ngIf"], ["class", "btn-premium-secondary", 3, "disabled", "click", 4, "ngIf"], [1, "btn-premium-primary", 3, "click", "disabled"], [1, "btn-premium-secondary", 3, "click", "disabled"], [1, "premium-error"], [1, "btn-clear", 3, "click"], [1, "bi", "bi-x-circle"], [1, "loading-state"], [1, "spinner"], [1, "error-state"], [1, "bi", "bi-exclamation-circle"], [1, "btn-retry", 3, "click"], [1, "empty-state"], [1, "bi", "bi-house"], [1, "properties-grid"], ["class", "property-card", 3, "click", 4, "ngFor", "ngForOf"], [1, "property-card", 3, "click"], [1, "property-image"], [3, "src", "alt"], [1, "property-type-badge"], ["class", "btn-delete-property", "title", "Delete property", 3, "click", 4, "ngIf"], [1, "property-content"], [1, "property-header"], [1, "property-title"], [1, "property-location"], ["class", "property-description", 4, "ngIf"], [1, "property-details"], [1, "detail-item"], [1, "bi", "bi-people"], [1, "bi", "bi-person"], [1, "property-footer"], [1, "property-price"], [1, "price-amount"], [1, "price-period"], ["title", "Delete property", 1, "btn-delete-property", 3, "click"], [1, "bi", "bi-trash"], [1, "property-description"], [3, "close", "propertyCreated", "currentUserId"], [1, "premium-modal-backdrop", 3, "click"], [1, "premium-modal", 3, "click"], [1, "premium-modal-close", 3, "click"], [1, "bi", "bi-x-lg"], [1, "premium-modal-header"], [1, "premium-modal-icon"], [1, "premium-modal-benefits"], [1, "premium-benefit-card"], [1, "premium-note"], ["class", "btn-premium-primary full-width", 3, "disabled", "click", 4, "ngIf"], [1, "btn-premium-primary", "full-width", 3, "click", "disabled"]], template: function Homepage_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "nav", 0)(1, "div", 1)(2, "div", 2);
       \u0275\u0275element(3, "i", 3);
@@ -47942,53 +48228,54 @@ var Homepage = class _Homepage {
       \u0275\u0275elementStart(15, "div", 11)(16, "span", 12);
       \u0275\u0275text(17);
       \u0275\u0275elementEnd();
-      \u0275\u0275template(18, Homepage_span_18_Template, 2, 1, "span", 13);
+      \u0275\u0275template(18, Homepage_span_18_Template, 2, 1, "span", 13)(19, Homepage_span_19_Template, 2, 0, "span", 14);
       \u0275\u0275elementEnd();
-      \u0275\u0275element(19, "i", 14);
+      \u0275\u0275element(20, "i", 15);
       \u0275\u0275elementEnd();
-      \u0275\u0275template(20, Homepage_div_20_Template, 5, 2, "div", 15);
+      \u0275\u0275template(21, Homepage_div_21_Template, 5, 2, "div", 16);
       \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(21, "main", 16)(22, "div", 17)(23, "div", 18)(24, "h1");
-      \u0275\u0275text(25, "Explore Properties");
+      \u0275\u0275elementStart(22, "main", 17)(23, "div", 18)(24, "div", 19)(25, "h1");
+      \u0275\u0275text(26, "Explore Properties");
       \u0275\u0275elementEnd();
-      \u0275\u0275elementStart(26, "p");
-      \u0275\u0275text(27, "Find your perfect stay, it's easy!");
+      \u0275\u0275elementStart(27, "p");
+      \u0275\u0275text(28, "Find your perfect stay, it's easy!");
       \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(28, "div", 19)(29, "div", 20)(30, "div", 21);
-      \u0275\u0275element(31, "i", 22);
-      \u0275\u0275elementStart(32, "input", 23);
-      \u0275\u0275twoWayListener("ngModelChange", function Homepage_Template_input_ngModelChange_32_listener($event) {
-        \u0275\u0275twoWayBindingSet(ctx.searchCity, $event) || (ctx.searchCity = $event);
-        return $event;
-      });
-      \u0275\u0275listener("keyup.enter", function Homepage_Template_input_keyup_enter_32_listener() {
-        return ctx.onSearch();
-      });
-      \u0275\u0275elementEnd()();
-      \u0275\u0275elementStart(33, "div", 21);
-      \u0275\u0275element(34, "i", 24);
-      \u0275\u0275elementStart(35, "input", 25);
+      \u0275\u0275template(29, Homepage_section_29_Template, 31, 5, "section", 20)(30, Homepage_div_30_Template, 2, 1, "div", 21);
+      \u0275\u0275elementStart(31, "div", 22)(32, "div", 23)(33, "div", 24);
+      \u0275\u0275element(34, "i", 25);
+      \u0275\u0275elementStart(35, "input", 26);
       \u0275\u0275twoWayListener("ngModelChange", function Homepage_Template_input_ngModelChange_35_listener($event) {
-        \u0275\u0275twoWayBindingSet(ctx.searchMaxPrice, $event) || (ctx.searchMaxPrice = $event);
+        \u0275\u0275twoWayBindingSet(ctx.searchCity, $event) || (ctx.searchCity = $event);
         return $event;
       });
       \u0275\u0275listener("keyup.enter", function Homepage_Template_input_keyup_enter_35_listener() {
         return ctx.onSearch();
       });
-      \u0275\u0275elementEnd()()();
-      \u0275\u0275elementStart(36, "div", 26)(37, "button", 27);
-      \u0275\u0275listener("click", function Homepage_Template_button_click_37_listener() {
+      \u0275\u0275elementEnd()();
+      \u0275\u0275elementStart(36, "div", 24);
+      \u0275\u0275element(37, "i", 27);
+      \u0275\u0275elementStart(38, "input", 28);
+      \u0275\u0275twoWayListener("ngModelChange", function Homepage_Template_input_ngModelChange_38_listener($event) {
+        \u0275\u0275twoWayBindingSet(ctx.searchMaxPrice, $event) || (ctx.searchMaxPrice = $event);
+        return $event;
+      });
+      \u0275\u0275listener("keyup.enter", function Homepage_Template_input_keyup_enter_38_listener() {
         return ctx.onSearch();
       });
-      \u0275\u0275element(38, "i", 28);
-      \u0275\u0275elementStart(39, "span");
-      \u0275\u0275text(40);
+      \u0275\u0275elementEnd()()();
+      \u0275\u0275elementStart(39, "div", 29)(40, "button", 30);
+      \u0275\u0275listener("click", function Homepage_Template_button_click_40_listener() {
+        return ctx.onSearch();
+      });
+      \u0275\u0275element(41, "i", 31);
+      \u0275\u0275elementStart(42, "span");
+      \u0275\u0275text(43);
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(41, Homepage_button_41_Template, 4, 0, "button", 29);
+      \u0275\u0275template(44, Homepage_button_44_Template, 4, 0, "button", 32);
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(42, Homepage_div_42_Template, 4, 0, "div", 30)(43, Homepage_div_43_Template, 6, 1, "div", 31)(44, Homepage_div_44_Template, 6, 0, "div", 32)(45, Homepage_div_45_Template, 2, 1, "div", 33);
+      \u0275\u0275template(45, Homepage_div_45_Template, 4, 0, "div", 33)(46, Homepage_div_46_Template, 6, 1, "div", 34)(47, Homepage_div_47_Template, 6, 0, "div", 35)(48, Homepage_div_48_Template, 2, 1, "div", 36);
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(46, Homepage_app_create_property_modal_46_Template, 1, 1, "app-create-property-modal", 34);
+      \u0275\u0275template(49, Homepage_app_create_property_modal_49_Template, 1, 1, "app-create-property-modal", 37)(50, Homepage_div_50_Template, 35, 1, "div", 38);
     }
     if (rf & 2) {
       \u0275\u0275advance(11);
@@ -47999,9 +48286,15 @@ var Homepage = class _Homepage {
       \u0275\u0275textInterpolate(ctx.userName);
       \u0275\u0275advance();
       \u0275\u0275property("ngIf", ctx.userEmail);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", ctx.premiumStatus == null ? null : ctx.premiumStatus.premium);
       \u0275\u0275advance(2);
       \u0275\u0275property("ngIf", ctx.showUserMenu);
-      \u0275\u0275advance(12);
+      \u0275\u0275advance(8);
+      \u0275\u0275property("ngIf", ctx.premiumStatus);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", ctx.premiumError);
+      \u0275\u0275advance(5);
       \u0275\u0275twoWayProperty("ngModel", ctx.searchCity);
       \u0275\u0275advance(3);
       \u0275\u0275twoWayProperty("ngModel", ctx.searchMaxPrice);
@@ -48021,8 +48314,10 @@ var Homepage = class _Homepage {
       \u0275\u0275property("ngIf", !ctx.isLoading && !ctx.error && ctx.properties.length > 0);
       \u0275\u0275advance();
       \u0275\u0275property("ngIf", ctx.showCreateModal);
+      \u0275\u0275advance();
+      \u0275\u0275property("ngIf", ctx.showPremiumDetails);
     }
-  }, dependencies: [NgIf, NgForOf, CreatePropertyModal, FormsModule, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, MinValidator, NgModel], styles: ["\n\n.navbar[_ngcontent-%COMP%] {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin-btn[_ngcontent-%COMP%] {\n  margin-top: 16px;\n  padding: 10px 18px;\n  border-radius: 10px;\n  border: none;\n  background: #2c3e50;\n  color: #fff;\n  font-weight: 600;\n  cursor: pointer;\n}\n.admin-btn[_ngcontent-%COMP%]:hover {\n  background: #1f2a36;\n}\n.nav-brand[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name[_ngcontent-%COMP%] {\n  letter-spacing: -0.5px;\n}\n.nav-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.btn-become-host[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n}\n.user-card[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name[_ngcontent-%COMP%] {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email[_ngcontent-%COMP%] {\n  font-size: 12px;\n  color: #666;\n}\n.user-card[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu[_ngcontent-%COMP%] {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: _ngcontent-%COMP%_fadeIn 0.2s ease;\n}\n@keyframes _ngcontent-%COMP%_fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item[_ngcontent-%COMP%] {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item[_ngcontent-%COMP%]:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n}\n.main-content[_ngcontent-%COMP%] {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header[_ngcontent-%COMP%] {\n  margin-bottom: 40px;\n}\n.page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field[_ngcontent-%COMP%]:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]::placeholder {\n  color: #999;\n}\n.search-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 12px;\n}\n.btn-search[_ngcontent-%COMP%], \n.btn-clear[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear[_ngcontent-%COMP%] {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n}\n.loading-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry[_ngcontent-%COMP%] {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry[_ngcontent-%COMP%]:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card[_ngcontent-%COMP%]:hover   .property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  transform: scale(1.05);\n}\n.property-type-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property[_ngcontent-%COMP%]:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n}\n.property-content[_ngcontent-%COMP%] {\n  padding: 20px;\n}\n.property-header[_ngcontent-%COMP%] {\n  margin-bottom: 12px;\n}\n.property-title[_ngcontent-%COMP%] {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount[_ngcontent-%COMP%] {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .user-info[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .user-card[_ngcontent-%COMP%] {\n    padding: 8px;\n  }\n  .btn-become-host[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .btn-become-host[_ngcontent-%COMP%] {\n    padding: 10px 14px;\n  }\n  .content-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n    font-size: 24px;\n  }\n  .search-inputs[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .search-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .properties-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content[_ngcontent-%COMP%] {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .page-header[_ngcontent-%COMP%] {\n    margin-bottom: 24px;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */"] });
+  }, dependencies: [NgIf, NgForOf, CreatePropertyModal, FormsModule, DefaultValueAccessor, NumberValueAccessor, NgControlStatus, MinValidator, NgModel], styles: ["\n\n.navbar[_ngcontent-%COMP%] {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin-btn[_ngcontent-%COMP%] {\n  margin-top: 16px;\n  padding: 10px 18px;\n  border-radius: 10px;\n  border: none;\n  background: #2c3e50;\n  color: #fff;\n  font-weight: 600;\n  cursor: pointer;\n}\n.admin-btn[_ngcontent-%COMP%]:hover {\n  background: #1f2a36;\n}\n.nav-brand[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name[_ngcontent-%COMP%] {\n  letter-spacing: -0.5px;\n}\n.nav-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.btn-become-host[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n}\n.user-card[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar[_ngcontent-%COMP%] {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name[_ngcontent-%COMP%] {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email[_ngcontent-%COMP%] {\n  font-size: 12px;\n  color: #666;\n}\n.user-card[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu[_ngcontent-%COMP%] {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: _ngcontent-%COMP%_fadeIn 0.2s ease;\n}\n@keyframes _ngcontent-%COMP%_fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item[_ngcontent-%COMP%] {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item[_ngcontent-%COMP%]:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n}\n.main-content[_ngcontent-%COMP%] {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header[_ngcontent-%COMP%] {\n  margin-bottom: 40px;\n}\n.page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field[_ngcontent-%COMP%]:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field[_ngcontent-%COMP%]   input[_ngcontent-%COMP%]::placeholder {\n  color: #999;\n}\n.search-actions[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 12px;\n}\n.btn-search[_ngcontent-%COMP%], \n.btn-clear[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear[_ngcontent-%COMP%] {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear[_ngcontent-%COMP%]:hover {\n  background: #e9ecef;\n}\n.loading-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry[_ngcontent-%COMP%] {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry[_ngcontent-%COMP%]:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card[_ngcontent-%COMP%]:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card[_ngcontent-%COMP%]:hover   .property-image[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  transform: scale(1.05);\n}\n.property-type-badge[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property[_ngcontent-%COMP%]:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n}\n.property-content[_ngcontent-%COMP%] {\n  padding: 20px;\n}\n.property-header[_ngcontent-%COMP%] {\n  margin-bottom: 12px;\n}\n.property-title[_ngcontent-%COMP%] {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer[_ngcontent-%COMP%] {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount[_ngcontent-%COMP%] {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period[_ngcontent-%COMP%] {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .user-info[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .user-card[_ngcontent-%COMP%] {\n    padding: 8px;\n  }\n  .btn-become-host[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .btn-become-host[_ngcontent-%COMP%] {\n    padding: 10px 14px;\n  }\n  .content-container[_ngcontent-%COMP%] {\n    padding: 0 16px;\n  }\n  .page-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n    font-size: 24px;\n  }\n  .search-inputs[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .search-actions[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .properties-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content[_ngcontent-%COMP%] {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name[_ngcontent-%COMP%] {\n    display: none;\n  }\n  .page-header[_ngcontent-%COMP%] {\n    margin-bottom: 24px;\n  }\n}\n.premium-banner[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #fff7e6 0%,\n      #f4edff 55%,\n      #eef2ff 100%);\n  border: 1px solid rgba(118, 75, 162, 0.18);\n  border-radius: 24px;\n  padding: 28px;\n  margin-bottom: 32px;\n  display: flex;\n  justify-content: space-between;\n  gap: 24px;\n  box-shadow: 0 8px 24px rgba(118, 75, 162, 0.12);\n}\n.premium-content[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 18px;\n  align-items: flex-start;\n}\n.premium-icon[_ngcontent-%COMP%], \n.premium-modal-icon[_ngcontent-%COMP%] {\n  width: 52px;\n  height: 52px;\n  border-radius: 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #f59e0b 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 24px;\n  flex-shrink: 0;\n  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);\n}\n.premium-label[_ngcontent-%COMP%] {\n  display: inline-block;\n  font-size: 12px;\n  font-weight: 700;\n  color: #764ba2;\n  text-transform: uppercase;\n  letter-spacing: 0.7px;\n  margin-bottom: 6px;\n}\n.premium-text[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  margin: 0 0 8px 0;\n  font-size: 24px;\n  color: #2d2140;\n}\n.premium-text[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0 0 16px 0;\n  color: #5f5870;\n  line-height: 1.5;\n}\n.premium-benefits[_ngcontent-%COMP%] {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 10px;\n}\n.premium-benefits[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 6px;\n  padding: 8px 12px;\n  border-radius: 999px;\n  background: white;\n  color: #4b3b63;\n  font-size: 13px;\n  font-weight: 600;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);\n}\n.premium-benefits[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #f59e0b;\n}\n.premium-actions[_ngcontent-%COMP%] {\n  min-width: 230px;\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  gap: 12px;\n}\n.premium-price[_ngcontent-%COMP%] {\n  background: white;\n  border-radius: 16px;\n  padding: 14px 16px;\n  border: 1px solid rgba(118, 75, 162, 0.12);\n}\n.price-label[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 12px;\n  color: #777;\n  margin-bottom: 4px;\n}\n.premium-price[_ngcontent-%COMP%]   strong[_ngcontent-%COMP%] {\n  color: #2d2140;\n  font-size: 18px;\n}\n.btn-premium-primary[_ngcontent-%COMP%], \n.btn-premium-secondary[_ngcontent-%COMP%] {\n  border: none;\n  border-radius: 14px;\n  padding: 12px 18px;\n  font-size: 14px;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-premium-primary[_ngcontent-%COMP%] {\n  background:\n    linear-gradient(\n      135deg,\n      #f59e0b 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 4px 14px rgba(118, 75, 162, 0.25);\n}\n.btn-premium-primary[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3);\n}\n.btn-premium-primary[_ngcontent-%COMP%]:disabled, \n.btn-premium-secondary[_ngcontent-%COMP%]:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n.btn-premium-secondary[_ngcontent-%COMP%] {\n  background: white;\n  color: #764ba2;\n  border: 1px solid rgba(118, 75, 162, 0.18);\n}\n.btn-premium-secondary[_ngcontent-%COMP%]:hover:not(:disabled) {\n  background: #f8f5ff;\n}\n.premium-mini-badge[_ngcontent-%COMP%] {\n  margin-top: 3px;\n  padding: 3px 8px;\n  border-radius: 999px;\n  background: #fff4d6;\n  color: #9a5b00;\n  font-size: 11px;\n  font-weight: 700;\n  width: fit-content;\n}\n.premium-error[_ngcontent-%COMP%] {\n  margin-bottom: 24px;\n  padding: 12px 16px;\n  border-radius: 12px;\n  background: #fff1f2;\n  color: #b42318;\n  border: 1px solid #fecdd3;\n}\n.premium-modal-backdrop[_ngcontent-%COMP%] {\n  position: fixed;\n  inset: 0;\n  z-index: 2000;\n  background: rgba(20, 16, 31, 0.55);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 24px;\n}\n.premium-modal[_ngcontent-%COMP%] {\n  width: min(760px, 100%);\n  background: white;\n  border-radius: 28px;\n  padding: 32px;\n  position: relative;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);\n}\n.premium-modal-close[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 18px;\n  right: 18px;\n  border: none;\n  background: #f4f4f5;\n  color: #555;\n  border-radius: 50%;\n  width: 36px;\n  height: 36px;\n  cursor: pointer;\n}\n.premium-modal-header[_ngcontent-%COMP%] {\n  text-align: center;\n  margin-bottom: 28px;\n}\n.premium-modal-icon[_ngcontent-%COMP%] {\n  margin: 0 auto 16px auto;\n}\n.premium-modal-header[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  margin: 0 0 8px 0;\n  color: #2d2140;\n}\n.premium-modal-header[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0;\n  color: #666;\n}\n.premium-modal-benefits[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 16px;\n  margin-bottom: 20px;\n}\n.premium-benefit-card[_ngcontent-%COMP%] {\n  background: #fafafa;\n  border: 1px solid #eee;\n  border-radius: 18px;\n  padding: 18px;\n  text-align: center;\n}\n.premium-benefit-card[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 28px;\n  color: #f59e0b;\n  margin-bottom: 10px;\n}\n.premium-benefit-card[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  margin: 0 0 8px 0;\n  color: #333;\n  font-size: 16px;\n}\n.premium-benefit-card[_ngcontent-%COMP%]   p[_ngcontent-%COMP%] {\n  margin: 0;\n  color: #666;\n  font-size: 13px;\n  line-height: 1.45;\n}\n.premium-note[_ngcontent-%COMP%] {\n  background: #f8f5ff;\n  color: #4b3b63;\n  border-radius: 14px;\n  padding: 14px 16px;\n  margin-bottom: 18px;\n  font-size: 14px;\n}\n.full-width[_ngcontent-%COMP%] {\n  width: 100%;\n}\n@media (max-width: 900px) {\n  .premium-banner[_ngcontent-%COMP%] {\n    flex-direction: column;\n  }\n  .premium-actions[_ngcontent-%COMP%] {\n    min-width: 100%;\n  }\n  .premium-modal-benefits[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Homepage, [{
@@ -48051,6 +48346,9 @@ var Homepage = class _Homepage {
         <div class="user-info">\r
           <span class="user-name">{{ userName }}</span>\r
           <span class="user-email" *ngIf="userEmail">{{ userEmail }}</span>\r
+          <span class="premium-mini-badge" *ngIf="premiumStatus?.premium">\r
+            Premium\r
+          </span>\r
         </div>\r
         <i class="bi bi-chevron-down"></i>\r
       </div>\r
@@ -48070,6 +48368,69 @@ var Homepage = class _Homepage {
     <div class="page-header">\r
       <h1>Explore Properties</h1>\r
       <p>Find your perfect stay, it's easy!</p>\r
+    </div>\r
+\r
+    <section class="premium-banner" *ngIf="premiumStatus">\r
+      <div class="premium-content">\r
+        <div class="premium-icon">\r
+          <i class="bi bi-stars"></i>\r
+        </div>\r
+\r
+        <div class="premium-text">\r
+      <span class="premium-label">\r
+        {{ premiumStatus.premium ? 'Premium Active' : 'Upgrade available' }}\r
+      </span>\r
+\r
+          <h2>\r
+            {{ premiumStatus.premium ? 'You are a StayEasy Premium member' : 'Unlock StayEasy Premium' }}\r
+          </h2>\r
+\r
+          <p>\r
+            {{ premiumStatus.premium\r
+            ? 'Enjoy 2x StayEasy Coins, exclusive member benefits and a premium booking experience.'\r
+            : 'Get 2x StayEasy Coins, access to member-only deals and a premium badge for your account.' }}\r
+          </p>\r
+\r
+          <div class="premium-benefits">\r
+            <span><i class="bi bi-coin"></i> 2x StayEasy Coins</span>\r
+            <span><i class="bi bi-tag"></i> Member-only deals</span>\r
+            <span><i class="bi bi-patch-check"></i> Premium badge</span>\r
+          </div>\r
+        </div>\r
+      </div>\r
+\r
+      <div class="premium-actions">\r
+        <div class="premium-price">\r
+          <span class="price-label">Demo price</span>\r
+          <strong>9.99 $/month</strong>\r
+        </div>\r
+\r
+        <button class="btn-premium-secondary" (click)="openPremiumDetails()">\r
+          View benefits\r
+        </button>\r
+\r
+        <button\r
+          class="btn-premium-primary"\r
+          *ngIf="!premiumStatus.premium"\r
+          (click)="activatePremiumDemo()"\r
+          [disabled]="isPremiumLoading"\r
+        >\r
+          {{ isPremiumLoading ? 'Activating...' : 'Activate Demo Premium' }}\r
+        </button>\r
+\r
+        <button\r
+          class="btn-premium-secondary"\r
+          *ngIf="premiumStatus.premium"\r
+          (click)="deactivatePremiumDemo()"\r
+          [disabled]="isPremiumLoading"\r
+        >\r
+          Disable Demo\r
+        </button>\r
+      </div>\r
+    </section>\r
+\r
+    <div *ngIf="premiumError" class="premium-error">\r
+      {{ premiumError }}\r
     </div>\r
 \r
     <!-- Search Bar -->\r
@@ -48185,11 +48546,60 @@ var Homepage = class _Homepage {
   (close)="onModalClose()"\r
   (propertyCreated)="onPropertyCreated()"\r
 ></app-create-property-modal>\r
-`, styles: ["/* src/app/pages/homepage/homepage.css */\n.navbar {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin-btn {\n  margin-top: 16px;\n  padding: 10px 18px;\n  border-radius: 10px;\n  border: none;\n  background: #2c3e50;\n  color: #fff;\n  font-weight: 600;\n  cursor: pointer;\n}\n.admin-btn:hover {\n  background: #1f2a36;\n}\n.nav-brand {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand i {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name {\n  letter-spacing: -0.5px;\n}\n.nav-actions {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.btn-become-host {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host i {\n  font-size: 16px;\n}\n.user-card {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email {\n  font-size: 12px;\n  color: #666;\n}\n.user-card i {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: fadeIn 0.2s ease;\n}\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item i {\n  font-size: 16px;\n  color: #666;\n}\n.main-content {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header {\n  margin-bottom: 40px;\n}\n.page-header h1 {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field i {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field input {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field input::placeholder {\n  color: #999;\n}\n.search-actions {\n  display: flex;\n  gap: 12px;\n}\n.btn-search,\n.btn-clear {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear:hover {\n  background: #e9ecef;\n}\n.loading-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state i {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state i {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state h3 {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card:hover .property-image img {\n  transform: scale(1.05);\n}\n.property-type-badge {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property i {\n  font-size: 14px;\n}\n.property-content {\n  padding: 20px;\n}\n.property-header {\n  margin-bottom: 12px;\n}\n.property-title {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container {\n    padding: 0 16px;\n  }\n  .user-info {\n    display: none;\n  }\n  .user-card {\n    padding: 8px;\n  }\n  .btn-become-host span {\n    display: none;\n  }\n  .btn-become-host {\n    padding: 10px 14px;\n  }\n  .content-container {\n    padding: 0 16px;\n  }\n  .page-header h1 {\n    font-size: 24px;\n  }\n  .search-inputs {\n    grid-template-columns: 1fr;\n  }\n  .search-actions {\n    flex-direction: column;\n  }\n  .properties-grid {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name {\n    display: none;\n  }\n  .page-header {\n    margin-bottom: 24px;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */\n"] }]
-  }], () => [{ type: AuthService }, { type: LoginService }, { type: PropertyService }, { type: Router }], null);
+\r
+<div class="premium-modal-backdrop" *ngIf="showPremiumDetails" (click)="closePremiumDetails()">\r
+  <div class="premium-modal" (click)="$event.stopPropagation()">\r
+    <button class="premium-modal-close" (click)="closePremiumDetails()">\r
+      <i class="bi bi-x-lg"></i>\r
+    </button>\r
+\r
+    <div class="premium-modal-header">\r
+      <div class="premium-modal-icon">\r
+        <i class="bi bi-stars"></i>\r
+      </div>\r
+      <h2>StayEasy Premium</h2>\r
+      <p>A demo subscription concept focused on loyalty, trust and better offers.</p>\r
+    </div>\r
+\r
+    <div class="premium-modal-benefits">\r
+      <div class="premium-benefit-card">\r
+        <i class="bi bi-coin"></i>\r
+        <h3>2x StayEasy Coins</h3>\r
+        <p>Premium users receive double loyalty rewards compared to basic users.</p>\r
+      </div>\r
+\r
+      <div class="premium-benefit-card">\r
+        <i class="bi bi-tag"></i>\r
+        <h3>Member-only deals</h3>\r
+        <p>Special offers can be displayed only for Premium members.</p>\r
+      </div>\r
+\r
+      <div class="premium-benefit-card">\r
+        <i class="bi bi-patch-check"></i>\r
+        <h3>Premium badge</h3>\r
+        <p>The account receives a visible badge that confirms premium status.</p>\r
+      </div>\r
+    </div>\r
+\r
+    <div class="premium-note">\r
+      <strong>UI/UX demo:</strong> payment management is not implemented in this stage.\r
+    </div>\r
+\r
+    <button\r
+      class="btn-premium-primary full-width"\r
+      *ngIf="!premiumStatus?.premium"\r
+      (click)="activatePremiumDemo()"\r
+      [disabled]="isPremiumLoading"\r
+    >\r
+      {{ isPremiumLoading ? 'Activating...' : 'Activate Demo Premium' }}\r
+    </button>\r
+  </div>\r
+</div>\r
+`, styles: ["/* src/app/pages/homepage/homepage.css */\n.navbar {\n  background: white;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  position: sticky;\n  top: 0;\n  z-index: 1000;\n  padding: 16px 0;\n}\n.nav-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.admin-btn {\n  margin-top: 16px;\n  padding: 10px 18px;\n  border-radius: 10px;\n  border: none;\n  background: #2c3e50;\n  color: #fff;\n  font-weight: 600;\n  cursor: pointer;\n}\n.admin-btn:hover {\n  background: #1f2a36;\n}\n.nav-brand {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  font-size: 24px;\n  font-weight: 700;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  background-clip: text;\n}\n.nav-brand i {\n  font-size: 28px;\n  color: #667eea;\n}\n.brand-name {\n  letter-spacing: -0.5px;\n}\n.nav-actions {\n  display: flex;\n  align-items: center;\n  gap: 16px;\n  position: relative;\n}\n.btn-become-host {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 24px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-become-host:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-become-host i {\n  font-size: 16px;\n}\n.user-card {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 8px 16px;\n  background: #f8f9fa;\n  border-radius: 50px;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  border: 2px solid transparent;\n}\n.user-card:hover {\n  background: #e9ecef;\n  border-color: #667eea;\n}\n.user-avatar {\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 14px;\n}\n.user-info {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n}\n.user-name {\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.user-email {\n  font-size: 12px;\n  color: #666;\n}\n.user-card i {\n  color: #666;\n  font-size: 12px;\n  transition: transform 0.2s ease;\n}\n.user-menu {\n  position: absolute;\n  top: calc(100% + 8px);\n  right: 0;\n  background: white;\n  border-radius: 12px;\n  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);\n  padding: 8px;\n  min-width: 200px;\n  animation: fadeIn 0.2s ease;\n}\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n    transform: translateY(-8px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n.menu-item {\n  width: 100%;\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  background: none;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 14px;\n  font-weight: 500;\n  color: #333;\n  transition: background 0.2s ease;\n}\n.menu-item:hover:not(:disabled) {\n  background: #f8f9fa;\n}\n.menu-item:disabled {\n  opacity: 0.5;\n  cursor: not-allowed;\n}\n.menu-item i {\n  font-size: 16px;\n  color: #666;\n}\n.main-content {\n  min-height: calc(100vh - 100px);\n  background: #fafafa;\n  padding: 40px 0;\n}\n.content-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 0 24px;\n}\n.page-header {\n  margin-bottom: 40px;\n}\n.page-header h1 {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.page-header p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.search-container {\n  background: white;\n  border-radius: 16px;\n  padding: 24px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  margin-bottom: 32px;\n}\n.search-inputs {\n  display: grid;\n  grid-template-columns: 1fr 1fr;\n  gap: 16px;\n  margin-bottom: 16px;\n}\n.search-field {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  padding: 12px 16px;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  transition: all 0.2s ease;\n}\n.search-field:focus-within {\n  border-color: #667eea;\n  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);\n}\n.search-field i {\n  font-size: 18px;\n  color: #667eea;\n}\n.search-field input {\n  flex: 1;\n  border: none;\n  outline: none;\n  font-size: 14px;\n  color: #333;\n}\n.search-field input::placeholder {\n  color: #999;\n}\n.search-actions {\n  display: flex;\n  gap: 12px;\n}\n.btn-search,\n.btn-clear {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  padding: 12px 24px;\n  border: none;\n  border-radius: 12px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-search {\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n  flex: 1;\n}\n.btn-search:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-search:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n  transform: none;\n}\n.btn-clear {\n  background: #f8f9fa;\n  color: #666;\n}\n.btn-clear:hover {\n  background: #e9ecef;\n}\n.loading-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 20px;\n}\n.spinner {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.loading-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.error-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 16px;\n  text-align: center;\n}\n.error-state i {\n  font-size: 48px;\n  color: #dc3545;\n}\n.error-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n  max-width: 400px;\n}\n.btn-retry {\n  padding: 10px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-retry:hover {\n  background: #5568d3;\n  transform: translateY(-2px);\n}\n.empty-state {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  padding: 60px 20px;\n  gap: 12px;\n  text-align: center;\n}\n.empty-state i {\n  font-size: 64px;\n  color: #ccc;\n  margin-bottom: 8px;\n}\n.empty-state h3 {\n  font-size: 24px;\n  font-weight: 600;\n  color: #333;\n  margin: 0;\n}\n.empty-state p {\n  font-size: 16px;\n  color: #666;\n  margin: 0;\n}\n.properties-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));\n  gap: 24px;\n}\n.property-card {\n  background: white;\n  border-radius: 16px;\n  overflow: hidden;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n  transition: all 0.3s ease;\n  cursor: pointer;\n}\n.property-card:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);\n}\n.property-image {\n  position: relative;\n  width: 100%;\n  height: 220px;\n  overflow: hidden;\n}\n.property-image img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n  transition: transform 0.3s ease;\n}\n.property-card:hover .property-image img {\n  transform: scale(1.05);\n}\n.property-type-badge {\n  position: absolute;\n  top: 12px;\n  left: 12px;\n  background: rgba(102, 126, 234, 0.9);\n  color: white;\n  padding: 6px 12px;\n  border-radius: 20px;\n  font-size: 12px;\n  font-weight: 600;\n  text-transform: capitalize;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-delete-property {\n  position: absolute;\n  top: 12px;\n  right: 12px;\n  width: 36px;\n  height: 36px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(220, 53, 69, 0.9);\n  color: white;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);\n}\n.btn-delete-property:hover {\n  background: rgba(200, 35, 51, 1);\n  transform: scale(1.1);\n}\n.btn-delete-property i {\n  font-size: 14px;\n}\n.property-content {\n  padding: 20px;\n}\n.property-header {\n  margin-bottom: 12px;\n}\n.property-title {\n  font-size: 18px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 8px 0;\n}\n.property-location {\n  display: flex;\n  align-items: center;\n  gap: 4px;\n  font-size: 14px;\n  color: #666;\n  margin: 0;\n}\n.property-location i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-description {\n  font-size: 14px;\n  color: #666;\n  line-height: 1.5;\n  margin: 0 0 16px 0;\n  display: -webkit-box;\n  -webkit-line-clamp: 2;\n  -webkit-box-orient: vertical;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.property-details {\n  display: flex;\n  gap: 16px;\n  margin-bottom: 16px;\n  padding-bottom: 16px;\n  border-bottom: 1px solid #f0f0f0;\n  flex-wrap: wrap;\n}\n.detail-item {\n  display: flex;\n  align-items: center;\n  gap: 6px;\n  font-size: 13px;\n  color: #666;\n}\n.detail-item i {\n  font-size: 14px;\n  color: #667eea;\n}\n.property-footer {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.property-price {\n  display: flex;\n  align-items: baseline;\n  gap: 4px;\n}\n.price-amount {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n}\n.price-period {\n  font-size: 14px;\n  color: #666;\n}\n@media (max-width: 768px) {\n  .nav-container {\n    padding: 0 16px;\n  }\n  .user-info {\n    display: none;\n  }\n  .user-card {\n    padding: 8px;\n  }\n  .btn-become-host span {\n    display: none;\n  }\n  .btn-become-host {\n    padding: 10px 14px;\n  }\n  .content-container {\n    padding: 0 16px;\n  }\n  .page-header h1 {\n    font-size: 24px;\n  }\n  .search-inputs {\n    grid-template-columns: 1fr;\n  }\n  .search-actions {\n    flex-direction: column;\n  }\n  .properties-grid {\n    grid-template-columns: 1fr;\n    gap: 16px;\n  }\n  .main-content {\n    padding: 24px 0;\n  }\n}\n@media (max-width: 480px) {\n  .brand-name {\n    display: none;\n  }\n  .page-header {\n    margin-bottom: 24px;\n  }\n}\n.premium-banner {\n  background:\n    linear-gradient(\n      135deg,\n      #fff7e6 0%,\n      #f4edff 55%,\n      #eef2ff 100%);\n  border: 1px solid rgba(118, 75, 162, 0.18);\n  border-radius: 24px;\n  padding: 28px;\n  margin-bottom: 32px;\n  display: flex;\n  justify-content: space-between;\n  gap: 24px;\n  box-shadow: 0 8px 24px rgba(118, 75, 162, 0.12);\n}\n.premium-content {\n  display: flex;\n  gap: 18px;\n  align-items: flex-start;\n}\n.premium-icon,\n.premium-modal-icon {\n  width: 52px;\n  height: 52px;\n  border-radius: 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #f59e0b 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-size: 24px;\n  flex-shrink: 0;\n  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.3);\n}\n.premium-label {\n  display: inline-block;\n  font-size: 12px;\n  font-weight: 700;\n  color: #764ba2;\n  text-transform: uppercase;\n  letter-spacing: 0.7px;\n  margin-bottom: 6px;\n}\n.premium-text h2 {\n  margin: 0 0 8px 0;\n  font-size: 24px;\n  color: #2d2140;\n}\n.premium-text p {\n  margin: 0 0 16px 0;\n  color: #5f5870;\n  line-height: 1.5;\n}\n.premium-benefits {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 10px;\n}\n.premium-benefits span {\n  display: inline-flex;\n  align-items: center;\n  gap: 6px;\n  padding: 8px 12px;\n  border-radius: 999px;\n  background: white;\n  color: #4b3b63;\n  font-size: 13px;\n  font-weight: 600;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);\n}\n.premium-benefits i {\n  color: #f59e0b;\n}\n.premium-actions {\n  min-width: 230px;\n  display: flex;\n  flex-direction: column;\n  align-items: stretch;\n  gap: 12px;\n}\n.premium-price {\n  background: white;\n  border-radius: 16px;\n  padding: 14px 16px;\n  border: 1px solid rgba(118, 75, 162, 0.12);\n}\n.price-label {\n  display: block;\n  font-size: 12px;\n  color: #777;\n  margin-bottom: 4px;\n}\n.premium-price strong {\n  color: #2d2140;\n  font-size: 18px;\n}\n.btn-premium-primary,\n.btn-premium-secondary {\n  border: none;\n  border-radius: 14px;\n  padding: 12px 18px;\n  font-size: 14px;\n  font-weight: 700;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-premium-primary {\n  background:\n    linear-gradient(\n      135deg,\n      #f59e0b 0%,\n      #764ba2 100%);\n  color: white;\n  box-shadow: 0 4px 14px rgba(118, 75, 162, 0.25);\n}\n.btn-premium-primary:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 8px 20px rgba(118, 75, 162, 0.3);\n}\n.btn-premium-primary:disabled,\n.btn-premium-secondary:disabled {\n  opacity: 0.6;\n  cursor: not-allowed;\n}\n.btn-premium-secondary {\n  background: white;\n  color: #764ba2;\n  border: 1px solid rgba(118, 75, 162, 0.18);\n}\n.btn-premium-secondary:hover:not(:disabled) {\n  background: #f8f5ff;\n}\n.premium-mini-badge {\n  margin-top: 3px;\n  padding: 3px 8px;\n  border-radius: 999px;\n  background: #fff4d6;\n  color: #9a5b00;\n  font-size: 11px;\n  font-weight: 700;\n  width: fit-content;\n}\n.premium-error {\n  margin-bottom: 24px;\n  padding: 12px 16px;\n  border-radius: 12px;\n  background: #fff1f2;\n  color: #b42318;\n  border: 1px solid #fecdd3;\n}\n.premium-modal-backdrop {\n  position: fixed;\n  inset: 0;\n  z-index: 2000;\n  background: rgba(20, 16, 31, 0.55);\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 24px;\n}\n.premium-modal {\n  width: min(760px, 100%);\n  background: white;\n  border-radius: 28px;\n  padding: 32px;\n  position: relative;\n  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);\n}\n.premium-modal-close {\n  position: absolute;\n  top: 18px;\n  right: 18px;\n  border: none;\n  background: #f4f4f5;\n  color: #555;\n  border-radius: 50%;\n  width: 36px;\n  height: 36px;\n  cursor: pointer;\n}\n.premium-modal-header {\n  text-align: center;\n  margin-bottom: 28px;\n}\n.premium-modal-icon {\n  margin: 0 auto 16px auto;\n}\n.premium-modal-header h2 {\n  margin: 0 0 8px 0;\n  color: #2d2140;\n}\n.premium-modal-header p {\n  margin: 0;\n  color: #666;\n}\n.premium-modal-benefits {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 16px;\n  margin-bottom: 20px;\n}\n.premium-benefit-card {\n  background: #fafafa;\n  border: 1px solid #eee;\n  border-radius: 18px;\n  padding: 18px;\n  text-align: center;\n}\n.premium-benefit-card i {\n  font-size: 28px;\n  color: #f59e0b;\n  margin-bottom: 10px;\n}\n.premium-benefit-card h3 {\n  margin: 0 0 8px 0;\n  color: #333;\n  font-size: 16px;\n}\n.premium-benefit-card p {\n  margin: 0;\n  color: #666;\n  font-size: 13px;\n  line-height: 1.45;\n}\n.premium-note {\n  background: #f8f5ff;\n  color: #4b3b63;\n  border-radius: 14px;\n  padding: 14px 16px;\n  margin-bottom: 18px;\n  font-size: 14px;\n}\n.full-width {\n  width: 100%;\n}\n@media (max-width: 900px) {\n  .premium-banner {\n    flex-direction: column;\n  }\n  .premium-actions {\n    min-width: 100%;\n  }\n  .premium-modal-benefits {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=homepage.css.map */\n"] }]
+  }], () => [{ type: AuthService }, { type: LoginService }, { type: PropertyService }, { type: Router }, { type: PremiumService }, { type: ApiErrorService }], null);
 })();
 (() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Homepage, { className: "Homepage", filePath: "src/app/pages/homepage/homepage.ts", lineNumber: 21 });
+  (typeof ngDevMode === "undefined" || ngDevMode) && \u0275setClassDebugInfo(Homepage, { className: "Homepage", filePath: "src/app/pages/homepage/homepage.ts", lineNumber: 23 });
 })();
 
 // src/app/service/admin-audit.service.ts

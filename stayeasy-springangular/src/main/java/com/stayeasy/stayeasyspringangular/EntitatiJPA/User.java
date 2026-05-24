@@ -43,6 +43,10 @@ public class User {
   @Column(nullable = false)
   private Role role = Role.GUEST; // default 'user'
 
+  @Setter
+  @Column(name = "premium", nullable = false)
+  private boolean premium = false;
+
   // Relație 1-to-many cu sesiunile (pe care tu o vei crea)
   @Setter
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

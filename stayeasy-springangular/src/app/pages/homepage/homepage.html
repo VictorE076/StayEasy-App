@@ -22,6 +22,9 @@
         <div class="user-info">
           <span class="user-name">{{ userName }}</span>
           <span class="user-email" *ngIf="userEmail">{{ userEmail }}</span>
+          <span class="premium-mini-badge" *ngIf="premiumStatus?.premium">
+            Premium
+          </span>
         </div>
         <i class="bi bi-chevron-down"></i>
       </div>
@@ -41,6 +44,69 @@
     <div class="page-header">
       <h1>Explore Properties</h1>
       <p>Find your perfect stay, it's easy!</p>
+    </div>
+
+    <section class="premium-banner" *ngIf="premiumStatus">
+      <div class="premium-content">
+        <div class="premium-icon">
+          <i class="bi bi-stars"></i>
+        </div>
+
+        <div class="premium-text">
+      <span class="premium-label">
+        {{ premiumStatus.premium ? 'Premium Active' : 'Upgrade available' }}
+      </span>
+
+          <h2>
+            {{ premiumStatus.premium ? 'You are a StayEasy Premium member' : 'Unlock StayEasy Premium' }}
+          </h2>
+
+          <p>
+            {{ premiumStatus.premium
+            ? 'Enjoy 2x StayEasy Coins, exclusive member benefits and a premium booking experience.'
+            : 'Get 2x StayEasy Coins, access to member-only deals and a premium badge for your account.' }}
+          </p>
+
+          <div class="premium-benefits">
+            <span><i class="bi bi-coin"></i> 2x StayEasy Coins</span>
+            <span><i class="bi bi-tag"></i> Member-only deals</span>
+            <span><i class="bi bi-patch-check"></i> Premium badge</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="premium-actions">
+        <div class="premium-price">
+          <span class="price-label">Demo price</span>
+          <strong>9.99 $/month</strong>
+        </div>
+
+        <button class="btn-premium-secondary" (click)="openPremiumDetails()">
+          View benefits
+        </button>
+
+        <button
+          class="btn-premium-primary"
+          *ngIf="!premiumStatus.premium"
+          (click)="activatePremiumDemo()"
+          [disabled]="isPremiumLoading"
+        >
+          {{ isPremiumLoading ? 'Activating...' : 'Activate Demo Premium' }}
+        </button>
+
+        <button
+          class="btn-premium-secondary"
+          *ngIf="premiumStatus.premium"
+          (click)="deactivatePremiumDemo()"
+          [disabled]="isPremiumLoading"
+        >
+          Disable Demo
+        </button>
+      </div>
+    </section>
+
+    <div *ngIf="premiumError" class="premium-error">
+      {{ premiumError }}
     </div>
 
     <!-- Search Bar -->
@@ -156,3 +222,52 @@
   (close)="onModalClose()"
   (propertyCreated)="onPropertyCreated()"
 ></app-create-property-modal>
+
+<div class="premium-modal-backdrop" *ngIf="showPremiumDetails" (click)="closePremiumDetails()">
+  <div class="premium-modal" (click)="$event.stopPropagation()">
+    <button class="premium-modal-close" (click)="closePremiumDetails()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+
+    <div class="premium-modal-header">
+      <div class="premium-modal-icon">
+        <i class="bi bi-stars"></i>
+      </div>
+      <h2>StayEasy Premium</h2>
+      <p>A demo subscription concept focused on loyalty, trust and better offers.</p>
+    </div>
+
+    <div class="premium-modal-benefits">
+      <div class="premium-benefit-card">
+        <i class="bi bi-coin"></i>
+        <h3>2x StayEasy Coins</h3>
+        <p>Premium users receive double loyalty rewards compared to basic users.</p>
+      </div>
+
+      <div class="premium-benefit-card">
+        <i class="bi bi-tag"></i>
+        <h3>Member-only deals</h3>
+        <p>Special offers can be displayed only for Premium members.</p>
+      </div>
+
+      <div class="premium-benefit-card">
+        <i class="bi bi-patch-check"></i>
+        <h3>Premium badge</h3>
+        <p>The account receives a visible badge that confirms premium status.</p>
+      </div>
+    </div>
+
+    <div class="premium-note">
+      <strong>UI/UX demo:</strong> payment management is not implemented in this stage.
+    </div>
+
+    <button
+      class="btn-premium-primary full-width"
+      *ngIf="!premiumStatus?.premium"
+      (click)="activatePremiumDemo()"
+      [disabled]="isPremiumLoading"
+    >
+      {{ isPremiumLoading ? 'Activating...' : 'Activate Demo Premium' }}
+    </button>
+  </div>
+</div>
