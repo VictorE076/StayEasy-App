@@ -47893,11 +47893,11 @@ function Homepage_app_create_property_modal_49_Template(rf, ctx) {
     \u0275\u0275property("currentUserId", ctx_r1.userId);
   }
 }
-function Homepage_div_50_button_34_Template(rf, ctx) {
+function Homepage_div_50_button_30_Template(rf, ctx) {
   if (rf & 1) {
     const _r14 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 106);
-    \u0275\u0275listener("click", function Homepage_div_50_button_34_Template_button_click_0_listener() {
+    \u0275\u0275elementStart(0, "button", 105);
+    \u0275\u0275listener("click", function Homepage_div_50_button_30_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r14);
       const ctx_r1 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r1.activatePremiumDemo());
@@ -47967,17 +47967,12 @@ function Homepage_div_50_Template(rf, ctx) {
     \u0275\u0275elementStart(28, "p");
     \u0275\u0275text(29, "The account receives a visible badge that confirms premium status.");
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(30, "div", 104)(31, "strong");
-    \u0275\u0275text(32, "UI/UX demo:");
-    \u0275\u0275elementEnd();
-    \u0275\u0275text(33, " payment management is not implemented in this stage. ");
-    \u0275\u0275elementEnd();
-    \u0275\u0275template(34, Homepage_div_50_button_34_Template, 2, 2, "button", 105);
+    \u0275\u0275template(30, Homepage_div_50_button_30_Template, 2, 2, "button", 104);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext();
-    \u0275\u0275advance(34);
+    \u0275\u0275advance(30);
     \u0275\u0275property("ngIf", !(ctx_r1.premiumStatus == null ? null : ctx_r1.premiumStatus.premium));
   }
 }
@@ -48202,7 +48197,7 @@ var Homepage = class _Homepage {
   static \u0275fac = function Homepage_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _Homepage)(\u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(LoginService), \u0275\u0275directiveInject(PropertyService), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(PremiumService), \u0275\u0275directiveInject(ApiErrorService));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Homepage, selectors: [["app-homepage"]], decls: 51, vars: 19, consts: [[1, "navbar"], [1, "nav-container"], [1, "nav-brand"], [1, "bi", "bi-house-heart-fill"], [1, "brand-name"], [1, "nav-actions"], [1, "btn-become-host", 3, "click"], [1, "bi", "bi-plus-circle"], ["class", "btn-become-host", 3, "click", 4, "ngIf"], [1, "user-card", 3, "click"], [1, "user-avatar"], [1, "user-info"], [1, "user-name"], ["class", "user-email", 4, "ngIf"], ["class", "premium-mini-badge", 4, "ngIf"], [1, "bi", "bi-chevron-down"], ["class", "user-menu", 4, "ngIf"], [1, "main-content"], [1, "content-container"], [1, "page-header"], ["class", "premium-banner", 4, "ngIf"], ["class", "premium-error", 4, "ngIf"], [1, "search-container"], [1, "search-inputs"], [1, "search-field"], [1, "bi", "bi-geo-alt"], ["type", "text", "placeholder", "Search by city...", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "bi", "bi-currency-dollar"], ["type", "number", "placeholder", "Max price per night...", "min", "0", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "search-actions"], [1, "btn-search", 3, "click", "disabled"], [1, "bi", "bi-search"], ["class", "btn-clear", 3, "click", 4, "ngIf"], ["class", "loading-state", 4, "ngIf"], ["class", "error-state", 4, "ngIf"], ["class", "empty-state", 4, "ngIf"], ["class", "properties-grid", 4, "ngIf"], [3, "currentUserId", "close", "propertyCreated", 4, "ngIf"], ["class", "premium-modal-backdrop", 3, "click", 4, "ngIf"], [1, "user-email"], [1, "premium-mini-badge"], [1, "user-menu"], [1, "menu-item", 3, "click", "disabled"], [1, "bi", "bi-box-arrow-right"], [1, "premium-banner"], [1, "premium-content"], [1, "premium-icon"], [1, "bi", "bi-stars"], [1, "premium-text"], [1, "premium-label"], [1, "premium-benefits"], [1, "bi", "bi-coin"], [1, "bi", "bi-tag"], [1, "bi", "bi-patch-check"], [1, "premium-actions"], [1, "premium-price"], [1, "price-label"], [1, "btn-premium-secondary", 3, "click"], ["class", "btn-premium-primary", 3, "disabled", "click", 4, "ngIf"], ["class", "btn-premium-secondary", 3, "disabled", "click", 4, "ngIf"], [1, "btn-premium-primary", 3, "click", "disabled"], [1, "btn-premium-secondary", 3, "click", "disabled"], [1, "premium-error"], [1, "btn-clear", 3, "click"], [1, "bi", "bi-x-circle"], [1, "loading-state"], [1, "spinner"], [1, "error-state"], [1, "bi", "bi-exclamation-circle"], [1, "btn-retry", 3, "click"], [1, "empty-state"], [1, "bi", "bi-house"], [1, "properties-grid"], ["class", "property-card", 3, "click", 4, "ngFor", "ngForOf"], [1, "property-card", 3, "click"], [1, "property-image"], [3, "src", "alt"], [1, "property-type-badge"], ["class", "btn-delete-property", "title", "Delete property", 3, "click", 4, "ngIf"], [1, "property-content"], [1, "property-header"], [1, "property-title"], [1, "property-location"], ["class", "property-description", 4, "ngIf"], [1, "property-details"], [1, "detail-item"], [1, "bi", "bi-people"], [1, "bi", "bi-person"], [1, "property-footer"], [1, "property-price"], [1, "price-amount"], [1, "price-period"], ["title", "Delete property", 1, "btn-delete-property", 3, "click"], [1, "bi", "bi-trash"], [1, "property-description"], [3, "close", "propertyCreated", "currentUserId"], [1, "premium-modal-backdrop", 3, "click"], [1, "premium-modal", 3, "click"], [1, "premium-modal-close", 3, "click"], [1, "bi", "bi-x-lg"], [1, "premium-modal-header"], [1, "premium-modal-icon"], [1, "premium-modal-benefits"], [1, "premium-benefit-card"], [1, "premium-note"], ["class", "btn-premium-primary full-width", 3, "disabled", "click", 4, "ngIf"], [1, "btn-premium-primary", "full-width", 3, "click", "disabled"]], template: function Homepage_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _Homepage, selectors: [["app-homepage"]], decls: 51, vars: 19, consts: [[1, "navbar"], [1, "nav-container"], [1, "nav-brand"], [1, "bi", "bi-house-heart-fill"], [1, "brand-name"], [1, "nav-actions"], [1, "btn-become-host", 3, "click"], [1, "bi", "bi-plus-circle"], ["class", "btn-become-host", 3, "click", 4, "ngIf"], [1, "user-card", 3, "click"], [1, "user-avatar"], [1, "user-info"], [1, "user-name"], ["class", "user-email", 4, "ngIf"], ["class", "premium-mini-badge", 4, "ngIf"], [1, "bi", "bi-chevron-down"], ["class", "user-menu", 4, "ngIf"], [1, "main-content"], [1, "content-container"], [1, "page-header"], ["class", "premium-banner", 4, "ngIf"], ["class", "premium-error", 4, "ngIf"], [1, "search-container"], [1, "search-inputs"], [1, "search-field"], [1, "bi", "bi-geo-alt"], ["type", "text", "placeholder", "Search by city...", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "bi", "bi-currency-dollar"], ["type", "number", "placeholder", "Max price per night...", "min", "0", 3, "ngModelChange", "keyup.enter", "ngModel"], [1, "search-actions"], [1, "btn-search", 3, "click", "disabled"], [1, "bi", "bi-search"], ["class", "btn-clear", 3, "click", 4, "ngIf"], ["class", "loading-state", 4, "ngIf"], ["class", "error-state", 4, "ngIf"], ["class", "empty-state", 4, "ngIf"], ["class", "properties-grid", 4, "ngIf"], [3, "currentUserId", "close", "propertyCreated", 4, "ngIf"], ["class", "premium-modal-backdrop", 3, "click", 4, "ngIf"], [1, "user-email"], [1, "premium-mini-badge"], [1, "user-menu"], [1, "menu-item", 3, "click", "disabled"], [1, "bi", "bi-box-arrow-right"], [1, "premium-banner"], [1, "premium-content"], [1, "premium-icon"], [1, "bi", "bi-stars"], [1, "premium-text"], [1, "premium-label"], [1, "premium-benefits"], [1, "bi", "bi-coin"], [1, "bi", "bi-tag"], [1, "bi", "bi-patch-check"], [1, "premium-actions"], [1, "premium-price"], [1, "price-label"], [1, "btn-premium-secondary", 3, "click"], ["class", "btn-premium-primary", 3, "disabled", "click", 4, "ngIf"], ["class", "btn-premium-secondary", 3, "disabled", "click", 4, "ngIf"], [1, "btn-premium-primary", 3, "click", "disabled"], [1, "btn-premium-secondary", 3, "click", "disabled"], [1, "premium-error"], [1, "btn-clear", 3, "click"], [1, "bi", "bi-x-circle"], [1, "loading-state"], [1, "spinner"], [1, "error-state"], [1, "bi", "bi-exclamation-circle"], [1, "btn-retry", 3, "click"], [1, "empty-state"], [1, "bi", "bi-house"], [1, "properties-grid"], ["class", "property-card", 3, "click", 4, "ngFor", "ngForOf"], [1, "property-card", 3, "click"], [1, "property-image"], [3, "src", "alt"], [1, "property-type-badge"], ["class", "btn-delete-property", "title", "Delete property", 3, "click", 4, "ngIf"], [1, "property-content"], [1, "property-header"], [1, "property-title"], [1, "property-location"], ["class", "property-description", 4, "ngIf"], [1, "property-details"], [1, "detail-item"], [1, "bi", "bi-people"], [1, "bi", "bi-person"], [1, "property-footer"], [1, "property-price"], [1, "price-amount"], [1, "price-period"], ["title", "Delete property", 1, "btn-delete-property", 3, "click"], [1, "bi", "bi-trash"], [1, "property-description"], [3, "close", "propertyCreated", "currentUserId"], [1, "premium-modal-backdrop", 3, "click"], [1, "premium-modal", 3, "click"], [1, "premium-modal-close", 3, "click"], [1, "bi", "bi-x-lg"], [1, "premium-modal-header"], [1, "premium-modal-icon"], [1, "premium-modal-benefits"], [1, "premium-benefit-card"], ["class", "btn-premium-primary full-width", 3, "disabled", "click", 4, "ngIf"], [1, "btn-premium-primary", "full-width", 3, "click", "disabled"]], template: function Homepage_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "nav", 0)(1, "div", 1)(2, "div", 2);
       \u0275\u0275element(3, "i", 3);
@@ -48275,7 +48270,7 @@ var Homepage = class _Homepage {
       \u0275\u0275elementEnd()();
       \u0275\u0275template(45, Homepage_div_45_Template, 4, 0, "div", 33)(46, Homepage_div_46_Template, 6, 1, "div", 34)(47, Homepage_div_47_Template, 6, 0, "div", 35)(48, Homepage_div_48_Template, 2, 1, "div", 36);
       \u0275\u0275elementEnd()();
-      \u0275\u0275template(49, Homepage_app_create_property_modal_49_Template, 1, 1, "app-create-property-modal", 37)(50, Homepage_div_50_Template, 35, 1, "div", 38);
+      \u0275\u0275template(49, Homepage_app_create_property_modal_49_Template, 1, 1, "app-create-property-modal", 37)(50, Homepage_div_50_Template, 31, 1, "div", 38);
     }
     if (rf & 2) {
       \u0275\u0275advance(11);
@@ -48581,9 +48576,15 @@ var Homepage = class _Homepage {
       </div>\r
     </div>\r
 \r
+\r
+    <!-- UI/UX demo note\r
+\r
     <div class="premium-note">\r
       <strong>UI/UX demo:</strong> payment management is not implemented in this stage.\r
     </div>\r
+\r
+    -->\r
+\r
 \r
     <button\r
       class="btn-premium-primary full-width"\r

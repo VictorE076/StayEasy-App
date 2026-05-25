@@ -891,7 +891,7 @@
   line-height: 1.45;
 }
 
-.premium-note {
+.premium-note { /* UI/UX demo note */
   background: #f8f5ff;
   color: #4b3b63;
   border-radius: 14px;
