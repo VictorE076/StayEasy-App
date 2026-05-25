@@ -3,12 +3,14 @@ package com.stayeasy.stayeasyspringangular.controller;
 import com.stayeasy.stayeasyspringangular.DTO.PropertyDetailDTO;
 import com.stayeasy.stayeasyspringangular.DTO.PropertyRequestDTO;
 import com.stayeasy.stayeasyspringangular.DTO.PropertyResponseDTO;
+import com.stayeasy.stayeasyspringangular.Service.GeminiService;
 import com.stayeasy.stayeasyspringangular.Service.PropertyService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,14 @@ import java.util.List;
 public class PropertyController {
 
   private final PropertyService propertyService;
+
+  private final GeminiService geminiService;
+
+  @GetMapping("/{id}/ai-summary")
+  public ResponseEntity<String> getPropertyReviewsSummary(@PathVariable Long id) {
+    String summary = geminiService.summarizeReviews(id);
+    return ResponseEntity.ok(summary);
+  }
 
   // GET /api/properties
   @GetMapping

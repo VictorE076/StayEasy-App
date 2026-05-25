@@ -602,6 +602,23 @@
   background: #5568d3;
 }
 
+.ai-summary-section h3 {
+  color: #333;
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.ai-summary-content {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: white;
+  border-left: 4px solid #4f46e5;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #374151;
+}
+
 @media (max-width: 1024px) {
   .content-grid {
     grid-template-columns: 1fr;

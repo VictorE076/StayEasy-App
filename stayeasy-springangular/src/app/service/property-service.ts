@@ -44,4 +44,9 @@ export class PropertyService {
   deleteProperty(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}/${id}`);
   }
+
+  getPropertyAiSummary(propertyId: number): Observable<string> {
+    return this.http.get(`http://localhost:8080/api/properties/${propertyId}/ai-summary`, { responseType: 'text' });
+  }
+
 }

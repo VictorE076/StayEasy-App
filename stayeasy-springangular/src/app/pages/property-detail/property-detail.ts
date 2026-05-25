@@ -22,6 +22,8 @@ export class PropertyDetail {
   error: string | null = null;
   currentImageIndex = 0;
   loyalty: LoyaltyStatus | null = null;
+  aiSummary: string | null = null;
+  isAiLoading = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +33,23 @@ export class PropertyDetail {
     private reviewService: ReviewService,
     private bookingService: BookingService
   ) {}
+
+  generateAiSummary(): void {
+    if (!this.property) return;
+
+    this.isAiLoading = true;
+    this.propertyService.getPropertyAiSummary(this.property.id)
+      .pipe(finalize(() => this.isAiLoading = false))
+      .subscribe({
+        next: (summary) => {
+          this.aiSummary = summary;
+        },
+        error: (err) => {
+          console.error('Error fetching AI summary:', err);
+          alert('The AI summary could not be generated.');
+        }
+      });
+  }
 
   isAdmin(): boolean {
     return this.authService.isAdmin();
