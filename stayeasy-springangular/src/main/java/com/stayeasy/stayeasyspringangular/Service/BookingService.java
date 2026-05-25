@@ -39,6 +39,31 @@ public class BookingService {
 
   }
 
+  @Transactional
+  public void createBookingWithDiscount(Long propertyId) {
+    // 1. Luam user logat
+    User currentUser = getCurrentUser();
+
+    // 2. Verificam dacă proprietatea exista
+    Property property = propertyRepository.findById(propertyId)
+      .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
+
+    // 3. Verificam daca user-ul are suficienti coins pentru reducere
+    if(!currentUser.canUseDiscount()) {
+      throw new RuntimeException("You don't have enough coins (minimum 5) to apply the discount!");
+    }
+
+    // 4. Consumam cele 5 coins pentru reducere
+    currentUser.useDiscount();
+
+    // 5. Adaugam si aceasta rezervare la numarul total de rezervari efectuate
+    currentUser.addCompletedBooking();
+
+    // 6. Salvam user-ul actualizat
+    userRepository.save(currentUser);
+
+  }
+
   public LoyaltyStatusDTO getMyLoyaltyStatus() {
     User currentUser = getCurrentUser();
 

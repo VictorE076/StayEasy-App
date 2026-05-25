@@ -47533,6 +47533,9 @@ var BookingService = class _BookingService {
   getLoyaltyStatus() {
     return this.http.get(`${this.apiUrl}/my-loyalty`);
   }
+  bookWithDiscount(propertyId) {
+    return this.http.post(`${this.apiUrl}/book-discount/${propertyId}`, {}, { responseType: "text" });
+  }
   static \u0275fac = function BookingService_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _BookingService)(\u0275\u0275inject(HttpClient));
   };
@@ -48746,32 +48749,32 @@ function PropertyDetail_div_2_Template(rf, ctx) {
 function PropertyDetail_div_3_button_6_Template(rf, ctx) {
   if (rf & 1) {
     const _r4 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 50);
+    \u0275\u0275elementStart(0, "button", 53);
     \u0275\u0275listener("click", function PropertyDetail_div_3_button_6_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r4);
       const ctx_r1 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r1.previousImage());
     });
-    \u0275\u0275element(1, "i", 51);
+    \u0275\u0275element(1, "i", 54);
     \u0275\u0275elementEnd();
   }
 }
 function PropertyDetail_div_3_button_7_Template(rf, ctx) {
   if (rf & 1) {
     const _r5 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 52);
+    \u0275\u0275elementStart(0, "button", 55);
     \u0275\u0275listener("click", function PropertyDetail_div_3_button_7_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r5);
       const ctx_r1 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r1.nextImage());
     });
-    \u0275\u0275element(1, "i", 53);
+    \u0275\u0275element(1, "i", 56);
     \u0275\u0275elementEnd();
   }
 }
 function PropertyDetail_div_3_div_8_span_1_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "span", 56);
+    \u0275\u0275element(0, "span", 59);
   }
   if (rf & 2) {
     const i_r6 = ctx.index;
@@ -48781,8 +48784,8 @@ function PropertyDetail_div_3_div_8_span_1_Template(rf, ctx) {
 }
 function PropertyDetail_div_3_div_8_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 54);
-    \u0275\u0275template(1, PropertyDetail_div_3_div_8_span_1_Template, 1, 2, "span", 55);
+    \u0275\u0275elementStart(0, "div", 57);
+    \u0275\u0275template(1, PropertyDetail_div_3_div_8_span_1_Template, 1, 2, "span", 58);
     \u0275\u0275elementEnd();
   }
   if (rf & 2) {
@@ -48794,19 +48797,19 @@ function PropertyDetail_div_3_div_8_Template(rf, ctx) {
 function PropertyDetail_div_3_button_16_Template(rf, ctx) {
   if (rf & 1) {
     const _r7 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 57);
+    \u0275\u0275elementStart(0, "button", 60);
     \u0275\u0275listener("click", function PropertyDetail_div_3_button_16_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r7);
       const ctx_r1 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r1.onDeleteProperty());
     });
-    \u0275\u0275element(1, "i", 58);
+    \u0275\u0275element(1, "i", 61);
     \u0275\u0275elementEnd();
   }
 }
 function PropertyDetail_div_3_div_23_i_2_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "i", 63);
+    \u0275\u0275element(0, "i", 66);
   }
   if (rf & 2) {
     const star_r8 = ctx.$implicit;
@@ -48815,10 +48818,10 @@ function PropertyDetail_div_3_div_23_i_2_Template(rf, ctx) {
 }
 function PropertyDetail_div_3_div_23_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 59)(1, "div", 60);
-    \u0275\u0275template(2, PropertyDetail_div_3_div_23_i_2_Template, 1, 4, "i", 61);
+    \u0275\u0275elementStart(0, "div", 62)(1, "div", 63);
+    \u0275\u0275template(2, PropertyDetail_div_3_div_23_i_2_Template, 1, 4, "i", 64);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "span", 62);
+    \u0275\u0275elementStart(3, "span", 65);
     \u0275\u0275text(4);
     \u0275\u0275elementEnd()();
   }
@@ -48832,8 +48835,8 @@ function PropertyDetail_div_3_div_23_Template(rf, ctx) {
 }
 function PropertyDetail_div_3_div_54_div_4_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 66);
-    \u0275\u0275element(1, "i", 67);
+    \u0275\u0275elementStart(0, "div", 69);
+    \u0275\u0275element(1, "i", 70);
     \u0275\u0275elementStart(2, "span");
     \u0275\u0275text(3);
     \u0275\u0275elementEnd()();
@@ -48849,8 +48852,8 @@ function PropertyDetail_div_3_div_54_Template(rf, ctx) {
     \u0275\u0275elementStart(0, "div", 28)(1, "h2");
     \u0275\u0275text(2, "Amenities");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 64);
-    \u0275\u0275template(4, PropertyDetail_div_3_div_54_div_4_Template, 4, 1, "div", 65);
+    \u0275\u0275elementStart(3, "div", 67);
+    \u0275\u0275template(4, PropertyDetail_div_3_div_54_div_4_Template, 4, 1, "div", 68);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
@@ -48864,32 +48867,32 @@ function PropertyDetail_div_3_div_55_Template(rf, ctx) {
     \u0275\u0275elementStart(0, "div", 28)(1, "h2");
     \u0275\u0275text(2, "House Rules");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 68)(4, "div", 69);
-    \u0275\u0275element(5, "i", 70);
+    \u0275\u0275elementStart(3, "div", 71)(4, "div", 72);
+    \u0275\u0275element(5, "i", 73);
     \u0275\u0275elementStart(6, "div")(7, "span", 33);
     \u0275\u0275text(8, "Check-in");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(9, "span", 34);
     \u0275\u0275text(10);
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(11, "div", 69);
-    \u0275\u0275element(12, "i", 71);
+    \u0275\u0275elementStart(11, "div", 72);
+    \u0275\u0275element(12, "i", 74);
     \u0275\u0275elementStart(13, "div")(14, "span", 33);
     \u0275\u0275text(15, "Check-out");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(16, "span", 34);
     \u0275\u0275text(17);
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(18, "div", 69);
-    \u0275\u0275element(19, "i", 63);
+    \u0275\u0275elementStart(18, "div", 72);
+    \u0275\u0275element(19, "i", 66);
     \u0275\u0275elementStart(20, "div")(21, "span", 33);
     \u0275\u0275text(22, "Pets");
     \u0275\u0275elementEnd();
     \u0275\u0275elementStart(23, "span", 34);
     \u0275\u0275text(24);
     \u0275\u0275elementEnd()()();
-    \u0275\u0275elementStart(25, "div", 69);
-    \u0275\u0275element(26, "i", 63);
+    \u0275\u0275elementStart(25, "div", 72);
+    \u0275\u0275element(26, "i", 66);
     \u0275\u0275elementStart(27, "div")(28, "span", 33);
     \u0275\u0275text(29, "Smoking");
     \u0275\u0275elementEnd();
@@ -48916,20 +48919,20 @@ function PropertyDetail_div_3_div_55_Template(rf, ctx) {
 function PropertyDetail_div_3_div_64_button_9_Template(rf, ctx) {
   if (rf & 1) {
     const _r10 = \u0275\u0275getCurrentView();
-    \u0275\u0275elementStart(0, "button", 81);
+    \u0275\u0275elementStart(0, "button", 84);
     \u0275\u0275listener("click", function PropertyDetail_div_3_div_64_button_9_Template_button_click_0_listener() {
       \u0275\u0275restoreView(_r10);
       const review_r11 = \u0275\u0275nextContext().$implicit;
       const ctx_r1 = \u0275\u0275nextContext(2);
       return \u0275\u0275resetView(ctx_r1.onDeleteReview(review_r11.id));
     });
-    \u0275\u0275element(1, "i", 58);
+    \u0275\u0275element(1, "i", 61);
     \u0275\u0275elementEnd();
   }
 }
 function PropertyDetail_div_3_div_64_i_11_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275element(0, "i", 63);
+    \u0275\u0275element(0, "i", 66);
   }
   if (rf & 2) {
     const star_r12 = ctx.$implicit;
@@ -48938,20 +48941,20 @@ function PropertyDetail_div_3_div_64_i_11_Template(rf, ctx) {
 }
 function PropertyDetail_div_3_div_64_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 72)(1, "div", 73)(2, "div", 74);
+    \u0275\u0275elementStart(0, "div", 75)(1, "div", 76)(2, "div", 77);
     \u0275\u0275text(3);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(4, "div", 75)(5, "span", 76);
+    \u0275\u0275elementStart(4, "div", 78)(5, "span", 79);
     \u0275\u0275text(6);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(7, "span", 77);
+    \u0275\u0275elementStart(7, "span", 80);
     \u0275\u0275text(8);
     \u0275\u0275elementEnd()()();
-    \u0275\u0275template(9, PropertyDetail_div_3_div_64_button_9_Template, 2, 0, "button", 78);
-    \u0275\u0275elementStart(10, "div", 79);
-    \u0275\u0275template(11, PropertyDetail_div_3_div_64_i_11_Template, 1, 4, "i", 61);
+    \u0275\u0275template(9, PropertyDetail_div_3_div_64_button_9_Template, 2, 0, "button", 81);
+    \u0275\u0275elementStart(10, "div", 82);
+    \u0275\u0275template(11, PropertyDetail_div_3_div_64_i_11_Template, 1, 4, "i", 64);
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(12, "p", 80);
+    \u0275\u0275elementStart(12, "p", 83);
     \u0275\u0275text(13);
     \u0275\u0275elementEnd()();
   }
@@ -48974,15 +48977,15 @@ function PropertyDetail_div_3_div_64_Template(rf, ctx) {
 }
 function PropertyDetail_div_3_ng_template_65_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "p", 82);
+    \u0275\u0275elementStart(0, "p", 85);
     \u0275\u0275text(1, "No reviews yet. Be the first to write one!");
     \u0275\u0275elementEnd();
   }
 }
 function PropertyDetail_div_3_div_74_div_4_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 86);
-    \u0275\u0275element(1, "i", 87);
+    \u0275\u0275elementStart(0, "div", 89);
+    \u0275\u0275element(1, "i", 90);
     \u0275\u0275elementStart(2, "span");
     \u0275\u0275text(3);
     \u0275\u0275elementEnd()();
@@ -48996,17 +48999,29 @@ function PropertyDetail_div_3_div_74_div_4_Template(rf, ctx) {
 }
 function PropertyDetail_div_3_div_74_Template(rf, ctx) {
   if (rf & 1) {
-    \u0275\u0275elementStart(0, "div", 83)(1, "h3");
+    \u0275\u0275elementStart(0, "div", 86)(1, "h3");
     \u0275\u0275text(2, "Availability");
     \u0275\u0275elementEnd();
-    \u0275\u0275elementStart(3, "div", 84);
-    \u0275\u0275template(4, PropertyDetail_div_3_div_74_div_4_Template, 4, 2, "div", 85);
+    \u0275\u0275elementStart(3, "div", 87);
+    \u0275\u0275template(4, PropertyDetail_div_3_div_74_div_4_Template, 4, 2, "div", 88);
     \u0275\u0275elementEnd()();
   }
   if (rf & 2) {
     const ctx_r1 = \u0275\u0275nextContext(2);
     \u0275\u0275advance(4);
     \u0275\u0275property("ngForOf", ctx_r1.property.availability);
+  }
+}
+function PropertyDetail_div_3_p_80_Template(rf, ctx) {
+  if (rf & 1) {
+    \u0275\u0275elementStart(0, "p", 91);
+    \u0275\u0275text(1);
+    \u0275\u0275elementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = \u0275\u0275nextContext(2);
+    \u0275\u0275advance();
+    \u0275\u0275textInterpolate1(" *You need at least 5 coins to unlock the discount. (You have: ", ctx_r1.loyalty.loyaltyCoins, " \u{1FA99}) ");
   }
 }
 function PropertyDetail_div_3_Template(rf, ctx) {
@@ -49098,13 +49113,23 @@ function PropertyDetail_div_3_Template(rf, ctx) {
     \u0275\u0275text(73, "/ night");
     \u0275\u0275elementEnd()();
     \u0275\u0275template(74, PropertyDetail_div_3_div_74_Template, 5, 1, "div", 48);
-    \u0275\u0275elementStart(75, "button", 49);
-    \u0275\u0275listener("click", function PropertyDetail_div_3_Template_button_click_75_listener() {
+    \u0275\u0275elementStart(75, "div", 49)(76, "button", 50);
+    \u0275\u0275listener("click", function PropertyDetail_div_3_Template_button_click_76_listener() {
       \u0275\u0275restoreView(_r3);
       const ctx_r1 = \u0275\u0275nextContext();
       return \u0275\u0275resetView(ctx_r1.onBookNowClicked());
     });
-    \u0275\u0275text(76, "Book Now");
+    \u0275\u0275text(77, "Book Now");
+    \u0275\u0275elementEnd();
+    \u0275\u0275elementStart(78, "button", 51);
+    \u0275\u0275listener("click", function PropertyDetail_div_3_Template_button_click_78_listener() {
+      \u0275\u0275restoreView(_r3);
+      const ctx_r1 = \u0275\u0275nextContext();
+      return \u0275\u0275resetView(ctx_r1.onBookWithDiscountClicked());
+    });
+    \u0275\u0275text(79, " \u26A1 Book with 10% Discount (Cost: 5 Coins) ");
+    \u0275\u0275elementEnd();
+    \u0275\u0275template(80, PropertyDetail_div_3_p_80_Template, 2, 1, "p", 52);
     \u0275\u0275elementEnd()()()()();
   }
   if (rf & 2) {
@@ -49147,6 +49172,10 @@ function PropertyDetail_div_3_Template(rf, ctx) {
     \u0275\u0275textInterpolate1("$", ctx_r1.property.pricePerNight);
     \u0275\u0275advance(3);
     \u0275\u0275property("ngIf", ctx_r1.property.availability.length > 0);
+    \u0275\u0275advance(4);
+    \u0275\u0275property("disabled", ctx_r1.isLoading || !ctx_r1.loyalty || ctx_r1.loyalty.loyaltyCoins < 5);
+    \u0275\u0275advance(2);
+    \u0275\u0275property("ngIf", ctx_r1.loyalty && ctx_r1.loyalty.loyaltyCoins < 5);
   }
 }
 var PropertyDetail = class _PropertyDetail {
@@ -49160,6 +49189,7 @@ var PropertyDetail = class _PropertyDetail {
   isLoading = false;
   error = null;
   currentImageIndex = 0;
+  loyalty = null;
   constructor(route, router, propertyService, authService, reviewService, bookingService) {
     this.route = route;
     this.router = router;
@@ -49219,6 +49249,8 @@ var PropertyDetail = class _PropertyDetail {
     this.bookingService.bookNow(this.property.id).subscribe({
       next: (response) => {
         alert(response || "Booking successful!");
+        this.loadLoyaltyStatus();
+        this.router.navigate(["/homepage"]);
       },
       error: (err) => {
         console.error("Booking error:", err);
@@ -49231,6 +49263,37 @@ var PropertyDetail = class _PropertyDetail {
     if (id) {
       this.loadPropertyDetail(+id);
     }
+    if (this.authService.getUsername()) {
+      this.loadLoyaltyStatus();
+    }
+  }
+  loadLoyaltyStatus() {
+    this.bookingService.getLoyaltyStatus().subscribe({
+      next: (data) => {
+        this.loyalty = data;
+      },
+      error: (err) => {
+        console.error("Error loading loyalty status:", err);
+      }
+    });
+  }
+  onBookWithDiscountClicked() {
+    if (!this.property)
+      return;
+    if (!confirm("Are you sure you want to use 5 coins for a 10% discount on this property?")) {
+      return;
+    }
+    this.bookingService.bookWithDiscount(this.property.id).subscribe({
+      next: (response) => {
+        alert(response || "Discount booking successful!");
+        this.loadLoyaltyStatus();
+        this.router.navigate(["/homepage"]);
+      },
+      error: (err) => {
+        console.error("Discount booking error:", err);
+        alert(err.error || "An error occurred while processing the discount reservation.");
+      }
+    });
   }
   loadPropertyDetail(id) {
     this.isLoading = true;
@@ -49282,10 +49345,10 @@ var PropertyDetail = class _PropertyDetail {
   static \u0275fac = function PropertyDetail_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _PropertyDetail)(\u0275\u0275directiveInject(ActivatedRoute), \u0275\u0275directiveInject(Router), \u0275\u0275directiveInject(PropertyService), \u0275\u0275directiveInject(AuthService), \u0275\u0275directiveInject(ReviewService), \u0275\u0275directiveInject(BookingService));
   };
-  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PropertyDetail, selectors: [["app-property-detail"]], decls: 4, vars: 3, consts: [["noReviews", ""], [1, "detail-page"], ["class", "loading-container", 4, "ngIf"], ["class", "error-container", 4, "ngIf"], ["class", "detail-container", 4, "ngIf"], [1, "loading-container"], [1, "spinner"], [1, "error-container"], [1, "bi", "bi-exclamation-circle"], [1, "btn-back", 3, "click"], [1, "detail-container"], [1, "btn-back-small", 3, "click"], [1, "bi", "bi-arrow-left"], [1, "image-gallery"], [3, "src", "alt"], ["class", "btn-prev", 3, "click", 4, "ngIf"], ["class", "btn-next", 3, "click", 4, "ngIf"], ["class", "image-indicators", 4, "ngIf"], [1, "content-grid"], [1, "left-column"], [1, "property-header"], [1, "header-top"], [1, "header-actions"], ["class", "btn-delete-property-detail", "title", "Delete property", 3, "click", 4, "ngIf"], [1, "type-badge"], [1, "location"], [1, "bi", "bi-geo-alt"], ["class", "rating-row", 4, "ngIf"], [1, "section"], [1, "description"], [1, "info-grid"], [1, "info-item"], [1, "bi", "bi-people"], [1, "label"], [1, "value"], [1, "bi", "bi-person"], [1, "bi", "bi-calendar"], ["class", "section", 4, "ngIf"], [1, "reviews-title-row"], [1, "btn-add-review", 3, "click"], [1, "bi", "bi-pencil-square"], [1, "reviews-list"], ["class", "review-item", 4, "ngFor", "ngForOf"], [1, "right-column"], [1, "booking-card"], [1, "price-section"], [1, "price"], [1, "period"], ["class", "availability-section", 4, "ngIf"], [1, "btn-book", 3, "click"], [1, "btn-prev", 3, "click"], [1, "bi", "bi-chevron-left"], [1, "btn-next", 3, "click"], [1, "bi", "bi-chevron-right"], [1, "image-indicators"], ["class", "indicator", 3, "active", 4, "ngFor", "ngForOf"], [1, "indicator"], ["title", "Delete property", 1, "btn-delete-property-detail", 3, "click"], [1, "bi", "bi-trash"], [1, "rating-row"], [1, "stars"], ["class", "bi", 3, "bi-star-fill", "bi-star", 4, "ngFor", "ngForOf"], [1, "rating-text"], [1, "bi"], [1, "amenities-grid"], ["class", "amenity-item", 4, "ngFor", "ngForOf"], [1, "amenity-item"], [1, "bi", "bi-check-circle"], [1, "rules-grid"], [1, "rule-item"], [1, "bi", "bi-clock"], [1, "bi", "bi-clock-history"], [1, "review-item"], [1, "review-header"], [1, "reviewer-avatar"], [1, "reviewer-info"], [1, "reviewer-name"], [1, "review-date"], ["class", "btn-delete-review", "title", "Delete review", 3, "click", 4, "ngIf"], [1, "review-rating"], [1, "review-comment"], ["title", "Delete review", 1, "btn-delete-review", 3, "click"], [1, "no-reviews"], [1, "availability-section"], [1, "availability-list"], ["class", "availability-item", 4, "ngFor", "ngForOf"], [1, "availability-item"], [1, "bi", "bi-calendar-check"]], template: function PropertyDetail_Template(rf, ctx) {
+  static \u0275cmp = /* @__PURE__ */ \u0275\u0275defineComponent({ type: _PropertyDetail, selectors: [["app-property-detail"]], decls: 4, vars: 3, consts: [["noReviews", ""], [1, "detail-page"], ["class", "loading-container", 4, "ngIf"], ["class", "error-container", 4, "ngIf"], ["class", "detail-container", 4, "ngIf"], [1, "loading-container"], [1, "spinner"], [1, "error-container"], [1, "bi", "bi-exclamation-circle"], [1, "btn-back", 3, "click"], [1, "detail-container"], [1, "btn-back-small", 3, "click"], [1, "bi", "bi-arrow-left"], [1, "image-gallery"], [3, "src", "alt"], ["class", "btn-prev", 3, "click", 4, "ngIf"], ["class", "btn-next", 3, "click", 4, "ngIf"], ["class", "image-indicators", 4, "ngIf"], [1, "content-grid"], [1, "left-column"], [1, "property-header"], [1, "header-top"], [1, "header-actions"], ["class", "btn-delete-property-detail", "title", "Delete property", 3, "click", 4, "ngIf"], [1, "type-badge"], [1, "location"], [1, "bi", "bi-geo-alt"], ["class", "rating-row", 4, "ngIf"], [1, "section"], [1, "description"], [1, "info-grid"], [1, "info-item"], [1, "bi", "bi-people"], [1, "label"], [1, "value"], [1, "bi", "bi-person"], [1, "bi", "bi-calendar"], ["class", "section", 4, "ngIf"], [1, "reviews-title-row"], [1, "btn-add-review", 3, "click"], [1, "bi", "bi-pencil-square"], [1, "reviews-list"], ["class", "review-item", 4, "ngFor", "ngForOf"], [1, "right-column"], [1, "booking-card"], [1, "price-section"], [1, "price"], [1, "period"], ["class", "availability-section", 4, "ngIf"], [1, "buttons-section"], [1, "btn-book", 3, "click"], [1, "btn-discount", 3, "click", "disabled"], ["class", "text-insufficient-coins", 4, "ngIf"], [1, "btn-prev", 3, "click"], [1, "bi", "bi-chevron-left"], [1, "btn-next", 3, "click"], [1, "bi", "bi-chevron-right"], [1, "image-indicators"], ["class", "indicator", 3, "active", 4, "ngFor", "ngForOf"], [1, "indicator"], ["title", "Delete property", 1, "btn-delete-property-detail", 3, "click"], [1, "bi", "bi-trash"], [1, "rating-row"], [1, "stars"], ["class", "bi", 3, "bi-star-fill", "bi-star", 4, "ngFor", "ngForOf"], [1, "rating-text"], [1, "bi"], [1, "amenities-grid"], ["class", "amenity-item", 4, "ngFor", "ngForOf"], [1, "amenity-item"], [1, "bi", "bi-check-circle"], [1, "rules-grid"], [1, "rule-item"], [1, "bi", "bi-clock"], [1, "bi", "bi-clock-history"], [1, "review-item"], [1, "review-header"], [1, "reviewer-avatar"], [1, "reviewer-info"], [1, "reviewer-name"], [1, "review-date"], ["class", "btn-delete-review", "title", "Delete review", 3, "click", 4, "ngIf"], [1, "review-rating"], [1, "review-comment"], ["title", "Delete review", 1, "btn-delete-review", 3, "click"], [1, "no-reviews"], [1, "availability-section"], [1, "availability-list"], ["class", "availability-item", 4, "ngFor", "ngForOf"], [1, "availability-item"], [1, "bi", "bi-calendar-check"], [1, "text-insufficient-coins"]], template: function PropertyDetail_Template(rf, ctx) {
     if (rf & 1) {
       \u0275\u0275elementStart(0, "div", 1);
-      \u0275\u0275template(1, PropertyDetail_div_1_Template, 4, 0, "div", 2)(2, PropertyDetail_div_2_Template, 6, 1, "div", 3)(3, PropertyDetail_div_3_Template, 77, 21, "div", 4);
+      \u0275\u0275template(1, PropertyDetail_div_1_Template, 4, 0, "div", 2)(2, PropertyDetail_div_2_Template, 6, 1, "div", 3)(3, PropertyDetail_div_3_Template, 81, 23, "div", 4);
       \u0275\u0275elementEnd();
     }
     if (rf & 2) {
@@ -49296,7 +49359,7 @@ var PropertyDetail = class _PropertyDetail {
       \u0275\u0275advance();
       \u0275\u0275property("ngIf", ctx.property && !ctx.isLoading);
     }
-  }, dependencies: [CommonModule, NgForOf, NgIf], styles: ["\n\n.header-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.btn-delete-property-detail[_ngcontent-%COMP%] {\n  width: 38px;\n  height: 38px;\n  border: none;\n  border-radius: 10px;\n  background: rgba(220, 53, 69, 0.12);\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.btn-delete-property-detail[_ngcontent-%COMP%]:hover {\n  background: rgba(220, 53, 69, 0.2);\n}\n.reviews-title-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 12px;\n}\n.btn-add-review[_ngcontent-%COMP%] {\n  border: none;\n  border-radius: 10px;\n  padding: 10px 12px;\n  cursor: pointer;\n  display: inline-flex;\n  gap: 8px;\n  align-items: center;\n}\n.review-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.review-left[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.btn-delete-review[_ngcontent-%COMP%] {\n  width: 34px;\n  height: 34px;\n  border: none;\n  border-radius: 10px;\n  background: rgba(220, 53, 69, 0.12);\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.btn-delete-review[_ngcontent-%COMP%]:hover {\n  background: rgba(220, 53, 69, 0.2);\n}\n.detail-page[_ngcontent-%COMP%] {\n  min-height: 100vh;\n  background: #fafafa;\n}\n.loading-container[_ngcontent-%COMP%], \n.error-container[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  min-height: 60vh;\n  gap: 20px;\n}\n.spinner[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.error-container[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 48px;\n  color: #dc3545;\n}\n.detail-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 24px;\n}\n.btn-back-small[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background: white;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  color: #333;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  margin-bottom: 24px;\n}\n.btn-back-small[_ngcontent-%COMP%]:hover {\n  border-color: #667eea;\n  color: #667eea;\n}\n.image-gallery[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  height: 500px;\n  border-radius: 16px;\n  overflow: hidden;\n  margin-bottom: 32px;\n}\n.image-gallery[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\n.btn-prev[_ngcontent-%COMP%], \n.btn-next[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n  width: 48px;\n  height: 48px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(255, 255, 255, 0.9);\n  color: #333;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-prev[_ngcontent-%COMP%] {\n  left: 20px;\n}\n.btn-next[_ngcontent-%COMP%] {\n  right: 20px;\n}\n.btn-prev[_ngcontent-%COMP%]:hover, \n.btn-next[_ngcontent-%COMP%]:hover {\n  background: white;\n  transform: translateY(-50%) scale(1.1);\n}\n.image-indicators[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 8px;\n}\n.indicator[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.5);\n  transition: all 0.2s ease;\n}\n.indicator.active[_ngcontent-%COMP%] {\n  background: white;\n  width: 24px;\n  border-radius: 4px;\n}\n.content-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 400px;\n  gap: 32px;\n}\n.left-column[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 32px;\n}\n.property-header[_ngcontent-%COMP%] {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.header-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 12px;\n}\n.property-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-size: 28px;\n  font-weight: 700;\n  color: #333;\n  margin: 0;\n}\n.type-badge[_ngcontent-%COMP%] {\n  padding: 6px 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border-radius: 20px;\n  font-size: 14px;\n  font-weight: 600;\n  text-transform: capitalize;\n}\n.location[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  color: #666;\n  font-size: 16px;\n  margin-bottom: 12px;\n}\n.location[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-size: 18px;\n}\n.rating-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.stars[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 4px;\n}\n.stars[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #fbbf24;\n  font-size: 18px;\n}\n.rating-text[_ngcontent-%COMP%] {\n  color: #666;\n  font-size: 14px;\n  font-weight: 600;\n}\n.section[_ngcontent-%COMP%] {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.section[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 16px 0;\n}\n.description[_ngcontent-%COMP%] {\n  color: #666;\n  line-height: 1.6;\n  margin: 0;\n}\n.info-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 16px;\n}\n.info-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.info-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 24px;\n  color: #667eea;\n}\n.info-item[_ngcontent-%COMP%]   .label[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 12px;\n  color: #999;\n  margin-bottom: 4px;\n}\n.info-item[_ngcontent-%COMP%]   .value[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 16px;\n  font-weight: 600;\n  color: #333;\n}\n.amenities-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\n  gap: 12px;\n}\n.amenity-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 10px;\n  background: #f8f9fa;\n  border-radius: 8px;\n}\n.amenity-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-size: 18px;\n}\n.amenity-item[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  color: #333;\n  font-size: 14px;\n}\n.rules-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 16px;\n}\n.rule-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.rule-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 24px;\n}\n.rule-item[_ngcontent-%COMP%]   i.bi-check-circle[_ngcontent-%COMP%] {\n  color: #28a745;\n}\n.rule-item[_ngcontent-%COMP%]   i.bi-x-circle[_ngcontent-%COMP%] {\n  color: #dc3545;\n}\n.rule-item[_ngcontent-%COMP%]   i.bi-clock[_ngcontent-%COMP%], \n.rule-item[_ngcontent-%COMP%]   i.bi-clock-history[_ngcontent-%COMP%] {\n  color: #667eea;\n}\n.rule-item[_ngcontent-%COMP%]   .label[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 12px;\n  color: #999;\n  margin-bottom: 4px;\n}\n.rule-item[_ngcontent-%COMP%]   .value[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.reviews-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 20px;\n}\n.review-item[_ngcontent-%COMP%] {\n  padding: 20px;\n  background: #f8f9fa;\n  border-radius: 12px;\n}\n.review-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  margin-bottom: 12px;\n}\n.reviewer-avatar[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 18px;\n}\n.reviewer-info[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.reviewer-name[_ngcontent-%COMP%] {\n  font-weight: 600;\n  color: #333;\n  font-size: 14px;\n}\n.review-date[_ngcontent-%COMP%] {\n  font-size: 12px;\n  color: #999;\n}\n.review-rating[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 4px;\n  margin-bottom: 12px;\n}\n.review-rating[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #fbbf24;\n  font-size: 14px;\n}\n.review-comment[_ngcontent-%COMP%] {\n  color: #666;\n  line-height: 1.5;\n  margin: 0;\n  font-size: 14px;\n}\n.right-column[_ngcontent-%COMP%] {\n  position: sticky;\n  top: 24px;\n  height: fit-content;\n}\n.booking-card[_ngcontent-%COMP%] {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.price-section[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: baseline;\n  gap: 8px;\n  margin-bottom: 24px;\n  padding-bottom: 24px;\n  border-bottom: 1px solid #f0f0f0;\n}\n.price[_ngcontent-%COMP%] {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n}\n.period[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n}\n.availability-section[_ngcontent-%COMP%] {\n  margin-bottom: 24px;\n}\n.availability-section[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-size: 16px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 12px 0;\n}\n.availability-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n}\n.availability-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 12px;\n  background: #f8f9fa;\n  border-radius: 8px;\n  font-size: 13px;\n  color: #666;\n}\n.availability-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-size: 16px;\n}\n.btn-book[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 12px;\n  font-size: 16px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-book[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-back[_ngcontent-%COMP%] {\n  padding: 12px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-back[_ngcontent-%COMP%]:hover {\n  background: #5568d3;\n}\n@media (max-width: 1024px) {\n  .content-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .right-column[_ngcontent-%COMP%] {\n    position: static;\n  }\n}\n@media (max-width: 768px) {\n  .image-gallery[_ngcontent-%COMP%] {\n    height: 300px;\n    border-radius: 0;\n    margin-left: -24px;\n    margin-right: -24px;\n    width: calc(100% + 48px);\n  }\n  .rules-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .info-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=property-detail.css.map */"] });
+  }, dependencies: [CommonModule, NgForOf, NgIf], styles: ["\n\n.header-actions[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.btn-delete-property-detail[_ngcontent-%COMP%] {\n  width: 38px;\n  height: 38px;\n  border: none;\n  border-radius: 10px;\n  background: rgba(220, 53, 69, 0.12);\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.btn-delete-property-detail[_ngcontent-%COMP%]:hover {\n  background: rgba(220, 53, 69, 0.2);\n}\n.reviews-title-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 12px;\n}\n.btn-add-review[_ngcontent-%COMP%] {\n  border: none;\n  border-radius: 10px;\n  padding: 10px 12px;\n  cursor: pointer;\n  display: inline-flex;\n  gap: 8px;\n  align-items: center;\n}\n.review-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.review-left[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.btn-delete-review[_ngcontent-%COMP%] {\n  width: 34px;\n  height: 34px;\n  border: none;\n  border-radius: 10px;\n  background: rgba(220, 53, 69, 0.12);\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.btn-delete-review[_ngcontent-%COMP%]:hover {\n  background: rgba(220, 53, 69, 0.2);\n}\n.detail-page[_ngcontent-%COMP%] {\n  min-height: 100vh;\n  background: #fafafa;\n}\n.loading-container[_ngcontent-%COMP%], \n.error-container[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  min-height: 60vh;\n  gap: 20px;\n}\n.spinner[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: _ngcontent-%COMP%_spin 1s linear infinite;\n}\n@keyframes _ngcontent-%COMP%_spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.error-container[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 48px;\n  color: #dc3545;\n}\n.detail-container[_ngcontent-%COMP%] {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 24px;\n}\n.btn-back-small[_ngcontent-%COMP%] {\n  display: inline-flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background: white;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  color: #333;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  margin-bottom: 24px;\n}\n.btn-back-small[_ngcontent-%COMP%]:hover {\n  border-color: #667eea;\n  color: #667eea;\n}\n.image-gallery[_ngcontent-%COMP%] {\n  position: relative;\n  width: 100%;\n  height: 500px;\n  border-radius: 16px;\n  overflow: hidden;\n  margin-bottom: 32px;\n}\n.image-gallery[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\n.btn-prev[_ngcontent-%COMP%], \n.btn-next[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n  width: 48px;\n  height: 48px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(255, 255, 255, 0.9);\n  color: #333;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-prev[_ngcontent-%COMP%] {\n  left: 20px;\n}\n.btn-next[_ngcontent-%COMP%] {\n  right: 20px;\n}\n.btn-prev[_ngcontent-%COMP%]:hover, \n.btn-next[_ngcontent-%COMP%]:hover {\n  background: white;\n  transform: translateY(-50%) scale(1.1);\n}\n.image-indicators[_ngcontent-%COMP%] {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 8px;\n}\n.indicator[_ngcontent-%COMP%] {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.5);\n  transition: all 0.2s ease;\n}\n.indicator.active[_ngcontent-%COMP%] {\n  background: white;\n  width: 24px;\n  border-radius: 4px;\n}\n.content-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: 1fr 400px;\n  gap: 32px;\n}\n.left-column[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 32px;\n}\n.property-header[_ngcontent-%COMP%] {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.header-top[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 12px;\n}\n.property-header[_ngcontent-%COMP%]   h1[_ngcontent-%COMP%] {\n  font-size: 28px;\n  font-weight: 700;\n  color: #333;\n  margin: 0;\n}\n.type-badge[_ngcontent-%COMP%] {\n  padding: 6px 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border-radius: 20px;\n  font-size: 14px;\n  font-weight: 600;\n  text-transform: capitalize;\n}\n.location[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  color: #666;\n  font-size: 16px;\n  margin-bottom: 12px;\n}\n.location[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-size: 18px;\n}\n.rating-row[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.stars[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 4px;\n}\n.stars[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #fbbf24;\n  font-size: 18px;\n}\n.rating-text[_ngcontent-%COMP%] {\n  color: #666;\n  font-size: 14px;\n  font-weight: 600;\n}\n.section[_ngcontent-%COMP%] {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.section[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%] {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 16px 0;\n}\n.description[_ngcontent-%COMP%] {\n  color: #666;\n  line-height: 1.6;\n  margin: 0;\n}\n.info-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 16px;\n}\n.info-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.info-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 24px;\n  color: #667eea;\n}\n.info-item[_ngcontent-%COMP%]   .label[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 12px;\n  color: #999;\n  margin-bottom: 4px;\n}\n.info-item[_ngcontent-%COMP%]   .value[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 16px;\n  font-weight: 600;\n  color: #333;\n}\n.amenities-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\n  gap: 12px;\n}\n.amenity-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 10px;\n  background: #f8f9fa;\n  border-radius: 8px;\n}\n.amenity-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-size: 18px;\n}\n.amenity-item[_ngcontent-%COMP%]   span[_ngcontent-%COMP%] {\n  color: #333;\n  font-size: 14px;\n}\n.rules-grid[_ngcontent-%COMP%] {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 16px;\n}\n.rule-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.rule-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  font-size: 24px;\n}\n.rule-item[_ngcontent-%COMP%]   i.bi-check-circle[_ngcontent-%COMP%] {\n  color: #28a745;\n}\n.rule-item[_ngcontent-%COMP%]   i.bi-x-circle[_ngcontent-%COMP%] {\n  color: #dc3545;\n}\n.rule-item[_ngcontent-%COMP%]   i.bi-clock[_ngcontent-%COMP%], \n.rule-item[_ngcontent-%COMP%]   i.bi-clock-history[_ngcontent-%COMP%] {\n  color: #667eea;\n}\n.rule-item[_ngcontent-%COMP%]   .label[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 12px;\n  color: #999;\n  margin-bottom: 4px;\n}\n.rule-item[_ngcontent-%COMP%]   .value[_ngcontent-%COMP%] {\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.reviews-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 20px;\n}\n.review-item[_ngcontent-%COMP%] {\n  padding: 20px;\n  background: #f8f9fa;\n  border-radius: 12px;\n}\n.review-header[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  margin-bottom: 12px;\n}\n.reviewer-avatar[_ngcontent-%COMP%] {\n  width: 48px;\n  height: 48px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 18px;\n}\n.reviewer-info[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n}\n.reviewer-name[_ngcontent-%COMP%] {\n  font-weight: 600;\n  color: #333;\n  font-size: 14px;\n}\n.review-date[_ngcontent-%COMP%] {\n  font-size: 12px;\n  color: #999;\n}\n.review-rating[_ngcontent-%COMP%] {\n  display: flex;\n  gap: 4px;\n  margin-bottom: 12px;\n}\n.review-rating[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #fbbf24;\n  font-size: 14px;\n}\n.review-comment[_ngcontent-%COMP%] {\n  color: #666;\n  line-height: 1.5;\n  margin: 0;\n  font-size: 14px;\n}\n.right-column[_ngcontent-%COMP%] {\n  position: sticky;\n  top: 24px;\n  height: fit-content;\n}\n.booking-card[_ngcontent-%COMP%] {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.price-section[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: baseline;\n  gap: 8px;\n  margin-bottom: 24px;\n  padding-bottom: 24px;\n  border-bottom: 1px solid #f0f0f0;\n}\n.price[_ngcontent-%COMP%] {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n}\n.period[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: #666;\n}\n.availability-section[_ngcontent-%COMP%] {\n  margin-bottom: 24px;\n}\n.availability-section[_ngcontent-%COMP%]   h3[_ngcontent-%COMP%] {\n  font-size: 16px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 12px 0;\n}\n.availability-list[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n}\n.availability-item[_ngcontent-%COMP%] {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 12px;\n  background: #f8f9fa;\n  border-radius: 8px;\n  font-size: 13px;\n  color: #666;\n}\n.availability-item[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  color: #667eea;\n  font-size: 16px;\n}\n.buttons-section[_ngcontent-%COMP%] {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n}\n.btn-book[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 12px;\n  font-size: 16px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-book[_ngcontent-%COMP%]:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-discount[_ngcontent-%COMP%] {\n  width: 100%;\n  padding: 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 12px;\n  font-size: 16px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-discount[_ngcontent-%COMP%]:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-discount[_ngcontent-%COMP%]:disabled {\n  background-color: #d1d5db;\n  color: #9ca3af;\n  cursor: not-allowed;\n  opacity: 0.7;\n}\n.text-insufficient-coins[_ngcontent-%COMP%] {\n  font-size: 12px;\n  color: #ef4444;\n  margin: 0;\n}\n.btn-back[_ngcontent-%COMP%] {\n  padding: 12px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-back[_ngcontent-%COMP%]:hover {\n  background: #5568d3;\n}\n@media (max-width: 1024px) {\n  .content-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .right-column[_ngcontent-%COMP%] {\n    position: static;\n  }\n}\n@media (max-width: 768px) {\n  .image-gallery[_ngcontent-%COMP%] {\n    height: 300px;\n    border-radius: 0;\n    margin-left: -24px;\n    margin-right: -24px;\n    width: calc(100% + 48px);\n  }\n  .rules-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n  .info-grid[_ngcontent-%COMP%] {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=property-detail.css.map */"] });
 };
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PropertyDetail, [{
@@ -49521,13 +49584,22 @@ var PropertyDetail = class _PropertyDetail {
             </div>\r
           </div>\r
 \r
-          <button class="btn-book" (click)="onBookNowClicked()">Book Now</button>\r
+          <div class="buttons-section">\r
+            <button class="btn-book" (click)="onBookNowClicked()">Book Now</button>\r
+\r
+            <button class="btn-discount" (click)="onBookWithDiscountClicked()" [disabled]="isLoading || !loyalty || loyalty.loyaltyCoins < 5" > \u26A1 Book with 10% Discount (Cost: 5 Coins) </button>\r
+\r
+            <p *ngIf="loyalty && loyalty.loyaltyCoins < 5" class="text-insufficient-coins">\r
+              *You need at least 5 coins to unlock the discount. (You have: {{ loyalty.loyaltyCoins }} \u{1FA99})\r
+            </p>\r
+          </div>\r
+\r
         </div>\r
       </div>\r
     </div>\r
   </div>\r
 </div>\r
-`, styles: ["/* src/app/pages/property-detail/property-detail.css */\n.header-actions {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.btn-delete-property-detail {\n  width: 38px;\n  height: 38px;\n  border: none;\n  border-radius: 10px;\n  background: rgba(220, 53, 69, 0.12);\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.btn-delete-property-detail:hover {\n  background: rgba(220, 53, 69, 0.2);\n}\n.reviews-title-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 12px;\n}\n.btn-add-review {\n  border: none;\n  border-radius: 10px;\n  padding: 10px 12px;\n  cursor: pointer;\n  display: inline-flex;\n  gap: 8px;\n  align-items: center;\n}\n.review-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.review-left {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.btn-delete-review {\n  width: 34px;\n  height: 34px;\n  border: none;\n  border-radius: 10px;\n  background: rgba(220, 53, 69, 0.12);\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.btn-delete-review:hover {\n  background: rgba(220, 53, 69, 0.2);\n}\n.detail-page {\n  min-height: 100vh;\n  background: #fafafa;\n}\n.loading-container,\n.error-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  min-height: 60vh;\n  gap: 20px;\n}\n.spinner {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.error-container i {\n  font-size: 48px;\n  color: #dc3545;\n}\n.detail-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 24px;\n}\n.btn-back-small {\n  display: inline-flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background: white;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  color: #333;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  margin-bottom: 24px;\n}\n.btn-back-small:hover {\n  border-color: #667eea;\n  color: #667eea;\n}\n.image-gallery {\n  position: relative;\n  width: 100%;\n  height: 500px;\n  border-radius: 16px;\n  overflow: hidden;\n  margin-bottom: 32px;\n}\n.image-gallery img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\n.btn-prev,\n.btn-next {\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n  width: 48px;\n  height: 48px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(255, 255, 255, 0.9);\n  color: #333;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-prev {\n  left: 20px;\n}\n.btn-next {\n  right: 20px;\n}\n.btn-prev:hover,\n.btn-next:hover {\n  background: white;\n  transform: translateY(-50%) scale(1.1);\n}\n.image-indicators {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 8px;\n}\n.indicator {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.5);\n  transition: all 0.2s ease;\n}\n.indicator.active {\n  background: white;\n  width: 24px;\n  border-radius: 4px;\n}\n.content-grid {\n  display: grid;\n  grid-template-columns: 1fr 400px;\n  gap: 32px;\n}\n.left-column {\n  display: flex;\n  flex-direction: column;\n  gap: 32px;\n}\n.property-header {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.header-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 12px;\n}\n.property-header h1 {\n  font-size: 28px;\n  font-weight: 700;\n  color: #333;\n  margin: 0;\n}\n.type-badge {\n  padding: 6px 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border-radius: 20px;\n  font-size: 14px;\n  font-weight: 600;\n  text-transform: capitalize;\n}\n.location {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  color: #666;\n  font-size: 16px;\n  margin-bottom: 12px;\n}\n.location i {\n  color: #667eea;\n  font-size: 18px;\n}\n.rating-row {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.stars {\n  display: flex;\n  gap: 4px;\n}\n.stars i {\n  color: #fbbf24;\n  font-size: 18px;\n}\n.rating-text {\n  color: #666;\n  font-size: 14px;\n  font-weight: 600;\n}\n.section {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.section h2 {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 16px 0;\n}\n.description {\n  color: #666;\n  line-height: 1.6;\n  margin: 0;\n}\n.info-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 16px;\n}\n.info-item {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.info-item i {\n  font-size: 24px;\n  color: #667eea;\n}\n.info-item .label {\n  display: block;\n  font-size: 12px;\n  color: #999;\n  margin-bottom: 4px;\n}\n.info-item .value {\n  display: block;\n  font-size: 16px;\n  font-weight: 600;\n  color: #333;\n}\n.amenities-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\n  gap: 12px;\n}\n.amenity-item {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 10px;\n  background: #f8f9fa;\n  border-radius: 8px;\n}\n.amenity-item i {\n  color: #667eea;\n  font-size: 18px;\n}\n.amenity-item span {\n  color: #333;\n  font-size: 14px;\n}\n.rules-grid {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 16px;\n}\n.rule-item {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.rule-item i {\n  font-size: 24px;\n}\n.rule-item i.bi-check-circle {\n  color: #28a745;\n}\n.rule-item i.bi-x-circle {\n  color: #dc3545;\n}\n.rule-item i.bi-clock,\n.rule-item i.bi-clock-history {\n  color: #667eea;\n}\n.rule-item .label {\n  display: block;\n  font-size: 12px;\n  color: #999;\n  margin-bottom: 4px;\n}\n.rule-item .value {\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.reviews-list {\n  display: flex;\n  flex-direction: column;\n  gap: 20px;\n}\n.review-item {\n  padding: 20px;\n  background: #f8f9fa;\n  border-radius: 12px;\n}\n.review-header {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  margin-bottom: 12px;\n}\n.reviewer-avatar {\n  width: 48px;\n  height: 48px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 18px;\n}\n.reviewer-info {\n  display: flex;\n  flex-direction: column;\n}\n.reviewer-name {\n  font-weight: 600;\n  color: #333;\n  font-size: 14px;\n}\n.review-date {\n  font-size: 12px;\n  color: #999;\n}\n.review-rating {\n  display: flex;\n  gap: 4px;\n  margin-bottom: 12px;\n}\n.review-rating i {\n  color: #fbbf24;\n  font-size: 14px;\n}\n.review-comment {\n  color: #666;\n  line-height: 1.5;\n  margin: 0;\n  font-size: 14px;\n}\n.right-column {\n  position: sticky;\n  top: 24px;\n  height: fit-content;\n}\n.booking-card {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.price-section {\n  display: flex;\n  align-items: baseline;\n  gap: 8px;\n  margin-bottom: 24px;\n  padding-bottom: 24px;\n  border-bottom: 1px solid #f0f0f0;\n}\n.price {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n}\n.period {\n  font-size: 16px;\n  color: #666;\n}\n.availability-section {\n  margin-bottom: 24px;\n}\n.availability-section h3 {\n  font-size: 16px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 12px 0;\n}\n.availability-list {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n}\n.availability-item {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 12px;\n  background: #f8f9fa;\n  border-radius: 8px;\n  font-size: 13px;\n  color: #666;\n}\n.availability-item i {\n  color: #667eea;\n  font-size: 16px;\n}\n.btn-book {\n  width: 100%;\n  padding: 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 12px;\n  font-size: 16px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-book:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-back {\n  padding: 12px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-back:hover {\n  background: #5568d3;\n}\n@media (max-width: 1024px) {\n  .content-grid {\n    grid-template-columns: 1fr;\n  }\n  .right-column {\n    position: static;\n  }\n}\n@media (max-width: 768px) {\n  .image-gallery {\n    height: 300px;\n    border-radius: 0;\n    margin-left: -24px;\n    margin-right: -24px;\n    width: calc(100% + 48px);\n  }\n  .rules-grid {\n    grid-template-columns: 1fr;\n  }\n  .info-grid {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=property-detail.css.map */\n"] }]
+`, styles: ["/* src/app/pages/property-detail/property-detail.css */\n.header-actions {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n}\n.btn-delete-property-detail {\n  width: 38px;\n  height: 38px;\n  border: none;\n  border-radius: 10px;\n  background: rgba(220, 53, 69, 0.12);\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.btn-delete-property-detail:hover {\n  background: rgba(220, 53, 69, 0.2);\n}\n.reviews-title-row {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 12px;\n}\n.btn-add-review {\n  border: none;\n  border-radius: 10px;\n  padding: 10px 12px;\n  cursor: pointer;\n  display: inline-flex;\n  gap: 8px;\n  align-items: center;\n}\n.review-header {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n.review-left {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.btn-delete-review {\n  width: 34px;\n  height: 34px;\n  border: none;\n  border-radius: 10px;\n  background: rgba(220, 53, 69, 0.12);\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.btn-delete-review:hover {\n  background: rgba(220, 53, 69, 0.2);\n}\n.detail-page {\n  min-height: 100vh;\n  background: #fafafa;\n}\n.loading-container,\n.error-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  min-height: 60vh;\n  gap: 20px;\n}\n.spinner {\n  width: 48px;\n  height: 48px;\n  border: 4px solid #f0f0f0;\n  border-top: 4px solid #667eea;\n  border-radius: 50%;\n  animation: spin 1s linear infinite;\n}\n@keyframes spin {\n  0% {\n    transform: rotate(0deg);\n  }\n  100% {\n    transform: rotate(360deg);\n  }\n}\n.error-container i {\n  font-size: 48px;\n  color: #dc3545;\n}\n.detail-container {\n  max-width: 1280px;\n  margin: 0 auto;\n  padding: 24px;\n}\n.btn-back-small {\n  display: inline-flex;\n  align-items: center;\n  gap: 8px;\n  padding: 10px 20px;\n  background: white;\n  border: 2px solid #e9ecef;\n  border-radius: 12px;\n  color: #333;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  margin-bottom: 24px;\n}\n.btn-back-small:hover {\n  border-color: #667eea;\n  color: #667eea;\n}\n.image-gallery {\n  position: relative;\n  width: 100%;\n  height: 500px;\n  border-radius: 16px;\n  overflow: hidden;\n  margin-bottom: 32px;\n}\n.image-gallery img {\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\n.btn-prev,\n.btn-next {\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n  width: 48px;\n  height: 48px;\n  border-radius: 50%;\n  border: none;\n  background: rgba(255, 255, 255, 0.9);\n  color: #333;\n  cursor: pointer;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);\n}\n.btn-prev {\n  left: 20px;\n}\n.btn-next {\n  right: 20px;\n}\n.btn-prev:hover,\n.btn-next:hover {\n  background: white;\n  transform: translateY(-50%) scale(1.1);\n}\n.image-indicators {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  gap: 8px;\n}\n.indicator {\n  width: 8px;\n  height: 8px;\n  border-radius: 50%;\n  background: rgba(255, 255, 255, 0.5);\n  transition: all 0.2s ease;\n}\n.indicator.active {\n  background: white;\n  width: 24px;\n  border-radius: 4px;\n}\n.content-grid {\n  display: grid;\n  grid-template-columns: 1fr 400px;\n  gap: 32px;\n}\n.left-column {\n  display: flex;\n  flex-direction: column;\n  gap: 32px;\n}\n.property-header {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.header-top {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  margin-bottom: 12px;\n}\n.property-header h1 {\n  font-size: 28px;\n  font-weight: 700;\n  color: #333;\n  margin: 0;\n}\n.type-badge {\n  padding: 6px 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border-radius: 20px;\n  font-size: 14px;\n  font-weight: 600;\n  text-transform: capitalize;\n}\n.location {\n  display: flex;\n  align-items: center;\n  gap: 8px;\n  color: #666;\n  font-size: 16px;\n  margin-bottom: 12px;\n}\n.location i {\n  color: #667eea;\n  font-size: 18px;\n}\n.rating-row {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.stars {\n  display: flex;\n  gap: 4px;\n}\n.stars i {\n  color: #fbbf24;\n  font-size: 18px;\n}\n.rating-text {\n  color: #666;\n  font-size: 14px;\n  font-weight: 600;\n}\n.section {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.section h2 {\n  font-size: 20px;\n  font-weight: 700;\n  color: #333;\n  margin: 0 0 16px 0;\n}\n.description {\n  color: #666;\n  line-height: 1.6;\n  margin: 0;\n}\n.info-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  gap: 16px;\n}\n.info-item {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.info-item i {\n  font-size: 24px;\n  color: #667eea;\n}\n.info-item .label {\n  display: block;\n  font-size: 12px;\n  color: #999;\n  margin-bottom: 4px;\n}\n.info-item .value {\n  display: block;\n  font-size: 16px;\n  font-weight: 600;\n  color: #333;\n}\n.amenities-grid {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));\n  gap: 12px;\n}\n.amenity-item {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 10px;\n  background: #f8f9fa;\n  border-radius: 8px;\n}\n.amenity-item i {\n  color: #667eea;\n  font-size: 18px;\n}\n.amenity-item span {\n  color: #333;\n  font-size: 14px;\n}\n.rules-grid {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  gap: 16px;\n}\n.rule-item {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n}\n.rule-item i {\n  font-size: 24px;\n}\n.rule-item i.bi-check-circle {\n  color: #28a745;\n}\n.rule-item i.bi-x-circle {\n  color: #dc3545;\n}\n.rule-item i.bi-clock,\n.rule-item i.bi-clock-history {\n  color: #667eea;\n}\n.rule-item .label {\n  display: block;\n  font-size: 12px;\n  color: #999;\n  margin-bottom: 4px;\n}\n.rule-item .value {\n  display: block;\n  font-size: 14px;\n  font-weight: 600;\n  color: #333;\n}\n.reviews-list {\n  display: flex;\n  flex-direction: column;\n  gap: 20px;\n}\n.review-item {\n  padding: 20px;\n  background: #f8f9fa;\n  border-radius: 12px;\n}\n.review-header {\n  display: flex;\n  align-items: center;\n  gap: 12px;\n  margin-bottom: 12px;\n}\n.reviewer-avatar {\n  width: 48px;\n  height: 48px;\n  border-radius: 50%;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: 600;\n  font-size: 18px;\n}\n.reviewer-info {\n  display: flex;\n  flex-direction: column;\n}\n.reviewer-name {\n  font-weight: 600;\n  color: #333;\n  font-size: 14px;\n}\n.review-date {\n  font-size: 12px;\n  color: #999;\n}\n.review-rating {\n  display: flex;\n  gap: 4px;\n  margin-bottom: 12px;\n}\n.review-rating i {\n  color: #fbbf24;\n  font-size: 14px;\n}\n.review-comment {\n  color: #666;\n  line-height: 1.5;\n  margin: 0;\n  font-size: 14px;\n}\n.right-column {\n  position: sticky;\n  top: 24px;\n  height: fit-content;\n}\n.booking-card {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);\n}\n.price-section {\n  display: flex;\n  align-items: baseline;\n  gap: 8px;\n  margin-bottom: 24px;\n  padding-bottom: 24px;\n  border-bottom: 1px solid #f0f0f0;\n}\n.price {\n  font-size: 32px;\n  font-weight: 700;\n  color: #333;\n}\n.period {\n  font-size: 16px;\n  color: #666;\n}\n.availability-section {\n  margin-bottom: 24px;\n}\n.availability-section h3 {\n  font-size: 16px;\n  font-weight: 600;\n  color: #333;\n  margin: 0 0 12px 0;\n}\n.availability-list {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n}\n.availability-item {\n  display: flex;\n  align-items: center;\n  gap: 10px;\n  padding: 12px;\n  background: #f8f9fa;\n  border-radius: 8px;\n  font-size: 13px;\n  color: #666;\n}\n.availability-item i {\n  color: #667eea;\n  font-size: 16px;\n}\n.buttons-section {\n  display: flex;\n  flex-direction: column;\n  gap: 12px;\n}\n.btn-book {\n  width: 100%;\n  padding: 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 12px;\n  font-size: 16px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-book:hover {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-discount {\n  width: 100%;\n  padding: 16px;\n  background:\n    linear-gradient(\n      135deg,\n      #667eea 0%,\n      #764ba2 100%);\n  color: white;\n  border: none;\n  border-radius: 12px;\n  font-size: 16px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);\n}\n.btn-discount:hover:not(:disabled) {\n  transform: translateY(-2px);\n  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);\n}\n.btn-discount:disabled {\n  background-color: #d1d5db;\n  color: #9ca3af;\n  cursor: not-allowed;\n  opacity: 0.7;\n}\n.text-insufficient-coins {\n  font-size: 12px;\n  color: #ef4444;\n  margin: 0;\n}\n.btn-back {\n  padding: 12px 24px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 8px;\n  font-size: 14px;\n  font-weight: 600;\n  cursor: pointer;\n  transition: all 0.2s ease;\n}\n.btn-back:hover {\n  background: #5568d3;\n}\n@media (max-width: 1024px) {\n  .content-grid {\n    grid-template-columns: 1fr;\n  }\n  .right-column {\n    position: static;\n  }\n}\n@media (max-width: 768px) {\n  .image-gallery {\n    height: 300px;\n    border-radius: 0;\n    margin-left: -24px;\n    margin-right: -24px;\n    width: calc(100% + 48px);\n  }\n  .rules-grid {\n    grid-template-columns: 1fr;\n  }\n  .info-grid {\n    grid-template-columns: 1fr;\n  }\n}\n/*# sourceMappingURL=property-detail.css.map */\n"] }]
   }], () => [{ type: ActivatedRoute }, { type: Router }, { type: PropertyService }, { type: AuthService }, { type: ReviewService }, { type: BookingService }], null);
 })();
 (() => {

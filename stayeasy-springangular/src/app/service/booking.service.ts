@@ -24,4 +24,8 @@ export class BookingService {
     return this.http.get<LoyaltyStatus>(`${this.apiUrl}/my-loyalty`);
   }
 
+  bookWithDiscount(propertyId: number) : Observable<any> {
+    return this.http.post(`${this.apiUrl}/book-discount/${propertyId}`, {}, { responseType: 'text' });
+  }
+
 }

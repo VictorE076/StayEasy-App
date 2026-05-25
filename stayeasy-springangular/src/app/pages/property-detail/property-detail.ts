@@ -7,7 +7,7 @@ import {finalize} from 'rxjs/operators';
 import { AuthService } from '../../service/auth-service';
 import { ReviewService } from '../../service/review-service';
 import { ReviewDTO } from '../../models/property.models';
-import { BookingService } from '../../service/booking.service';
+import { BookingService, LoyaltyStatus } from '../../service/booking.service';
 
 @Component({
   selector: 'app-property-detail',
@@ -21,6 +21,7 @@ export class PropertyDetail {
   isLoading = false;
   error: string | null = null;
   currentImageIndex = 0;
+  loyalty: LoyaltyStatus | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -86,6 +87,9 @@ export class PropertyDetail {
     this.bookingService.bookNow(this.property.id).subscribe({
       next: (response) => {
         alert(response || 'Booking successful!');
+        this.loadLoyaltyStatus();
+
+        this.router.navigate(['/homepage']);
       },
       error: (err) => {
         console.error('Booking error:', err);
@@ -99,6 +103,42 @@ export class PropertyDetail {
     if (id) {
       this.loadPropertyDetail(+id);
     }
+
+    if (this.authService.getUsername()) {
+      this.loadLoyaltyStatus();
+    }
+  }
+
+  loadLoyaltyStatus(): void {
+    this.bookingService.getLoyaltyStatus().subscribe({
+      next: (data) => {
+        this.loyalty = data;
+      },
+      error: (err) => {
+        console.error('Error loading loyalty status:', err);
+      }
+    });
+  }
+
+  onBookWithDiscountClicked(): void {
+    if (!this.property) return;
+
+    if (!confirm('Are you sure you want to use 5 coins for a 10% discount on this property?')) {
+      return;
+    }
+
+    this.bookingService.bookWithDiscount(this.property.id).subscribe({
+      next: (response) => {
+        alert(response || 'Discount booking successful!');
+        this.loadLoyaltyStatus();
+
+        this.router.navigate(['/homepage']);
+      },
+      error: (err) => {
+        console.error('Discount booking error:', err);
+        alert(err.error || 'An error occurred while processing the discount reservation.');
+      }
+    });
   }
 
   loadPropertyDetail(id: number): void {

@@ -218,7 +218,16 @@
             </div>
           </div>
 
-          <button class="btn-book" (click)="onBookNowClicked()">Book Now</button>
+          <div class="buttons-section">
+            <button class="btn-book" (click)="onBookNowClicked()">Book Now</button>
+
+            <button class="btn-discount" (click)="onBookWithDiscountClicked()" [disabled]="isLoading || !loyalty || loyalty.loyaltyCoins < 5" > ⚡ Book with 10% Discount (Cost: 5 Coins) </button>
+
+            <p *ngIf="loyalty && loyalty.loyaltyCoins < 5" class="text-insufficient-coins">
+              *You need at least 5 coins to unlock the discount. (You have: {{ loyalty.loyaltyCoins }} 🪙)
+            </p>
+          </div>
+
         </div>
       </div>
     </div>
