@@ -7,6 +7,7 @@ import {finalize} from 'rxjs/operators';
 import { AuthService } from '../../service/auth-service';
 import { ReviewService } from '../../service/review-service';
 import { ReviewDTO } from '../../models/property.models';
+import { BookingService, LoyaltyStatus } from '../../service/booking.service';
 
 @Component({
   selector: 'app-property-detail',
@@ -20,14 +21,35 @@ export class PropertyDetail {
   isLoading = false;
   error: string | null = null;
   currentImageIndex = 0;
+  loyalty: LoyaltyStatus | null = null;
+  aiSummary: string | null = null;
+  isAiLoading = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private propertyService: PropertyService,
     private authService: AuthService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private bookingService: BookingService
   ) {}
+
+  generateAiSummary(): void {
+    if (!this.property) return;
+
+    this.isAiLoading = true;
+    this.propertyService.getPropertyAiSummary(this.property.id)
+      .pipe(finalize(() => this.isAiLoading = false))
+      .subscribe({
+        next: (summary) => {
+          this.aiSummary = summary;
+        },
+        error: (err) => {
+          console.error('Error fetching AI summary:', err);
+          alert('The AI summary could not be generated.');
+        }
+      });
+  }
 
   isAdmin(): boolean {
     return this.authService.isAdmin();
@@ -72,11 +94,70 @@ export class PropertyDetail {
     });
   }
 
+  onBookNowClicked(): void {
+    if (!this.property) return;
+
+    const me = this.authService.getUsername();
+    if (!me) {
+      alert('You must be logged in to make a reservation.');
+      return;
+    }
+
+    this.bookingService.bookNow(this.property.id).subscribe({
+      next: (response) => {
+        alert(response || 'Booking successful!');
+        this.loadLoyaltyStatus();
+
+        this.router.navigate(['/homepage']);
+      },
+      error: (err) => {
+        console.error('Booking error:', err);
+        alert(err.error || 'An error occurred while processing the reservation.');
+      }
+    });
+  }
+
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.loadPropertyDetail(+id);
     }
+
+    if (this.authService.getUsername()) {
+      this.loadLoyaltyStatus();
+    }
+  }
+
+  loadLoyaltyStatus(): void {
+    this.bookingService.getLoyaltyStatus().subscribe({
+      next: (data) => {
+        this.loyalty = data;
+      },
+      error: (err) => {
+        console.error('Error loading loyalty status:', err);
+      }
+    });
+  }
+
+  onBookWithDiscountClicked(): void {
+    if (!this.property) return;
+
+    if (!confirm('Are you sure you want to use 5 coins for a 10% discount on this property?')) {
+      return;
+    }
+
+    this.bookingService.bookWithDiscount(this.property.id).subscribe({
+      next: (response) => {
+        alert(response || 'Discount booking successful!');
+        this.loadLoyaltyStatus();
+
+        this.router.navigate(['/homepage']);
+      },
+      error: (err) => {
+        console.error('Discount booking error:', err);
+        alert(err.error || 'An error occurred while processing the discount reservation.');
+      }
+    });
   }
 
   loadPropertyDetail(id: number): void {

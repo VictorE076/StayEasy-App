@@ -61,6 +61,33 @@
   position: relative;
 }
 
+.loyalty-widget {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.loyalty-widget:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.coins-count {
+  color: white;
+  border-left: 1px solid #d1d5db;
+  padding-left: 8px;
+}
+
 .btn-become-host {
   display: flex;
   align-items: center;

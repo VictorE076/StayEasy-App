@@ -9,6 +9,7 @@ import {CreatePropertyModal} from '../create-property-modal/create-property-moda
 import { UserADMIN_DTO } from '../../models/user-admin.dto';
 import { PremiumService, PremiumStatusDTO } from '../../service/premium-service';
 import { ApiErrorService } from '../../service/api-error.service';
+import { BookingService, LoyaltyStatus } from '../../service/booking.service';
 
 import {FormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
@@ -39,12 +40,14 @@ export class Homepage implements OnInit {
   isPremiumLoading: boolean = false;
   premiumError: string | null = null;
   showPremiumDetails: boolean = false;
+  loyalty: LoyaltyStatus | null = null;
 
   constructor(
     private authService: AuthService,
     private loginService: LoginService,
     private propertyService: PropertyService,
     private router: Router,
+    private bookingService: BookingService,
     private premiumService: PremiumService,
     private apiErrorService: ApiErrorService
   ) {}
@@ -53,6 +56,25 @@ export class Homepage implements OnInit {
     this.loadUserInfo();
     this.loadProperties();
     this.loadPremiumStatus();
+
+    if(this.isLoggedIn()){
+      this.loadLoyaltyStatus();
+    }
+  }
+
+  loadLoyaltyStatus(): void {
+    this.bookingService.getLoyaltyStatus().subscribe({
+      next: (data) => {
+        this.loyalty = data;
+      },
+      error: (err) => {
+        console.error('Loyalty points could not be loaded:', err);
+      }
+    });
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.authService.getToken();
   }
 
   loadUserInfo(): void {

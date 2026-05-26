@@ -529,6 +529,12 @@
   font-size: 16px;
 }
 
+.buttons-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .btn-book {
   width: 100%;
   padding: 16px;
@@ -548,6 +554,38 @@
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
+.btn-discount {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.btn-discount:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-discount:disabled {
+  background-color: #d1d5db; /* Gri */
+  color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.text-insufficient-coins {
+  font-size: 12px;
+  color: #ef4444;
+  margin: 0;
+}
+
 .btn-back {
   padding: 12px 24px;
   background: #667eea;
@@ -562,6 +600,23 @@
 
 .btn-back:hover {
   background: #5568d3;
+}
+
+.ai-summary-section h3 {
+  color: #333;
+  margin-top: 0;
+  font-size: 18px;
+}
+
+.ai-summary-content {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: white;
+  border-left: 4px solid #4f46e5;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #374151;
 }
 
 @media (max-width: 1024px) {

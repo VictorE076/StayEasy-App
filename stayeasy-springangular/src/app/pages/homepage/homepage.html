@@ -6,6 +6,12 @@
     </div>
 
     <div class="nav-actions">
+
+      <div class="loyalty-widget" *ngIf="loyalty" [title]="'You still have ' + loyalty.bookingsUntilNextCoin + ' reservations until the next coin!'">
+        <span class="bookings-count">📊 {{ loyalty.completedBookings }} Bookings</span>
+        <span class="coins-count">🪙 {{ loyalty.loyaltyCoins }} Coins</span>
+      </div>
+
       <button class="btn-become-host" (click)="onBecomeHost()">
         <i class="bi bi-plus-circle"></i>
         <span>Add Property</span>

@@ -103,5 +103,6 @@
     </orderEntry>
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-web:6.3.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-config:6.3.4" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.17.2" level="project" />
   </component>
 </module>
