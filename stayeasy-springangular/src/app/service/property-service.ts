@@ -46,7 +46,9 @@ export class PropertyService {
   }
 
   getPropertyAiSummary(propertyId: number): Observable<string> {
-    return this.http.get(`http://localhost:8080/api/properties/${propertyId}/ai-summary`, { responseType: 'text' });
+    return this.http.get(`${this.API_URL}/${propertyId}/ai-summary`, {
+      responseType: 'text'
+    });
   }
 
 }

@@ -602,21 +602,123 @@
   background: #5568d3;
 }
 
-.ai-summary-section h3 {
-  color: #333;
-  margin-top: 0;
-  font-size: 18px;
+
+.ai-section {
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.ai-summary-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f7f4ff 100%);
+  border: 1px solid rgba(118, 75, 162, 0.14);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(118, 75, 162, 0.10);
+}
+
+.ai-summary-header {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.ai-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  box-shadow: 0 6px 16px rgba(118, 75, 162, 0.25);
+}
+
+.ai-label {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #764ba2;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  margin-bottom: 4px;
+}
+
+.ai-summary-header h3 {
+  margin: 0 0 6px 0;
+  color: #2d2140;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.ai-summary-header p {
+  margin: 0;
+  color: #6b6478;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.ai-loading-state {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(102, 126, 234, 0.14);
+}
+
+.ai-loading-state strong {
+  display: block;
+  color: #2d2140;
+  margin-bottom: 4px;
+}
+
+.ai-loading-state p {
+  margin: 0;
+  color: #6b6478;
+  font-size: 14px;
+}
+
+.ai-loader {
+  width: 34px;
+  height: 34px;
+  border: 3px solid #ece8ff;
+  border-top: 3px solid #764ba2;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+  flex-shrink: 0;
+}
+
+.ai-error-state {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff1f2;
+  color: #b42318;
+  border: 1px solid #fecdd3;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 14px;
 }
 
 .ai-summary-content {
-  margin-top: 16px;
-  padding: 12px;
-  background-color: white;
-  border-left: 4px solid #4f46e5;
-  border-radius: 4px;
-  font-size: 14px;
-  line-height: 1.6;
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  border: 1px solid rgba(118, 75, 162, 0.12);
+  box-shadow: inset 4px 0 0 #764ba2;
+}
+
+.ai-summary-text {
+  white-space: pre-wrap;
   color: #374151;
+  font-size: 15px;
+  line-height: 1.75;
 }
 
 @media (max-width: 1024px) {

@@ -24,6 +24,7 @@ export class PropertyDetail {
   loyalty: LoyaltyStatus | null = null;
   aiSummary: string | null = null;
   isAiLoading = false;
+  aiError: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +39,9 @@ export class PropertyDetail {
     if (!this.property) return;
 
     this.isAiLoading = true;
+    this.aiError = null;
+    this.aiSummary = null;
+
     this.propertyService.getPropertyAiSummary(this.property.id)
       .pipe(finalize(() => this.isAiLoading = false))
       .subscribe({
@@ -46,7 +50,7 @@ export class PropertyDetail {
         },
         error: (err) => {
           console.error('Error fetching AI summary:', err);
-          alert('The AI summary could not be generated.');
+          this.aiError = 'The AI summary could not be generated right now.';
         }
       });
   }
@@ -169,6 +173,7 @@ export class PropertyDetail {
       .subscribe({
         next: (property) => {
           this.property = property;
+          this.generateAiSummary();
         },
         error: (error) => {
           console.error('Error loading property:', error);

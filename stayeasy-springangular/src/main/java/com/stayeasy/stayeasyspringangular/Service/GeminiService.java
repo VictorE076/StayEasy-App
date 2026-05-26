@@ -32,17 +32,20 @@ public class GeminiService {
     List<Review> reviews = property.getReviews();
 
     if (reviews == null || reviews.isEmpty()) {
-      return "Această proprietate nu are încă recenzii pentru a fi rezumate.";
+      return "This property does not have any reviews to summarize yet.";
     }
 
     String allReviewsText = reviews.stream()
       .map(r -> "- " + r.getComment() + " (Rating: " + r.getRating() + "/5)")
       .collect(Collectors.joining("\n"));
 
-    String prompt = "Ești un asistent inteligent pentru o platformă de rezervări cazări (StayEasy). " +
-      "Mai jos ai o listă de recenzii lăsate de utilizatori pentru o proprietate. " +
-      "Te rog să faci un rezumat scurt, obiectiv și structurat în 3 idei principale (cu bullet-points), în limba română.\n\n" +
-      "Recenzii:\n" + allReviewsText;
+    String prompt =
+      "You are an intelligent assistant for StayEasy, a property booking platform. " +
+        "Below is a list of guest reviews for a property. " +
+        "Generate a short, objective summary in English, structured into 3 main ideas. " +
+        "Use simple bullet points starting with '-', without Markdown formatting, without ** characters and without bold headings.\n\n" +
+        "Reviews:\n" +
+        allReviewsText;
 
     Map<String, Object> requestBody = Map.of(
       "contents", List.of(
@@ -61,7 +64,7 @@ public class GeminiService {
       // Navigam prin structura Map-ului generat
       List<Map<String, Object>> candidates = (List<Map<String, Object>>) response.get("candidates");
       if (candidates == null || candidates.isEmpty()) {
-        return "Nu s-au găsit candidați în răspunsul Gemini.";
+        return "No candidates were found in the Gemini response.";
       }
 
       Map<String, Object> content = (Map<String, Object>) candidates.get(0).get("content");
@@ -73,11 +76,11 @@ public class GeminiService {
 
       System.err.println("[GEMINI ERROR STATUS]: " + e.getStatusCode());
       System.err.println("[GEMINI ERROR BODY]: " + e.getResponseBodyAsString());
-      return "Eroare API Gemini: " + e.getStatusCode() + ". Verifică consola backend-ului!";
+      return "Gemini API error: " + e.getStatusCode() + ". Check the backend console!";
 
     } catch (Exception e) {
       System.err.println("[GENERAL ERROR]: " + e.getMessage());
-      return "Eroare la procesarea rezumatului AI: " + e.getMessage();
+      return "Error while processing the AI summary: " + e.getMessage();
     }
   }
 

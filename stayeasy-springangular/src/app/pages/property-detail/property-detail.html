@@ -78,19 +78,39 @@
           <p class="description">{{ property.description || 'No description available.' }}</p>
         </div>
 
-        <div class="section">
-          <div class="ai-summary-section">
-            <h3>✨ Intelligent Review Summary (AI)</h3>
+        <div class="section ai-section">
+          <div class="ai-summary-card">
+            <div class="ai-summary-header">
+              <div class="ai-icon">
+                <i class="bi bi-stars"></i>
+              </div>
 
-            <button
-              class="btn btn-secondary"
-              (click)="generateAiSummary()"
-              [disabled]="isAiLoading">
-              {{ isAiLoading ? 'Generating summary...' : 'Generate AI Summary' }}
-            </button>
+              <div>
+                <span class="ai-label">AI Review Insight</span>
+                <h3>Intelligent Review Summary</h3>
+                <p>
+                  StayEasy automatically analyzes guest reviews to highlight the most relevant impressions.
+                </p>
+              </div>
+            </div>
 
-            <div *ngIf="aiSummary" class="ai-summary-content">
-              <p style="white-space: pre-wrap;">{{ aiSummary }}</p>
+            <div *ngIf="isAiLoading" class="ai-loading-state">
+              <div class="ai-loader"></div>
+              <div>
+                <strong>Generating AI summary...</strong>
+                <p>We are reading the guest reviews and extracting the main ideas.</p>
+              </div>
+            </div>
+
+            <div *ngIf="aiError && !isAiLoading" class="ai-error-state">
+              <i class="bi bi-exclamation-triangle"></i>
+              <span>{{ aiError }}</span>
+            </div>
+
+            <div *ngIf="aiSummary && !isAiLoading" class="ai-summary-content">
+              <div class="ai-summary-text">
+                {{ aiSummary }}
+              </div>
             </div>
           </div>
         </div>
