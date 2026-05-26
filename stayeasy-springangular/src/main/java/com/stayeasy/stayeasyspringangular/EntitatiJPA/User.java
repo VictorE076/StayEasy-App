@@ -74,13 +74,23 @@ public class User {
     this.loyaltyCoins = 0;
   }
 
-  //adauga o rezervare finalizata
+  // Adauga o rezervare finalizata.
+  // User normal: la fiecare 5 rezervari primeste 1 coin.
+  // User premium: la fiecare 5 rezervari primeste 2 coins.
   public void addCompletedBooking() {
+    if (this.completedBookings == null) {
+      this.completedBookings = 0;
+    }
+
+    if (this.loyaltyCoins == null) {
+      this.loyaltyCoins = 0;
+    }
+
     this.completedBookings++;
 
-    //la 5 rezervari finalizate, se acorda 1 coin
     if (this.completedBookings % 5 == 0) {
-      this.loyaltyCoins ++;
+      int coinsToAdd = this.premium ? 2 : 1;
+      this.loyaltyCoins += coinsToAdd;
     }
   }
 

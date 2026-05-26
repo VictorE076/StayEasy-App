@@ -8,8 +8,8 @@
     <div class="nav-actions">
 
       <div class="loyalty-widget" *ngIf="loyalty" [title]="'You still have ' + loyalty.bookingsUntilNextCoin + ' reservations until the next coin!'">
-        <span class="bookings-count">📊 {{ loyalty.completedBookings }} Bookings</span>
-        <span class="coins-count">🪙 {{ loyalty.loyaltyCoins }} Coins</span>
+        <span class="bookings-count">📊 {{ loyalty.completedBookings }} Booking(s)</span>
+        <span class="coins-count">🪙 {{ loyalty.loyaltyCoins }} Coin(s)</span>
       </div>
 
       <button class="btn-become-host" (click)="onBecomeHost()">
