@@ -12,6 +12,9 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import com.stayeasy.stayeasyspringangular.exception.BadRequestException;
+import com.stayeasy.stayeasyspringangular.exception.ResourceNotFoundException;
+
 @Service
 @RequiredArgsConstructor
 public class UserSessionService {
@@ -95,10 +98,15 @@ public class UserSessionService {
 //  }
 
   public void logout(String sessionId) {
-    sessionRepository.findById(sessionId).ifPresent(session -> {
-      session.setActive(false);
-      sessionRepository.save(session);
-    });
+    UserSession session = sessionRepository.findById(sessionId)
+      .orElseThrow(() -> new ResourceNotFoundException("Session not found"));
+
+    if (!session.isActive()) {
+      throw new BadRequestException("Session is already closed");
+    }
+
+    session.setActive(false);
+    sessionRepository.save(session);
   }
 
 }

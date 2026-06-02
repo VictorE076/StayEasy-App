@@ -11,6 +11,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.Map;
 
 @RestController
@@ -59,10 +62,29 @@ public class AuthController {
   // Close the session when the User logs out successfully!
   /// localhost:8080/api/auth/logout?sessionId=<SID>
   @PostMapping("/logout")
-  public ResponseEntity<Map<String, String>> logout(@RequestParam String sessionId) {
+  public ResponseEntity<Map<String, String>> logout(
+    @RequestParam String sessionId,
+    @RequestHeader(value = "Authorization", required = false) String authHeader
+  ) {
+    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+      throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Missing or invalid Authorization header");
+    }
+
+    String token = authHeader.substring(7);
+
+    String tokenSessionId = jwtService.extractClaim(
+      token,
+      claims -> claims.get("sid", String.class)
+    );
+
+    if (!sessionId.equals(tokenSessionId)) {
+      throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You can only logout from your current session");
+    }
+
     sessionService.logout(sessionId);
 
     // { "message" : "Session closed" } (JSON format) sent to frontend Angular
     return ResponseEntity.ok(Map.of("message", "Session closed"));
   }
 }
+

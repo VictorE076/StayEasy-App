@@ -15,7 +15,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.server.ResponseStatusException;
+
+import com.stayeasy.stayeasyspringangular.exception.ForbiddenActionException;
+import com.stayeasy.stayeasyspringangular.exception.ResourceNotFoundException;
+
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;
@@ -116,7 +119,7 @@ class PropertyServiceTest {
     when(propertyRepository.findById(1L))
       .thenReturn(Optional.empty());
 
-    assertThrows(ResponseStatusException.class,
+    assertThrows(ResourceNotFoundException.class,
       () -> propertyService.getPropertyById(1L));
   }
 
@@ -229,7 +232,7 @@ class PropertyServiceTest {
     when(propertyRepository.findById(1L))
       .thenReturn(Optional.of(property));
 
-    assertThrows(ResponseStatusException.class,
+    assertThrows(ForbiddenActionException.class,
       () -> propertyService.deleteProperty(1L));
   }
 
