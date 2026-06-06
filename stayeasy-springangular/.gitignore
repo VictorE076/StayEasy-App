@@ -33,7 +33,7 @@ build/
 .vscode/
 
 ### Custom: Sensitive Config Files ###
-src/main/resources/application.properties
+src/main/resources/application-local.properties
 src/main/resources/*.env
 
 # Angular build output generated for Spring Boot static serving
