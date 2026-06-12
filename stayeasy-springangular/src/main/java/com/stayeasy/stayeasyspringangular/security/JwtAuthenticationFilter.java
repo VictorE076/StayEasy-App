@@ -18,8 +18,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
+  // Logger
+  private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
   private final JwtService jwtService;
   private final UserDetailsService userDetailsService;
@@ -60,12 +66,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 1. extrage "sid"
         String sessionId = jwtService.extractClaim(jwt, claims -> claims.get("sid", String.class));
 
-        // System.out.println("sessionId: " + sessionId);
-
         // 2. verifica daca sesiunea e valida si activa
         Optional<UserSession> validSession = sessionService.validateAndRefresh(sessionId);
 
         if (validSession.isEmpty()) {
+
+          logger.warn("JWT rejected because session is expired");
+
           response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
           response.setContentType("application/json");
           response.getWriter().write("{\"reason\":\"SESSION_EXPIRED\"}");
@@ -79,6 +86,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // The respecting user is authenticated in SecurityContext
         SecurityContextHolder.getContext().setAuthentication(authToken);
+
+        logger.debug("JWT authentication successful for user {}", username);
 
 //        // 3. extrage ROLE din JWT
 //        String role = jwtService.extractClaim(jwt, claims -> claims.get("role", String.class));
@@ -96,8 +105,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 //
 //        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 //        SecurityContextHolder.getContext().setAuthentication(authToken);
-
-        //System.out.println("AUTH ROLE = " + role);
 
       }
     }

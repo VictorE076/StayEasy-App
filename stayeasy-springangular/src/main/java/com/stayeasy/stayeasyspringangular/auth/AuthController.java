@@ -14,11 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+
+  // Logger
+  private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
   private final AuthenticationManager authenticationManager;
   private final JwtService jwtService;
@@ -66,6 +72,9 @@ public class AuthController {
     @RequestParam String sessionId,
     @RequestHeader(value = "Authorization", required = false) String authHeader
   ) {
+
+    logger.info("Logout request received for session {}", maskSessionId(sessionId));
+
     if (authHeader == null || !authHeader.startsWith("Bearer ")) {
       throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Missing or invalid Authorization header");
     }
@@ -78,6 +87,9 @@ public class AuthController {
     );
 
     if (!sessionId.equals(tokenSessionId)) {
+
+      logger.warn("Logout denied: requested session {} does not match current token session {}", maskSessionId(sessionId), maskSessionId(tokenSessionId));
+
       throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You can only logout from your current session");
     }
 
@@ -86,5 +98,13 @@ public class AuthController {
     // { "message" : "Session closed" } (JSON format) sent to frontend Angular
     return ResponseEntity.ok(Map.of("message", "Session closed"));
   }
+
+  private String maskSessionId(String sessionId) {
+    if (sessionId == null || sessionId.length() < 8) {
+      return "invalid-session-id";
+    }
+    return sessionId.substring(0, 8) + "...";
+  }
+
 }
 

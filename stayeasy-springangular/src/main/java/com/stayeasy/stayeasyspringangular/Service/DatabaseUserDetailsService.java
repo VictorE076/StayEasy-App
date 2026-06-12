@@ -6,8 +6,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 public class DatabaseUserDetailsService implements UserDetailsService {
+
+  // Logger
+  private static final Logger logger = LoggerFactory.getLogger(DatabaseUserDetailsService.class);
 
   private final UserRepository userRepository;
 
@@ -15,36 +21,26 @@ public class DatabaseUserDetailsService implements UserDetailsService {
     this.userRepository = userRepository;
   }
 
-//  @Override
-//  public UserDetails loadUserByUsername(String username)
-//    throws UsernameNotFoundException {
-//    // Cautam userul in DB dupa username
-//    User user = userRepository
-//      .findByUsername(username)
-//      .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
-//
-//    // Daca NU implementeaza UserDetails, il mapam la un UserDetails Spring:
-//    return org.springframework.security.core.userdetails.User
-//      .withUsername(user.getUsername())
-//      .password(user.getPasswordHash())
-//      .build();
-//  }
-
   @Override
   public UserDetails loadUserByUsername(String username)
     throws UsernameNotFoundException {
-    var user =
-      userRepository.findByUsername(username)
-        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-    /// PRINT TEST
-    System.out.println(">>> loadUserByUsername: " + user.getUsername() + " | HASHED password = " + user.getPasswordHash());
+    logger.debug("Loading user details for username {}", username);
+
+    var user = userRepository.findByUsername(username)
+      .orElseThrow(() -> {
+
+        logger.warn("User not found during authentication: {}", username);
+
+        return new UsernameNotFoundException("User not found");
+      });
 
     return org.springframework.security.core.userdetails.User
       .withUsername(user.getUsername())
-      .password(user.getPasswordHash())                // hash-ul din password_hash
+      .password(user.getPasswordHash()) // hash-ul din password_hash
       .roles(user.getRole().name())
       .build();
   }
+
 }
 

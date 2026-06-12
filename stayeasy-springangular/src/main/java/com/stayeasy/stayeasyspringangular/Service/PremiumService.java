@@ -10,14 +10,23 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 @RequiredArgsConstructor
 public class PremiumService {
+
+  // Logger
+  private static final Logger logger = LoggerFactory.getLogger(PremiumService.class);
 
   private final UserRepository userRepository;
 
   public PremiumStatusDTO getPremiumStatus() {
     User user = getCurrentUser();
+
+    logger.debug("Premium status requested for user id {}", user.getId());
+
     return mapToPremiumStatus(user);
   }
 
@@ -27,6 +36,8 @@ public class PremiumService {
     user.setPremium(true);
     userRepository.save(user);
 
+    logger.info("Premium activated for user id {}", user.getId());
+
     return mapToPremiumStatus(user);
   }
 
@@ -35,6 +46,8 @@ public class PremiumService {
     User user = getCurrentUser();
     user.setPremium(false);
     userRepository.save(user);
+
+    logger.info("Premium deactivated for user id {}", user.getId());
 
     return mapToPremiumStatus(user);
   }

@@ -6,8 +6,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 public class AdminAuditService {
+
+  // Logger
+  private static final Logger logger = LoggerFactory.getLogger(AdminAuditService.class);
 
   private final UserSessionRepository userSessionRepository;
 
@@ -16,7 +22,11 @@ public class AdminAuditService {
   }
 
   public List<SessionAuditDTO> getAllUserSessions() {
-    return userSessionRepository.findAllSessionsForAudit();
+    List<SessionAuditDTO> sessions = userSessionRepository.findAllSessionsForAudit();
+
+    logger.info("Admin audit loaded {} user sessions", sessions.size());
+
+    return sessions;
   }
 
 }
