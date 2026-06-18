@@ -41,3 +41,6 @@ src/main/resources/*.env
 /src/main/resources/static/media/
 /src/main/resources/static/3rdpartylicenses.txt
 /src/main/resources/static/prerendered-routes.json
+
+# Local Spring secrets
+src/main/resources/application-local.properties
