@@ -22,9 +22,15 @@ import com.stayeasy.stayeasyspringangular.exception.UnauthorizedActionException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
+
+  // Logger
+  private static final Logger logger = LoggerFactory.getLogger(ReviewService.class);
 
   private final ReviewRepository reviewRepository;
   private final UserRepository userRepository;
@@ -57,6 +63,9 @@ public class ReviewService {
     // Reviewing your own property is FORBIDDEN
     if (property.getOwner() != null && property.getOwner().getId() != null
       && property.getOwner().getId().equals(currentUser.getId())) {
+
+      logger.warn("Review denied: user id {} attempted to review own property id {}", currentUser.getId(), propertyId);
+
       throw new ForbiddenActionException("You cannot review your own property");
     }
 
@@ -76,7 +85,11 @@ public class ReviewService {
       review.setCreatedAt(LocalDateTime.now());
     }
 
-    return mapToResponse(reviewRepository.save(review));
+    Review savedReview = reviewRepository.save(review);
+
+    logger.info("{} review id {} for property id {} by user id {}", isNew ? "Created" : "Updated", savedReview.getId(), propertyId, currentUser.getId());
+
+    return mapToResponse(savedReview);
 
   }
 
@@ -95,11 +108,16 @@ public class ReviewService {
     if(!isAdmin) { // Only normal (GUEST or HOST) user must also be the review's owner.
       if (review.getUser() == null || review.getUser().getId() == null
         || !review.getUser().getId().equals(currentUser.getId())) {
+
+        logger.warn("Review delete denied. Review id {}, current user id {}", reviewId, currentUser.getId());
+
         throw new ForbiddenActionException("You are not allowed to delete this review");
       }
     }
 
     reviewRepository.delete(review);
+
+    logger.info("Review id {} deleted successfully by user id {}", reviewId, currentUser.getId());
 
   }
 

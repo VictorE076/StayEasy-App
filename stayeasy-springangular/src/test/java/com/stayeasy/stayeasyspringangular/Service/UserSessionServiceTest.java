@@ -15,6 +15,9 @@ import org.springframework.test.util.ReflectionTestUtils;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import com.stayeasy.stayeasyspringangular.exception.BadRequestException;
+import com.stayeasy.stayeasyspringangular.exception.ResourceNotFoundException;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -155,11 +158,24 @@ class UserSessionServiceTest {
   }
 
   @Test
-  void logout_shouldDoNothingIfSessionMissing() {
+  void logout_shouldThrowIfSessionMissing() {
     when(userSessionRepository.findById("abc")).thenReturn(Optional.empty());
 
-    userSessionService.logout("abc");
+    assertThrows(ResourceNotFoundException.class, () -> userSessionService.logout("abc"));
 
     verify(userSessionRepository, never()).save(any(UserSession.class));
   }
+
+  @Test
+  void logout_shouldThrowIfSessionAlreadyInactive() {
+    UserSession session = createUserSession();
+    session.setActive(false);
+
+    when(userSessionRepository.findById("abc")).thenReturn(Optional.of(session));
+
+    assertThrows(BadRequestException.class, () -> userSessionService.logout("abc"));
+
+    verify(userSessionRepository, never()).save(any(UserSession.class));
+  }
+
 }

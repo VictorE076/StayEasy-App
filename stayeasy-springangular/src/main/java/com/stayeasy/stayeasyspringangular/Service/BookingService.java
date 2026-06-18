@@ -13,9 +13,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.stayeasy.stayeasyspringangular.exception.BadRequestException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 @RequiredArgsConstructor
 public class BookingService {
+
+  // Logger
+  private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
 
   private final UserRepository userRepository;
   private final PropertyRepository propertyRepository;
@@ -35,8 +43,9 @@ public class BookingService {
     // 4. Salvam user-ul cu noile puncte
     userRepository.save(currentUser);
 
-    System.out.println("Am adaugat o rezervare pentru user " + currentUser.getUsername() + ". Total completed bookings: " + currentUser.getCompletedBookings() + ", Loyalty coins: " + currentUser.getLoyaltyCoins());
+    logger.info("Booking completed successfully for user id {}", currentUser.getId());
 
+    // System.out.println("Am adaugat o rezervare pentru user " + currentUser.getUsername() + ". Total completed bookings: " + currentUser.getCompletedBookings() + ", Loyalty coins: " + currentUser.getLoyaltyCoins());
   }
 
   @Transactional
@@ -44,13 +53,13 @@ public class BookingService {
     // 1. Luam user logat
     User currentUser = getCurrentUser();
 
-    // 2. Verificam dacă proprietatea exista
+    // 2. Verificam daca proprietatea exista
     Property property = propertyRepository.findById(propertyId)
       .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
 
     // 3. Verificam daca user-ul are suficienti coins pentru reducere
     if(!currentUser.canUseDiscount()) {
-      throw new RuntimeException("You don't have enough coins (minimum 5) to apply the discount!");
+      throw new BadRequestException("You don't have enough coins (minimum 5) to apply the discount!");
     }
 
     // 4. Consumam cele 5 coins pentru reducere
@@ -62,6 +71,7 @@ public class BookingService {
     // 6. Salvam user-ul actualizat
     userRepository.save(currentUser);
 
+    logger.info("Discount Booking completed successfully for user id {}", currentUser.getId());
   }
 
   public LoyaltyStatusDTO getMyLoyaltyStatus() {

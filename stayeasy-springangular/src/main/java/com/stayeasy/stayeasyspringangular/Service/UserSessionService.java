@@ -12,9 +12,18 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import com.stayeasy.stayeasyspringangular.exception.BadRequestException;
+import com.stayeasy.stayeasyspringangular.exception.ResourceNotFoundException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 @RequiredArgsConstructor
 public class UserSessionService {
+
+  // Logger
+  private static final Logger logger = LoggerFactory.getLogger(UserSessionService.class);
 
   private final UserSessionRepository sessionRepository;
 
@@ -95,10 +104,34 @@ public class UserSessionService {
 //  }
 
   public void logout(String sessionId) {
-    sessionRepository.findById(sessionId).ifPresent(session -> {
-      session.setActive(false);
-      sessionRepository.save(session);
-    });
+    UserSession session = sessionRepository.findById(sessionId)
+      .orElseThrow(() -> {
+
+        logger.warn("Logout attempted with non-existing session id {}", maskSessionId(sessionId));
+
+        return new ResourceNotFoundException("Session not found");
+      });
+
+    if (!session.isActive()) {
+
+      logger.warn("Logout attempted for already inactive session {}", maskSessionId(sessionId));
+
+      throw new BadRequestException("Session is already closed");
+    }
+
+    session.setActive(false);
+    sessionRepository.save(session);
+
+    logger.info("Session {} was closed successfully", maskSessionId(sessionId));
+
+  }
+
+  private String maskSessionId(String sessionId) {
+    if (sessionId == null || sessionId.length() < 8) {
+      return "invalid-session-id";
+    }
+
+    return sessionId.substring(0, 8) + "...";
   }
 
 }

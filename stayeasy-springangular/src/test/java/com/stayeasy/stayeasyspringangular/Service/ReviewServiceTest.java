@@ -19,7 +19,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.web.server.ResponseStatusException;
+
+import com.stayeasy.stayeasyspringangular.exception.ForbiddenActionException;
+import com.stayeasy.stayeasyspringangular.exception.ResourceNotFoundException;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -117,7 +119,9 @@ class ReviewServiceTest {
 
     when(propertyRepository.findById(1L)).thenReturn(Optional.empty());
 
-    assertThrows(ResponseStatusException.class, () -> reviewService.listForProperty(1L));
+    assertThrows(ResourceNotFoundException.class,
+      () -> reviewService.listForProperty(1L));
+
   }
 
 //  create review
@@ -196,7 +200,9 @@ class ReviewServiceTest {
 
     when(propertyRepository.findById(1L)).thenReturn(Optional.of(property));
 
-    assertThrows(ResponseStatusException.class, () -> reviewService.createOrUpdateReview(1L, dto));
+    assertThrows(ForbiddenActionException.class,
+      () -> reviewService.createOrUpdateReview(1L, dto));
+
   }
 
 //  delete review
@@ -235,7 +241,8 @@ class ReviewServiceTest {
 
     when(reviewRepository.findById(1L)).thenReturn(Optional.of(review));
 
-    assertThrows(ResponseStatusException.class, () -> reviewService.deleteReview(1L));
+    assertThrows(ForbiddenActionException.class,
+      () -> reviewService.deleteReview(1L));
   }
 
   @Test
@@ -249,7 +256,9 @@ class ReviewServiceTest {
 
     when(reviewRepository.findById(1L)).thenReturn(Optional.empty());
 
-    assertThrows(ResponseStatusException.class, () -> reviewService.deleteReview(1L));
+    assertThrows(ResourceNotFoundException.class,
+      () -> reviewService.deleteReview(1L));
+
   }
 
 //  summary
@@ -293,7 +302,9 @@ class ReviewServiceTest {
 
     when(propertyRepository.findById(1L)).thenReturn(Optional.empty());
 
-    assertThrows(ResponseStatusException.class, () -> reviewService.summary(1L));
+    assertThrows(ResourceNotFoundException.class,
+      () -> reviewService.summary(1L));
+
   }
 
 }

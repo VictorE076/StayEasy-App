@@ -18,11 +18,17 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class PropertyService {
+
+  // Logger
+  private static final Logger logger = LoggerFactory.getLogger(PropertyService.class);
 
   private final PropertyRepository propertyRepository;
   private final UserRepository userRepository;
@@ -64,10 +70,15 @@ public class PropertyService {
 
     User currentUser = getCurrentUser();
 
+    logger.info("Creating property for user id {}", currentUser.getId());
+
     // Once a GUEST user adds its first property, it becomes a HOST.
     if (currentUser.getRole() == Role.GUEST) {
       currentUser.setRole(Role.HOST);
       userRepository.save(currentUser);
+
+      logger.info("User id {} was promoted from GUEST to HOST after creating a property", currentUser.getId());
+
     }
 
 
@@ -92,7 +103,12 @@ public class PropertyService {
 
     property.setImages(images);
 
-    return mapToResponse(propertyRepository.save(property));
+    Property savedProperty = propertyRepository.save(property);
+
+    logger.info("Property created successfully with id {} by user id {}", savedProperty.getId(), currentUser.getId());
+
+    return mapToResponse(savedProperty);
+
   }
 
   @Transactional
@@ -111,6 +127,9 @@ public class PropertyService {
 
     if (!isAdmin) { // Only normal (GUEST or HOST) user must also be the property's owner.
       if (ownerId == null || !ownerId.equals(currentUserId)) {
+
+        logger.warn("Property update denied. Property id {}, owner id {}, current user id {}", id, ownerId, currentUserId);
+
         throw new ForbiddenActionException("You are not allowed to update this property");
       }
     }
@@ -139,7 +158,11 @@ public class PropertyService {
     property.getImages().clear();
     property.getImages().addAll(updatedImages);
 
-    return mapToResponse(propertyRepository.save(property));
+    Property savedProperty = propertyRepository.save(property);
+
+    logger.info("Property id {} updated successfully by user id {}", id, currentUserId);
+
+    return mapToResponse(savedProperty);
   }
 
   public void deleteProperty(Long id) { // Ownership checking (except for "ROLE_ADMIN")
@@ -157,6 +180,9 @@ public class PropertyService {
 
     if (!isAdmin) { // Only normal (GUEST or HOST) user must also be the property's owner.
       if (ownerId == null || !ownerId.equals(currentUserId)) {
+
+        logger.warn("Property delete denied. Property id {}, owner id {}, current user id {}", id, ownerId, currentUserId);
+
         throw new ForbiddenActionException("You are not allowed to delete this property");
       }
     }
@@ -165,6 +191,8 @@ public class PropertyService {
 
     // DELETE Property
     propertyRepository.delete(property);
+
+    logger.info("Property id {} deleted successfully by user id {}", id, currentUserId);
 
     // After property deletion, if the owner is not ADMIN,
     // then check if it still has at least one property registered.
@@ -175,7 +203,11 @@ public class PropertyService {
       if (owner.getRole() != newRole) {
         owner.setRole(newRole);
         userRepository.save(owner);
+
+        logger.info("Owner user id {} role changed to {} after property deletion", owner.getId(), newRole);
+
       }
+
     }
 
   }

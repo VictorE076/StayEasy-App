@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.server.ResponseStatusException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -24,11 +27,17 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+  // Logger
+  private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
   @ExceptionHandler(ResourceNotFoundException.class)
   public ResponseEntity<ApiErrorResponse> handleNotFound(
     ResourceNotFoundException ex,
     HttpServletRequest request
   ) {
+
+    logger.warn("Resource not found: {}", ex.getMessage());
+
     return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequestURI(), null);
   }
 
@@ -37,6 +46,9 @@ public class GlobalExceptionHandler {
     BadRequestException ex,
     HttpServletRequest request
   ) {
+
+    logger.warn("Bad Request: {}", ex.getMessage());
+
     return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request.getRequestURI(), null);
   }
 
@@ -45,6 +57,9 @@ public class GlobalExceptionHandler {
     ForbiddenActionException ex,
     HttpServletRequest request
   ) {
+
+    logger.warn("Forbidden action: {}", ex.getMessage());
+
     return buildResponse(HttpStatus.FORBIDDEN, ex.getMessage(), request.getRequestURI(), null);
   }
 
@@ -53,6 +68,9 @@ public class GlobalExceptionHandler {
     UnauthorizedActionException ex,
     HttpServletRequest request
   ) {
+
+    logger.warn("Unauthorized action: {}", ex.getMessage());
+
     return buildResponse(HttpStatus.UNAUTHORIZED, ex.getMessage(), request.getRequestURI(), null);
   }
 
@@ -70,6 +88,8 @@ public class GlobalExceptionHandler {
     ex.getBindingResult().getGlobalErrors().forEach(error ->
       errors.put(error.getObjectName(), error.getDefaultMessage())
     );
+
+    logger.warn("Validation failed (Argument not valid): {}", ex.getMessage());
 
     return buildResponse(
       HttpStatus.BAD_REQUEST,
@@ -90,6 +110,8 @@ public class GlobalExceptionHandler {
       errors.put(violation.getPropertyPath().toString(), violation.getMessage())
     );
 
+    logger.warn("Validation failed (Constraint violation): {}", ex.getMessage());
+
     return buildResponse(
       HttpStatus.BAD_REQUEST,
       "Validation failed",
@@ -104,6 +126,9 @@ public class GlobalExceptionHandler {
     HttpServletRequest request
   ) {
     String message = "Invalid value for parameter: " + ex.getName();
+
+    logger.warn(message);
+
     return buildResponse(HttpStatus.BAD_REQUEST, message, request.getRequestURI(), null);
   }
 
@@ -112,6 +137,9 @@ public class GlobalExceptionHandler {
     Exception ex,
     HttpServletRequest request
   ) {
+
+    logger.warn("Invalid username or password: {}", ex.getMessage());
+
     return buildResponse(
       HttpStatus.UNAUTHORIZED,
       "Invalid username or password",
@@ -125,6 +153,9 @@ public class GlobalExceptionHandler {
     DataIntegrityViolationException ex,
     HttpServletRequest request
   ) {
+
+    logger.warn("Database constraint violation: {}", ex.getMessage());
+
     return buildResponse(
       HttpStatus.CONFLICT,
       "Database constraint violation",
@@ -144,6 +175,8 @@ public class GlobalExceptionHandler {
     String error = status != null ? status.getReasonPhrase() : "Error";
     String message = ex.getReason() != null ? ex.getReason() : ex.getMessage();
 
+    logger.warn("Response status exception: status {}, message {}", statusCode.value(), message);
+
     ApiErrorResponse body = new ApiErrorResponse(
       LocalDateTime.now(),
       statusCode.value(),
@@ -161,6 +194,9 @@ public class GlobalExceptionHandler {
     HttpMessageNotReadableException ex,
     HttpServletRequest request
   ) {
+
+    logger.warn("Invalid request body: {}", ex.getMessage());
+
     return buildResponse(
       HttpStatus.BAD_REQUEST,
       "Invalid request body",
@@ -176,6 +212,8 @@ public class GlobalExceptionHandler {
   ) {
     String message = "Missing required parameter: " + ex.getParameterName();
 
+    logger.warn(message);
+
     return buildResponse(
       HttpStatus.BAD_REQUEST,
       message,
@@ -189,6 +227,9 @@ public class GlobalExceptionHandler {
     Exception ex,
     HttpServletRequest request
   ) {
+
+    logger.error("Unexpected error occurred", ex);
+
     return buildResponse(
       HttpStatus.INTERNAL_SERVER_ERROR,
       "Unexpected server error",

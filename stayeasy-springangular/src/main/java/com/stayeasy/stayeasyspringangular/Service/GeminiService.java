@@ -1,7 +1,7 @@
 package com.stayeasy.stayeasyspringangular.Service;
 
 import com.stayeasy.stayeasyspringangular.EntitatiJPA.Review;
-import com.stayeasy.stayeasyspringangular.Repository.PropertyRepository; // presupun că ai așa ceva
+import com.stayeasy.stayeasyspringangular.Repository.PropertyRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -9,8 +9,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.stayeasy.stayeasyspringangular.exception.ResourceNotFoundException;
+import org.springframework.web.client.RestClientResponseException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Service
 public class GeminiService {
+
+  // Logger
+  private static final Logger logger = LoggerFactory.getLogger(GeminiService.class);
 
   @Value("${gemini.api.key}")
   private String apiKey;
@@ -26,12 +35,18 @@ public class GeminiService {
   }
 
   public String summarizeReviews(Long propertyId) {
+
+    logger.info("Generating AI review summary for property id {}", propertyId);
+
     var property = propertyRepository.findById(propertyId)
-      .orElseThrow(() -> new RuntimeException("Property not found"));
+      .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
 
     List<Review> reviews = property.getReviews();
 
     if (reviews == null || reviews.isEmpty()) {
+
+      logger.info("No reviews available for AI summary on property id {}", propertyId);
+
       return "This property does not have any reviews to summarize yet.";
     }
 
@@ -63,24 +78,32 @@ public class GeminiService {
 
       // Navigam prin structura Map-ului generat
       List<Map<String, Object>> candidates = (List<Map<String, Object>>) response.get("candidates");
+
       if (candidates == null || candidates.isEmpty()) {
+
+        logger.warn("Gemini returned no candidates for property id {}", propertyId);
+
         return "No candidates were found in the Gemini response.";
       }
 
       Map<String, Object> content = (Map<String, Object>) candidates.get(0).get("content");
       List<Map<String, Object>> parts = (List<Map<String, Object>>) content.get("parts");
 
+      logger.info("AI review summary generated successfully for property id {}", propertyId);
+
       return (String) parts.get(0).get("text");
 
-    } catch (org.springframework.web.client.HttpClientErrorException e) {
+    } catch (RestClientResponseException e) {
 
-      System.err.println("[GEMINI ERROR STATUS]: " + e.getStatusCode());
-      System.err.println("[GEMINI ERROR BODY]: " + e.getResponseBodyAsString());
-      return "Gemini API error: " + e.getStatusCode() + ". Check the backend console!";
+      logger.error("Gemini API error for property id {}. Status: {}, Body: {}", propertyId, e.getStatusCode(), e.getResponseBodyAsString());
+
+      return "AI summary is temporarily unavailable. Please try again later.";
 
     } catch (Exception e) {
-      System.err.println("[GENERAL ERROR]: " + e.getMessage());
-      return "Error while processing the AI summary: " + e.getMessage();
+
+      logger.error("Unexpected error while processing AI summary for property id {}", propertyId, e);
+
+      return "Error while processing the AI summary. Please try again later.";
     }
   }
 

@@ -13,10 +13,16 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class RegController {
+
+  // Logger
+  private static final Logger logger = LoggerFactory.getLogger(RegController.class);
 
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
@@ -26,11 +32,17 @@ public class RegController {
 
     // Verificare username
     if (userRepository.existsByUsername(request.getUsername())) {
+
+      logger.warn("Registration failed: username already exists: {}", request.getUsername());
+
       throw new BadRequestException("Username already exists");
     }
 
     // Verificare email duplicat
     if (userRepository.existsByEmail(request.getEmail())) {
+
+      logger.warn("Registration failed: email already used: {}", request.getEmail());
+
       throw new BadRequestException("Email already used");
     }
 
@@ -44,6 +56,8 @@ public class RegController {
     user.setCreatedAt(LocalDateTime.now());
 
     userRepository.save(user);
+
+    logger.info("New account created successfully for username {}", user.getUsername());
 
     return ResponseEntity.ok(Map.of("message", "Account created successfully"));
   }
