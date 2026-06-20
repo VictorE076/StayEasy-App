@@ -25,6 +25,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.stayeasy.stayeasyspringangular.DTO.PageResponseDTO;
+import com.stayeasy.stayeasyspringangular.exception.BadRequestException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
@@ -50,6 +57,62 @@ public class ReviewService {
 
   }
 
+  @Transactional(readOnly = true)
+  public PageResponseDTO<ReviewResponseDTO> listForPropertyPaged(
+    Long propertyId, int page, int size, String sortBy, String direction
+  ) {
+    propertyRepository.findById(propertyId)
+      .orElseThrow(() -> new ResourceNotFoundException("Property not found"));
+
+    if (page < 0) {
+      throw new BadRequestException("Page number cannot be negative");
+    }
+
+    if (size < 1 || size > 50) {
+      throw new BadRequestException("Page size must be between 1 and 50");
+    }
+
+    List<String> allowedSortFields = List.of(
+      "id",
+      "rating",
+      "createdAt"
+    );
+
+    if (!allowedSortFields.contains(sortBy)) {
+      throw new BadRequestException("Invalid sort field: " + sortBy);
+    }
+
+    Sort sort;
+
+    if ("desc".equalsIgnoreCase(direction)) {
+      sort = Sort.by(sortBy).descending();
+    } else if ("asc".equalsIgnoreCase(direction)) {
+      sort = Sort.by(sortBy).ascending();
+    } else {
+      throw new BadRequestException("Sort direction must be asc or desc");
+    }
+
+    Pageable pageable = PageRequest.of(page, size, sort);
+
+    Page<Review> reviewPage = reviewRepository.findByProperty_Id(propertyId, pageable);
+
+    List<ReviewResponseDTO> content = reviewPage.getContent()
+      .stream()
+      .map(this::mapToResponse)
+      .toList();
+
+    return PageResponseDTO.<ReviewResponseDTO>builder()
+      .content(content)
+      .pageNumber(reviewPage.getNumber())
+      .pageSize(reviewPage.getSize())
+      .totalElements(reviewPage.getTotalElements())
+      .totalPages(reviewPage.getTotalPages())
+      .first(reviewPage.isFirst())
+      .last(reviewPage.isLast())
+      .sortBy(sortBy)
+      .direction(direction.toLowerCase())
+      .build();
+  }
 
   // CREATE or UPDATE the current user's review for a property ( 1 review / user / property ).
   @Transactional

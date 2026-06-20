@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import com.stayeasy.stayeasyspringangular.DTO.PageResponseDTO;
+import org.springframework.web.bind.annotation.RequestParam;
+
 @RestController
 @RequestMapping("/api/admin/audit")
 
@@ -24,6 +27,17 @@ public class AdminAuditController {
   @PreAuthorize("hasRole('ADMIN')")
   public List<SessionAuditDTO> getSessionsAudit() {
     return adminAuditService.getAllUserSessions();
+  }
+
+  @GetMapping("/sessions/paged")
+  @PreAuthorize("hasRole('ADMIN')")
+  public PageResponseDTO<SessionAuditDTO> getSessionsAuditPaged(
+    @RequestParam(defaultValue = "0") int page,
+    @RequestParam(defaultValue = "5") int size,
+    @RequestParam(defaultValue = "createdAt") String sortBy,
+    @RequestParam(defaultValue = "desc") String direction
+  ) {
+    return adminAuditService.getAllUserSessionsPaged(page, size, sortBy, direction);
   }
 
 }

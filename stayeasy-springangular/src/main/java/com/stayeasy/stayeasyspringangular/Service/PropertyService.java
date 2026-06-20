@@ -2,6 +2,7 @@ package com.stayeasy.stayeasyspringangular.Service;
 
 import com.stayeasy.stayeasyspringangular.DTO.*;
 import com.stayeasy.stayeasyspringangular.EntitatiJPA.*;
+import com.stayeasy.stayeasyspringangular.exception.BadRequestException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -23,6 +24,11 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
 @Service
 @RequiredArgsConstructor
 public class PropertyService {
@@ -38,6 +44,62 @@ public class PropertyService {
       .stream()
       .map(this::mapToResponse)
       .collect(Collectors.toList());
+  }
+
+  public PageResponseDTO<PropertyResponseDTO> getPropertiesPage(
+    int page, int size, String sortBy, String direction
+  ) {
+    if (page < 0) {
+      throw new BadRequestException("Page number cannot be negative");
+    }
+
+    if (size < 1 || size > 50) {
+      throw new BadRequestException("Page size must be between 1 and 50");
+    }
+
+    List<String> allowedSortFields = List.of(
+      "id",
+      "title",
+      "city",
+      "pricePerNight",
+      "maxGuests",
+      "createdAt"
+    );
+
+    if (!allowedSortFields.contains(sortBy)) {
+      throw new BadRequestException("Invalid sort field: " + sortBy);
+    }
+
+    Sort sort;
+
+    if ("desc".equalsIgnoreCase(direction)) {
+      sort = Sort.by(sortBy).descending();
+    } else if ("asc".equalsIgnoreCase(direction)) {
+      sort = Sort.by(sortBy).ascending();
+    } else {
+      throw new BadRequestException("Sort direction must be asc or desc");
+    }
+
+    Pageable pageable = PageRequest.of(page, size, sort);
+
+    Page<Property> propertyPage = propertyRepository.findAll(pageable);
+
+    List<PropertyResponseDTO> content = propertyPage.getContent()
+      .stream()
+      .map(this::mapToResponse)
+      .toList();
+
+    return PageResponseDTO.<PropertyResponseDTO>builder()
+      .content(content)
+      .pageNumber(propertyPage.getNumber())
+      .pageSize(propertyPage.getSize())
+      .totalElements(propertyPage.getTotalElements())
+      .totalPages(propertyPage.getTotalPages())
+      .first(propertyPage.isFirst())
+      .last(propertyPage.isLast())
+      .sortBy(sortBy)
+      .direction(direction.toLowerCase())
+      .build();
   }
 
   public PropertyResponseDTO getPropertyById(Long id) {

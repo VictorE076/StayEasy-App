@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import com.stayeasy.stayeasyspringangular.DTO.PageResponseDTO;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -21,6 +23,17 @@ public class ReviewController {
   @GetMapping("/properties/{propertyId}/reviews")
   public List<ReviewResponseDTO> listForProperty(@PathVariable Long propertyId) {
     return reviewService.listForProperty(propertyId);
+  }
+
+  @GetMapping("/properties/{propertyId}/reviews/paged")
+  public PageResponseDTO<ReviewResponseDTO> listForPropertyPaged(
+    @PathVariable Long propertyId,
+    @RequestParam(defaultValue = "0") int page,
+    @RequestParam(defaultValue = "5") int size,
+    @RequestParam(defaultValue = "createdAt") String sortBy,
+    @RequestParam(defaultValue = "desc") String direction
+  ) {
+    return reviewService.listForPropertyPaged(propertyId, page, size, sortBy, direction);
   }
 
   // Upsert: PUT (idempotent) -> Create or replace the review at the exact address.
