@@ -20,7 +20,8 @@ import {NgIf} from '@angular/common';
 export class Login {
   credentials: LoginDTO = {
     username: '',
-    password: ''
+    password: '',
+    rememberMe: false
   };
 
   errorMessage: string = '';

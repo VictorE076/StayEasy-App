@@ -22,6 +22,7 @@ import { Router } from '@angular/router';
   standalone: true
 })
 export class Homepage implements OnInit {
+
   userName: string = '';
   userEmail: string = '';
   userId: number = 0;
@@ -41,6 +42,12 @@ export class Homepage implements OnInit {
   premiumError: string | null = null;
   showPremiumDetails: boolean = false;
   loyalty: LoyaltyStatus | null = null;
+  currentPage: number = 0;
+  pageSize: number = 6;
+  totalPages: number = 0;
+  totalElements: number = 0;
+  sortBy: string = 'pricePerNight';
+  sortDirection: string = 'asc';
 
   constructor(
     private authService: AuthService,
@@ -117,21 +124,70 @@ export class Homepage implements OnInit {
     this.router.navigate(['/admin/sessions']);
   }
 
+  // loadProperties(): void {
+  //   this.isLoading = true;
+  //   this.error = null;
+  //
+  //   this.propertyService.getAllProperties()
+  //     .pipe(finalize(() => this.isLoading = false))
+  //     .subscribe({
+  //       next: (properties) => {
+  //         this.properties = properties;
+  //       },
+  //       error: (error) => {
+  //         console.error('Error loading properties:', error);
+  //         this.error = 'Failed to load properties. Please try again later.';
+  //       }
+  //     });
+  // }
+
   loadProperties(): void {
     this.isLoading = true;
     this.error = null;
 
-    this.propertyService.getAllProperties()
+    this.propertyService.getPagedProperties(
+      this.currentPage, this.pageSize, this.sortBy, this.sortDirection
+    )
       .pipe(finalize(() => this.isLoading = false))
       .subscribe({
-        next: (properties) => {
-          this.properties = properties;
+        next: (response) => {
+          this.properties = response.content;
+          this.currentPage = response.pageNumber;
+          this.pageSize = response.pageSize;
+          this.totalPages = response.totalPages;
+          this.totalElements = response.totalElements;
+          this.sortBy = response.sortBy;
+          this.sortDirection = response.direction;
         },
         error: (error) => {
-          console.error('Error loading properties:', error);
+          console.error('Error loading paged properties:', error);
           this.error = 'Failed to load properties. Please try again later.';
         }
       });
+  }
+
+  goToPreviousPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.loadProperties();
+    }
+  }
+
+  goToNextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.loadProperties();
+    }
+  }
+
+  onSortChanged(): void {
+    this.currentPage = 0;
+    this.loadProperties();
+  }
+
+  onPageSizeChanged(): void {
+    this.currentPage = 0;
+    this.loadProperties();
   }
 
   toggleUserMenu(): void {
@@ -318,6 +374,7 @@ export class Homepage implements OnInit {
   onClearSearch(): void {
     this.searchCity = '';
     this.searchMaxPrice = null;
+    this.currentPage = 0;
     this.loadProperties();
   }
 

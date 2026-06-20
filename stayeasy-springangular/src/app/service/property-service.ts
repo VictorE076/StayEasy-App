@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {PropertyResponseDTO, PropertyRequestDTO, PropertyDetailDTO} from '../models/property.models';
+import { PageResponseDTO } from '../models/page-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,21 @@ export class PropertyService {
 
   getAllProperties(): Observable<PropertyResponseDTO[]> {
     return this.http.get<PropertyResponseDTO[]>(this.API_URL);
+  }
+
+  getPagedProperties(
+    page: number, size: number, sortBy: string, direction: string
+  ): Observable<PageResponseDTO<PropertyResponseDTO>> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('sortBy', sortBy)
+      .set('direction', direction);
+
+    return this.http.get<PageResponseDTO<PropertyResponseDTO>>(
+      `${this.API_URL}/paged`,
+      { params }
+    );
   }
 
   getPropertyById(id: number): Observable<PropertyResponseDTO> {
