@@ -45,9 +45,11 @@ export interface AmenityDTO {
 
 export interface ReviewDTO {
   id: number;
+  propertyId?: number;
   rating: number;
   comment: string;
-  userName: string;
+  userName?: string;
+  username?: string;
   createdAt: string;
 }
 

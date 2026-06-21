@@ -1,10 +1,13 @@
 <div class="page">
   <div class="header">
     <div>
-      <h1>Admin • Audit sesiuni</h1>
+      <h1>Admin • Audit Sessions</h1>
     </div>
+
     <div class="header-actions">
-      <button class="btn" (click)="load()" [disabled]="loading">{{ loading ? 'Loading...' : 'Refresh' }}</button>
+      <button class="btn" (click)="load()" [disabled]="loading">
+        {{ loading ? 'Loading...' : 'Refresh' }}
+      </button>
       <button class="home-btn" (click)="goToHomePage()">Go Back to Homepage</button>
     </div>
   </div>
@@ -13,38 +16,91 @@
     <input
       class="input"
       type="text"
-      placeholder="Search by username or sessionId…"
+      placeholder="Filter loaded page by username or sessionId..."
       [(ngModel)]="q"
     />
 
     <select class="select" [(ngModel)]="status">
-      <option value="ALL">Toate</option>
-      <option value="ACTIVE">Doar active</option>
-      <option value="INACTIVE">Doar inactive</option>
+      <option value="ALL">All statuses on page</option>
+      <option value="ACTIVE">Active on page</option>
+      <option value="INACTIVE">Inactive on page</option>
     </select>
 
-    <div class="chips">
-      <button class="chip" (click)="setSort('createdAt')">
-        CreatedAt
-        <span class="arrow" *ngIf="sortBy==='createdAt'">{{ sortDir==='asc' ? '↑' : '↓' }}</span>
-      </button>
-      <button class="chip" (click)="setSort('lastActivity')">
-        LastActivity
-        <span class="arrow" *ngIf="sortBy==='lastActivity'">{{ sortDir==='asc' ? '↑' : '↓' }}</span>
-      </button>
-      <button class="chip" (click)="setSort('username')">
-        Username
-        <span class="arrow" *ngIf="sortBy==='username'">{{ sortDir==='asc' ? '↑' : '↓' }}</span>
-      </button>
-    </div>
+    <select class="select" [(ngModel)]="pageSize" (change)="onPageSizeChanged()">
+      <option [ngValue]="5">5 per page</option>
+      <option [ngValue]="10">10 per page</option>
+      <option [ngValue]="20">20 per page</option>
+    </select>
 
-    <div class="count">
-      Total: <b>{{ total }}</b>
+    <div class="audit-stats">
+      <span class="audit-stat">
+        Visible: <b>{{ totalCurrentPage }}</b>
+      </span>
+
+      <span class="audit-stat">
+        Loaded: <b>{{ sessions.length }}</b>
+      </span>
+
+      <span class="audit-stat">
+        Total: <b>{{ totalElements }}</b>
+      </span>
     </div>
+  </div>
+
+  <div class="sort-panel">
+    <button class="chip" (click)="setSort('createdAt')">
+      Created At
+      <span class="arrow" *ngIf="sortBy==='createdAt'">{{ sortDir==='asc' ? '↑' : '↓' }}</span>
+    </button>
+
+    <button class="chip" (click)="setSort('lastActivity')">
+      Last Activity
+      <span class="arrow" *ngIf="sortBy==='lastActivity'">{{ sortDir==='asc' ? '↑' : '↓' }}</span>
+    </button>
+
+    <button class="chip" (click)="setSort('username')">
+      Username
+      <span class="arrow" *ngIf="sortBy==='username'">{{ sortDir==='asc' ? '↑' : '↓' }}</span>
+    </button>
+
+    <button class="chip" (click)="setSort('active')">
+      Status
+      <span class="arrow" *ngIf="sortBy==='active'">{{ sortDir==='asc' ? '↑' : '↓' }}</span>
+    </button>
+  </div>
+
+  <div class="pagination-navigation" *ngIf="!loading && totalElements > 0">
+    <button
+      type="button"
+      class="pagination-btn"
+      (click)="goToPreviousPage()"
+      [disabled]="pageNumber === 0"
+    >
+      <i class="bi bi-chevron-left"></i>
+      Previous
+    </button>
+
+    <span class="pagination-current">
+      Page {{ pageNumber + 1 }} of {{ totalPages || 1 }}
+    </span>
+
+    <button
+      type="button"
+      class="pagination-btn"
+      (click)="goToNextPage()"
+      [disabled]="pageNumber >= totalPages - 1"
+    >
+      Next
+      <i class="bi bi-chevron-right"></i>
+    </button>
   </div>
 
   <div class="alert error" *ngIf="errorMsg">
     {{ errorMsg }}
+  </div>
+
+  <div class="loading-box" *ngIf="loading">
+    Loading sessions...
   </div>
 
   <div class="card" *ngIf="!loading">
@@ -60,23 +116,23 @@
       </thead>
 
       <tbody>
-      <tr *ngFor="let s of filtered">
-        <td class="mono">{{ s.sessionId }}</td>
-        <td>{{ s.username }}</td>
-        <td>{{ formatDate(s.createdAt) }}</td>
-        <td>{{ formatDate(s.lastActivity) }}</td>
-        <td>
+        <tr *ngFor="let s of filtered">
+          <td class="mono">{{ s.sessionId }}</td>
+          <td>{{ s.username }}</td>
+          <td>{{ formatDate(s.createdAt) }}</td>
+          <td>{{ formatDate(s.lastActivity) }}</td>
+          <td>
             <span class="badge" [class.active]="s.active" [class.inactive]="!s.active">
               {{ s.active ? 'ACTIVE' : 'INACTIVE' }}
             </span>
-        </td>
-      </tr>
+          </td>
+        </tr>
       </tbody>
     </table>
 
     <ng-template #empty>
       <div class="empty">
-        Doesn't exist any sessions to be shown (or the filter has hidden all).
+        No sessions to show on this page or the local filter has hidden them.
       </div>
     </ng-template>
   </div>
