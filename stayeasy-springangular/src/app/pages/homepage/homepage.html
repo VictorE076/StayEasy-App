@@ -260,6 +260,16 @@
         <div class="property-image">
           <img [src]="getMainImage(property)" [alt]="property.title">
           <div class="property-type-badge">{{ getPropertyTypeLabel(property.propertyType) }}</div>
+
+          <button
+            class="btn-edit-property"
+            *ngIf="isOwner(property) || isAdmin()"
+            (click)="onEditProperty(property, $event)"
+            title="Edit property"
+          >
+            <i class="bi bi-pencil"></i>
+          </button>
+
           <button
             class="btn-delete-property"
             *ngIf="isOwner(property) || isAdmin()"
@@ -309,8 +319,9 @@
 <app-create-property-modal
   *ngIf="showCreateModal"
   [currentUserId]="userId"
+  [propertyToEdit]="selectedPropertyToEdit"
   (close)="onModalClose()"
-  (propertyCreated)="onPropertyCreated()"
+  (propertySaved)="onPropertySaved()"
 ></app-create-property-modal>
 
 <div class="premium-modal-backdrop" *ngIf="showPremiumDetails" (click)="closePremiumDetails()">
@@ -346,16 +357,6 @@
         <p>The account receives a visible badge that confirms premium status.</p>
       </div>
     </div>
-
-
-    <!-- UI/UX demo note
-
-    <div class="premium-note">
-      <strong>UI/UX demo:</strong> payment management is not implemented in this stage.
-    </div>
-
-    -->
-
 
     <button
       class="btn-premium-primary full-width"

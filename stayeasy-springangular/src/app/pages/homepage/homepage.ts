@@ -29,6 +29,7 @@ export class Homepage implements OnInit {
   isLoggingOut: boolean = false;
   showUserMenu: boolean = false;
   showCreateModal: boolean = false;
+  selectedPropertyToEdit: PropertyResponseDTO | null = null;
   user: UserADMIN_DTO | null = null;
   properties: PropertyResponseDTO[] = [];
   isLoading: boolean = false;
@@ -124,23 +125,6 @@ export class Homepage implements OnInit {
     this.router.navigate(['/admin/sessions']);
   }
 
-  // loadProperties(): void {
-  //   this.isLoading = true;
-  //   this.error = null;
-  //
-  //   this.propertyService.getAllProperties()
-  //     .pipe(finalize(() => this.isLoading = false))
-  //     .subscribe({
-  //       next: (properties) => {
-  //         this.properties = properties;
-  //       },
-  //       error: (error) => {
-  //         console.error('Error loading properties:', error);
-  //         this.error = 'Failed to load properties. Please try again later.';
-  //       }
-  //     });
-  // }
-
   loadProperties(): void {
     this.isLoading = true;
     this.error = null;
@@ -235,11 +219,13 @@ export class Homepage implements OnInit {
   }
 
   onBecomeHost(): void {
+    this.selectedPropertyToEdit = null;
     this.showCreateModal = true;
   }
 
   onModalClose(): void {
     this.showCreateModal = false;
+    this.selectedPropertyToEdit = null;
   }
 
   loadPremiumStatus(): void {
@@ -311,7 +297,7 @@ export class Homepage implements OnInit {
       });
   }
 
-  onPropertyCreated(): void {
+  onPropertySaved(): void {
     this.loadProperties();
   }
 
@@ -333,6 +319,11 @@ export class Homepage implements OnInit {
     return this.authService.isAdmin();
   }
 
+  onEditProperty(property: PropertyResponseDTO, event: Event): void {
+    event.stopPropagation();
+    this.selectedPropertyToEdit = property;
+    this.showCreateModal = true;
+  }
 
   onDeleteProperty(propertyId: number): void {
     if (!confirm('Are you sure you want to delete this property?')) {

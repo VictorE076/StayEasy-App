@@ -46,6 +46,15 @@
 
             <div class="header-actions">
               <button
+                class="btn-edit-property-detail"
+                *ngIf="canEditProperty()"
+                (click)="onEditProperty()"
+                title="Edit property"
+              >
+                <i class="bi bi-pencil"></i>
+              </button>
+
+              <button
                 class="btn-delete-property-detail"
                 *ngIf="canDeleteProperty()"
                 (click)="onDeleteProperty()"
@@ -53,8 +62,10 @@
               >
                 <i class="bi bi-trash"></i>
               </button>
+
               <span class="type-badge">{{ getPropertyTypeLabel(property.propertyType) }}</span>
             </div>
+
           </div>
           <div class="location">
             <i class="bi bi-geo-alt"></i>
@@ -342,3 +353,11 @@
     </div>
   </div>
 </div>
+
+<app-create-property-modal
+  *ngIf="showEditPropertyModal && property"
+  [currentUserId]="0"
+  [propertyToEdit]="property"
+  (close)="onEditModalClose()"
+  (propertySaved)="onPropertySaved()"
+></app-create-property-modal>

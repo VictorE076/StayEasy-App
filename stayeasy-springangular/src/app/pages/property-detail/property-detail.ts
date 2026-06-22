@@ -9,11 +9,12 @@ import { AuthService } from '../../service/auth-service';
 import { ReviewService } from '../../service/review-service';
 import { ReviewDTO } from '../../models/property.models';
 import { BookingService, LoyaltyStatus } from '../../service/booking.service';
+import {CreatePropertyModal} from '../create-property-modal/create-property-modal';
 
 @Component({
   selector: 'app-property-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, CreatePropertyModal],
   templateUrl: './property-detail.html',
   styleUrl: './property-detail.css',
 })
@@ -35,6 +36,7 @@ export class PropertyDetail {
   reviewTotalElements = 0;
   reviewSortBy = 'createdAt';
   reviewDirection = 'desc';
+  showEditPropertyModal = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -132,6 +134,26 @@ export class PropertyDetail {
     if (!this.property) return false;
     const me = this.authService.getUsername();
     return this.isAdmin() || (!!me && this.property.ownerUsername === me);
+  }
+
+  canEditProperty(): boolean {
+    return this.canDeleteProperty();
+  }
+
+  onEditProperty(): void {
+    this.showEditPropertyModal = true;
+  }
+
+  onEditModalClose(): void {
+    this.showEditPropertyModal = false;
+  }
+
+  onPropertySaved(): void {
+    this.showEditPropertyModal = false;
+
+    if (this.property) {
+      this.loadPropertyDetail(this.property.id);
+    }
   }
 
   onDeleteProperty(): void {

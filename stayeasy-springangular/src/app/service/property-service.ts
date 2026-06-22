@@ -57,6 +57,10 @@ export class PropertyService {
     return this.http.post<PropertyResponseDTO>(this.API_URL, property);
   }
 
+  updateProperty(id: number, property: PropertyRequestDTO): Observable<PropertyResponseDTO> {
+    return this.http.put<PropertyResponseDTO>(`${this.API_URL}/${id}`, property);
+  }
+
   deleteProperty(id: number): Observable<void> {
     return this.http.delete<void>(`${this.API_URL}/${id}`);
   }

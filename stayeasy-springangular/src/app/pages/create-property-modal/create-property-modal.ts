@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {PropertyRequestDTO, PropertyType} from '../../models/property.models';
+import {PropertyRequestDTO, PropertyResponseDTO, PropertyType} from '../../models/property.models';
 import {PropertyService} from '../../service/property-service';
 import {finalize} from 'rxjs/operators';
 import { ApiErrorService } from '../../service/api-error.service';
@@ -13,10 +13,11 @@ import { ApiErrorService } from '../../service/api-error.service';
   styleUrl: './create-property-modal.css',
   standalone: true
 })
-export class CreatePropertyModal {
+export class CreatePropertyModal implements OnInit {
   @Input() currentUserId!: number;
+  @Input() propertyToEdit: PropertyResponseDTO | null = null;
   @Output() close = new EventEmitter<void>();
-  @Output() propertyCreated = new EventEmitter<void>();
+  @Output() propertySaved = new EventEmitter<void>();
 
   propertyTypes = Object.values(PropertyType);
   isSubmitting = false;
@@ -40,6 +41,25 @@ export class CreatePropertyModal {
     private apiErrorService: ApiErrorService
   ) {}
 
+  ngOnInit(): void {
+    if (this.propertyToEdit) {
+      this.property = {
+        title: this.propertyToEdit.title,
+        city: this.propertyToEdit.city,
+        address: this.propertyToEdit.address,
+        description: this.propertyToEdit.description || '',
+        pricePerNight: this.propertyToEdit.pricePerNight,
+        maxGuests: this.propertyToEdit.maxGuests,
+        propertyType: this.propertyToEdit.propertyType as PropertyType,
+        imagePaths: this.propertyToEdit.images ? [...this.propertyToEdit.images] : []
+      };
+    }
+  }
+
+  isEditMode(): boolean {
+    return this.propertyToEdit !== null;
+  }
+
   onClose(): void {
     if (!this.isSubmitting) {
       this.close.emit();
@@ -60,7 +80,6 @@ export class CreatePropertyModal {
 
   removeImagePath(index: number): void {
     this.property.imagePaths?.splice(index, 1);
-    console.log(this.currentUserId);
   }
 
   onSubmit(): void {
@@ -70,21 +89,26 @@ export class CreatePropertyModal {
       return;
     }
 
-    // this.property.ownerId = this.currentUserId;
     this.isSubmitting = true;
 
-    this.propertyService.createProperty(this.property)
+    const request = this.isEditMode() && this.propertyToEdit
+      ? this.propertyService.updateProperty(this.propertyToEdit.id, this.property)
+      : this.propertyService.createProperty(this.property);
+
+    request
       .pipe(finalize(() => this.isSubmitting = false))
       .subscribe({
         next: () => {
-          this.propertyCreated.emit();
+          this.propertySaved.emit();
           this.close.emit();
         },
         error: (error) => {
-          console.error('Error creating property:', error);
+          console.error('Error saving property:', error);
           this.error = this.apiErrorService.getMessage(
             error,
-            'Failed to create property. Please try again.'
+            this.isEditMode()
+              ? 'Failed to update property. Please try again.'
+              : 'Failed to create property. Please try again.'
           );
         }
       });
