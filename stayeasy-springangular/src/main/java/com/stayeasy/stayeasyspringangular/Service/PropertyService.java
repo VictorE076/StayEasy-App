@@ -12,6 +12,7 @@ import com.stayeasy.stayeasyspringangular.exception.UnauthorizedActionException;
 
 import com.stayeasy.stayeasyspringangular.Repository.PropertyRepository;
 import com.stayeasy.stayeasyspringangular.Repository.UserRepository;
+import com.stayeasy.stayeasyspringangular.Repository.AmenityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class PropertyService {
@@ -38,6 +44,7 @@ public class PropertyService {
 
   private final PropertyRepository propertyRepository;
   private final UserRepository userRepository;
+  private final AmenityRepository amenityRepository;
 
   public List<PropertyResponseDTO> getAllProperties() {
     return propertyRepository.findAll()
@@ -164,6 +171,10 @@ public class PropertyService {
       .toList();
 
     property.setImages(images);
+    property.setAmenities(new ArrayList<>(resolveAmenities(dto.getAmenityNames())));
+
+    HouseRules houseRules = buildHouseRules(dto.getHouseRules(), property);
+    property.setHouseRules(houseRules);
 
     Property savedProperty = propertyRepository.save(property);
 
@@ -219,6 +230,19 @@ public class PropertyService {
 
     property.getImages().clear();
     property.getImages().addAll(updatedImages);
+
+    if (dto.getAmenityNames() != null) {
+      if (property.getAmenities() == null) {
+        property.setAmenities(new ArrayList<>());
+      }
+
+      property.getAmenities().clear();
+      property.getAmenities().addAll(resolveAmenities(dto.getAmenityNames()));
+    }
+
+    if (dto.getHouseRules() != null) {
+      updateHouseRules(property, dto.getHouseRules());
+    }
 
     Property savedProperty = propertyRepository.save(property);
 
@@ -300,6 +324,65 @@ public class PropertyService {
       .build();
   }
 
+  private List<Amenity> resolveAmenities(List<String> amenityNames) {
+    if (amenityNames == null) {
+      return new ArrayList<>();
+    }
+
+    return amenityNames.stream()
+      .filter(Objects::nonNull)
+      .map(String::trim)
+      .filter(name -> !name.isBlank())
+      .distinct()
+      .map(name -> amenityRepository.findByNameIgnoreCase(name)
+        .orElseGet(() -> amenityRepository.save(
+          Amenity.builder()
+            .name(name)
+            .build()
+        )))
+      .collect(Collectors.toCollection(ArrayList::new));
+  }
+
+  private HouseRules buildHouseRules(HouseRulesDTO dto, Property property) {
+    if (dto == null) {
+      return null;
+    }
+
+    return HouseRules.builder()
+      .smokingAllowed(dto.isSmokingAllowed())
+      .petsAllowed(dto.isPetsAllowed())
+      .checkInTime(parseTime(dto.getCheckInTime(), "check-in"))
+      .checkOutTime(parseTime(dto.getCheckOutTime(), "check-out"))
+      .property(property)
+      .build();
+  }
+
+  private void updateHouseRules(Property property, HouseRulesDTO dto) {
+    HouseRules rules = property.getHouseRules();
+
+    if (rules == null) {
+      rules = new HouseRules();
+      rules.setProperty(property);
+      property.setHouseRules(rules);
+    }
+
+    rules.setSmokingAllowed(dto.isSmokingAllowed());
+    rules.setPetsAllowed(dto.isPetsAllowed());
+    rules.setCheckInTime(parseTime(dto.getCheckInTime(), "check-in"));
+    rules.setCheckOutTime(parseTime(dto.getCheckOutTime(), "check-out"));
+  }
+
+  private LocalTime parseTime(String time, String fieldName) {
+    if (time == null || time.isBlank()) {
+      return null;
+    }
+
+    try {
+      return LocalTime.parse(time);
+    } catch (DateTimeParseException e) {
+      throw new BadRequestException("Invalid " + fieldName + " time. Use HH:mm format.");
+    }
+  }
 
   // Auth helpers
   private Authentication getAuthenticationContext() {
@@ -387,6 +470,7 @@ public class PropertyService {
       .maxGuests(property.getMaxGuests())
       .propertyType(property.getPropertyType() != null ? property.getPropertyType().name() : null)
       .ownerUsername(property.getOwner() != null ? property.getOwner().getUsername() : null)
+      .ownerId(property.getOwner() != null ? Long.valueOf(property.getOwner().getId()) : null)
       .createdAt(property.getCreatedAt())
       .images(images)
       .amenities(amenities)

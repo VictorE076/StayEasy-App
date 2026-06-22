@@ -2,6 +2,7 @@ package com.stayeasy.stayeasyspringangular.DTO;
 
 import com.stayeasy.stayeasyspringangular.EntitatiJPA.PropertyType;
 import jakarta.validation.constraints.*;
+import jakarta.validation.Valid;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -45,5 +46,15 @@ public class PropertyRequestDTO {
     @Size(max = 500, message = "Image path too long")
       String
     > imagePaths = new ArrayList<>();
+
+  @Size(max = 20, message = "At most 20 amenities")
+  private List<
+    @NotBlank(message = "Amenity name must not be blank")
+    @Size(max = 80, message = "Amenity name must be at most 80 characters")
+      String
+    > amenityNames = new ArrayList<>();
+
+  @Valid
+  private HouseRulesDTO houseRules;
 
 }
