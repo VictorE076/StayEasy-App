@@ -6,6 +6,8 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.util.List;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 public class PropertyResponseDTO {
@@ -20,6 +22,8 @@ public class PropertyResponseDTO {
   private String propertyType;
 
   private String ownerUsername;
+
+  private LocalDateTime createdAt;
 
   private List<String> images;
 

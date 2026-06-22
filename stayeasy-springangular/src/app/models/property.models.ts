@@ -16,6 +16,7 @@ export interface PropertyResponseDTO {
   maxGuests: number;
   propertyType: string;
   ownerUsername: string;
+  createdAt?: string;
   images: string[];
 }
 
@@ -77,7 +78,7 @@ export interface PropertyDetailDTO {
   maxGuests: number;
   propertyType: string;
   ownerUsername: string;
-  createdAt: string;
+  createdAt?: string | null;
   images: string[];
   amenities: AmenityDTO[];
   reviews: ReviewDTO[];

@@ -306,9 +306,22 @@ export class PropertyDetail {
     return type.charAt(0) + type.slice(1).toLowerCase();
   }
 
-  formatDate(dateString: string): string {
+  formatDate(dateString?: string | null): string {
+    if (!dateString) {
+      return 'Not available';
+    }
+
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    if (isNaN(date.getTime())) {
+      return 'Not available';
+    }
+
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
   }
 
   getStarArray(rating: number): number[] {

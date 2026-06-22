@@ -295,6 +295,7 @@ public class PropertyService {
       .maxGuests(property.getMaxGuests())
       .propertyType(propertyType)
       .ownerUsername(ownerUsername)
+      .createdAt(property.getCreatedAt())
       .images(images)
       .build();
   }
