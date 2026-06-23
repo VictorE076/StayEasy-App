@@ -22,6 +22,8 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import com.stayeasy.stayeasyspringangular.exception.ForbiddenActionException;
 import com.stayeasy.stayeasyspringangular.exception.ResourceNotFoundException;
+import com.stayeasy.stayeasyspringangular.exception.BadRequestException;
+import org.springframework.data.domain.PageImpl;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -305,6 +307,54 @@ class ReviewServiceTest {
     assertThrows(ResourceNotFoundException.class,
       () -> reviewService.summary(1L));
 
+  }
+
+
+  // PAGINATION
+
+  @Test
+  void listForPropertyPaged_validRequest_shouldReturnPageResponse() {
+    User user = createUser(1, "user1", Role.GUEST);
+    Property property = createProperty(1L, null);
+    Review review = createReview(1L, user, property);
+
+    when(propertyRepository.findById(1L)).thenReturn(Optional.of(property));
+
+    when(reviewRepository.findByProperty_Id(eq(1L), any(org.springframework.data.domain.Pageable.class)))
+      .thenReturn(new PageImpl<>(List.of(review)));
+
+    var result = reviewService.listForPropertyPaged(1L, 0, 5, "createdAt", "desc");
+
+    assertEquals(1, result.getContent().size());
+    assertEquals(0, result.getPageNumber());
+    assertEquals("createdAt", result.getSortBy());
+    assertEquals("desc", result.getDirection());
+  }
+
+  @Test
+  void listForPropertyPaged_negativePage_shouldThrowBadRequest() {
+    Property property = createProperty(1L, null);
+
+    when(propertyRepository.findById(1L)).thenReturn(Optional.of(property));
+
+    assertThrows(BadRequestException.class,
+      () -> reviewService.listForPropertyPaged(1L, -1, 5, "createdAt", "desc"));
+
+    verify(reviewRepository, never())
+      .findByProperty_Id(anyLong(), any(org.springframework.data.domain.Pageable.class));
+  }
+
+  @Test
+  void listForPropertyPaged_invalidSize_shouldThrowBadRequest() {
+    Property property = createProperty(1L, null);
+
+    when(propertyRepository.findById(1L)).thenReturn(Optional.of(property));
+
+    assertThrows(BadRequestException.class,
+      () -> reviewService.listForPropertyPaged(1L, 0, 0, "createdAt", "desc"));
+
+    verify(reviewRepository, never())
+      .findByProperty_Id(anyLong(), any(org.springframework.data.domain.Pageable.class));
   }
 
 }

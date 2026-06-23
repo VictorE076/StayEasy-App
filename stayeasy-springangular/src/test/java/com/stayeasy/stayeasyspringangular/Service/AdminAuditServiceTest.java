@@ -7,13 +7,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import com.stayeasy.stayeasyspringangular.DTO.PageResponseDTO;
+import com.stayeasy.stayeasyspringangular.exception.BadRequestException;
+import org.springframework.data.domain.PageImpl;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class AdminAuditServiceTest {
@@ -69,4 +72,48 @@ class AdminAuditServiceTest {
 
     verify(userSessionRepository).findAllSessionsForAudit();
   }
+
+
+  // PAGINATION
+
+  @Test
+  void getAllUserSessionsPaged_validRequest_shouldReturnPageResponse() {
+    SessionAuditDTO session = new SessionAuditDTO(
+      "session1",
+      "user1",
+      LocalDateTime.now(),
+      LocalDateTime.now(),
+      true
+    );
+
+    when(userSessionRepository.findAllSessionsForAudit(any(org.springframework.data.domain.Pageable.class)))
+      .thenReturn(new PageImpl<>(List.of(session)));
+
+    PageResponseDTO<SessionAuditDTO> result =
+      adminAuditService.getAllUserSessionsPaged(0, 5, "createdAt", "desc");
+
+    assertEquals(1, result.getContent().size());
+    assertEquals(0, result.getPageNumber());
+    assertEquals("createdAt", result.getSortBy());
+    assertEquals("desc", result.getDirection());
+  }
+
+  @Test
+  void getAllUserSessionsPaged_negativePage_shouldThrowBadRequest() {
+    assertThrows(BadRequestException.class,
+      () -> adminAuditService.getAllUserSessionsPaged(-1, 5, "createdAt", "desc"));
+
+    verify(userSessionRepository, never())
+      .findAllSessionsForAudit(any(org.springframework.data.domain.Pageable.class));
+  }
+
+  @Test
+  void getAllUserSessionsPaged_invalidSize_shouldThrowBadRequest() {
+    assertThrows(BadRequestException.class,
+      () -> adminAuditService.getAllUserSessionsPaged(0, 0, "createdAt", "desc"));
+
+    verify(userSessionRepository, never())
+      .findAllSessionsForAudit(any(org.springframework.data.domain.Pageable.class));
+  }
+
 }

@@ -18,6 +18,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.stayeasy.stayeasyspringangular.exception.ForbiddenActionException;
 import com.stayeasy.stayeasyspringangular.exception.ResourceNotFoundException;
+import com.stayeasy.stayeasyspringangular.exception.BadRequestException;
+import org.springframework.data.domain.PageImpl;
 
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -253,4 +255,42 @@ class PropertyServiceTest {
 
     assertNotNull(result);
   }
+
+
+  // PAGINATION
+
+  @Test
+  void getPropertiesPage_validRequest_shouldReturnPageResponse() {
+    Property property = new Property();
+    ReflectionTestUtils.setField(property, "id", 1L);
+    property.setTitle("Test property");
+
+    when(propertyRepository.findAll(any(org.springframework.data.domain.Pageable.class)))
+      .thenReturn(new PageImpl<>(List.of(property)));
+
+    PageResponseDTO<PropertyResponseDTO> result =
+      propertyService.getPropertiesPage(0, 5, "createdAt", "desc");
+
+    assertEquals(1, result.getContent().size());
+    assertEquals(0, result.getPageNumber());
+    assertEquals("createdAt", result.getSortBy());
+    assertEquals("desc", result.getDirection());
+  }
+
+  @Test
+  void getPropertiesPage_negativePage_shouldThrowBadRequest() {
+    assertThrows(BadRequestException.class,
+      () -> propertyService.getPropertiesPage(-1, 5, "createdAt", "desc"));
+
+    verify(propertyRepository, never()).findAll(any(org.springframework.data.domain.Pageable.class));
+  }
+
+  @Test
+  void getPropertiesPage_invalidSize_shouldThrowBadRequest() {
+    assertThrows(BadRequestException.class,
+      () -> propertyService.getPropertiesPage(0, 0, "createdAt", "desc"));
+
+    verify(propertyRepository, never()).findAll(any(org.springframework.data.domain.Pageable.class));
+  }
+
 }
