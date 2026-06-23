@@ -7,9 +7,18 @@
 
     <div class="nav-actions">
 
-      <div class="loyalty-widget" *ngIf="loyalty" [title]="'You still have ' + loyalty.bookingsUntilNextCoin + ' reservations until the next coin!'">
-        <span class="bookings-count">📊 {{ loyalty.completedBookings }} Booking(s)</span>
-        <span class="coins-count">🪙 {{ loyalty.loyaltyCoins }} Coin(s)</span>
+      <div class="loyalty-widget" *ngIf="loyalty" [title]="'You still have ' + loyalty.bookingsUntilNextCoin + ' ' + (loyalty.bookingsUntilNextCoin === 1 ? 'reservation' : 'reservations') + ' until the next coin!'">
+
+        <span class="bookings-count">
+          📊 {{ loyalty.completedBookings }}
+          {{ loyalty.completedBookings === 1 ? 'Booking' : 'Bookings' }}
+        </span>
+
+        <span class="coins-count">
+          🪙 {{ loyalty.loyaltyCoins }}
+          {{ loyalty.loyaltyCoins === 1 ? 'Coin' : 'Coins' }}
+        </span>
+
       </div>
 
       <button class="btn-become-host" (click)="onBecomeHost()">
@@ -150,6 +159,81 @@
       </div>
     </div>
 
+    <div class="pagination-panel" *ngIf="!isLoading && !error">
+      <div class="pagination-settings">
+        <div class="pagination-field">
+          <label for="sortBy">Sort by</label>
+          <select
+            id="sortBy"
+            [(ngModel)]="sortBy"
+            (change)="onSortChanged()"
+          >
+            <option value="pricePerNight">Price</option>
+            <option value="title">Title</option>
+            <option value="city">City</option>
+            <option value="maxGuests">Max guests</option>
+            <option value="createdAt">Created date</option>
+          </select>
+        </div>
+
+        <div class="pagination-field">
+          <label for="sortDirection">Direction</label>
+          <select
+            id="sortDirection"
+            [(ngModel)]="sortDirection"
+            (change)="onSortChanged()"
+          >
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
+          </select>
+        </div>
+
+        <div class="pagination-field">
+          <label for="pageSize">Page size</label>
+          <select
+            id="pageSize"
+            [(ngModel)]="pageSize"
+            (change)="onPageSizeChanged()"
+          >
+            <option [ngValue]="3">3</option>
+            <option [ngValue]="6">6</option>
+            <option [ngValue]="9">9</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="pagination-summary">
+        Showing <strong>{{ properties.length }}</strong> of
+        <strong>{{ totalElements }}</strong> properties
+      </div>
+    </div>
+
+    <div class="pagination-navigation" *ngIf="!isLoading && !error && totalElements > 0">
+      <button
+        type="button"
+        class="pagination-btn"
+        (click)="goToPreviousPage()"
+        [disabled]="currentPage === 0"
+      >
+        <i class="bi bi-chevron-left"></i>
+        Previous
+      </button>
+
+      <span class="pagination-current">
+        Page {{ currentPage + 1 }} of {{ totalPages || 1 }}
+      </span>
+
+      <button
+        type="button"
+        class="pagination-btn"
+        (click)="goToNextPage()"
+        [disabled]="currentPage >= totalPages - 1"
+      >
+        Next
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+
     <!-- Loading State -->
     <div *ngIf="isLoading" class="loading-state">
       <div class="spinner"></div>
@@ -176,6 +260,16 @@
         <div class="property-image">
           <img [src]="getMainImage(property)" [alt]="property.title">
           <div class="property-type-badge">{{ getPropertyTypeLabel(property.propertyType) }}</div>
+
+          <button
+            class="btn-edit-property"
+            *ngIf="isOwner(property) || isAdmin()"
+            (click)="onEditProperty(property, $event)"
+            title="Edit property"
+          >
+            <i class="bi bi-pencil"></i>
+          </button>
+
           <button
             class="btn-delete-property"
             *ngIf="isOwner(property) || isAdmin()"
@@ -225,8 +319,9 @@
 <app-create-property-modal
   *ngIf="showCreateModal"
   [currentUserId]="userId"
+  [propertyToEdit]="selectedPropertyToEdit"
   (close)="onModalClose()"
-  (propertyCreated)="onPropertyCreated()"
+  (propertySaved)="onPropertySaved()"
 ></app-create-property-modal>
 
 <div class="premium-modal-backdrop" *ngIf="showPremiumDetails" (click)="closePremiumDetails()">
@@ -262,16 +357,6 @@
         <p>The account receives a visible badge that confirms premium status.</p>
       </div>
     </div>
-
-
-    <!-- UI/UX demo note
-
-    <div class="premium-note">
-      <strong>UI/UX demo:</strong> payment management is not implemented in this stage.
-    </div>
-
-    -->
-
 
     <button
       class="btn-premium-primary full-width"

@@ -3,7 +3,7 @@ import { NgForOf, NgIf } from '@angular/common';
 import { finalize } from 'rxjs/operators';
 import { LoginService } from '../../service/login-service';
 import { AuthService } from '../../service/auth-service';
-import { PropertyResponseDTO } from '../../models/property.models';
+import {PropertyDetailDTO, PropertyResponseDTO} from '../../models/property.models';
 import {PropertyService} from '../../service/property-service';
 import {CreatePropertyModal} from '../create-property-modal/create-property-modal';
 import { UserADMIN_DTO } from '../../models/user-admin.dto';
@@ -22,12 +22,15 @@ import { Router } from '@angular/router';
   standalone: true
 })
 export class Homepage implements OnInit {
+
   userName: string = '';
   userEmail: string = '';
   userId: number = 0;
   isLoggingOut: boolean = false;
   showUserMenu: boolean = false;
   showCreateModal: boolean = false;
+  selectedPropertyToEdit: PropertyDetailDTO | null = null;
+  isEditPropertyLoading = false;
   user: UserADMIN_DTO | null = null;
   properties: PropertyResponseDTO[] = [];
   isLoading: boolean = false;
@@ -41,6 +44,12 @@ export class Homepage implements OnInit {
   premiumError: string | null = null;
   showPremiumDetails: boolean = false;
   loyalty: LoyaltyStatus | null = null;
+  currentPage: number = 0;
+  pageSize: number = 6;
+  totalPages: number = 0;
+  totalElements: number = 0;
+  sortBy: string = 'pricePerNight';
+  sortDirection: string = 'asc';
 
   constructor(
     private authService: AuthService,
@@ -121,17 +130,49 @@ export class Homepage implements OnInit {
     this.isLoading = true;
     this.error = null;
 
-    this.propertyService.getAllProperties()
+    this.propertyService.getPagedProperties(
+      this.currentPage, this.pageSize, this.sortBy, this.sortDirection
+    )
       .pipe(finalize(() => this.isLoading = false))
       .subscribe({
-        next: (properties) => {
-          this.properties = properties;
+        next: (response) => {
+          this.properties = response.content;
+          this.currentPage = response.pageNumber;
+          this.pageSize = response.pageSize;
+          this.totalPages = response.totalPages;
+          this.totalElements = response.totalElements;
+          this.sortBy = response.sortBy;
+          this.sortDirection = response.direction;
         },
         error: (error) => {
-          console.error('Error loading properties:', error);
+          console.error('Error loading paged properties:', error);
           this.error = 'Failed to load properties. Please try again later.';
         }
       });
+  }
+
+  goToPreviousPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.loadProperties();
+    }
+  }
+
+  goToNextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.loadProperties();
+    }
+  }
+
+  onSortChanged(): void {
+    this.currentPage = 0;
+    this.loadProperties();
+  }
+
+  onPageSizeChanged(): void {
+    this.currentPage = 0;
+    this.loadProperties();
   }
 
   toggleUserMenu(): void {
@@ -179,11 +220,13 @@ export class Homepage implements OnInit {
   }
 
   onBecomeHost(): void {
+    this.selectedPropertyToEdit = null;
     this.showCreateModal = true;
   }
 
   onModalClose(): void {
     this.showCreateModal = false;
+    this.selectedPropertyToEdit = null;
   }
 
   loadPremiumStatus(): void {
@@ -255,7 +298,7 @@ export class Homepage implements OnInit {
       });
   }
 
-  onPropertyCreated(): void {
+  onPropertySaved(): void {
     this.loadProperties();
   }
 
@@ -277,6 +320,24 @@ export class Homepage implements OnInit {
     return this.authService.isAdmin();
   }
 
+  onEditProperty(property: PropertyResponseDTO, event: Event): void {
+    event.stopPropagation();
+
+    this.isEditPropertyLoading = true;
+
+    this.propertyService.getPropertyDetailById(property.id)
+      .pipe(finalize(() => this.isEditPropertyLoading = false))
+      .subscribe({
+        next: (propertyDetails) => {
+          this.selectedPropertyToEdit = propertyDetails;
+          this.showCreateModal = true;
+        },
+        error: (error) => {
+          console.error('Error loading property details for edit:', error);
+          alert('Failed to load property details for editing.');
+        }
+      });
+  }
 
   onDeleteProperty(propertyId: number): void {
     if (!confirm('Are you sure you want to delete this property?')) {
@@ -318,6 +379,7 @@ export class Homepage implements OnInit {
   onClearSearch(): void {
     this.searchCity = '';
     this.searchMaxPrice = null;
+    this.currentPage = 0;
     this.loadProperties();
   }
 

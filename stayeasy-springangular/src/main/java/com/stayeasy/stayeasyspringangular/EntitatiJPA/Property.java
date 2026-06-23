@@ -38,6 +38,7 @@ public class Property {
   @JoinColumn(name = "owner_id")
   private User owner;
 
+  @Column(name = "created_at", updatable = false)
   private LocalDateTime createdAt;
 
   @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -59,5 +60,12 @@ public class Property {
 
   @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Availability> availability;
+
+  @PrePersist
+  protected void onCreate() {
+    if (createdAt == null) {
+      createdAt = LocalDateTime.now();
+    }
+  }
 
 }

@@ -1,17 +1,34 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SessionAuditDTO } from '../models/session-audit.dto';
-
-// Ajustează asta dacă ai deja un environment.apiUrl
-const API_BASE = 'http://localhost:8080';
+import { PageResponseDTO } from '../models/page-response.model';
 
 @Injectable({ providedIn: 'root' })
 export class AdminAuditService {
+  private readonly API_URL = '/api/admin/audit';
+
   constructor(private http: HttpClient) {}
 
   getSessionsAudit(): Observable<SessionAuditDTO[]> {
-    // corespunde @RequestMapping("/api/admin/audit") + @GetMapping("/sessions") :contentReference[oaicite:2]{index=2}
-    return this.http.get<SessionAuditDTO[]>(`${API_BASE}/api/admin/audit/sessions`);
+    return this.http.get<SessionAuditDTO[]>(`${this.API_URL}/sessions`);
+  }
+
+  getPagedSessionsAudit(
+    page: number,
+    size: number,
+    sortBy: string,
+    direction: string
+  ): Observable<PageResponseDTO<SessionAuditDTO>> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('sortBy', sortBy)
+      .set('direction', direction);
+
+    return this.http.get<PageResponseDTO<SessionAuditDTO>>(
+      `${this.API_URL}/sessions/paged`,
+      { params }
+    );
   }
 }

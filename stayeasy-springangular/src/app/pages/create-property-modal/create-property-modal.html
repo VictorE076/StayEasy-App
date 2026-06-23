@@ -1,7 +1,7 @@
 <div class="modal-overlay" (click)="onClose()">
   <div class="modal-container" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2>Create New Property</h2>
+      <h2>{{ isEditMode() ? 'Edit Property' : 'Create New Property' }}</h2>
       <button class="btn-close" (click)="onClose()" [disabled]="isSubmitting">
         <i class="bi bi-x-lg"></i>
       </button>
@@ -134,6 +134,110 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <label>Amenities (Optional - Max 20)</label>
+
+        <div class="image-input-container">
+          <input
+            type="text"
+            [(ngModel)]="amenityInput"
+            name="amenityInput"
+            placeholder="Example: WiFi, Parking, Kitchen"
+            maxlength="80"
+            (keyup.enter)="addAmenity()"
+          />
+
+          <button
+            type="button"
+            class="btn-add-image"
+            (click)="addAmenity()"
+            [disabled]="!amenityInput.trim() || (property.amenityNames?.length || 0) >= 20"
+          >
+            <i class="bi bi-plus-circle"></i>
+            Add
+          </button>
+        </div>
+
+        <div class="amenity-list" *ngIf="property.amenityNames && property.amenityNames.length > 0">
+          <div class="amenity-chip" *ngFor="let amenity of property.amenityNames; let i = index">
+            <i class="bi bi-check-circle"></i>
+            <span>{{ amenity }}</span>
+
+            <button type="button" class="btn-remove-chip" (click)="removeAmenity(i)">
+              <i class="bi bi-x-lg"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>House Rules</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="checkInTime">Check-in Time</label>
+
+            <div class="time-input-wrapper">
+              <i class="bi bi-clock"></i>
+              <input
+                type="text"
+                id="checkInTime"
+                name="checkInTime"
+                class="time-text-input"
+                [(ngModel)]="property.houseRules!.checkInTime"
+                placeholder="14:00"
+                maxlength="5"
+                inputmode="numeric"
+                autocomplete="off"
+              />
+            </div>
+
+            <small class="field-hint">Click and type time in HH:mm format, e.g. 14:00</small>
+          </div>
+
+          <div class="form-group">
+            <label for="checkOutTime">Check-out Time</label>
+
+            <div class="time-input-wrapper">
+              <i class="bi bi-clock"></i>
+              <input
+                type="text"
+                id="checkOutTime"
+                name="checkOutTime"
+                class="time-text-input"
+                [(ngModel)]="property.houseRules!.checkOutTime"
+                placeholder="12:00"
+                maxlength="5"
+                inputmode="numeric"
+                autocomplete="off"
+              />
+            </div>
+
+            <small class="field-hint">Click and type time in HH:mm format, e.g. 12:00</small>
+          </div>
+        </div>
+
+        <div class="rules-toggle-row">
+          <label class="rule-toggle">
+            <input
+              type="checkbox"
+              name="petsAllowed"
+              [(ngModel)]="property.houseRules!.petsAllowed"
+            />
+            <span>Pets allowed</span>
+          </label>
+
+          <label class="rule-toggle">
+            <input
+              type="checkbox"
+              name="smokingAllowed"
+              [(ngModel)]="property.houseRules!.smokingAllowed"
+            />
+            <span>Smoking allowed</span>
+          </label>
+        </div>
+      </div>
+
       <div class="error-message" *ngIf="error">
         <i class="bi bi-exclamation-circle"></i>
         {{ error }}
@@ -153,8 +257,12 @@
           class="btn-submit"
           [disabled]="isSubmitting"
         >
-          <span *ngIf="!isSubmitting">Create Property</span>
-          <span *ngIf="isSubmitting">Creating...</span>
+          <span *ngIf="!isSubmitting">
+            {{ isEditMode() ? 'Update Property' : 'Create Property' }}
+          </span>
+          <span *ngIf="isSubmitting">
+            {{ isEditMode() ? 'Updating...' : 'Creating...' }}
+          </span>
         </button>
       </div>
     </form>

@@ -296,3 +296,162 @@
     width: 100%;
   }
 }
+
+
+.modal-content {
+  overflow-x: hidden;
+}
+
+form {
+  overflow-x: hidden;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.image-input-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-add-image {
+  min-width: 100px;
+  height: 46px;
+  white-space: nowrap;
+}
+
+.form-section {
+  margin-top: 22px;
+  padding: 18px 20px;
+  border: 1px solid #e6e9ff;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #fbfcff 0%, #f7f8ff 100%);
+}
+
+.form-section h3 {
+  margin: 0 0 16px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.amenity-list {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.amenity-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  padding: 8px 11px;
+  background: #f4f6ff;
+  border: 1px solid #dfe5ff;
+  border-radius: 999px;
+  color: #333;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.amenity-chip span {
+  word-break: break-word;
+}
+
+.amenity-chip i {
+  color: #667eea;
+}
+
+.btn-remove-chip {
+  border: none;
+  background: transparent;
+  color: #dc3545;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rules-toggle-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.rule-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 9px 13px;
+  background: white;
+  border: 1px solid #e3e7ff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+}
+
+.rule-toggle input {
+  width: auto;
+  margin: 0;
+}
+
+.form-actions {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+
+.time-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.time-input-wrapper i {
+  position: absolute;
+  left: 14px;
+  color: #667eea;
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.time-text-input {
+  padding-left: 42px !important;
+  font-family: monospace;
+  letter-spacing: 0.5px;
+  caret-color: #667eea;
+}
+
+.time-text-input:focus {
+  border-color: #667eea !important;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+  outline: none;
+}
+
+.field-hint {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #777;
+}

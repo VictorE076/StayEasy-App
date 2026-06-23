@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {PropertyDetailDTO} from '../../models/property.models';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PropertyService} from '../../service/property-service';
@@ -8,11 +9,12 @@ import { AuthService } from '../../service/auth-service';
 import { ReviewService } from '../../service/review-service';
 import { ReviewDTO } from '../../models/property.models';
 import { BookingService, LoyaltyStatus } from '../../service/booking.service';
+import {CreatePropertyModal} from '../create-property-modal/create-property-modal';
 
 @Component({
   selector: 'app-property-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, CreatePropertyModal],
   templateUrl: './property-detail.html',
   styleUrl: './property-detail.css',
 })
@@ -25,6 +27,16 @@ export class PropertyDetail {
   aiSummary: string | null = null;
   isAiLoading = false;
   aiError: string | null = null;
+  reviews: ReviewDTO[] = [];
+  reviewsLoading = false;
+  reviewsError: string | null = null;
+  reviewPage = 0;
+  reviewPageSize = 3;
+  reviewTotalPages = 0;
+  reviewTotalElements = 0;
+  reviewSortBy = 'createdAt';
+  reviewDirection = 'desc';
+  showEditPropertyModal = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +67,65 @@ export class PropertyDetail {
       });
   }
 
+  loadReviewsPage(): void {
+    if (!this.property) return;
+
+    this.reviewsLoading = true;
+    this.reviewsError = null;
+
+    this.reviewService.getPagedReviews(
+      this.property.id,
+      this.reviewPage,
+      this.reviewPageSize,
+      this.reviewSortBy,
+      this.reviewDirection
+    )
+      .pipe(finalize(() => this.reviewsLoading = false))
+      .subscribe({
+        next: (response) => {
+          this.reviews = response.content;
+          this.reviewPage = response.pageNumber;
+          this.reviewPageSize = response.pageSize;
+          this.reviewTotalPages = response.totalPages;
+          this.reviewTotalElements = response.totalElements;
+          this.reviewSortBy = response.sortBy;
+          this.reviewDirection = response.direction;
+        },
+        error: (error) => {
+          console.error('Error loading paged reviews:', error);
+          this.reviewsError = 'Failed to load reviews.';
+        }
+      });
+  }
+
+  onReviewSortChanged(): void {
+    this.reviewPage = 0;
+    this.loadReviewsPage();
+  }
+
+  onReviewPageSizeChanged(): void {
+    this.reviewPage = 0;
+    this.loadReviewsPage();
+  }
+
+  goToPreviousReviewPage(): void {
+    if (this.reviewPage > 0) {
+      this.reviewPage--;
+      this.loadReviewsPage();
+    }
+  }
+
+  goToNextReviewPage(): void {
+    if (this.reviewPage < this.reviewTotalPages - 1) {
+      this.reviewPage++;
+      this.loadReviewsPage();
+    }
+  }
+
+  getReviewUsername(review: ReviewDTO): string {
+    return review.userName || review.username || 'User';
+  }
+
   isAdmin(): boolean {
     return this.authService.isAdmin();
   }
@@ -63,6 +134,26 @@ export class PropertyDetail {
     if (!this.property) return false;
     const me = this.authService.getUsername();
     return this.isAdmin() || (!!me && this.property.ownerUsername === me);
+  }
+
+  canEditProperty(): boolean {
+    return this.canDeleteProperty();
+  }
+
+  onEditProperty(): void {
+    this.showEditPropertyModal = true;
+  }
+
+  onEditModalClose(): void {
+    this.showEditPropertyModal = false;
+  }
+
+  onPropertySaved(): void {
+    this.showEditPropertyModal = false;
+
+    if (this.property) {
+      this.loadPropertyDetail(this.property.id);
+    }
   }
 
   onDeleteProperty(): void {
@@ -81,7 +172,7 @@ export class PropertyDetail {
 
   canDeleteReview(review: ReviewDTO): boolean {
     const me = this.authService.getUsername();
-    return this.isAdmin() || (!!me && review.userName === me);
+    return this.isAdmin() || (!!me && this.getReviewUsername(review) === me);
   }
 
   onDeleteReview(reviewId: number): void {
@@ -90,7 +181,10 @@ export class PropertyDetail {
     if (!confirm('Delete this review?')) return;
 
     this.reviewService.deleteReview(reviewId).subscribe({
-      next: () => this.loadPropertyDetail(this.property!.id), // refresh
+      next: () => {
+        this.loadReviewsPage();
+        this.loadPropertyDetail(this.property!.id);
+      },
       error: (err) => {
         console.error('Error deleting review:', err);
         alert('Failed to delete review.');
@@ -174,6 +268,8 @@ export class PropertyDetail {
         next: (property) => {
           this.property = property;
           this.generateAiSummary();
+          this.reviewPage = 0;
+          this.loadReviewsPage();
         },
         error: (error) => {
           console.error('Error loading property:', error);
@@ -210,9 +306,22 @@ export class PropertyDetail {
     return type.charAt(0) + type.slice(1).toLowerCase();
   }
 
-  formatDate(dateString: string): string {
+  formatDate(dateString?: string | null): string {
+    if (!dateString) {
+      return 'Not available';
+    }
+
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    if (isNaN(date.getTime())) {
+      return 'Not available';
+    }
+
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
   }
 
   getStarArray(rating: number): number[] {

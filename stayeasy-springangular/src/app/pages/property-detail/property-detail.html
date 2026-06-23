@@ -46,6 +46,15 @@
 
             <div class="header-actions">
               <button
+                class="btn-edit-property-detail"
+                *ngIf="canEditProperty()"
+                (click)="onEditProperty()"
+                title="Edit property"
+              >
+                <i class="bi bi-pencil"></i>
+              </button>
+
+              <button
                 class="btn-delete-property-detail"
                 *ngIf="canDeleteProperty()"
                 (click)="onDeleteProperty()"
@@ -53,8 +62,10 @@
               >
                 <i class="bi bi-trash"></i>
               </button>
+
               <span class="type-badge">{{ getPropertyTypeLabel(property.propertyType) }}</span>
             </div>
+
           </div>
           <div class="location">
             <i class="bi bi-geo-alt"></i>
@@ -190,9 +201,11 @@
 
         <!-- Reviews -->
         <div class="section">
-
           <div class="reviews-title-row">
-            <h2>Reviews ({{ property.totalReviews || (property.reviews?.length || 0)}})</h2>
+            <div>
+              <h2>Reviews ({{ reviewTotalElements || property.totalReviews || 0 }})</h2>
+              <p class="reviews-subtitle">Browse guest feedback with pagination and sorting.</p>
+            </div>
 
             <button class="btn-add-review" (click)="goToReviewForm()">
               <i class="bi bi-pencil-square"></i>
@@ -200,24 +213,68 @@
             </button>
           </div>
 
-          <div class="reviews-list">
-            <div class="review-item" *ngFor="let review of property.reviews">
-              <div class="review-header">
-                <div class="reviewer-avatar">{{ review.userName.charAt(0).toUpperCase() }}</div>
-                <div class="reviewer-info">
-                  <span class="reviewer-name">{{ review.userName }}</span>
-                  <span class="review-date">{{ formatDate(review.createdAt) }}</span>
-                </div>
-              </div>
+          <div class="reviews-pagination-panel" *ngIf="!reviewsLoading && !reviewsError">
+            <div class="reviews-controls">
+              <label>
+                Sort by
+                <select [(ngModel)]="reviewSortBy" (change)="onReviewSortChanged()">
+                  <option value="createdAt">Date</option>
+                  <option value="rating">Rating</option>
+                </select>
+              </label>
 
-              <button
-                class="btn-delete-review"
-                *ngIf="canDeleteReview(review)"
-                (click)="onDeleteReview(review.id)"
-                title="Delete review"
-              >
-                <i class="bi bi-trash"></i>
-              </button>
+              <label>
+                Direction
+                <select [(ngModel)]="reviewDirection" (change)="onReviewSortChanged()">
+                  <option value="desc">Descending</option>
+                  <option value="asc">Ascending</option>
+                </select>
+              </label>
+
+              <label>
+                Page size
+                <select [(ngModel)]="reviewPageSize" (change)="onReviewPageSizeChanged()">
+                  <option [ngValue]="2">2</option>
+                  <option [ngValue]="3">3</option>
+                  <option [ngValue]="5">5</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="reviews-count">
+              Showing <strong>{{ reviews.length }}</strong> of
+              <strong>{{ reviewTotalElements }}</strong> reviews
+            </div>
+          </div>
+
+          <div *ngIf="reviewsLoading" class="reviews-loading">
+            Loading reviews...
+          </div>
+
+          <div *ngIf="reviewsError && !reviewsLoading" class="reviews-error">
+            {{ reviewsError }}
+          </div>
+
+          <div class="reviews-list" *ngIf="!reviewsLoading && !reviewsError && reviews.length > 0; else noReviews">
+            <div class="review-item" *ngFor="let review of reviews">
+              <div class="review-top-row">
+                <div class="review-header">
+                  <div class="reviewer-avatar">{{ getReviewUsername(review).charAt(0).toUpperCase() }}</div>
+                  <div class="reviewer-info">
+                    <span class="reviewer-name">{{ getReviewUsername(review) }}</span>
+                    <span class="review-date">{{ formatDate(review.createdAt) }}</span>
+                  </div>
+                </div>
+
+                <button
+                  class="btn-delete-review"
+                  *ngIf="canDeleteReview(review)"
+                  (click)="onDeleteReview(review.id)"
+                  title="Delete review"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
 
               <div class="review-rating">
                 <i
@@ -227,6 +284,7 @@
                   [class.bi-star]="star === 0"
                 ></i>
               </div>
+
               <p class="review-comment">{{ review.comment }}</p>
             </div>
           </div>
@@ -235,6 +293,31 @@
             <p class="no-reviews">No reviews yet. Be the first to write one!</p>
           </ng-template>
 
+          <div class="reviews-navigation" *ngIf="!reviewsLoading && !reviewsError && reviewTotalElements > 0">
+            <button
+              type="button"
+              class="reviews-page-btn"
+              (click)="goToPreviousReviewPage()"
+              [disabled]="reviewPage === 0"
+            >
+              <i class="bi bi-chevron-left"></i>
+              Previous
+            </button>
+
+            <span class="reviews-page-current">
+              Page {{ reviewPage + 1 }} of {{ reviewTotalPages || 1 }}
+            </span>
+
+            <button
+              type="button"
+              class="reviews-page-btn"
+              (click)="goToNextReviewPage()"
+              [disabled]="reviewPage >= reviewTotalPages - 1"
+            >
+              Next
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -270,3 +353,11 @@
     </div>
   </div>
 </div>
+
+<app-create-property-modal
+  *ngIf="showEditPropertyModal && property"
+  [currentUserId]="0"
+  [propertyToEdit]="property"
+  (close)="onEditModalClose()"
+  (propertySaved)="onPropertySaved()"
+></app-create-property-modal>

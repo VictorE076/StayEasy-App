@@ -1,5 +1,6 @@
 package com.stayeasy.stayeasyspringangular.controller;
 
+import com.stayeasy.stayeasyspringangular.DTO.PageResponseDTO;
 import com.stayeasy.stayeasyspringangular.DTO.PropertyDetailDTO;
 import com.stayeasy.stayeasyspringangular.DTO.PropertyRequestDTO;
 import com.stayeasy.stayeasyspringangular.DTO.PropertyResponseDTO;
@@ -37,6 +38,16 @@ public class PropertyController {
   @GetMapping
   public List<PropertyResponseDTO> getAll() {
     return propertyService.getAllProperties();
+  }
+
+  @GetMapping("/paged")
+  public PageResponseDTO<PropertyResponseDTO> getPagedProperties(
+    @RequestParam(defaultValue = "0") int page,
+    @RequestParam(defaultValue = "6") int size,
+    @RequestParam(defaultValue = "pricePerNight") String sortBy,
+    @RequestParam(defaultValue = "asc") String direction
+  ) {
+    return propertyService.getPropertiesPage(page, size, sortBy, direction);
   }
 
   // GET /api/properties/{id}
