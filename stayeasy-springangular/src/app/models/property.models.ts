@@ -16,7 +16,7 @@ export interface PropertyResponseDTO {
   maxGuests: number;
   propertyType: string;
   ownerUsername: string;
-  createdAt?: string;
+  createdAt?: string | null;
   images: string[];
 }
 
@@ -30,6 +30,15 @@ export interface PropertyRequestDTO {
   maxGuests: number;
   propertyType: PropertyType;
   imagePaths?: string[];
+  amenityNames?: string[];
+  houseRules?: HouseRulesRequestDTO | null;
+}
+
+export interface HouseRulesRequestDTO {
+  smokingAllowed: boolean;
+  petsAllowed: boolean;
+  checkInTime?: string | null;
+  checkOutTime?: string | null;
 }
 
 // Search params
@@ -55,11 +64,11 @@ export interface ReviewDTO {
 }
 
 export interface HouseRulesDTO {
-  id: number;
+  id?: number;
   smokingAllowed: boolean;
   petsAllowed: boolean;
-  checkInTime: string;
-  checkOutTime: string;
+  checkInTime?: string | null;
+  checkOutTime?: string | null;
 }
 
 export interface AvailabilityDTO {

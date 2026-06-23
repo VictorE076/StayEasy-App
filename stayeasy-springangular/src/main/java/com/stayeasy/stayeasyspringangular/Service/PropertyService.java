@@ -35,6 +35,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class PropertyService {
@@ -329,11 +333,13 @@ public class PropertyService {
       return new ArrayList<>();
     }
 
+    Set<String> seenNames = new HashSet<>();
+
     return amenityNames.stream()
       .filter(Objects::nonNull)
       .map(String::trim)
       .filter(name -> !name.isBlank())
-      .distinct()
+      .filter(name -> seenNames.add(name.toLowerCase(Locale.ROOT)))
       .map(name -> amenityRepository.findByNameIgnoreCase(name)
         .orElseGet(() -> amenityRepository.save(
           Amenity.builder()

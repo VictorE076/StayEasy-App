@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {PropertyDetailDTO, PropertyRequestDTO, PropertyResponseDTO, PropertyType} from '../../models/property.models';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {PropertyRequestDTO, PropertyResponseDTO, PropertyType} from '../../models/property.models';
 import {PropertyService} from '../../service/property-service';
 import {finalize} from 'rxjs/operators';
 import { ApiErrorService } from '../../service/api-error.service';
@@ -15,7 +15,7 @@ import { ApiErrorService } from '../../service/api-error.service';
 })
 export class CreatePropertyModal implements OnInit {
   @Input() currentUserId!: number;
-  @Input() propertyToEdit: PropertyResponseDTO | null = null;
+  @Input() propertyToEdit: PropertyResponseDTO | PropertyDetailDTO | null = null;
   @Output() close = new EventEmitter<void>();
   @Output() propertySaved = new EventEmitter<void>();
 
@@ -31,10 +31,18 @@ export class CreatePropertyModal implements OnInit {
     pricePerNight: 0,
     maxGuests: 1,
     propertyType: PropertyType.APARTMENT,
-    imagePaths: []
+    imagePaths: [],
+    amenityNames: [],
+    houseRules: {
+      smokingAllowed: false,
+      petsAllowed: false,
+      checkInTime: '14:00',
+      checkOutTime: '12:00'
+    }
   };
 
   imagePathInput = '';
+  amenityInput = '';
 
   constructor(
     private propertyService: PropertyService,
@@ -43,6 +51,8 @@ export class CreatePropertyModal implements OnInit {
 
   ngOnInit(): void {
     if (this.propertyToEdit) {
+      const detail = this.propertyToEdit as PropertyDetailDTO;
+
       this.property = {
         title: this.propertyToEdit.title,
         city: this.propertyToEdit.city,
@@ -51,13 +61,70 @@ export class CreatePropertyModal implements OnInit {
         pricePerNight: this.propertyToEdit.pricePerNight,
         maxGuests: this.propertyToEdit.maxGuests,
         propertyType: this.propertyToEdit.propertyType as PropertyType,
-        imagePaths: this.propertyToEdit.images ? [...this.propertyToEdit.images] : []
+        imagePaths: this.propertyToEdit.images ? [...this.propertyToEdit.images] : [],
+        amenityNames: this.hasDetails(this.propertyToEdit)
+          ? detail.amenities.map(amenity => amenity.name)
+          : [],
+        houseRules: this.hasDetails(this.propertyToEdit) && detail.houseRules
+          ? {
+            smokingAllowed: detail.houseRules.smokingAllowed,
+            petsAllowed: detail.houseRules.petsAllowed,
+            checkInTime: detail.houseRules.checkInTime || '14:00',
+            checkOutTime: detail.houseRules.checkOutTime || '12:00'
+          }
+          : this.defaultHouseRules()
       };
     }
   }
 
   isEditMode(): boolean {
     return this.propertyToEdit !== null;
+  }
+
+  private hasDetails(property: PropertyResponseDTO | PropertyDetailDTO): property is PropertyDetailDTO {
+    return 'amenities' in property || 'houseRules' in property;
+  }
+
+  private defaultHouseRules() {
+    return {
+      smokingAllowed: false,
+      petsAllowed: false,
+      checkInTime: '14:00',
+      checkOutTime: '12:00'
+    };
+  }
+
+  addAmenity(): void {
+    const amenity = this.amenityInput.trim();
+
+    if (!amenity) {
+      return;
+    }
+
+    if (!this.property.amenityNames) {
+      this.property.amenityNames = [];
+    }
+
+    const alreadyExists = this.property.amenityNames
+      .some(existing => existing.toLowerCase() === amenity.toLowerCase());
+
+    if (!alreadyExists && this.property.amenityNames.length < 20) {
+      this.property.amenityNames.push(amenity);
+    }
+
+    this.amenityInput = '';
+  }
+
+  removeAmenity(index: number): void {
+    this.property.amenityNames?.splice(index, 1);
+  }
+
+  private isValidTime(value?: string | null): boolean {
+    if (!value) {
+      return true;
+    }
+
+    return /^([01]\d|2[0-3]):[0-5]\d$/.test(value);
   }
 
   onClose(): void {
@@ -133,6 +200,14 @@ export class CreatePropertyModal implements OnInit {
     }
     if (this.property.maxGuests < 1 || this.property.maxGuests > 50) {
       this.error = 'Max guests must be between 1 and 50';
+      return false;
+    }
+    if (!this.isValidTime(this.property.houseRules?.checkInTime)) {
+      this.error = 'Check-in time must use HH:mm format';
+      return false;
+    }
+    if (!this.isValidTime(this.property.houseRules?.checkOutTime)) {
+      this.error = 'Check-out time must use HH:mm format';
       return false;
     }
     return true;

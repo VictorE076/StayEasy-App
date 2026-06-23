@@ -3,7 +3,7 @@ import { NgForOf, NgIf } from '@angular/common';
 import { finalize } from 'rxjs/operators';
 import { LoginService } from '../../service/login-service';
 import { AuthService } from '../../service/auth-service';
-import { PropertyResponseDTO } from '../../models/property.models';
+import {PropertyDetailDTO, PropertyResponseDTO} from '../../models/property.models';
 import {PropertyService} from '../../service/property-service';
 import {CreatePropertyModal} from '../create-property-modal/create-property-modal';
 import { UserADMIN_DTO } from '../../models/user-admin.dto';
@@ -29,7 +29,8 @@ export class Homepage implements OnInit {
   isLoggingOut: boolean = false;
   showUserMenu: boolean = false;
   showCreateModal: boolean = false;
-  selectedPropertyToEdit: PropertyResponseDTO | null = null;
+  selectedPropertyToEdit: PropertyDetailDTO | null = null;
+  isEditPropertyLoading = false;
   user: UserADMIN_DTO | null = null;
   properties: PropertyResponseDTO[] = [];
   isLoading: boolean = false;
@@ -321,8 +322,21 @@ export class Homepage implements OnInit {
 
   onEditProperty(property: PropertyResponseDTO, event: Event): void {
     event.stopPropagation();
-    this.selectedPropertyToEdit = property;
-    this.showCreateModal = true;
+
+    this.isEditPropertyLoading = true;
+
+    this.propertyService.getPropertyDetailById(property.id)
+      .pipe(finalize(() => this.isEditPropertyLoading = false))
+      .subscribe({
+        next: (propertyDetails) => {
+          this.selectedPropertyToEdit = propertyDetails;
+          this.showCreateModal = true;
+        },
+        error: (error) => {
+          console.error('Error loading property details for edit:', error);
+          alert('Failed to load property details for editing.');
+        }
+      });
   }
 
   onDeleteProperty(propertyId: number): void {
