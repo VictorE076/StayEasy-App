@@ -131,4 +131,44 @@ class BookingServiceTest {
     assertEquals(7, dto.getCompletedBookings());
     assertEquals(2, dto.getLoyaltyCoins());
   }
+
+
+  @Test
+  void createBookingWithDiscount_propertyNotFound_throwsResourceNotFound() {
+    setAuthenticatedUser("frank");
+
+    User user = mock(User.class);
+
+    when(userRepository.findByUsername("frank")).thenReturn(Optional.of(user));
+    when(propertyRepository.findById(10L)).thenReturn(Optional.empty());
+
+    assertThrows(ResourceNotFoundException.class,
+      () -> bookingService.createBookingWithDiscount(10L));
+
+    verify(user, never()).canUseDiscount();
+    verify(user, never()).useDiscount();
+    verify(userRepository, never()).save(any());
+  }
+
+  @Test
+  void getMyLoyaltyStatus_unauthenticated_throwsUnauthorized() {
+    assertThrows(UnauthorizedActionException.class,
+      () -> bookingService.getMyLoyaltyStatus());
+
+    verifyNoInteractions(userRepository, propertyRepository);
+  }
+
+  @Test
+  void getMyLoyaltyStatus_authenticatedUserMissing_throwsUnauthorized() {
+    setAuthenticatedUser("missing-user");
+
+    when(userRepository.findByUsername("missing-user")).thenReturn(Optional.empty());
+
+    assertThrows(UnauthorizedActionException.class,
+      () -> bookingService.getMyLoyaltyStatus());
+
+    verify(userRepository).findByUsername("missing-user");
+    verifyNoInteractions(propertyRepository);
+  }
+
 }

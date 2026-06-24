@@ -29,6 +29,12 @@ import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import com.stayeasy.stayeasyspringangular.Repository.AmenityRepository;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @ExtendWith(MockitoExtension.class)
 class PropertyServiceTest {
 
@@ -41,6 +47,9 @@ class PropertyServiceTest {
   @InjectMocks
   private PropertyService propertyService;
 
+  @Mock
+  private AmenityRepository amenityRepository;
+
   // helper pt authentication
   private void mockAuth(String username) {
     Authentication auth = mock(Authentication.class);
@@ -50,6 +59,31 @@ class PropertyServiceTest {
     lenient().when(auth.getAuthorities()).thenReturn(List.of()); // default: nu e admin
 
     SecurityContextHolder.getContext().setAuthentication(auth);
+  }
+
+  private void mockAdminAuth(String username) {
+    Authentication auth = mock(Authentication.class);
+
+    when(auth.isAuthenticated()).thenReturn(true);
+    when(auth.getName()).thenReturn(username);
+    doReturn(List.of(new SimpleGrantedAuthority("ROLE_ADMIN")))
+      .when(auth).getAuthorities();
+
+    SecurityContextHolder.getContext().setAuthentication(auth);
+  }
+
+  private PropertyRequestDTO validPropertyDto() {
+    PropertyRequestDTO dto = new PropertyRequestDTO();
+
+    dto.setTitle("Updated property");
+    dto.setDescription("Updated description");
+    dto.setCity("Bucharest");
+    dto.setAddress("Updated address");
+    dto.setPricePerNight(BigDecimal.valueOf(150));
+    dto.setMaxGuests(4);
+    dto.setPropertyType(PropertyType.APARTMENT);
+
+    return dto;
   }
 
   private User createUser(Integer id , String username, Role role) {
@@ -291,6 +325,164 @@ class PropertyServiceTest {
       () -> propertyService.getPropertiesPage(0, 0, "createdAt", "desc"));
 
     verify(propertyRepository, never()).findAll(any(org.springframework.data.domain.Pageable.class));
+  }
+
+
+  // UPDATE PROPERTY
+
+  @Test
+  void updateProperty_ownerCanUpdateImagesAmenitiesAndHouseRules() {
+    mockAuth("owner");
+
+    User owner = createUser(1, "owner", Role.HOST);
+    Property property = createProperty(owner);
+
+    PropertyRequestDTO dto = validPropertyDto();
+    dto.setImagePaths(List.of("img1.jpg", "img2.jpg"));
+    dto.setAmenityNames(List.of("WiFi", "WiFi", " Pool "));
+
+    dto.setHouseRules(HouseRulesDTO.builder()
+      .smokingAllowed(true)
+      .petsAllowed(true)
+      .checkInTime("15:00")
+      .checkOutTime("11:00")
+      .build());
+
+    Amenity wifi = Amenity.builder().name("WiFi").build();
+
+    when(propertyRepository.findById(1L)).thenReturn(Optional.of(property));
+    when(userRepository.findByUsername("owner")).thenReturn(Optional.of(owner));
+    when(amenityRepository.findByNameIgnoreCase("WiFi")).thenReturn(Optional.of(wifi));
+    when(amenityRepository.findByNameIgnoreCase("Pool")).thenReturn(Optional.empty());
+    when(amenityRepository.save(any(Amenity.class))).thenAnswer(invocation -> invocation.getArgument(0));
+    when(propertyRepository.save(any(Property.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+    var result = propertyService.updateProperty(1L, dto);
+
+    assertNotNull(result);
+    assertEquals("Updated property", property.getTitle());
+    assertEquals("Bucharest", property.getCity());
+    assertEquals(2, property.getImages().size());
+    assertEquals(2, property.getAmenities().size());
+
+    assertNotNull(property.getHouseRules());
+    assertTrue(property.getHouseRules().isSmokingAllowed());
+    assertTrue(property.getHouseRules().isPetsAllowed());
+    assertEquals("15:00", property.getHouseRules().getCheckInTime().toString());
+    assertEquals("11:00", property.getHouseRules().getCheckOutTime().toString());
+
+    verify(propertyRepository).save(property);
+  }
+
+  @Test
+  void updateProperty_adminCanUpdatePropertyOwnedByAnotherUser() {
+    mockAdminAuth("admin");
+
+    User admin = createUser(99, "admin", Role.ADMIN);
+    User owner = createUser(1, "owner", Role.HOST);
+    Property property = createProperty(owner);
+
+    PropertyRequestDTO dto = validPropertyDto();
+    dto.setTitle("Updated by admin");
+
+    when(propertyRepository.findById(1L)).thenReturn(Optional.of(property));
+    when(userRepository.findByUsername("admin")).thenReturn(Optional.of(admin));
+    when(propertyRepository.save(any(Property.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+    var result = propertyService.updateProperty(1L, dto);
+
+    assertNotNull(result);
+    assertEquals("Updated by admin", property.getTitle());
+    verify(propertyRepository).save(property);
+  }
+
+  @Test
+  void createProperty_invalidCheckInTime_shouldThrowBadRequest() {
+    mockAuth("owner");
+
+    User owner = createUser(1, "owner", Role.HOST);
+
+    PropertyRequestDTO dto = validPropertyDto();
+    dto.setHouseRules(HouseRulesDTO.builder()
+      .smokingAllowed(false)
+      .petsAllowed(true)
+      .checkInTime("25:99")
+      .checkOutTime("11:00")
+      .build());
+
+    when(userRepository.findByUsername("owner")).thenReturn(Optional.of(owner));
+
+    assertThrows(BadRequestException.class, () -> propertyService.createProperty(dto));
+
+    verify(propertyRepository, never()).save(any(Property.class));
+  }
+
+  @Test
+  void getPropertyDetail_shouldMapNestedImagesAmenitiesReviewsHouseRulesAndAvailability() {
+    User owner = createUser(1, "owner", Role.HOST);
+    Property property = createProperty(owner);
+
+    property.setDescription("Nice property");
+    property.setAddress("Test address");
+    property.setMaxGuests(3);
+    property.setPropertyType(PropertyType.APARTMENT);
+
+    PropertyImage image = PropertyImage.builder()
+      .imagePath("img1.jpg")
+      .property(property)
+      .build();
+
+    Amenity amenity = Amenity.builder()
+      .name("WiFi")
+      .build();
+
+    Review review1 = Review.builder()
+      .rating(5)
+      .comment("Great")
+      .user(owner)
+      .property(property)
+      .build();
+
+    Review review2 = Review.builder()
+      .rating(3)
+      .comment("Ok")
+      .user(owner)
+      .property(property)
+      .build();
+
+    HouseRules rules = HouseRules.builder()
+      .smokingAllowed(false)
+      .petsAllowed(true)
+      .checkInTime(LocalTime.parse("14:00"))
+      .checkOutTime(LocalTime.parse("12:00"))
+      .property(property)
+      .build();
+
+    Availability availability = Availability.builder()
+      .availableFrom(LocalDate.of(2026, 7, 1))
+      .availableTo(LocalDate.of(2026, 7, 10))
+      .property(property)
+      .build();
+
+    property.setImages(List.of(image));
+    property.setAmenities(List.of(amenity));
+    property.setReviews(List.of(review1, review2));
+    property.setHouseRules(rules);
+    property.setAvailability(List.of(availability));
+
+    when(propertyRepository.findById(1L)).thenReturn(Optional.of(property));
+
+    var result = propertyService.getPropertyDetailById(1L);
+
+    assertNotNull(result);
+    assertEquals(1, result.getImages().size());
+    assertEquals(1, result.getAmenities().size());
+    assertEquals(2, result.getReviews().size());
+    assertEquals(1, result.getAvailability().size());
+    assertEquals(2, result.getTotalReviews());
+    assertEquals(4.0, result.getAverageRating(), 0.001);
+    assertNotNull(result.getHouseRules());
+    assertEquals("14:00", result.getHouseRules().getCheckInTime());
   }
 
 }
