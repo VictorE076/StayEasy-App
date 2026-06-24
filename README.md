@@ -604,19 +604,19 @@ If there are no reviews or if the Gemini API does not respond, the application r
 ### Victor Economu
 
 - Spring Security + JWT configuration;
-- user sessions and `sessionId` validation;
+- property model and property business logic;
+- review functionality and property details;
 - logout and handling invalid/expired sessions;
 - exception handling and logging;
-- Gemini AI Review Summary integration;
-- microservices integration for the Core → AI flow;
+- demo Premium account and coins integration;
 - README documentation and AWBD demo preparation.
 
 ### Alexandru-Mihail Radu
 
-- property model and property business logic;
-- review functionality and property details;
+- user sessions and `sessionId` validation;
+- Gemini AI Review Summary integration;
 - StayEasy Coins / loyalty flow;
-- demo Premium account and coins integration;
+- microservices integration for the Core → AI flow;
 - unit tests and service layer coverage improvements;
 - checks and adjustments for the mandatory AWBD requirements.
 
