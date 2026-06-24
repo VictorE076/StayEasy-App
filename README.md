@@ -20,10 +20,8 @@ The project can be run in two forms:
 - [9. Testing and Coverage](#9-testing-and-coverage)
 - [10. Logging](#10-logging)
 - [11. AI in Development and AI at Runtime](#11-ai-in-development-and-ai-at-runtime)
-- [12. Recommended Screenshots for Presentation](#12-recommended-screenshots-for-presentation)
-- [13. Deployment](#13-deployment)
-- [14. Team Contributions](#14-team-contributions)
-- [15. Security Notes](#15-security-notes)
+- [12. Team Contributions](#12-team-contributions)
+- [13. Security Notes](#13-security-notes)
 
 ---
 
@@ -601,7 +599,7 @@ If there are no reviews or if the Gemini API does not respond, the application r
 
 ---
 
-## 14. Team Contributions
+## 12. Team Contributions
 
 ### Victor Economu
 
@@ -624,7 +622,7 @@ If there are no reviews or if the Gemini API does not respond, the application r
 
 ---
 
-## 15. Security Notes
+## 13. Security Notes
 
 - Local files containing passwords, private URLs, JWT secrets or API keys must not be published.
 - `application-local.properties` should remain local and should be included in `.gitignore`.
